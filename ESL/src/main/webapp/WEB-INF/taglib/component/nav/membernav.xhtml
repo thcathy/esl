@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition>	
+	<div id="nav">
+		<h:form>
+    	<ul>        	
+    		<li id="#{current=='SUMMARY'?'current':''}">
+        		<h:commandLink action="#{summaryController.index}"><span class="title">#{memberSumMsg.navSummary}</span><br/><span class="desc">#{memberSumMsg.navSummaryDesc}</span></h:commandLink>
+        	</li>			
+<!--         	<li id="#{current=='MYTEAM'?'current':''}"> -->
+<!--         		<h:commandLink action="#{teamController.showTeams}"><span class="title">#{memberSumMsg.navMyTeam}</span><br/><span class="desc">#{memberSumMsg.navMyTeamDesc}</span></h:commandLink> -->
+<!--         	</li> -->
+        	<li id="#{current=='MYVOCAB'?'current':''}">
+        		<h:commandLink action="#{memberWordController.launchManage}"><span class="title">#{memberSumMsg.navMyVocab}</span><br/><span class="desc">#{memberSumMsg.navMyVocabDesc}</span></h:commandLink>
+        	</li>        	 
+        	<li id="#{current=='PROFILE'?'current':''}">
+        		<h:commandLink action="#{profileController.profile}"><span class="title">#{memberSumMsg.navProfile}</span><br/><span class="desc">#{memberSumMsg.navProfileDesc}</span></h:commandLink>
+        	</li>
+		</ul>
+		</h:form>
+	</div>
+	<img src="#{request.contextPath}/images/spacer.gif" width="1" height="65" />
+</ui:composition>
+</html>

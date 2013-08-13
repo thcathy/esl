@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.esl.model">
+  <class name="com.esl.model.group.MemberGroupActivityLog" table="member_group_activity_log">
+  	<id name="id" type="java.lang.Long" column="ID">
+		<generator class="identity" />
+	</id>
+	<property name="actionType" column="SUBJECT" />
+  	<property name="comment" column="MESSAGE" length="255"/>
+  	<property name="createdDate" column="CREATED_DATE" />
+  	
+  	<many-to-one name="member" column="MEMBER_ID" cascade="none" foreign-key="FK1_MEMBER_ID" />
+  	<many-to-one name="group" column="GROUP_ID" cascade="none" foreign-key="FK1_GROUP_ID" />
+  	
+  </class>
+</hibernate-mapping>

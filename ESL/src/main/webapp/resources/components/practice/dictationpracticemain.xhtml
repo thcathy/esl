@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"	
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:util="http://java.sun.com/jsf/composite/components/util"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="controllerBean" />
+	<composite:attribute name="id" />
+</composite:interface>
+
+<composite:implementation>
+	<div style="border: 5px solid #FFA35C; padding: 20px 10px 20px 10px;">
+		<table width="100%">
+			<tr>
+				<td align="left" valign="top">
+					<a4j:outputPanel id="questionRegion">	
+						<a4j:queue />
+						<h:form styleClass="practiceForm" id="inputForm">
+					    <table>
+					    	<!-- Show Pronounce -->
+					    	<h:panelGroup rendered="#{cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
+								<tr><td colspan="2"><h:outputText style="font-size: 12px;" value="#{selfDictationMsg.aiPronounceNotice}" /></td></tr>
+							</h:panelGroup>			
+					    	<tr>
+					    		<td>#{phonPracticeMsg.practiceVoice} :</td>
+					    		<td>
+								    <div id="player1" style="clear: none"><a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> for pronounce.</div>
+								    <script type="text/javascript">
+									    var player = new SWFObject("#{request.contextPath}/player/btn_#{languageController.locale}.swf", "line", "184", "30", "7");
+									    player.addVariable("path","#{cc.attrs.controllerBean.practice.currentQuestionObject.pronouncedLink}");
+									    player.write("player1");
+								    </script>								    
+					    		</td>
+					    	</tr>					    	
+					    	<!-- Show IPA -->
+					    	<tr>
+					    		<td id="IPALeftTD">#{selfDictationMsg.practicePhonetic} :</td>
+					    		<h:panelGroup rendered="#{cc.attrs.controllerBean.withIPA}">						    		
+						    		<td>[<h:outputText escape="false" value="#{cc.attrs.controllerBean.practice.currentQuestionObject.IPA}" />]</td>
+					    		</h:panelGroup>
+					    		<h:panelGroup rendered="#{!cc.attrs.controllerBean.withIPA}">
+					    			<script type="text/javascript">
+									function showIPA() {					    				
+										document.getElementById("IPARightTD").innerHTML="[#{cc.attrs.controllerBean.practice.currentQuestionObject.IPA}]";						
+									}										
+									</script>
+					    			<td id="IPARightTD" align="left">
+										<a href="#" onclick="showIPA()" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('btn_ipa','','#{languageController.imagesPath}/button/GetPhoneticSymbol_r.gif',1)">
+											<img src="#{languageController.imagesPath}/button/GetPhoneticSymbol.gif" name="btn_ipa" border="0" id="btn_ipa" /></a>																							
+									</td>
+					    		</h:panelGroup>
+					    	</tr>
+					    	<!-- Show shuffled Characters -->
+					    	<tr>	
+					    		<td id="ShuffledCharLeftTD">#{selfDictationMsg.suffledTips} :</td>							    		
+					    		<h:panelGroup rendered="#{cc.attrs.controllerBean.withRandomCharacters}">						    		
+						    		<td><h:outputText value="[#{cc.attrs.controllerBean.practice.currentQuestionObject.suffledWord}]"/></td>
+						    	</h:panelGroup>
+						    	<h:panelGroup rendered="#{!cc.attrs.controllerBean.withRandomCharacters}">
+						    		<script type="text/javascript">
+									function showShuffledCharacters() {
+										document.getElementById("ShuffledCharLeftTD").innerHTML="#{selfDictationMsg.suffledTips} :";
+										document.getElementById("ShuffledCharRightTD").innerHTML="[#{cc.attrs.controllerBean.practice.currentQuestionObject.suffledWord}]";
+									}
+									</script>									
+						    		<td id="ShuffledCharRightTD">
+						    			<a href="#" onclick="showShuffledCharacters()" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('btn_ShuffledCharacters','','#{languageController.imagesPath}/button/GetShuffledWord_r.gif',1)">
+											<img src="#{languageController.imagesPath}/button/GetShuffledWord.gif" name="btn_ShuffledCharacters" border="0" id="btn_ShuffledCharacters" /></a>											
+						    		</td>
+						    	</h:panelGroup>
+					    	</tr>
+					    	<tr>
+								<td>#{phonPracticeMsg.practiceInputAnsTitle} :</td>
+								<td>
+									<h:inputText autocomplete="off" id="answer" styleClass="practiceAnswer" value="#{cc.attrs.controllerBean.answer}" maxlength="30">
+										<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)+" message="#{phonPracticeMsg.practiceInvalidInput}"/>
+									</h:inputText>
+									<div><h:message for="answer" errorClass="error" /></div>
+								</td>
+							</tr>
+					    	<tr>
+					    		<td>
+					    			<a4j:status>
+							            <f:facet name="start">
+							                <h:graphicImage style="display: block; float: left;" value="/images/graphic/loading.gif" alt="loading"/>
+							            </f:facet>
+								    </a4j:status>
+					    		</td>
+					    		<td>
+					    			<div style="margin-bottom: 15px; margin-top: 15px;" class="buttons">																													
+										<a4j:commandLink render="topHeader questionRegion historyRegion msgPanel" oncomplete="updateAfterSubmit()" id="eslSubmit" action="#{cc.attrs.controllerBean.submitAnswer}"><img src="#{request.contextPath}/images/icon/silk/tick.png" />#{selfDictationMsg.practiceInputAnsBtn}</a4j:commandLink>
+										<input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{cc.attrs.controllerBean.practice.totalQuestions}" />
+										<input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{cc.attrs.controllerBean.practice.mark}" />										
+										<input type="hidden" name="hiddenPicPaths" id="hiddenPicPaths" value="#{cc.attrs.controllerBean.practice.currentQuestionObject.picsFullPathsInString}" />
+									</div>
+					    		</td>
+					    	</tr>					    	
+					    </table>
+																
+					</h:form>
+				</a4j:outputPanel>
+			</td>
+			<td align="left"><util:vocabimage picPaths="#{cc.attrs.controllerBean.practice.currentQuestionObject.picsFullPathsInString}" /></td>
+		</tr>
+	</table>
+	</div>
+	
+</composite:implementation>
+</html>

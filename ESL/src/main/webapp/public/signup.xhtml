@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/template/main.xhtml">
+
+	<ui:define name="subTitle">#{htmlHeadMsg.public_signup_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.public_signup_desc}" /></ui:define>
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/signup.gif" /></ui:define>
+
+	<ui:define name="mainContent">
+		<div align="center" style="text-align:center; border: 3px solid #BBDDCC; background: #E6F9F8; padding:5px; font-weight: bold;">
+			<h:outputText value="#{authMsg.signupHeader}" escape="false" />	
+		</div>		
+		<h:messages tooltip="true" errorClass="error" infoClass="innerHeading" globalOnly="true" />
+
+		<!-- Sign Up Form -->
+		<h:form id="signUpForm" binding="#{profileController.uiSignUpForm}" onsubmit="return submitRequest()">
+			<h:panelGroup id="inputForm" styleClass="formContent">
+				<fieldset><legend class="formTitle">&nbsp;ACCOUNT INFORMATION&nbsp;</legend>
+				<table width="90%" class="formContent">
+					<tr>
+						<td width="120" class="formTitle"><h:outputLabel value="#{authMsg.signupFormUserIdLabel}" for="userId" /> *</td>
+						<td width="5" class="formTitle">:</td>
+						<td><h:inputText id="userId" value="#{profileController.newMember.userId}" style="width: 30%" required="true" maxlength="20">
+							<f:validateLength minimum="6" maximum="12" />
+							<t:validateRegExpr pattern="[a-zA-Z0-9]*" message="#{authMsg.signupFormUserIdInvalidInput}" />
+						</h:inputText> (<h:outputText value="#{authMsg.signupFormAtleast6char}" />) <br />
+						<h:message for="userId" errorClass="error" /></td>
+					</tr>
+					<tr>
+						<td class="formTitle"><h:outputLabel
+							value="#{authMsg.signupFormPINLabel}" for="PIN" /> *</td>
+						<td class="formTitle">:</td>
+						<td><h:inputSecret id="PIN"
+							value="#{profileController.newMember.PIN }" style="width: 30%"
+							required="true" maxlength="20">
+							<f:validateLength minimum="6" maximum="20" />
+							<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*"
+								message="#{authMsg.signupFormPINInvalidInput}" />
+						</h:inputSecret> (<h:outputText value="#{authMsg.signupFormAtleast6char}" />) <br />
+						<h:message for="PIN" errorClass="error" /></td>
+					</tr>
+					<tr>
+						<td class="formTitle"><h:outputLabel
+							value="#{authMsg.signupFormPIN2Label}" for="PIN2" /> *</td>
+						<td class="formTitle">:</td>
+						<td><h:inputSecret id="PIN2"
+							value="#{profileController.confirmedPIN }" style="width: 30%"
+							required="true" maxlength="20">
+							<f:validateLength minimum="6" maximum="20" />
+							<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*"
+								message="#{authMsg.signupFormPINInvalidInput}" />
+						</h:inputSecret> <br />
+						<h:message for="PIN2" errorClass="error" /></td>
+					</tr>
+				</table>
+				</fieldset>
+				<fieldset><legend class="formTitle">&nbsp;USER
+				PROFILE&nbsp;</legend>
+				<table width="90%" class="formContent">
+					<tr>
+						<td class="formTitle" width="120"><h:outputLabel
+							value="#{authMsg.signupFormFirstNameLabel}" for="firstName" /> *</td>
+						<td class="formTitle" width="5">:</td>
+						<td><h:inputText id="firstName"
+							value="#{profileController.newMember.name.firstName}"
+							required="true" maxlength="100">
+							<f:validateLength maximum="100" />
+							<t:validateRegExpr pattern="[a-zA-Z\s]*"
+								summaryMessage="#{authMsg.signupFormFirstNameInvalidInput}" />
+						</h:inputText> <br />
+						<h:message for="firstName" errorClass="error" /></td>
+					</tr>
+					<tr>
+						<td class="formTitle"><h:outputLabel
+							value="#{authMsg.signupFormLastNameLabel}" for="lastName" /></td>
+						<td class="formTitle">:</td>
+						<td><h:inputText id="lastName"
+							value="#{profileController.newMember.name.lastName}"
+							maxlength="100">
+							<f:validateLength maximum="100" />
+							<t:validateRegExpr pattern="[a-zA-Z\s]*"
+								message="#{authMsg.signupFormLastNameInvalidInput}" />
+						</h:inputText> <br />
+						<h:message for="lastName" errorClass="error" /></td>
+					</tr>
+					<tr>
+						<td class="formTitle"><h:outputLabel
+							value="#{authMsg.signupFormBirthdayLabel}" for="birthday" /><br />
+						(DD/MM/YYYY)</td>
+						<td class="formTitle">:</td>
+						<td><t:inputDate id="birthday"
+							value="#{profileController.newMember.birthday}" /> <br />
+						<h:message for="birthday" errorClass="error" /></td>
+					</tr>
+					<tr>
+						<td class="formTitle"><h:outputLabel
+							value="#{authMsg.signupFormAddressLabel}" for="address" /></td>
+						<td class="formTitle">:</td>
+						<td><h:inputText id="address"
+							value="#{profileController.newMember.address}">
+							<f:validateLength minimum="10" />
+							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*"
+								message="#{authMsg.signupFormInvalidChar}" />
+						</h:inputText> <br />
+						<h:message for="address" errorClass="error" /></td>
+					</tr>
+					<tr>
+						<td class="formTitle"><h:outputLabel
+							value="#{authMsg.signupFormPhoneNumberLabel}" for="phoneNumber" /></td>
+						<td class="formTitle">:</td>
+						<td><h:inputText id="phoneNumber"
+							value="#{profileController.newMember.phoneNumber}">
+							<f:validateLength minimum="7" />
+							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*"
+								message="#{authMsg.signupFormInvalidChar}" />
+						</h:inputText> <br />
+						<h:message for="phoneNumber" errorClass="error" /></td>
+					</tr>
+					<tr>
+						<td class="formTitle"><h:outputLabel
+							value="#{authMsg.signupFormEmailLabel}" for="email" /> *</td>
+						<td class="formTitle">:</td>
+						<td><h:inputText id="email"
+							value="#{profileController.newMember.emailAddress}"
+							required="true">
+							<t:validateEmail detailMessage="#{authMsg.signupInvalidEmail}" />
+							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*"
+								message="#{authMsg.signupFormInvalidChar}" />
+						</h:inputText> <br />
+						<h:message for="email" errorClass="error" /></td>
+					</tr>
+					<tr>
+						<td class="formTitle"><h:outputLabel
+							value="#{authMsg.signupFormSchoolLabel}" for="school" /></td>
+						<td class="formTitle">:</td>
+						<td><h:inputText id="school"
+							value="#{profileController.newMember.school}">
+							<f:validateLength minimum="10" />
+							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*"
+								message="#{authMsg.signupFormInvalidChar}" />
+						</h:inputText> <br />
+						<h:message for="school" errorClass="error" /></td>
+					</tr>
+					<!-- 
+					<tr>
+						<td class="formTitle">#{authMsg.signupFormImageLabel}</td>
+						<td class="formTitle">:</td>
+						<td>
+							<ui:include src="/public/selectmemberimage.xhtml" />							
+							<h:graphicImage id="memberImage" rendered="#{empty profileController.newMember.imagePath}" value="#{memberImageController.defaultImageURI}" />
+							<div class="buttons" style="padding-left: 2px; padding-top: 10px;">
+								<input id="showImageUploadPanel" type="button" onclick="Richfaces.showModalPanel('imageUploadPanel');" value="#{authMsg.signupFormUploadImage}" />
+								<input id="showImageSelectPanel" type="button" onclick="Richfaces.showModalPanel('imageSelectPanel');" value="#{authMsg.signupFormSelectImage}" />
+							</div>
+						</td>
+					</tr>
+					 -->
+					<tr><td colspan="3" style="height: 20px;">&nbsp;</td></tr>					
+					<tr>
+						<td align="right"><h:selectBooleanCheckbox value="#{profileController.acceptToF}" /></td>
+						<td></td>
+						<td><h:outputText value="#{authMsg.signupFormAcceptToFTitle}" /><br />
+						<a href="#{request.contextPath}#{authMsg.signupFormToFURL}"	target="_blank"><u>#{authMsg.signupFormToFTitle}</u></a></td>
+					</tr>
+				</table>
+				</fieldset>
+				<div class="buttons" style="padding-left: 2px; padding-top: 10px;">
+					<h:commandLink action="#{profileController.signUp}"><img src="#{request.contextPath}/images/icon/silk/accept.png" />#{authMsg.signupFormSubmit}</h:commandLink>					
+				</div>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.esl.model">
+  <class name="PhoneticPracticeHistory" table="phonetic_practice_history">
+  	<id name="id" type="java.lang.Long" column="PHONETIC_PRACTICE_HISTORY_ID">
+		<generator class="identity" />
+	</id>
+  	<property name="mark" column="MARK" />
+  	<property name="fullMark" column="FULL_MARK" />
+  	<property name="startedTime" column="STARTED_TIME" />
+  	<property name="completedTime" column="COMPLETED_TIME" />
+  	<property name="createdDate" column="CREATED_DATE" />
+  	
+  	<many-to-one name="member" column="MEMBER_ID" cascade="save-update" />
+  	<many-to-one name="grade" column="GRADE_ID" cascade="none" />
+	  	
+  	<bag name="questionHistories" cascade="all-delete-orphan" inverse="true" order-by="CREATED_DATE asc" lazy="true">
+		<key column="PHONETIC_PRACTICE_HISTORY_ID" not-null="false" />        
+		<one-to-many class="PhoneticPracticeQuestionHistory"/>
+	</bag>	
+  </class>
+</hibernate-mapping>

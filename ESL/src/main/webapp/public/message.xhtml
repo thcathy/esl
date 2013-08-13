@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      template="/template/main_no_language.xhtml">
+
+<ui:define name="titleImg">&nbsp;</ui:define>
+
+<ui:define name="mainContent">
+	<h:messages tooltip="true" errorClass="error" globalOnly="true" />								
+	<p><h:commandLink action="index">> <u><h:outputText value="#{generalMsg.backToHome}" /></u></h:commandLink></p>
+</ui:define>
+
+</ui:composition>

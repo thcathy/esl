@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fmt="http://java.sun.com/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+  	xmlns:esl="http://www.funfunspell.com/jsf"
+  	template="/template/main_2column.xhtml">
+  	
+  	<f:metadata>
+		<f:viewParam name="id" value="#{openDictationController.selectedDictationId}"/>
+		<f:event type="preRenderView" listener="#{openDictationController.openDictationForPractice}"/>
+	</f:metadata>	
+
+	<ui:define name="subTitle">#{htmlHeadMsg.practice_selfdictation_input_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.practice_selfdictation_input_desc}" /></ui:define>
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/mydictation.gif" /></ui:define>
+
+	<ui:define name="mainContent">
+		<esl:dictationNav />
+		<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+	</ui:define>
+	
+	<ui:define name="leftColumn">
+		<esl:oneDictationSummary dictation="#{dictationPracticeController.dictation}" />		
+		<a4j:outputPanel rendered="#{not empty dictationPracticeController.memberDictationHistory}">
+			<esl:memberDictationHistory history="#{dictationPracticeController.memberDictationHistory}" />
+		</a4j:outputPanel>
+	</ui:define>
+	
+	<ui:define name="rightColumn">
+		<h3 style="color: #EE6600;">#{dictationMsg.dictationOptions}</h3>
+		<h:form style="color: #EE6600;">									
+			<p>
+			    #{dictationMsg.tipsTitle}:&nbsp; <br />
+			    <h:selectBooleanCheckbox title="withIPA" disabled="#{dictationPracticeController.dictation.notAllowIPA}" value="#{dictationPracticeController.withIPA}"  />#{dictationMsg.withIPA}<br />
+			    <h:selectBooleanCheckbox title="withRandomCharacters" disabled="#{dictationPracticeController.dictation.notAllowRandomCharacters}" value="#{dictationPracticeController.withRandomCharacters}" />#{dictationMsg.withRamdomCharacters}
+			</p>
+			<div class="buttons">
+				<h:commandLink onclick="return submitRequest();" styleClass="orange" action="#{dictationPracticeController.start}"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{dictationMsg.start}</h:commandLink>
+			</div>
+		</h:form>	
+	</ui:define>
+</ui:composition>

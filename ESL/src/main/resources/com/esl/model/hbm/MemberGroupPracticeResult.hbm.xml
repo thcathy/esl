@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.esl.model">
+  <class name="com.esl.model.group.MemberGroupPracticeResult" table="member_group_practice_result">  	
+  	<id name="id" type="java.lang.Long" column="ID">
+		<generator class="identity" />
+	</id>
+	
+	<many-to-one name="group" column="GROUP_ID" foreign-key="FK_GROUP_ID" cascade="none" />
+	<many-to-one name="grade" column="GRADE_ID" foreign-key="FK_GRADE_ID" cascade="none" />		
+	<property name="practiceType" column="PRACTICE_TYPE" />		
+	<property name="mark" column="MARK" />
+  	<property name="fullMark" column="FULL_MARK" />
+  	<property name="createdDate" column="CREATED_DATE" />  	
+  </class>
+</hibernate-mapping>

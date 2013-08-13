@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.esl.model">
+  <class name="PhoneticQuestion" table="phonetic_question" lazy="true">
+    <id name="id" type="java.lang.Long" column="PHONETICQUESTION_ID">
+  		<generator class="identity" />
+  	</id>
+  	<property name="word" column="WORD" length="40" />
+  	<property name="IPA" column="IPA" length="2048" />
+  	<property name="pronouncedLink" column="PRONOUNCED_LINK" />
+  	<property name="picFileName" column="PIC_FILE_NAME" length="50" />
+  	<property name="createdDate" column="CREATED_DATE" />  	
+  	<bag name="grades" table="GRADE_PHONETICQUESTION" cascade="all">  		  		
+  		<key column="PHONETICQUESTION_ID" />
+  		<many-to-many class="Grade" column="GRADE_ID" />
+  	</bag>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/template/main.xhtml">
+
+	<ui:define name="subTitle">#{htmlHeadMsg.member_team_update_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.member_team_update_desc}" /></ui:define>
+	
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/team.gif" /></ui:define>
+
+	<ui:define name="mainContent">		
+		<h:messages tooltip="true" errorClass="error" infoClass="innerHeading" globalOnly="true" />
+		<!-- Update team form -->
+		<h:panelGroup id="inputForm" styleClass="formContent">
+			<h:form id="updateTitleForm" onsubmit="return submitRequest()">
+			<fieldset>
+				<legend class="formTitle">&nbsp;UPDATE TITLE&nbsp;</legend>
+				<table width="90%" class="formContent">
+					<tr>
+		            	<td width="120" class="formTitle"><h:outputLabel value="#{teamMsg.formTeamTitle}" for="teamTitle" /></td>
+		                <td width="5" class="formTitle">:</td>
+		                <td>
+		                	<h:inputText id="teamTitle" value="#{teamController.newGroup.title}" style="width: 30%" required="true" maxlength="50">
+								<f:validateLength minimum="6" maximum="50" />
+								<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{teamMsg.formTeamTitleInvalidInput}"/>																	
+							</h:inputText>					
+							<br /><h:message for="teamTitle" errorClass="error" />
+						</td>
+		            </tr>
+		            <tr>
+		            	<td></td>
+		            	<td></td>
+		            	<td><h:commandButton action="#{teamController.updateTitle}" value="#{teamMsg.formUpdateTitle}" /></td>
+		            </tr>            										
+				</table>		
+			</fieldset>									
+			</h:form>
+			<h:form id="updatePINForm" onsubmit="return submitRequest()">
+			<fieldset>
+				<legend class="formTitle">&nbsp;UPDATE PASSWORD&nbsp;</legend>
+				<table width="90%" class="formContent">
+					<tr>
+		                <td class="formTitle" width="120"><h:outputLabel value="#{teamMsg.formTeamPIN}" for="existPIN" /></td>
+		                <td class="formTitle" width="5">:</td>
+		                <td>
+		                 	<h:inputSecret id="existPIN" value="#{teamController.existPIN }" style="width: 30%" required="true" maxlength="20">
+								<f:validateLength minimum="6" maximum="20" />
+								<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{teamMsg.formTeamPINInvalidInput}"/>																	
+							</h:inputSecret>
+							<br /><h:message for="existPIN" errorClass="error" />
+						</td>
+		             </tr>
+					<tr>
+		                <td class="formTitle"><h:outputLabel value="#{teamMsg.formNewPIN}" for="PIN" /></td>
+		                <td class="formTitle">:</td>
+		                <td>
+		                 	<h:inputSecret id="PIN" value="#{teamController.newGroup.PIN }" style="width: 30%" required="true" maxlength="20">
+								<f:validateLength minimum="6" maximum="20" />													
+								<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{teamMsg.formTeamPINInvalidInput}"/>																	
+							</h:inputSecret>
+							(<h:outputText value="#{teamMsg.formAtleast6char}" />)
+							<br /><h:message for="PIN" errorClass="error" />
+						</td>
+		             </tr>
+		             <tr>
+		                 <td class="formTitle"><h:outputLabel value="#{teamMsg.formNewPIN2}" for="PIN2" /></td>
+		                 <td class="formTitle">:</td>
+		                 <td>
+		                     <h:inputSecret id="PIN2" value="#{teamController.confirmedPIN }" style="width: 30%" required="true" maxlength="20">
+								<f:validateLength minimum="6" maximum="20"/>
+								<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{teamMsg.formTeamPINInvalidInput}"/>									
+							</h:inputSecret>												
+							<br /><h:message for="PIN2" errorClass="error" />
+						</td>
+		             </tr>
+		             <tr>
+		            	<td></td>
+		            	<td></td>
+		            	<td><h:commandButton action="#{teamController.updatePIN}" value="#{teamMsg.formUpdatePIN}" /></td>
+		            </tr> 
+				</table>		
+			</fieldset>	
+			</h:form>
+			<h:form id="kickMemberForm" onsubmit="return submitRequest()">
+			<fieldset>
+				<legend class="formTitle">&nbsp;REMOVE MEMBER&nbsp;</legend>
+				<table width="90%" class="formContent">
+					<tr>
+		            	<td width="120" class="formTitle"><h:outputLabel value="#{teamMsg.formKickMember}" for="kickMember" /></td>
+		                <td width="5" class="formTitle">:</td>
+		                <td>
+		                	<h:selectOneMenu id="kickMember" value="#{teamController.selectedMemberID}">
+								<f:selectItems value="#{teamController.removableMembers }" />			
+							</h:selectOneMenu>
+						</td>
+		            </tr>
+		            <tr>
+		            	<td></td>
+		            	<td></td>
+		            	<td><h:commandButton action="#{teamController.kickMember}" value="#{teamMsg.formKickMember}" /></td>
+		            </tr>            										
+				</table>		
+			</fieldset>									
+			</h:form>
+		</h:panelGroup>
+		<p>&nbsp;</p>
+		<h:form>
+		<p>
+			<h:commandLink action="#{teamController.showTeam}"><u><h:outputText value="#{teamMsg.linkTeam}" /></u></h:commandLink>
+			<img src="#{request.contextPath}/images/spacer.gif" height="1" width="30" />
+			<h:commandLink action="#{teamController.showTeams}"><u><h:outputText value="#{teamMsg.linkTeamsSummary}" /></u></h:commandLink>
+		</p>
+</h:form>
+	</ui:define>
+</ui:composition>

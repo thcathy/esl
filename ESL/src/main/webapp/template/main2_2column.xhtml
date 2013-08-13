@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+<f:view locale="#{languageController.locale}">
+<h:head lang="#{languageController.locale}">
+  <ui:include src="/htmlhead.xhtml"/>
+  <link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/main.css" />
+  <link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/button.css" />
+  <script type="text/javascript" src="#{request.contextPath}/js/common.js"></script>  	  
+  <ui:include src="/public/loading.xhtml"/>
+  <title>Fun Fun Spell<ui:insert name="subTitle">- FunFunSpell</ui:insert></title>
+  <ui:insert name="head" />
+  <meta http-equiv="X-UA-Compatible" content="IE=7" />
+</h:head>
+<h:body style="background-image: url(#{languageController.imagesPath}/inner_page_bg.jpg);">
+	<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
+	  <tr>
+	    <td width="173" height="642" align="right" valign="top">
+	    	<ui:include src="/left.xhtml"/>
+		</td>
+	    <td width="794" align="left" valign="top">
+	    	<table width="783" border="0" cellpadding="0" cellspacing="0">
+		        <tr>
+		          <td width="776" height="71" align="right" valign="middle">
+		          	<ui:include src="/language.xhtml"/>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td width="776" align="left" valign="top">
+		          	<table width="777" border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td colspan="2">
+								<img id="innerbox2_01" src="#{languageController.imagesPath}/innerbox2_01.gif" width="88" height="47"  /></td>
+							<td colspan="3" background="#{languageController.imagesPath}/innerbox2_02.gif" width="689" height="47" align="left" valign="middle"> 
+								<ui:insert name="titleImg"><img id="innerbox2_02" src="#{languageController.imagesPath}/title/welcome.gif" /></ui:insert></td>
+						</tr>
+						<tr>
+							<td rowspan="5" background="#{languageController.imagesPath}/innerbox2_03.gif" width="16"></td>
+							<td colspan="3" bgcolor="#FFFFFF" class="innerContent">
+								<ui:insert name="upperMainContent" />
+							</td>
+							<td rowspan="5" background="#{languageController.imagesPath}/innerbox2_05.gif" width="12"></td>
+						</tr>
+						<tr>
+							<td colspan="3" style="background-image: url('#{languageController.imagesPath}/innerbox2_06.gif')" width="749" height="9"></td>
+						</tr>
+						<tr>							
+							<td colspan="3" bgcolor="#FFFFFF" class="innerContent">
+								<ui:insert name="lowerMainContent" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" rowspan="2" align="left" valign="top" bgcolor="#FFFFFF" width="403" class="innerContent">
+								<ui:insert name="leftColumn" />
+							</td>
+							<td align="left" valign="top" bgcolor="#FFFFFF" class="innerContent">
+								<ui:insert name="rightColumn" />
+							</td>
+						</tr>
+						<tr>
+							<td valign="bottom" width="346" height="265" bgcolor="#FFFFFF">
+								<img id="innerbox2_09" src="#{languageController.imagesPath}/innerbox2_09.gif" width="346" height="265"  /></td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<img id="innerbox2_10" src="#{languageController.imagesPath}/innerbox2_10.gif" width="777" height="84"  /></td>
+						</tr>
+						<tr>
+							<td>
+								<img src="#{languageController.imagesPath}/spacer.gif" width="16" height="1"  /></td>
+							<td>
+								<img src="#{languageController.imagesPath}/spacer.gif" width="72" height="1"  /></td>
+							<td>
+								<img src="#{languageController.imagesPath}/spacer.gif" width="331" height="1"  /></td>
+							<td>
+								<img src="#{languageController.imagesPath}/spacer.gif" width="346" height="1"  /></td>
+							<td>
+								<img src="#{languageController.imagesPath}/spacer.gif" width="12" height="1"  /></td>
+						</tr>
+					</table>
+		          </td>
+		        </tr>
+		    </table>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td height="22" colspan="2" align="center">
+	    	<ui:include src="/footer.xhtml"/>
+	    </td>
+	  </tr>
+	</table>
+</h:body>
+</f:view> 
+</html>
