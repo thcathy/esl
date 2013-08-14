@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/main.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:esl="http://www.funfunspell.com/jsf">
+	
+	<ui:define name="subTitle">#{htmlHeadMsg.member_team_teams_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.member_team_teams_desc}" /></ui:define>
+	
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/team.gif" /></ui:define>
+
+	<ui:define name="mainContent">
+		<esl:memberNav current="MYTEAM" />
+		<h:outputText value="#{teamController.initTeams}" />
+		<table width="500">
+			<tr>
+		    	<td width="55%" valign="middle"><h2><h:outputText value="#{teamMsg.teamsTitle}" /></h2></td>
+		        <td width="45%" align="right"><img src="#{request.contextPath}/images/icon/tusky58.gif" /></td>
+		    </tr>
+		</table>
+		<h:form id="teamsForm" onsubmit="return submitRequest()">
+		<h:panelGroup rendered="#{teamController.teamSummaries != null}">
+		<table class="innerContent" cellpadding="3">
+			<thead>
+			<tr>		
+				<td width="60" class="innerHeading" align="center"><h:outputText value="#{teamMsg.teamsID}" /></td>
+				<td width="300" class="innerHeading"><h:outputText value="#{teamMsg.formTeamTitle}" /></td>
+				<td width="150" class="innerHeading" align="center"><h:outputText value="#{teamMsg.teamsTeamRank}" /></td>		
+			</tr>
+			</thead>
+			<t:dataList var="summary" value="#{teamController.teamSummaries}" >
+			<tr>		
+				<td align="center" class="px14"><strong>[<h:outputText value="#{summary.group.id}" />]</strong></td>
+				<td class="px14">
+					<h:commandLink action="#{teamController.showTeam}">
+						<f:setPropertyActionListener target="#{teamController.selectedGroup}" value="#{summary.group}" />
+						<strong><u><h:outputText value="#{summary.group.title}" /></u></strong>
+					</h:commandLink>
+					<h:panelGroup rendered="#{summary.haveNewMsg}"><img width="20" height="20" src="#{request.contextPath}/images/graphic/message.png" alt="#{summary.haveNewMsg}" /></h:panelGroup>	
+				</td>				
+				<td align="center" class="px14"><h:outputText value="#{summary.phonTeamRank}" /></td>		
+			</tr>
+			</t:dataList>										
+		</table>
+		</h:panelGroup>
+		</h:form>
+		<p>&nbsp;</p>
+		<table width="100%"><tr><td align="center">
+		<table style="margin:0; padding:0;" cellpadding="0" cellspacing="0">
+		  <tr>
+		  	<td bgcolor="#FFFF99" class="smallFormHead" height="25"><span>#{teamMsg.teamsJoinTeam}</span></td>
+		    <td width="300" align="right">
+		    	<h:form style="padding:0px; margin:0px;">
+					<h:commandLink action="member/team/createteam"><u><span style="font-size: 14px;" ><h:outputText value="#{teamMsg.teamsCreateTeam}" /></span></u></h:commandLink>
+				</h:form>
+		    </td>
+		  </tr>
+		  <tr>
+		  	<td colspan="2" class="smallFormBody" align="center">
+		  		<h:form>
+		  			<table>
+		  				<tr>
+		  					<td width="150" align="left" valign="top">
+		  						<h:outputText value="#{teamMsg.teamsTeamID}" />:&nbsp;
+								<h:inputText id="teamId" value="#{teamController.newGroup.id}" style="width: 60px" required="true" maxlength="10">				
+									<t:validateRegExpr pattern="[0-9]*" message="#{teamMsg.formTeamIDInvalidInput}"/>
+								</h:inputText><br />
+								<h:message for="teamId" errorClass="error" />
+		  					</td>
+		  					<td width="170" align="left" valign="top">
+		  						<h:outputText value="#{teamMsg.teamsTeamPIN}" />:&nbsp;
+								<h:inputSecret id="PIN" value="#{teamController.newGroup.PIN }" style="width: 60px" required="true" maxlength="20">		
+									<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{teamMsg.formTeamPINInvalidInput}"/>
+								</h:inputSecret><br />
+								<h:message for="PIN" errorClass="error" />
+		  					</td>
+		  					<td><h:commandButton action="#{teamController.joinTeam}" value="#{teamMsg.teamsJoin}" /></td>
+		  				</tr>
+		  				<tr>
+		  					<td colspan="3"><h:messages tooltip="true" errorClass="error" infoClass="innerHeading" globalOnly="true" /></td>
+		  				</tr>
+		  			</table>
+				</h:form>
+		  	</td>
+		  </tr>
+		</table>
+		</td></tr></table>
+	</ui:define>
+</ui:composition>

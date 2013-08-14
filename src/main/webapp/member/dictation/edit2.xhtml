@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+  	xmlns:esl="http://www.funfunspell.com/jsf"
+  	template="/template/main.xhtml">
+	
+	<ui:define name="subTitle">#{htmlHeadMsg.member_dictation_main_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.member_dictation_main_desc}" /></ui:define>
+	
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/mydictation.gif" /></ui:define>
+
+	<ui:define name="mainContent">
+		<esl:dictationNav current="CREATE" />
+		<p><strong>#{dictationMsg.dictationURL}:</strong>
+		<br /><input type="text" style="width: 90%; font-size: 14px" value="http://#{request.serverName}:#{request.localPort}#{request.contextPath}#{dictationPracticeController.startDictationURL}#{dictationEditController.editDictation.id}" readonly="readonly" /></p>
+		<fieldset><legend class="formTitle">&nbsp;MAIN&nbsp;</legend>
+			<table width="90%" class="formContent">
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.title}</td>
+					<td width="5" class="formTitle">:</td>
+					<td><strong>#{dictationEditController.editDictation.title}</strong></td>
+				</tr>
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.desc}</td>
+					<td width="5" class="formTitle">:</td>
+					<td>#{dictationEditController.editDictation.description}</td>
+				</tr>				
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.suitableAge}</td>
+					<td width="5" class="formTitle">:</td>
+					<td>#{dictationEditController.editDictation.suitableAge}</td>
+				</tr>
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.tags}</td>
+					<td width="5" class="formTitle">:</td>
+					<td>#{dictationEditController.editDictation.tags}</td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset><legend class="formTitle">&nbsp;AUTHENTICATION&nbsp;</legend>
+			<table width="90%" class="formContent">
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.allowPublicAccess}</td>
+					<td width="5" class="formTitle">:</td>
+					<td><h:graphicImage rendered="#{dictationEditController.editDictation.publicAccess}" value="#{context.requestPath}/images/graphic/right.gif" /><h:graphicImage rendered="#{!dictationEditController.editDictation.publicAccess}" value="#{context.requestPath}/images/graphic/wrong.gif" /></td>
+				</tr>
+				<tr>
+					<td class="formTitle">#{dictationMsg.allowGroupAccess}</td>
+					<td width="5" class="formTitle">:</td>
+					<td><t:dataList var="g" rowIndexVar="index" value="#{dictationEditController.editDictation.accessibleGroups}" ><h:outputText rendered="#{index > 0}" value=", " />#{g.title}</t:dataList></td>
+				</tr>
+				<tr>
+					<td class="formTitle">#{dictationMsg.pwdProtect}</td>
+					<td width="5" class="formTitle">:</td>
+					<td><h:graphicImage rendered="#{not empty dictationEditController.editDictation.password}" value="#{context.requestPath}/images/graphic/right.gif" /><h:graphicImage rendered="#{empty dictationEditController.editDictation.password}" value="#{context.requestPath}/images/graphic/wrong.gif" /></td>
+				</tr>				
+			</table>
+		</fieldset>
+		<fieldset><legend class="formTitle">&nbsp;INFORMATION&nbsp;</legend>
+			<table width="90%" class="formContent">
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.createdDate}</td>
+					<td width="5" class="formTitle">:</td>
+					<td><h:outputText value="#{dictationEditController.editDictation.createdDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
+				</tr>
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.lastModifyDate}</td>
+					<td width="5" class="formTitle">:</td>
+					<td><h:outputText value="#{dictationEditController.editDictation.lastModifyDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset><legend class="formTitle">&nbsp;VOCABULARY&nbsp;</legend>
+			<table width="90%" class="formContent">
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.neverShowIPA}</td>
+					<td width="5" class="formTitle">:</td>
+					<td><h:graphicImage rendered="#{dictationEditController.editDictation.notAllowIPA}" value="#{context.requestPath}/images/graphic/right.gif" /><h:graphicImage rendered="#{!dictationEditController.editDictation.notAllowIPA}" value="#{context.requestPath}/images/graphic/wrong.gif" /></td>
+				</tr>
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.neverShowRandomChar}</td>
+					<td width="5" class="formTitle">:</td>
+					<td><h:graphicImage rendered="#{dictationEditController.editDictation.notAllowRandomCharacters}" value="#{context.requestPath}/images/graphic/right.gif" /><h:graphicImage rendered="#{!dictationEditController.editDictation.notAllowRandomCharacters}" value="#{context.requestPath}/images/graphic/wrong.gif" /></td>
+				</tr>
+				<tr>
+					<td width="120" class="formTitle">#{dictationMsg.vocab}</td>
+					<td width="5" class="formTitle">:</td>
+					<td><t:dataList var="v" rowIndexVar="index" value="#{dictationEditController.editDictation.vocabs}" >						
+							<h:outputText rendered="#{index > 0}" value=", " />#{v.word}
+						</t:dataList></td>
+				</tr>
+			</table>
+		</fieldset>
+		<h:form>
+		<p>
+			<h:commandLink action="#{dictationEditController.launchEdit}"><u>#{dictationMsg.editAgain}</u></h:commandLink>
+			<img src="#{request.contextPath}/images/spacer.gif" width="10" height="1" />
+			<h:commandLink action="#{dictationManageController.launchMain}"><u>#{dictationMsg.backToMain}</u></h:commandLink>
+		</p>
+		</h:form>
+	</ui:define>
+</ui:composition>

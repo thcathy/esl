@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/template/main.xhtml">
+	
+	<f:metadata>
+		<f:viewParam name="page" value="#{newsController.pageNumber}"/>
+		<f:event type="preRenderView" listener="#{newsController.viewNews}"/>
+	</f:metadata>	
+	
+	<ui:define name="subTitle">#{htmlHeadMsg.public_news_news_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.public_news_news_desc}" /></ui:define>
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/news.gif" /></ui:define>
+
+	<ui:define name="mainContent">
+		<div style="padding-bottom: 20px;">
+		<h:panelGroup rendered="#{newsController.pageNumber > 0}" style="float: left;">	
+				<a href="#{request.contextPath}/public/news/news.jsf?page=#{newsController.pageNumber-1}"><u><strong>&lt;&lt; #{generalMsg.newerNews}</strong></u></a>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{newsController.hasMoreNews}" style="float: right;">			
+				<a href="#{request.contextPath}/public/news/news.jsf?page=#{newsController.pageNumber+1}"><u><strong>#{generalMsg.olderNews} &gt;&gt;</strong></u></a>
+		</h:panelGroup>
+		</div>
+		<a4j:repeat var="news" value="#{newsController.newsList}" >
+			<h2 style="float: right; padding-left: 20px;">
+				<h:outputText value="#{news.createdDate}"><f:convertDateTime pattern="d MMM yyyy" type="date" /></h:outputText>
+			</h2>
+			<a4j:repeat var="line" value="#{news.htmlContent}"><h:outputText escape="false" value="#{line}" /></a4j:repeat>
+			<hr />
+ 		</a4j:repeat>
+ 		<h:panelGroup rendered="#{newsController.pageNumber > 0}" style="float: left;">	
+				<a href="#{request.contextPath}/public/news/news.jsf?page=#{newsController.pageNumber-1}"><u><strong>&lt;&lt; #{generalMsg.newerNews}</strong></u></a>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{newsController.hasMoreNews}" style="float: right;">			
+				<a href="#{request.contextPath}/public/news/news.jsf?page=#{newsController.pageNumber+1}"><u><strong>#{generalMsg.olderNews} &gt;&gt;</strong></u></a>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

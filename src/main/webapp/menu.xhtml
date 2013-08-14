@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+<h:form>
+
+<table border="0" cellspacing="0" cellpadding="0" height="0">
+	<tr>
+		<td colspan="3">
+			<img src="#{languageController.imagesPath}/menu_01.png" alt="" width="149" height="20" border="0" usemap="#Map" /></td>
+	</tr>	
+	<tr>
+		<td width="7" style="background-image:url('#{languageController.imagesPath}/menu_02.png')"></td>
+		<td width="135">
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td><h:link outcome="/index?locale=#{languageController.locale}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_01','','#{languageController.imagesPath}/menu_btn_01r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_01.gif" name="menu_btn_01" width="135" border="0" id="menu_btn_01" alt="#{generalMsg.menuHome}" /></h:link></td>
+				</tr>		
+				<tr>
+					<td><h:link outcome="/public/about?locale=#{languageController.locale}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_02','','#{languageController.imagesPath}/menu_btn_02r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_02.gif" name="menu_btn_02" width="135" border="0" id="menu_btn_02" alt="#{generalMsg.menuAboutUs}" /></h:link></td>
+				</tr>				
+				<tr>
+					<td><h:link outcome="/public/contactus?locale=#{languageController.locale}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_03','','#{languageController.imagesPath}/menu_btn_03r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_03.gif" name="menu_btn_03" width="135" border="0" id="menu_btn_03" alt="#{generalMsg.menuContactUs}" /></h:link></td>
+				</tr>
+				<tr><td style="background-image:url('#{languageController.imagesPath}/menu_seperator.gif')" width="135" height="3"></td></tr>				
+				<tr><td><img src="#{languageController.imagesPath}/menu_mbtn_01.gif"/></td></tr>
+				<tr>
+					<td><h:link outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_04','','#{languageController.imagesPath}/menu_btn_04r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_04.gif" name="menu_btn_04" width="135" border="0" id="menu_btn_04" alt="#{generalMsg.menuPhoneticPractice}" /></h:link></td>
+				</tr>
+				<tr>
+					<td><h:link outcome="/practice/phoneticsymbolpractice/input?locale=#{languageController.locale}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_11','','#{languageController.imagesPath}/menu_btn_11r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_11.gif" name="menu_btn_11" width="135" border="0" id="menu_btn_11" alt="#{generalMsg.menuPhonicsPractice}" /></h:link></td>
+				</tr>
+				<tr>
+					<td><h:link outcome="/practice/irregularverb/start" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_irregularverb','','#{languageController.imagesPath}/menu/irregularverb_r.png',1)">
+						<img src="#{languageController.imagesPath}/menu/irregularverb.png" name="menu_btn_irregularverb" width="135" border="0" id="menu_btn_irregularverb" alt="#{generalMsg.menuIrregularVerb}" /></h:link></td>
+				</tr>
+				<tr>
+					<td><h:link outcome="/practice/grammar/quick" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_12','','#{languageController.imagesPath}/menu_btn_12r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_12.gif" name="menu_btn_12" width="135" border="0" id="menu_btn_12" alt="#{grammarMsg.grammarPractice}" /></h:link></td>
+				</tr>		
+				<tr>
+					<td>
+						<h:link outcome="/practice/selfdictation/input" rendered="#{userSession.member == null}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_05','','#{languageController.imagesPath}/menu_btn_05r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_05.gif" name="menu_btn_05" width="135" border="0" id="menu_btn_05" alt="#{generalMsg.menuSelfDictation}" /></h:link>
+						<h:link outcome="/member/dictation/main" rendered="#{userSession.member != null}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_05','','#{languageController.imagesPath}/menu_btn_05r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_05.gif" name="menu_btn_05" width="135" border="0" id="menu_btn_05" alt="#{generalMsg.menuSelfDictation}" /></h:link></td>
+				</tr>
+				<tr>
+					<td><h:link outcome="/practice/topresult/ranking.jsf?locale=#{userSession.localeString}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_08','','#{languageController.imagesPath}/menu_btn_08r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_08.gif" name="menu_btn_08" width="135" border="0" id="menu_btn_08" alt="#{generalMsg.menuRanking}" /></h:link></td>
+				</tr>
+				<h:panelGroup rendered="#{authenticationController.authenticated}">
+				<tr>
+					<td style="background-image:url('#{languageController.imagesPath}/menu_seperator.gif')" width="135" height="3"></td>
+				</tr>
+				<tr><td><img src="#{languageController.imagesPath}/menu_mbtn_02.gif"/></td></tr>
+				<tr>
+					<td><h:commandLink action="#{summaryController.index}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_07','','#{languageController.imagesPath}/menu_btn_07r.gif',1)">
+						<img src="#{languageController.imagesPath}/menu_btn_07.gif" name="menu_btn_07" width="135" border="0" id="menu_btn_07" alt="#{generalMsg.menuSummary}" /></h:commandLink></td>
+				</tr>
+<!-- 				<tr> -->
+<!-- 					<td><h:commandLink action="#{teamController.showTeams}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_09','','#{languageController.imagesPath}/menu_btn_09r.gif',1)">					 -->
+<!-- 						<img src="#{languageController.imagesPath}/menu_btn_09.gif" name="menu_btn_09" width="135" border="0" id="menu_btn_09" alt="#{generalMsg.menuMyTeam}" /></h:commandLink></td> -->
+<!-- 				</tr> -->
+				<tr>
+					<td><h:commandLink action="#{memberWordController.launchManage}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_10','','#{languageController.imagesPath}/menu_btn_10r.gif',1)">					
+						<img src="#{languageController.imagesPath}/menu_btn_10.gif" name="menu_btn_10" width="135" border="0" id="menu_btn_10" alt="#{generalMsg.menuMyVocabulary}" /></h:commandLink></td>
+				</tr>
+				</h:panelGroup>	
+			</table>
+		</td>
+		<td width="7" style="background-image:url('#{languageController.imagesPath}/menu_04.png')">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<img src="#{languageController.imagesPath}/menu_07.png" width="149" height="14"  /></td>
+	</tr>
+</table>
+</h:form>
+</ui:composition>

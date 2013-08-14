@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fmt="http://java.sun.com/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+  	xmlns:esl="http://www.funfunspell.com/jsf"
+  	xmlns:comp="http://java.sun.com/jsf/composite/components/practice/grammar"
+  	template="/template/main.xhtml">
+
+	<ui:define name="subTitle">#{htmlHeadMsg.practice_grammar_quick_title}</ui:define>
+	<ui:define name="head">
+		<meta name="keywords" content="#{htmlHeadMsg.practice_grammar_desc}" />
+		<script type="text/javascript">
+		var defaultPassage = 'This is an example passage. You can start the exercise by clicking the button below or click the input box to put in any article here. Moreover, you can simply copy and paste any article you find in web or document into here.';
+		var pastePassage = '\n\n\n\n' + '#{grammarMsg.pastePassage}';
+		
+		<!--
+		jQuery.noConflict();
+		
+		jQuery(document).ready(function(){			
+			
+			// setup default passage to help user understand input
+			if (jQuery('#inputForm\\:passage').val() == defaultPassage) {
+				jQuery('#inputForm\\:passage').val(pastePassage);
+				jQuery('#inputForm\\:passage').css('color','#000000');
+				jQuery('#inputForm\\:passage').css('font-size','24px');
+				jQuery('#inputForm\\:passage').css('font-weight','bold');
+				jQuery('#inputForm\\:passage').css('text-align','center');
+				jQuery('#inputForm\\:passage').css('cursor','pointer');
+				
+				jQuery('#inputForm\\:passage').click(function(){				
+					jQuery(this).val('');
+					jQuery(this).css('color','#333333');
+					jQuery(this).css('cursor','');
+					jQuery(this).css('font-weight','');
+					jQuery(this).css('text-align','');
+				});
+			} else if (jQuery('#inputForm\\:passage').val() == '') {				
+				jQuery('#inputForm\\:passage').val(defaultPassage);
+				jQuery('#inputForm\\:passage').css('color','#777777');				
+								
+				jQuery('#inputForm\\:passage').click(function(){				
+					jQuery(this).val('');					
+					jQuery(this).css('color','#333333');
+				});
+				
+				// set opacity
+				jQuery('td[id*=chooseSection2]').css({ opacity: 0.3 });
+				jQuery('td[id*=chooseSection3]').css({ opacity: 0.3 });
+				
+				// setup text area onchange update opacity
+				jQuery('#inputForm\\:passage').keyup(function(){
+					if (jQuery('#inputForm\\:passage').val() != '') {						
+						jQuery('td[id*=chooseSection2]').css({ opacity: 1 });
+					}
+				});
+			}	
+			
+		});
+		-->
+		</script>	
+	</ui:define>
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/grammarpractice.gif" /></ui:define>
+
+	<ui:define name="mainContent">
+		<div class="comicBlue">
+<!-- 		<esl:dictationNav current="INSTANT" /> -->
+			<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+			<p class="comicHeading">#{grammarMsg.quickStartTitle}</p>		
+		
+			<h:form id="inputForm">
+				<table style="width: 100%">
+					<tr><td>1. #{grammarMsg.inputPassage}</td></tr>
+					<tr><td>
+						<h:inputTextarea id="passage" required="true" rows="10" style="width: 99%; color: #333333; font-size: 14px;" value="#{grammarPracticeController.inputPassage}">		
+ 							<t:validateRegExpr pattern="{0,2000}" message="#{grammarMsg.passageTooLong}" />				 
+							<rich:validator  />		 					
+						</h:inputTextarea>
+						<rich:message for="passage" style="font-size : 12pt;" />
+					</td></tr>
+					<tr><td style="background-image: url(#{languageController.imagesPath}/innerbox2_06.gif); background-repeat : no-repeat;">&nbsp;</td></tr>
+					<tr><td id="chooseSection2a">2. #{grammarMsg.choosePracticeType} :</td></tr>
+					<tr><td id="chooseSection2b">
+						<comp:selectpracticetype inputBean="#{grammarPracticeController}" />
+					</td></tr>
+					<tr><td id="chooseSection3a" style="padding-top: 30px;">3. #{grammarMsg.chooseQuickFormat} :</td></tr>
+					<tr><td id="chooseSection3b">
+						<table style="padding-left: 20px;">
+							<tr>
+								<td align="center" class="selection-option selected">
+									<img src="#{request.contextPath}/images/graphic/grammar/fillintheblank.png" alt="fill in the blank" /><br/>
+								</td>
+							</tr>
+						</table>
+					</td></tr>
+					<tr><td id="chooseSection3c" style="padding-top: 20px;">
+						<div class="buttons">
+							<h:commandLink onclick="return submitRequest();" action="#{grammarPracticeController.quickStart}"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{grammarMsg.startPractice}</h:commandLink>			
+						</div>
+					</td></tr>
+				</table>
+			</h:form>
+		</div>
+	</ui:define>	
+	
+</ui:composition>

@@ -1,0 +1,35 @@
+.eslBox {
+	background-color: #19a1e7;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	color:#115566;		
+	border: 0px;
+}
+.eslBox th {
+	text-align: left;
+}
+
+.eslBox .head {		
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 32px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFFFFF;
+	vertical-align: middle;
+	text-shadow: 0 0 4px #003399;
+}
+
+.eslBox .bottom {
+	height: 3px;
+}
+
+.eslBox .border {
+	width: 3px;	
+	padding: 0;
+}
+
+.eslBox .innerBox {
+	background-color: #FFFFFF;
+}

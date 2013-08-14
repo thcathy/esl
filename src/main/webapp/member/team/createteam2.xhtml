@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/template/main.xhtml">
+
+	<ui:define name="subTitle">#{htmlHeadMsg.member_team_createTeam2_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.member_team_createTeam2_desc}" /></ui:define>
+	
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/team.gif" /></ui:define>
+
+	<ui:define name="mainContent">
+		<h2><h:outputText value="#{teamMsg.createTeamCreated}" /></h2>
+		<table>
+			<tr>
+				<td><h:outputText value="#{teamMsg.formTeamTitle}" /> :</td>
+				<td><h:outputText value="#{teamController.createdGroup.title}" /></td>
+			</tr>									
+			<tr>
+				<td valign="top"><h:outputText value="#{teamMsg.teamsTeamID}" /> :</td>
+				<td>
+					<h:outputText value="#{teamController.createdGroup.id}" />
+					<br />* <h:outputText value="#{teamMsg.createIDUsage}" />
+				</td>
+			</tr>
+		</table>
+		<p>&nbsp;</p>
+		<h:form>							
+			<p>
+				<h:commandLink action="#{teamController.showTeams}"><u><h:outputText value="#{teamMsg.linkTeamsSummary}" /></u></h:commandLink>
+				<img src="#{request.contextPath}/images/spacer.gif" height="1" width="30" />
+				<h:commandLink action="#{summaryController.index}"><u><h:outputText value="#{teamMsg.linkMemberSummary}" /></u></h:commandLink>
+			</p>
+		</h:form>
+	</ui:define>
+</ui:composition>

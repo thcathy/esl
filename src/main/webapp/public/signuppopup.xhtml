@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	 <rich:popupPanel id="signupPopUpPanel" width="400" height="100" top="300" show="true" style="text-align: center; line-height: 20px;">
+        <f:facet name="header">
+            <h:panelGroup styleClass="innerBold">#{authMsg.signupPUTitle}</h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage value="/images/icon/silk/cross.png" id="hidelink" style="cursor:pointer" onclick="#{rich:component('signupPopUpPanel')}.hide()"/>
+            </h:panelGroup>
+        </f:facet>
+         <h:panelGroup styleClass="innerContent">
+         	#{authMsg.signupPUL1a}&nbsp;<h:commandLink action="#{profileController.startSignUp}"><strong><u>#{authMsg.signupPUSignUp}</u></strong></h:commandLink>
+	        <br/>#{authMsg.signupPUL2}
+         </h:panelGroup>
+    </rich:popupPanel>
+</ui:composition>

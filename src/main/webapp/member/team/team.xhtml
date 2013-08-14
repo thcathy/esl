@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/main.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:esl="http://www.funfunspell.com/jsf">
+
+	<ui:define name="subTitle">#{htmlHeadMsg.member_team_team_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.member_team_team_desc}" /></ui:define>
+	
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/team.gif" /></ui:define>
+
+	<ui:define name="mainContent">
+		<esl:memberNav current="MYTEAM" />
+		<table width="100%">
+			<tr>
+				<td><h1>&lt; <h:outputText value="#{teamController.selectedGroup.title}" /> &gt;</h1></td>    
+				<td valign="top" align="right"><img src="#{request.contextPath}/images/icon/tusky1.gif" width="50" height="50" /></td>
+			</tr>
+		</table>
+		<table width="100%">
+			<tr>
+				<td></td>
+				<td align="right" valign="top">
+					<!-- Team Member / Admin Menu -->
+					<h:form>
+						<h:panelGroup rendered="#{teamController.selectedGroup.admin == userSession.member}">
+							<h:commandLink action="#{teamController.launchUpdateTeam}"><u><h:outputText value="#{teamMsg.teamMaintTeam}" /></u></h:commandLink>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{teamController.selectedGroup.admin != userSession.member}">
+							<h:commandLink action="#{teamController.launchLeaveTeam}"><u><h:outputText value="#{teamMsg.teamLeaveTeam}" /></u></h:commandLink>
+						</h:panelGroup>
+						<img src="#{request.contextPath}/images/spacer.gif" width="10" height="1" />
+						<h:commandLink action="#{teamController.showTeams}"><u><h:outputText value="#{teamMsg.linkTeamsSummary}" /></u></h:commandLink>
+					</h:form>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">
+					<!-- Grade Selection -->
+					<h:form id="gradeForm" onsubmit="return submitRequest()">
+						<strong><h:outputText value="#{topResultMsg.rankingSelectGrade}" />:&nbsp;</strong>
+						<h:selectOneMenu id="grade" value="#{teamController.selectedGradeID}">
+							<f:selectItems value="#{rankingController.availableGrades }" />			
+						</h:selectOneMenu>
+						&nbsp;&nbsp;
+						<h:commandButton action="#{teamController.changeGrade}" value="#{teamMsg.teamEnquiry}" />
+					</h:form>
+					
+					<!-- Team Ranking Table -->
+					<table class="summaryTable" border="0" cellpadding="0" cellspacing="0">				
+						<tr><th class="innerHeading" colspan="3">${teamMsg.teamRanking}</th></tr>				
+						<tr>
+							<th width="60" class="cellUnderline"><h:outputText value="#{topResultMsg.PHONETICPRACTICE}" /></th>
+							<th width="160" class="cellUnderline"><span style="color:#339999"><h:outputText value="#{teamMsg.formTeamTitle}" /></span></th>
+							<th width="90" class="cellUnderline"><span style="color:#339999"><h:outputText value="#{teamMsg.teamTotalScore}" /></span></th>
+						</tr>				
+						<c:forEach var="i" varStatus="status" items="${teamController.phonGroupResults}">				
+						<c:if test="${i.group.id != teamController.selectedGroup.id}" >
+						<tr>
+							<td>${teamController.phonGroupPosMap[i.group.id]}</td>
+							<td>${i.group.title}</td>
+							<td>${i.mark}</td>					
+						</tr>
+						</c:if>
+						<c:if test="${i.group.id == teamController.selectedGroup.id}" >
+						<tr bgcolor="#FFFF99">
+							<td><strong>${teamController.phonGroupPosMap[i.group.id]}</strong></td>
+							<td><strong>${i.group.title}</strong></td>
+							<td><strong>${i.mark}</strong></td>					
+						</tr>
+						</c:if>
+						</c:forEach>
+					</table>
+					<br /><br />
+					<!-- In Team Result -->			
+					<h:form id="phonPractResultForm" onsubmit="return submitRequest()">
+					<table class="summaryTable" cellpadding="0" cellspacing="0">
+						<tr><th class="innerHeading" colspan="3"><h:outputText value="#{teamMsg.teamSummary}" /></th></tr>
+						<tr>
+							<th width="150" class="cellUnderline"><h:outputText value="#{topResultMsg.PHONETICPRACTICE}" /></th>
+							<th width="80" class="cellUnderline"><h:commandLink action="#{teamController.sortPhonByScore}"><u><h:outputText value="#{topResultMsg.Score}" /></u></h:commandLink></th>
+							<th width="80" class="cellUnderline"><h:commandLink action="#{teamController.sortPhonByRate}"><u><h:outputText value="#{topResultMsg.Rate}" /></u></h:commandLink></th>
+						</tr>
+						<t:dataList var="result" value="#{teamController.phonPractResults}" >
+						<h:panelGroup rendered="#{userSession.member.id!=result.member.id}">
+						<tr>										
+							<td>
+								<h:outputText value="#{result.member.name}" />, <h:outputText value="#{result.member.userId}" />
+								<h:panelGroup rendered="#{result.member==teamController.selectedGroup.admin}">&nbsp;<img src="#{request.contextPath}/images/graphic/leader.gif" alt="#{teamMsg.teamLeader}" /></h:panelGroup>						
+							</td>
+							<td><h:outputText value="#{result.mark}" /></td>
+							<td><h:outputText value="#{result.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
+						</tr>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{userSession.member.id==result.member.id}">
+						<tr bgcolor="#FFFCC">										
+							<td>
+								<strong><h:outputText value="#{result.member.name}" />, <h:outputText value="#{result.member.userId}" /></strong>
+								<h:panelGroup rendered="#{result.member==teamController.selectedGroup.admin}">&nbsp;<img src="#{request.contextPath}/images/graphic/leader.gif" alt="#{teamMsg.teamLeader}" /></h:panelGroup>						
+							</td>
+							<td><strong><h:outputText value="#{result.mark}" /></strong></td>
+							<td><strong><h:outputText value="#{result.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></strong></td>
+						</tr>
+						</h:panelGroup>
+						</t:dataList>										
+					</table>
+					</h:form>
+					* <img src="#{request.contextPath}/images/graphic/leader.gif" /> <h:outputText value="#{teamMsg.teamLeader}" />
+					<hr />
+					<!-- Activity Log -->
+					<p class="innerHeading"><h:outputText value="#{teamMsg.teamMemberActivity}" /></p>
+					<table>
+						<t:dataList var="log" value="#{teamController.activities}" >
+						<tr>										
+							<td width="80"><h:outputText value="#{log.createdDate}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText></td>
+							<td width="120"><h:outputText value="#{log.member.name}" />, <h:outputText value="#{log.member.userId}" /></td>
+							<td width="120"><h:outputText value="#{teamMsg[log.actionType]}" /></td>					
+						</tr>
+						</t:dataList>
+					</table>
+				</td>
+				<td align="right" valign="top">
+					<!-- Message -->			
+					<h:form>
+					<table width="316" border="0" cellpadding="0" cellspacing="0">
+						<tr><td colspan="4" style="background-image: url('#{request.contextPath}/images/graphic/message2_01.gif');" width="316" height="9" >&nbsp;</td></tr>
+						<tr><td colspan="4" background="#{request.contextPath}/images/graphic/message2_02.gif" style="padding-left:10px; padding-right:10px; ">					
+							<h:inputTextarea rows="2" value="#{teamController.newMessage.message}" styleClass="messageTextarea" />					
+						</td></tr>
+						<tr><td colspan="4"><img src="#{request.contextPath}/images/graphic/message2_03.gif" width="316" height="27" alt="" /></td></tr>
+					    <tr>
+					    	<td width="30">&nbsp;</td>
+					    	<td><h:outputText value="#{teamMsg.teamLeaveMsg}" /></td>
+					        <td align="left"><h:commandButton action="#{teamController.createMessage}" value="#{teamMsg.teamCreateMsg}" /></td>
+					        <td width="10">&nbsp;</td>
+					    </tr>
+					</table>
+					</h:form>
+					<h:form>
+					<t:dataList var="msg" value="#{teamController.selectedGroup.messages}" >
+					<table width="316" border="0" cellpadding="0" cellspacing="0">
+						<tr><td colspan="4" style="background-image: url('#{request.contextPath}/images/graphic/message_01.gif')" width="316" height="9">&nbsp;</td></tr>
+						<tr><td colspan="4" align="left" background="#{request.contextPath}/images/graphic/message_02.gif" style="padding-left:10px; padding-right:10px; "><h:outputText value="#{msg.message}" /></td></tr>
+						<tr><td colspan="4"><img src="#{request.contextPath}/images/graphic/message_03.gif" width="316" height="27" alt="" /></td></tr>
+					    <tr>
+					    	<td width="30" valign="top">
+					    		<h:panelGroup rendered="#{teamController.selectedGroup.admin.id == userSession.member.id || msg.member.id == userSession.member.id}">
+									<h:commandLink action="#{teamController.deleteMessage}">
+										<f:setPropertyActionListener target="#{teamController.selectedMessage}" value="#{msg}" />
+										<img src="#{request.contextPath}/images/graphic/delete.jpg" width="15" height="15" border="0" />
+									</h:commandLink>	
+					        	</h:panelGroup>
+							</td>
+					    	<td valign="top"><h:outputText value="#{msg.member.name}" />, <h:outputText value="#{msg.member.userId}" /></td>
+					        <td align="right"><h:outputText value="#{msg.createdDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss"  /></h:outputText><br />&nbsp;</td>
+					        <td width="10"></td>
+					    </tr>
+					</table>						
+					</t:dataList>
+					</h:form>
+				</td>		
+			</tr>
+		</table>
+	</ui:define>
+</ui:composition>

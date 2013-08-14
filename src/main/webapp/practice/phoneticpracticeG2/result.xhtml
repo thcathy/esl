@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"	
+	xmlns:esl="http://www.funfunspell.com/jsf"
+	template="/template/main_2column.xhtml">
+	
+	<ui:define name="subTitle">#{htmlHeadMsg.practice_phoneticpracticeG2_result_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.practice_phoneticpracticeG2_result_desc}" /></ui:define>
+	
+	<ui:define name="head"><h:outputText value="#{phoneticPracticeG2Controller.initResultLanguage}" /></ui:define>
+
+	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/vocabpractice.gif" /></ui:define>
+
+	<ui:define name="mainContent">
+		<h2>
+			<h:outputFormat value="#{phonPracticeMsg.resultTitle}">
+				<f:param value="#{phoneticPracticeG2Controller.totalMark}"/>
+				<f:param value="#{phoneticPracticeG2Controller.totalFullMark}"/>
+				<f:param value="#{phoneticPracticeG2Controller.currentGrade.description}"/>
+			</h:outputFormat>
+		</h2>
+		<h:panelGroup rendered="#{phoneticPracticeG2Controller.topLevel}"><h:outputText styleClass="innerHeading" value="#{phonPracticeMsg.practiceG2LvUpReq}" /></h:panelGroup>
+		<esl:scoreBar startMark="#{phoneticPracticeG2Controller.scoreBarCurrentMark}" maxMark="#{phoneticPracticeG2Controller.scoreBarMaxMark}" />
+		<a4j:outputPanel id="msgPanel">
+			<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+		</a4j:outputPanel>
+	</ui:define>
+	
+	<ui:define name="leftColumn">
+		<h:panelGroup rendered="#{phoneticPracticeG2Controller.levelUp}">
+			<p class="innerBold">
+				<h:outputFormat value="#{phonPracticeMsg.resultLvUp}"><f:param value="#{userSession.member.grade.longTitle}" /></h:outputFormat>
+			</p>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{!phoneticPracticeG2Controller.levelUp and userSession.member.grade.level == phoneticPracticeG2Controller.currentGrade.level}">
+			<p class="innerBold">
+				<h:outputFormat value="#{phonPracticeMsg.resultLvRetain}">
+					<f:param value="#{userSession.member.grade.phoneticPracticeLvUpRequire-phoneticPracticeG2Controller.currentGradeResult.mark}" />
+				</h:outputFormat>
+			</p>
+		</h:panelGroup>
+		<h:form>
+		<h:link outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}"><strong><u>#{phonPracticeMsg.resultRetryPractice}</u></strong></h:link>
+		<img src="#{request.contextPath}/images/spacer.gif" width="20" height="1" />
+		<strong><u><h:commandLink onclick="return submitRequest();" action="#{phoneticPracticeG2Controller.start}" value="#{phonPracticeMsg.resultRetrySameGradePractice}"/></u></strong>
+		</h:form>
+		
+		<br /><br />
+		<c:if test="#{phoneticPracticeG2Controller.totalFullMark > 1}">				
+		<!-- Histories -->
+			<p class="innerHeading"><h:outputText value="#{phonPracticeMsg.practicePreviousQuestionsTitle}" /></p>					
+			<table class="resultTable">
+				<thead>
+				<tr>
+					<td width="20">&nbsp;</td>
+					<td width="150"><h:outputText value="#{phonPracticeMsg.practicePhonetic}" /></td>
+					<td width="80"><h:outputText value="#{phonPracticeMsg.practiceWord}" /></td>
+					<td width="80"><h:outputText value="#{phonPracticeMsg.practiceAnswer}" /></td>
+					<td width="20">&nbsp;</td>
+				</tr>
+				</thead>																														
+				<a4j:repeat var="i" rowKeyVar="r" value="#{phoneticPracticeG2Controller.history}">
+				<tr>
+					<td><strong>Q#{phoneticPracticeG2Controller.totalFullMark-r-1}</strong></td>
+					<td>[<h:outputText escape="false" value="#{phoneticPracticeG2Controller.history[r].question.IPA}" />]</td>
+					<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticPracticeG2Controller.history[r].question.word}" target="_blank"><u><h:outputText value="#{phoneticPracticeG2Controller.history[r].question.word}" /></u></a></td>
+					<td><h:outputText value="#{phoneticPracticeG2Controller.history[r].answer}" /></td>
+					<td><h:graphicImage rendered="#{phoneticPracticeG2Controller.history[r].correct}" value="/images/graphic/right.gif" /><h:graphicImage rendered="#{!phoneticPracticeG2Controller.history[r].correct}" value="/images/graphic/wrong.gif" /></td>
+					<td align="center">
+						<a4j:outputPanel rendered="#{!memberWordController.savedQuestion[phoneticPracticeG2Controller.history[r].question]}">
+						<a4j:region>
+							<h:form style="padding:0px; margin:0px; height: 16px;">
+								<a4j:commandLink render="msgPanel" onclick="loadingAnchorImg(this)" oncomplete="removeAnchorImg()" action="#{memberWordController.saveWord}">
+									<f:setPropertyActionListener target="#{memberWordController.selectedPhoneticQuestion}" value="#{phoneticPracticeG2Controller.history[r].question}" />
+									<img border="0" width="15" height="15" src="#{request.contextPath}/images/graphic/plus.gif" />
+								</a4j:commandLink>
+							</h:form>
+						</a4j:region>
+						</a4j:outputPanel>												
+					</td>											
+				</tr>
+				</a4j:repeat>										
+			</table>
+			<p>New! #{phonPracticeMsg.practiceUseMemberWord}</p>
+			<p>* #{phonPracticeMsg.practiceWordExplanation}</p>
+		</c:if>	
+	</ui:define>
+
+	<ui:define name="rightColumn">
+		<p>&nbsp;</p>
+		<esl:topResult title="#{memberSumMsg.summaryScoreRanking}" topResult="#{phoneticPracticeG2Controller.scoreRanking}" />
+		<br />
+		<esl:topResult title="#{memberSumMsg.summaryRatingRanking}" topResult="#{phoneticPracticeG2Controller.rateRanking}" />
+	</ui:define>
+</ui:composition>

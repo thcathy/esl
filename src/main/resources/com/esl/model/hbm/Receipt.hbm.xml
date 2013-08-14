@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.esl.model">
+	<class name="Receipt" table="receipt">
+		<id name="id" type="java.lang.Long" column="RECEIPT_ID">
+			<generator class="identity" />
+		</id>
+		<property name="tutorialCentre" column="TUTORIAL_CENTRE" length="40"  />
+		<property name="tutorialClass" column="TUTORIAL_CLASS" length="40" />
+		<property name="receiptNumber" column="RECEIPT_NUMBER" length="40" />
+		<property name="createdDate" column="CREATED_DATE" />
+		<property name="issuedDate" column="ISSUED_DATE" />
+		<property name="expiredDate" column="EXPIRED_DATE" />
+		<many-to-one name="owner" column="MEMBER_ID" not-null="false" cascade="save-update" foreign-key="FK1_MEMBER_ID" />			
+	</class>
+</hibernate-mapping>
