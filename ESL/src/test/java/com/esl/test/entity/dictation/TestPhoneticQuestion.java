@@ -2,8 +2,13 @@ package com.esl.test.entity.dictation;
 
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.powermock.api.easymock.PowerMock.*;
+import static org.powermock.api.easymock.PowerMock.mockStatic;
+import static org.powermock.api.easymock.PowerMock.replay;
+import static org.powermock.api.easymock.PowerMock.verify;
+
+import java.util.ArrayList;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +17,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.esl.model.PhoneticQuestion;
 import com.esl.util.WebUtil;
+import com.esl.util.practice.PhoneticQuestionUtil;
+import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 
 @RunWith(PowerMockRunner.class)
 public class TestPhoneticQuestion {
@@ -33,7 +40,7 @@ public class TestPhoneticQuestion {
 
 		assertEquals(WebUtil.MAX_QUERY_RESULT, picsFullPaths.length);
 		for (String path : picsFullPaths) {
-			assertTrue(path.contains("bing.net/images/thumbnail"));
+			assertTrue(path.contains("bing.net"));
 		}
 	}
 
@@ -61,6 +68,17 @@ public class TestPhoneticQuestion {
 
 		PhoneticQuestion q = new PhoneticQuestion("abc", "abc");
 		assertEquals(expectedString, q.getPicsFullPathsInString());
-
+	}
+	
+	@Test
+	public void testGetText2SpeechMp3() {
+		PhoneticQuestion question = new PhoneticQuestion("It is not a word", null);		
+		PhoneticQuestionUtil util = new PhoneticQuestionUtil();
+		
+		FindIPAAndPronoun service = util.new FindIPAAndPronoun(new ArrayList<PhoneticQuestion>(), question, null, null);		
+		service.run();
+			
+		assertNotNull(question.getPronouncedLink());
+		assertTrue(question.getPronouncedLink().contains(".mp3"));
 	}
 }

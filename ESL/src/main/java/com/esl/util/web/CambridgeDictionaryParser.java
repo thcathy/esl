@@ -13,18 +13,12 @@ import org.springframework.util.StringUtils;
 
 import com.esl.model.practice.PhoneticSymbols;
 import com.esl.util.SourceChecker;
-import com.esl.util.WebUtil;
 
 public class CambridgeDictionaryParser implements SourceChecker, DictionaryParser {
 	private Logger logger = LoggerFactory.getLogger("ESL");
 
 	final String URLPrefix = "http://dictionary.cambridge.org/dictionary/british/";
-	final String IPAPrefix = "<span class=\"ipa\">";
-	final String audioPrefix = "<audio id=\"audio_pron-uk_0\" ";
-	final String audioSuffix = ".mp3";
-	final String audioURLPrefix = "http://dictionary.cambridge.org/media/";
-	final int IPAPositionLimit = 1000;
-
+	
 	String ipa;
 	String audioLink;
 	String query;			// input word
@@ -93,20 +87,7 @@ public class CambridgeDictionaryParser implements SourceChecker, DictionaryParse
 //			ipa = PhoneticSymbols.filterIPA(PhoneticSymbols.convertGoogleIPA(line.substring(startPos + IPAPrefix.length(), endPos)));
 //		}
 //	}
-
-	private int extractAudioLink(String line) {
-		int startPos = line.indexOf(audioPrefix);
-		if (startPos < 0) return startPos;
-
-		// audio line find
-		startPos = line.indexOf(audioURLPrefix, startPos);
-		int endPos = line.indexOf(audioSuffix, startPos);
-		audioLink = line.substring(startPos, endPos) + audioSuffix;
-		audioLink = audioLink.replace("#skLicensedUrl('')/media/", "");
-		audioLink = audioLink.replace("$dictCode", "british");
-		return endPos;
-	}
-
+	
 	private String concatURL() {
 		return URLPrefix + query;
 	}
