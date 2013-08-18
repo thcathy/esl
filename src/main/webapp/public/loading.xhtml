@@ -36,7 +36,7 @@ function loadingAnchorImg(anchor) {
 	{
 		var img = anchor.childNodes[i];
 		if (img.tagName == "img"  || img.tagName == "IMG") {
-			img.src = "/ESL/images/graphic/loading.gif";
+			img.src = "${request.contextPath}/images/graphic/loading.gif";
 			img.id = "ajaxloadingImg";
 		}
 	}	
