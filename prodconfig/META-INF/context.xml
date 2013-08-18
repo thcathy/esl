@@ -29,7 +29,7 @@
   	name="jdbc/ESLDB" password="ilovekw" 
   	removeAbandoned="true" removeAbandonedTimeout="60" 
   	type="javax.sql.DataSource" 
-  	url="jdbc:mysql://localhost:3306/ESL?useUnicode=true&amp;characterEncoding=UTF-8&amp;"
+  	url="jdbc:mysql://funfunspell.com:3306/ESL?useUnicode=true&amp;characterEncoding=UTF-8&amp;"
   	testOnBorrow="true" testWhileIdle="true" validationQuery="select 1"
   	username="root"/>
 </Context>
