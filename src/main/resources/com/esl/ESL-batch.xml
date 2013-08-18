@@ -86,29 +86,29 @@
 <!-- 	</bean> -->
 	
 	<!-- Tomcat JMX Checker -->
-	<bean id="tomcatProcessingTimeChecker" class="com.esl.service.manage.TomcatProcessingTimeChecker">
-		<property name="jmxServiceURL" value="service:jmx:rmi:///jndi/rmi://:8180/jmxrmi" />
-		<property name="objectNameQuery" value="Catalina:type=RequestProcessor,worker=*,name=*Request*" />
-		<property name="limitProcessTime" value="60000" />
-	</bean>
-	<bean id="jmxMBeanCheckProcessor" class="com.esl.service.manage.JMXMBeanCheckProcessor">
-		<property name="checkers">
-			<list>
-				<ref bean="tomcatProcessingTimeChecker"/>
-			</list>
-		</property>
-		<property name="mailService" ref="mailService" />
-	</bean>
-	<bean id="jmxMBeanCheckerSchedule" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject" ref="jmxMBeanCheckProcessor" />
-		<property name="targetMethod" value="checkAll" />
-		<property name="concurrent" value="false" />		
-	</bean>	
-	<bean id="jmxMBeanCheckerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">    
-    	<property name="jobDetail" ref="jmxMBeanCheckerSchedule" />
-    	<property name="startDelay" value="0" />
-	    <property name="repeatInterval" value="900000" /> <!-- 15 min -->
-	</bean>
+<!-- 	<bean id="tomcatProcessingTimeChecker" class="com.esl.service.manage.TomcatProcessingTimeChecker"> -->
+<!-- 		<property name="jmxServiceURL" value="service:jmx:rmi:///jndi/rmi://:8180/jmxrmi" /> -->
+<!-- 		<property name="objectNameQuery" value="Catalina:type=RequestProcessor,worker=*,name=*Request*" /> -->
+<!-- 		<property name="limitProcessTime" value="60000" /> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="jmxMBeanCheckProcessor" class="com.esl.service.manage.JMXMBeanCheckProcessor"> -->
+<!-- 		<property name="checkers"> -->
+<!-- 			<list> -->
+<!-- 				<ref bean="tomcatProcessingTimeChecker"/> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="mailService" ref="mailService" /> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="jmxMBeanCheckerSchedule" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject" ref="jmxMBeanCheckProcessor" /> -->
+<!-- 		<property name="targetMethod" value="checkAll" /> -->
+<!-- 		<property name="concurrent" value="false" />		 -->
+<!-- 	</bean>	 -->
+<!-- 	<bean id="jmxMBeanCheckerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">     -->
+<!--     	<property name="jobDetail" ref="jmxMBeanCheckerSchedule" /> -->
+<!--     	<property name="startDelay" value="0" /> -->
+<!-- 	    <property name="repeatInterval" value="900000" /> 15 min -->
+<!-- 	</bean> -->
 		
 	<!-- Scheduler -->	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
@@ -118,7 +118,7 @@
 				<ref bean="generateDictationStatisticsTrigger" />
 				<ref bean="generateMedalsTrigger" />		
 <!-- 				<ref bean="webSourceCheckerTrigger" /> -->
-				<ref bean="jmxMBeanCheckerTrigger" />
+<!-- 				<ref bean="jmxMBeanCheckerTrigger" /> -->
 			</list>
 		</property>
 	</bean>

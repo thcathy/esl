@@ -22,7 +22,7 @@
 		<property name="dataSource" ref="mySQLDataSource" />
 
 		<!-- Turn On for update db schema -->
-		<property name="schemaUpdate" value="true" />
+		<property name="schemaUpdate" value="${SQLDataSource.schemaUpdate}" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
