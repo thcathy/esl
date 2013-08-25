@@ -18,6 +18,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script type="text/javascript" src="${request.contextPath}/js/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript">
+		//<![CDATA[
 		jQuery.noConflict();
 		
 		jQuery(document).ready(
@@ -35,6 +36,7 @@
 				)
 			}
 		)		
+		//]]>
 		</script>
 	</ui:define>
 	
@@ -81,7 +83,7 @@
 						<h:inputHidden id="minAge" value="#{searchDictationController.inputForm.minAge}" />
 						<h:inputHidden id="maxAge" value="#{searchDictationController.inputForm.maxAge}" />
 						<script type="text/javascript">
-						<!--
+						//<![CDATA[
 						jQuery(function($) {
 							$("#ageSlider").slider({
 								range: true,
@@ -95,9 +97,7 @@
 								}
 							});							
 						});
-
-						
-						-->
+						//]]>
 						</script>
 					</td>
 				</tr>				

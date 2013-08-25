@@ -40,6 +40,7 @@
 		<td class="border" width="500px"><div id="scoreBar" class="colorBar" style="width:0px;"><h:outputText id="markText" value="#{startMark}" />&nbsp;</div></td></tr>
 </table>
 <script type="text/javascript">
+//<![CDATA[
 var fullLength = 500;
 
 function animateScoreBar(currentMark, maxMark) {
@@ -53,5 +54,6 @@ jQuery(document).ready(function() {
 	jQuery("#scoreBar").animate({width: widthPx},500);
 }
 );
+//]]>
 </script>
 </ui:composition>

@@ -15,7 +15,7 @@
 <script type="text/javascript" src="#{request.contextPath}/js/yui.js"></script>
 <link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/container.css" />
 <script type="text/javascript">
-<!--
+//<![CDATA[
 var requestSubmitted = false;
 function submitRequest() {
 	if (!requestSubmitted) {
@@ -48,6 +48,6 @@ function removeAnchorImg() {
 	var imgArr = document.getElementById("ajaxloadingImg");
 	imgArr.parentNode.parentNode.removeChild(imgArr.parentNode);
 }
--->
+//]]>
 </script>
 </ui:composition>

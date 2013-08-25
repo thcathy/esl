@@ -32,9 +32,11 @@
 					    		<td>
 								    <div id="player1" style="clear: none"><a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> for pronounce.</div>
 								    <script type="text/javascript">
+								  	//<![CDATA[
 									    var player = new SWFObject("#{request.contextPath}/player/btn_#{languageController.locale}.swf", "line", "184", "30", "7");
 									    player.addVariable("path","#{cc.attrs.controllerBean.practice.currentQuestionObject.pronouncedLink}");
 									    player.write("player1");
+									//]]>
 								    </script>								    
 					    		</td>
 					    	</tr>					    	
@@ -46,9 +48,11 @@
 					    		</h:panelGroup>
 					    		<h:panelGroup rendered="#{!cc.attrs.controllerBean.withIPA}">
 					    			<script type="text/javascript">
+					    			//<![CDATA[
 									function showIPA() {					    				
 										document.getElementById("IPARightTD").innerHTML="[#{cc.attrs.controllerBean.practice.currentQuestionObject.IPA}]";						
-									}										
+									}			
+									//]]>
 									</script>
 					    			<td id="IPARightTD" align="left">
 										<a href="#" onclick="showIPA()" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('btn_ipa','','#{languageController.imagesPath}/button/GetPhoneticSymbol_r.gif',1)">
@@ -64,10 +68,12 @@
 						    	</h:panelGroup>
 						    	<h:panelGroup rendered="#{!cc.attrs.controllerBean.withRandomCharacters}">
 						    		<script type="text/javascript">
+						    		//<![CDATA[
 									function showShuffledCharacters() {
 										document.getElementById("ShuffledCharLeftTD").innerHTML="#{selfDictationMsg.suffledTips} :";
 										document.getElementById("ShuffledCharRightTD").innerHTML="[#{cc.attrs.controllerBean.practice.currentQuestionObject.suffledWord}]";
 									}
+									//]]>
 									</script>									
 						    		<td id="ShuffledCharRightTD">
 						    			<a href="#" onclick="showShuffledCharacters()" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('btn_ShuffledCharacters','','#{languageController.imagesPath}/button/GetShuffledWord_r.gif',1)">

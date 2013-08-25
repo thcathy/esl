@@ -15,7 +15,7 @@
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.practice_selfdictation_input_desc}" />
 		<script type="text/javascript">
-		<!--
+		//<![CDATA[
 		function clearVocab() {
 			var i=1;
 			while (i <= #{selfDictationController.totalInput}) {
@@ -24,7 +24,7 @@
 			} 
 			return false;
 		}
-		-->
+		//]]>
 		</script>	
 	</ui:define>
 	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/mydictation.gif" /></ui:define>

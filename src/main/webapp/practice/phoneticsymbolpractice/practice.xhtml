@@ -106,9 +106,11 @@
 							<a4j:queue />
 							<div id="player1" style="clear: none"><a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> for pronounce.</div>
 						    <script type="text/javascript">
+						  	//<![CDATA[
 							    var player1 = new SWFObject("#{request.contextPath}/player/btn_#{languageController.locale}.swf", "line", "184", "30", "7");
 							    player1.addVariable("path","#{phoneticSymbolPracticeController.question.pronouncedLink}")
 							    player1.write("player1");
+							//]]>
 						    </script>
 						    <table width="280" style="color: #EE6600;">								    								    	
 						    	<tr id="word">

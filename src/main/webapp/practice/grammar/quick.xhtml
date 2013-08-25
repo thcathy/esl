@@ -16,10 +16,10 @@
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.practice_grammar_desc}" />
 		<script type="text/javascript">
+		//<![CDATA[
 		var defaultPassage = 'This is an example passage. You can start the exercise by clicking the button below or click the input box to put in any article here. Moreover, you can simply copy and paste any article you find in web or document into here.';
 		var pastePassage = '\n\n\n\n' + '#{grammarMsg.pastePassage}';
-		
-		<!--
+				
 		jQuery.noConflict();
 		
 		jQuery(document).ready(function(){			
@@ -62,7 +62,7 @@
 			}	
 			
 		});
-		-->
+		//]]>
 		</script>	
 	</ui:define>
 	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/grammarpractice.gif" /></ui:define>
