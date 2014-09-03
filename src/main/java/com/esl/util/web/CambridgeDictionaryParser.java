@@ -1,6 +1,5 @@
 package com.esl.util.web;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.text.MessageFormat;
 
@@ -41,35 +40,29 @@ public class CambridgeDictionaryParser implements SourceChecker, DictionaryParse
 
 	// ------------------------ function --------------------- //
 	public boolean parse() {
-		//BufferedReader br;
+		if (!tryParseFromUrl(concatURL()))
+			if (!tryParseFromUrl(concatURL2()))
+				if (!tryParseFromUrl(concatURL3())) {}
+		
+		return isContentFind();
+	}
+	
+	private boolean tryParseFromUrl(String url) {
 		Document doc;
-				
-		try {
-			//br = WebUtil.getReaderFromURL(concatURL());
-			HttpURLConnection connection = new HttpURLConnectionBuilder().setURL(concatURL()).createConnection();
-			doc = Jsoup.parse(connection.getInputStream(), "UTF-8", connection.getURL().getPath());			
-		} catch (IOException e1) {
-			try {				
-				HttpURLConnection connection = new HttpURLConnectionBuilder().setURL(concatURL2()).createConnection();
-				doc = Jsoup.parse(connection.getInputStream(), "UTF-8", connection.getURL().getPath());
-			} catch (IOException e) {
-				logger.warn("cannot get reader when query [{}]", query);
-				return false;
-			}
-		}
-
-		try {
+		
+		try {			
+			HttpURLConnection connection = new HttpURLConnectionBuilder().setURL(url).createConnection();
+			doc = Jsoup.parse(connection.getInputStream(), "UTF-8", connection.getURL().getPath());
 			
-			Elements audioLinkSource = doc.select("source.audio_file_source");
-			audioLink = audioLinkSource.get(0).attr("src");
+			Elements audioLinkSource = doc.select("span.sound.audio_play_button.pron-icon.uk");
+			audioLink = audioLinkSource.get(0).attr("data-src-mp3");
 			
 			String orgIPA = doc.select("span.ipa").get(0).ownText();
 			logger.debug("org IPA [{}]", orgIPA);
-			ipa = PhoneticSymbols.filterIPA(PhoneticSymbols.convertGoogleIPA(orgIPA));			
-		} catch (Exception e) {
-			logger.warn("cannot get reader when query [{}]", query);
+			ipa = PhoneticSymbols.filterIPA(PhoneticSymbols.convertGoogleIPA(orgIPA));
+		} catch (Exception e1) {
+			logger.warn("cannot get reader when query [{}] from url [{}], reason [{}]", new Object[]{query, url, e1.toString()});
 		}
-
 		return isContentFind();
 	}
 
@@ -94,6 +87,10 @@ public class CambridgeDictionaryParser implements SourceChecker, DictionaryParse
 
 	private String concatURL2() {
 		return URLPrefix + query + "_1?q=" + query;
+	}
+	
+	private String concatURL3() {
+		return URLPrefix + query + "_2?q=" + query;
 	}
 
 	@Override
