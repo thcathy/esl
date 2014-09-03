@@ -48,6 +48,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
 				<configuration>
+					<warName>ESL</warName>
 					<webResources>
 						<resource>
 							<directory>prodconfig</directory>
@@ -179,6 +180,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-annotations</artifactId>
 			<version>3.4.0.GA</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>javassist</groupId>
@@ -294,6 +301,16 @@
 			<groupId>org.apache.myfaces.tomahawk</groupId>
 			<artifactId>tomahawk20</artifactId>
 			<version>1.1.11</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xmlParserAPIs</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
