@@ -5,14 +5,16 @@ import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 @Controller
 @Scope("session")
 public class ErrorPage implements Serializable {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(ErrorPage.class);
 	private final String bundleName = "messages.GeneralMessages";
 
 	private String title = "";

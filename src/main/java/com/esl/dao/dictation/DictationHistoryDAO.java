@@ -2,8 +2,9 @@ package com.esl.dao.dictation;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import com.esl.model.Member;
 
 @Repository("dictationHistoryDAO")
 public class DictationHistoryDAO extends ESLDao<DictationHistory> implements IDictationHistoryDAO {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(DictationHistoryDAO.class);
 
 	public List<DictationHistory> listByDictation(Dictation dictation) {
 		return listByDictation(dictation, 0);

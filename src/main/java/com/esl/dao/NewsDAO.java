@@ -3,7 +3,8 @@ package com.esl.dao;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +17,7 @@ import com.esl.enumeration.ESLSupportedLocale;
 @Transactional
 @Repository("newsDAO")
 public class NewsDAO extends ESLDao<News> implements INewsDAO {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(NewsDAO.class);
 	public static int MAX_LATEST_NEWS = 10;
 
 	@Value("${NewsDAO.MaxLatestNews}") public void setMaxLatestNews(int maxLatestNews) { MAX_LATEST_NEWS = maxLatestNews;}

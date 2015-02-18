@@ -5,7 +5,8 @@ import java.util.ResourceBundle;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -17,7 +18,7 @@ import com.esl.web.jsf.controller.ESLController;
 @Scope("request")
 public class OpenDictationController extends ESLController {
 	private static final long serialVersionUID = -6870604419654595053L;
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(OpenDictationController.class);
 	private static final String bundleName = "messages.member.Dictation";
 
 	//	 Supporting instance

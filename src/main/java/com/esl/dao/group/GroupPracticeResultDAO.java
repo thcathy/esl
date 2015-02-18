@@ -3,7 +3,9 @@ package com.esl.dao.group;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +20,7 @@ import com.esl.model.group.MemberGroupPracticeResult;
 @Transactional
 @Repository("groupPracticeResultDAO")
 public class GroupPracticeResultDAO extends PracticeResultDAO implements IGroupPracticeResultDAO {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(GroupPracticeResultDAO.class);
 
 	public GroupPracticeResultDAO() {}
 

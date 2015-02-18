@@ -7,7 +7,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.esl.dao.IGradeDAO;
 import com.esl.dao.IMemberDAO;
@@ -24,7 +25,7 @@ import com.esl.web.util.LanguageUtil;
 //@Controller
 //@Scope("session")
 public class TeamController extends ESLController {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(TeamController.class);
 
 	private final String bundleName = "messages.member.Team";
 	private final String teamsView = "/member/team/teams";

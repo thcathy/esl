@@ -3,7 +3,8 @@ package com.esl.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.*;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,8 @@ import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPhoneticQuestionDAO {
 	private static final String GET_PHONETIC_QUESTION_BY_WORD = "from PhoneticQuestion phoneticQuestion where phoneticQuestion.word = :word";
 	private static final String GET_QUESTIONS_BY_GRADE = "SELECT pq.phoneticquestion_id id FROM phonetic_question pq, grade_phoneticquestion gpq WHERE pq.phoneticquestion_id = gpq.phoneticquestion_id AND gpq.grade_id = :gradeId LIMIT 0, :total";
-
+	private final Logger logger = LoggerFactory.getLogger(PhoneticQuestionDAO.class);
+	
 	public PhoneticQuestionDAO() {}
 
 	public PhoneticQuestion getPhoneticQuestionByWord(String word) {
@@ -28,7 +30,7 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 		if (result.size() > 0)
 			return (PhoneticQuestion) result.get(0);
 		else {
-			Logger.getLogger("ESL").info("Cannot find the PhoneticQuestion by word:" + word);
+			logger.info("Cannot find the PhoneticQuestion by word:" + word);
 			return null;
 		}
 	}
@@ -51,11 +53,11 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 		Query query = session.createSQLQuery(queryString).addScalar("id",Hibernate.LONG);
 		query.setParameter("gradeId", grade.getId());
 		query.setMaxResults(total);
-		Logger.getLogger("ESL").info("getRandomQuestionsByGrade: queryString[" + queryString + "]");
+		logger.info("getRandomQuestionsByGrade: queryString[" + queryString + "]");
 
 		List<Long> results = query.list();
 		if (results.size() < 1) {
-			Logger.getLogger("ESL").info("Cannot get any PhoneticQuestion by SQL:" + queryString);
+			logger.info("Cannot get any PhoneticQuestion by SQL:" + queryString);
 			return null;
 		}
 
@@ -70,17 +72,17 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 			if (question != null) {
 				FindIPAAndPronoun finder = pqUtil.new FindIPAAndPronoun(questions, question, null, null);
 				Thread newThread = new Thread(finder);
-				Logger.getLogger("ESL").info("Start a new thread for Find IPA and Pronoun with id:" + newThread.getId() + ", Word[" + question.getWord()  + "]");
+				logger.info("Start a new thread for Find IPA and Pronoun with id:" + newThread.getId() + ", Word[" + question.getWord()  + "]");
 				newThread.start();
 				threads.add(newThread);
 			} else {
-				Logger.getLogger("ESL").info("Cannot find the PhoneticQuestion by id:" + results.get(i));
+				logger.info("Cannot find the PhoneticQuestion by id:" + results.get(i));
 			}
 		}
-		Logger.getLogger("ESL").info("All thread for Find IPA and Pronoun STARTED");
+		logger.info("All thread for Find IPA and Pronoun STARTED");
 
 		while (threads.size() > 0 && questions.size() < total) {
-			Logger.getLogger("ESL").info("questions.size()=" + questions.size());
+			logger.info("questions.size()=" + questions.size());
 			try {
 				synchronized (this) {
 					for (int i = 0; i < threads.size(); i++) {
@@ -90,7 +92,7 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 					Thread.sleep(250);	// 0.25 sec
 				}
 			} catch (InterruptedException ex) {
-				Logger.getLogger("ESL").error(ex);
+				logger.error("Interrupted when sleep", ex);
 			}
 		}
 

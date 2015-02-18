@@ -6,7 +6,8 @@ import javax.annotation.Resource;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -31,7 +32,7 @@ import com.esl.web.util.SelectItemUtil;
 @Controller
 @Scope("session")
 public class SummaryController extends ESLController {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(SummaryController.class);
 
 	private final String bundleName = "messages.member.Summary";
 	private final String memberIndexView = "/member/index";

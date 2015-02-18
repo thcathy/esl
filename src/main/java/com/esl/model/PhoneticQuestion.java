@@ -3,13 +3,14 @@ package com.esl.model;
 import java.io.Serializable;
 import java.util.*;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.esl.util.WebUtil;
 
 public class PhoneticQuestion implements Serializable {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(PhoneticQuestion.class);
 
 	public final static String SYMBOL_GIF_PREFIX = "l.yimg.com/mq/i/dic/";
 	public final static String SYMBOL_GIF_SUFFIX =  ".gif";

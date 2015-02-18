@@ -4,7 +4,8 @@ import java.util.*;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
@@ -20,7 +21,7 @@ import com.esl.util.SpringUtil;
 @Service("topResultService")
 @Transactional
 public class TopResultService implements ITopResultService {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(TopResultService.class);
 
 	@Resource private IPracticeResultDAO practiceResultDAO = null;
 	@Resource private IGradeDAO gradeDAO = null;
@@ -126,7 +127,7 @@ public class TopResultService implements ITopResultService {
 		// init Linkage for all results
 		for (PracticeResult pr : results) {
 			practiceResultDAO.initLinkage(pr);
-			logger.info(pr);
+			logger.info(pr.toString());
 		}
 
 		TopResult result = new TopResult(orderType);
@@ -269,31 +270,4 @@ public class TopResultService implements ITopResultService {
 		return subResults;
 	}
 
-	public static void main(String[] args)
-	{
-		HibernateTransactionManager sf = (HibernateTransactionManager) SpringUtil.getContext().getBean("transactionManager");
-		Session s = sf.getSessionFactory().openSession();
-		Transaction transaction = s.beginTransaction();
-		ITopResultService t = (ITopResultService) SpringUtil.getContext().getBean("topResultService");
-		IGradeDAO g = (IGradeDAO) SpringUtil.getContext().getBean("gradeDAO");
-		IMemberDAO mdao = (IMemberDAO) SpringUtil.getContext().getBean("memberDAO");
-		Grade grade = g.getGradeByTitle("K3");
-
-		try
-		{
-			Member member = mdao.getMemberByUserID("tester5");
-
-			TopResult tr = t.getRandomTopResults();
-			System.out.println(tr);
-			for (PracticeResult pr : tr.getTopResults()) {
-				System.out.println(pr);
-			}
-		}
-		catch (Exception e)
-		{
-			logger.warn(e);
-		}
-		transaction.commit();
-		sf.getSessionFactory().close();
-	}
 }

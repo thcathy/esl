@@ -5,7 +5,8 @@ import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ import com.esl.web.model.PasswordRequire;
 @Controller
 @Scope("session")
 public class CheckPasswordController extends ESLController {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(CheckPasswordController.class);
 	private static int MAX_RETRY = 1;
 
 	private final String bundleName = "messages.GeneralMessages";

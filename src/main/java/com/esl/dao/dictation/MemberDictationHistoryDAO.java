@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import com.esl.exception.IllegalParameterException;
 import com.esl.model.Member;
 @Repository("memberDictationHistoryDAO")
 public class MemberDictationHistoryDAO extends ESLDao<MemberDictationHistory> implements IMemberDictationHistoryDAO {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MemberDictationHistoryDAO.class);
 
 	@Resource private IVocabHistoryDAO vocabHistoryDAO;
 

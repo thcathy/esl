@@ -8,7 +8,8 @@ import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -25,7 +26,7 @@ import com.esl.web.util.LanguageUtil;
 @Controller
 @Scope("session")
 public class PhoneticPracticeController extends ESLController {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(PhoneticPracticeController.class);
 	private final String bundleName = "messages.practice.PhoneticPractice";
 	private String viewPrefix = "/practice/phoneticpractice/";
 	private String indexView = viewPrefix + "index";

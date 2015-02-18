@@ -11,7 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -29,7 +30,7 @@ import com.esl.web.util.LanguageUtil;
 public class SelfDictationController extends ESLController {
 	private static final long serialVersionUID = -7368848157958147632L;
 
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(SelfDictationController.class);
 	private final String bundleName = "messages.practice.SelfDictation";
 	private final String viewPrefix = "/practice/selfdictation/";
 	private final String inputView = viewPrefix + "input";

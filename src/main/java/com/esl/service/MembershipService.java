@@ -2,7 +2,8 @@ package com.esl.service;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,8 @@ import com.esl.util.ValidationUtil;
 @Service("membershipService")
 @Transactional
 public class MembershipService implements IMembershipService {
+	private Logger logger = LoggerFactory.getLogger(MembershipService.class);
+	
 	@Resource private IGradeDAO gradeDAO;
 	@Resource private IMemberDAO memberDAO;
 
@@ -25,7 +28,7 @@ public class MembershipService implements IMembershipService {
 	public String signUp(Member member) {
 		// Check user ID have created
 		if (memberDAO.getMemberByUserID(member.getUserId()) != null) {
-			Logger.getLogger("ESL").info("signUp: USER_ID_DUPLICATED: userId:" + member.getUserId());
+			logger.info("signUp: USER_ID_DUPLICATED: userId:" + member.getUserId());
 			return USER_ID_DUPLICATED;
 		}
 
@@ -36,25 +39,25 @@ public class MembershipService implements IMembershipService {
 
 			memberDAO.makePersistent(member);
 		} catch (Exception e) {
-			Logger.getLogger("ESL").info("signUp: " + e);
+			logger.info("signUp: " + e);
 			return SYSTEM_ERROR;
 		}
-		Logger.getLogger("ESL").info("signUp: ACCOUNT_CREATED: userId:" + member.getUserId());
+		logger.info("signUp: ACCOUNT_CREATED: userId:" + member.getUserId());
 		return ACCOUNT_CREATED;
 	}
 
 	public String updateProfile(Member member) {
 		if (member == null) {
-			Logger.getLogger("ESL").warn("updateProfile: USER_ID_NOT_FOUND: userId:" + member.getUserId());
+			logger.warn("updateProfile: USER_ID_NOT_FOUND: userId:" + member.getUserId());
 			return USER_ID_NOT_FOUND;
 		}
 		try {
 			memberDAO.makePersistent(member);
 		} catch (Exception e) {
-			Logger.getLogger("ESL").info("updateProfile: " + e);
+			logger.info("updateProfile: " + e);
 			return SYSTEM_ERROR;
 		}
-		Logger.getLogger("ESL").info("updateProfile: PROFILE_UPDATED: userId:" + member.getUserId());
+		logger.info("updateProfile: PROFILE_UPDATED: userId:" + member.getUserId());
 		return PROFILE_UPDATED;
 	}
 
@@ -62,7 +65,7 @@ public class MembershipService implements IMembershipService {
 		try {
 			if (!ValidationUtil.isAlphaNumeric(member.getUserId()) || ValidationUtil.isContainInvalidCharacters(member.getPIN()))
 			{
-				Logger.getLogger("ESL").info("login: INVALID_INPUT: userId:" + member.getUserId());
+				logger.info("login: INVALID_INPUT: userId:" + member.getUserId());
 				return INVALID_INPUT;
 			}
 
@@ -72,10 +75,10 @@ public class MembershipService implements IMembershipService {
 			else if (!this.member.getPIN().equals(member.getPIN()))	// PIN not match
 				return USER_ID_PASSWORD_NOT_MATCH;
 		} catch (Exception e) {
-			Logger.getLogger("ESL").info("login: " + e);
+			logger.info("login: " + e);
 			return SYSTEM_ERROR;
 		}
-		Logger.getLogger("ESL").info("login: LOGIN_SUCCEED: userId:" + member.getUserId());
+		logger.info("login: LOGIN_SUCCEED: userId:" + member.getUserId());
 		return LOGIN_SUCCEED;
 	}
 }

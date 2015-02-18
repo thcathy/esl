@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ import com.esl.web.model.group.GroupSummaryByMember;
 @Service("memberGroupService")
 @Transactional
 public class MemberGroupService implements IMemberGroupService {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MemberGroupService.class);
 
 	// supporting class
 	@Resource private IMemberGroupDAO memberGroupDAO;
@@ -71,7 +72,7 @@ public class MemberGroupService implements IMemberGroupService {
 
 		// check group is exist
 		MemberGroup group = memberGroupDAO.getMemberGroupById(id);
-		logger.info(group);
+		logger.info(group.toString());
 		if (group == null) throw new BusinessValidationException("exception.memberGroupNotFound","joinGroup: Group ID[" + id + "] not found");
 
 		// check member is joined

@@ -1,9 +1,11 @@
 package com.esl.exception;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class IllegalParameterException extends ESLSystemException {
-	private static Logger logger = Logger.getLogger("ESLException");
+	private static Logger logger = LoggerFactory.getLogger(IllegalParameterException.class);
 	
 	protected String[] objectNames;
 	protected Object[] objects;

@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,7 @@ import com.esl.model.*;
 @Transactional
 @Service("memberWordManageService")
 public class MemberWordManageService implements IMemberWordManageService {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MemberWordManageService.class);
 	private static int MAX_WORD = 100;
 
 	//	 supporting class

@@ -2,7 +2,8 @@ package com.esl.web.jsf.controller.member;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -14,6 +15,8 @@ import com.esl.web.jsf.controller.ESLController;
 @Controller
 @Scope("session")
 public class PracticeSummary extends ESLController {
+	private final Logger logger = LoggerFactory.getLogger(PracticeSummary.class);
+	
 	// Supporting instance
 	@Resource private IPracticeResultDAO practiceResultDAO;
 	@Resource private IPhoneticPracticeHistoryDAO phoneticPracticeHistoryDAO;
@@ -50,7 +53,7 @@ public class PracticeSummary extends ESLController {
 		//bestPhoneticPracticeResult = practiceResultDAO.getBestPracticeResultByMember(member, PracticeResult.PHONETICPRACTICE);
 		//lastPhoneticPracticeHistory = phoneticPracticeHistoryDAO.getLastPracticeHistoryByMember(member);
 
-		Logger.getLogger("ESL").info("retrievePracticeResult: FINISH");
+		logger.info("retrievePracticeResult: FINISH");
 	}
 
 }

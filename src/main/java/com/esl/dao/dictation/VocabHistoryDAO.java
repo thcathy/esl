@@ -2,7 +2,8 @@ package com.esl.dao.dictation;
 
 import java.util.Collection;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import com.esl.exception.IllegalParameterException;
 @Transactional
 @Repository("vocabHistoryDAO")
 public class VocabHistoryDAO extends ESLDao<VocabHistory> implements IVocabHistoryDAO {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(VocabHistoryDAO.class);
 
 
 	public int removeByVocabs(Collection<Vocab> vocabs) {

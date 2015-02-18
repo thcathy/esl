@@ -3,10 +3,11 @@ package com.esl.util;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BeanUtil {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(BeanUtil.class);
 
 	/**
 	 * This method returns true if the collection is null or is empty.

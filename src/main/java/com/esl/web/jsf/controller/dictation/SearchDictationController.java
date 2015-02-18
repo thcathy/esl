@@ -8,7 +8,8 @@ import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ import com.esl.web.model.SearchDictationInputForm;
 @Controller
 @Scope("session")
 public class SearchDictationController extends ESLController {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(SearchDictationController.class);
 	private static final String bundleName = "messages.member.Dictation";
 	private static final String resultView = "/member/dictation/searchresult";
 

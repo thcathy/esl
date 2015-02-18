@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -21,7 +22,7 @@ import com.esl.web.jsf.controller.ESLController;
 @Controller
 @Scope("session")
 public class MemberWordController extends ESLController {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MemberWordController.class);
 	private static String bundleName = "messages.member.MemberWord";
 
 	private static String manageView = "/member/vocab/manage";

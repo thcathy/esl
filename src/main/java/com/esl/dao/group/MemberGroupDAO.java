@@ -2,7 +2,8 @@ package com.esl.dao.group;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import com.esl.model.group.MemberGroup;
 @Transactional
 @Repository("memberGroupDAO")
 public class MemberGroupDAO extends ESLDao<MemberGroup> implements IMemberGroupDAO {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MemberGroupDAO.class);
 
 	public MemberGroupDAO() {}
 

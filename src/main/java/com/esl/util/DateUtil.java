@@ -3,10 +3,11 @@ package com.esl.util;
 import java.sql.Date;
 import java.util.Calendar;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DateUtil {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(DateUtil.class);
 
 	/**
 	 * To first day of month

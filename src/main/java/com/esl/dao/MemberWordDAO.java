@@ -3,7 +3,8 @@ package com.esl.dao;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +17,7 @@ import com.esl.model.*;
 @Transactional
 @Repository("memberWordDAO")
 public class MemberWordDAO extends ESLDao<MemberWord> implements IMemberWordDAO {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MemberWordDAO.class);
 	public static int LEARNT_CORRECT_REQUIRE = 5;
 
 	@Value("${MemberWordDAO.LearntCorrectRequire}") public void setLearntCorrectRequire(int learntCorrectRequire) { LEARNT_CORRECT_REQUIRE = learntCorrectRequire;}

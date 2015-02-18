@@ -7,7 +7,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -20,7 +21,7 @@ import com.esl.service.practice.IPhoneticPracticeService;
 public class ProfileController extends ESLController {
 	private static final long serialVersionUID = 5733512605406754494L;
 
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(ProfileController.class);
 
 	private final String bundleName = "messages.Authentication";
 	private final String profileView = "/member/profile";

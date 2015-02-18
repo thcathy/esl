@@ -4,7 +4,8 @@ import java.util.*;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,7 @@ import com.esl.util.BeanUtil;
 @Service("memberGroupResultService")
 @Transactional
 public class MemberGroupResultService implements IMemberGroupResultService {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MemberGroupResultService.class);
 
 	// supporting class
 	@Resource(name="groupPracticeResultDAO") private IGroupPracticeResultDAO practiceResultDAO;

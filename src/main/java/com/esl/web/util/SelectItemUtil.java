@@ -5,7 +5,8 @@ import java.util.*;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.esl.entity.dictation.Dictation;
 import com.esl.entity.dictation.Dictation.AgeGroup;
@@ -14,7 +15,7 @@ import com.esl.model.practice.PhoneticSymbols;
 
 
 public class SelectItemUtil {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(SelectItemUtil.class);
 
 	/**
 	 * 

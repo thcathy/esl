@@ -1,6 +1,7 @@
 package com.esl.web.jsf.controller.practice;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.model.practice.ScoreBar;
@@ -11,7 +12,7 @@ import com.esl.web.model.practice.ScoreBar;
 public abstract class BaseWithScoreBarController extends ESLController {
 	protected static int SCOREBAR_FULLLENGTH = 500;
 
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(BaseWithScoreBarController.class);
 
 	//	 ============== UI display data ================//
 	private ScoreBar scoreBar;

@@ -1,20 +1,16 @@
 package com.esl.web.util;
 
-import java.util.*;
+import java.util.Locale;
 
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
-
-import com.esl.model.*;
-import com.esl.model.practice.PhoneticSymbols;
-import com.esl.model.practice.PhoneticSymbols.Level;
+import com.esl.model.PracticeResult;
 import com.esl.web.model.practice.PracticeResultSummary;
 
 
 public class ChartUtil {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(ChartUtil.class);
 	
 	// Using for Google Chart API
 	private static final String chartLabelSeparator = "|";

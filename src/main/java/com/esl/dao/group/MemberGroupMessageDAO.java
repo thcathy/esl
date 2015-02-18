@@ -3,7 +3,8 @@ package com.esl.dao.group;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ import com.esl.model.group.MemberGroupMessage;
 @Transactional
 @Repository("memberGroupMessageDAO")
 public class MemberGroupMessageDAO extends ESLDao<MemberGroupMessage> implements IMemberGroupMessageDAO {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MemberGroupMessageDAO.class);
 	public static int NEW_MESSAGE_DATE_DIFF = 1;
 
 	// ============== Setter / Getter ================//

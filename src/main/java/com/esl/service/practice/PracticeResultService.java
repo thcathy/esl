@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ import com.esl.web.model.practice.PracticeResultSummary;
 @Transactional
 @Service("practiceResultService")
 public class PracticeResultService implements IPracticeResultService {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(PracticeResultService.class);
 
 	@Resource private IPracticeResultDAO practiceResultDAO = null;
 	@Resource private ITopResultService topResultService = null;

@@ -2,7 +2,9 @@ package com.esl.dao;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,8 @@ import com.esl.model.Member;
 @Repository("memberDAO")
 public class MemberDAO extends ESLDao<Member> implements IMemberDAO {
 	private static final String GET_MEMBER_BY_USERID = "from Member m where m.userId = :userId";
+	
+	private final Logger logger = LoggerFactory.getLogger(MemberDAO.class);
 
 	public MemberDAO() {}
 
@@ -26,7 +30,7 @@ public class MemberDAO extends ESLDao<Member> implements IMemberDAO {
 		if (result.size() > 0)
 			return (Member) result.get(0);
 		else {
-			Logger.getLogger("ESL").info("Do not find any member of userid:" + userId);
+			logger.info("Do not find any member of userid:" + userId);
 			return null;
 		}
 	}
@@ -43,7 +47,7 @@ public class MemberDAO extends ESLDao<Member> implements IMemberDAO {
 	@Transactional(readOnly = true)
 	public Member getMemberByLoginedSessionID(String sessionId) {
 		final String logPrefix = "getMemberByLoginedSessionID: ";
-		Logger.getLogger("ESL").info(logPrefix + "START");
+		logger.info(logPrefix + "START");
 
 		final String queryStr = "FROM Member m WHERE m.loginedSessionId = :sessionId";
 		Query query = sessionFactory.getCurrentSession().createQuery(queryStr);

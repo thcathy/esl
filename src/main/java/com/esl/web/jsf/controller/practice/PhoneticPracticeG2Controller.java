@@ -9,7 +9,8 @@ import java.util.Locale;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	private static final long serialVersionUID = -7163560838834679113L;
 	public static int MAX_HISTORY = 10;
 
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(PhoneticPracticeG2Controller.class);
 	private final String bundleName = "messages.practice.PhoneticPractice";
 	private String practiceView = "/practice/phoneticpracticeG2/practice";
 	private String resultView = "/practice/phoneticpracticeG2/result";

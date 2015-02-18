@@ -2,7 +2,8 @@ package com.esl.dao;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,8 @@ import com.esl.model.*;
 @Repository("phoneticPracticeHistoryDAO")
 public class PhoneticPracticeHistoryDAO extends ESLDao<PhoneticPracticeHistory> implements IPhoneticPracticeHistoryDAO {
 	private static final String GET_MOST_FREQUENT_GRADE = "SELECT grade_id, COUNT(grade_id) AS x FROM phonetic_practice_history WHERE member_id = :memberId GROUP BY grade_id ORDER BY x DESC";
-
+	private final Logger logger = LoggerFactory.getLogger(PhoneticPracticeHistoryDAO.class);
+	
 	public PhoneticPracticeHistory getPhoneticPracticeHistoryById(Long id) {
 		return (PhoneticPracticeHistory) sessionFactory.getCurrentSession().get(PhoneticPracticeHistory.class, id);
 	}
@@ -34,7 +36,7 @@ public class PhoneticPracticeHistoryDAO extends ESLDao<PhoneticPracticeHistory> 
 		query.setParameter("memberId", member.getId());
 		List results = query.list();
 		if (results.size() < 1) {
-			Logger.getLogger("ESL").info("getMostFrequentGradeIDbyMember:Do not find any grade of in phonetic_practice_history of member:" + member);
+			logger.info("getMostFrequentGradeIDbyMember:Do not find any grade of in phonetic_practice_history of member:" + member);
 			return null;
 		}
 

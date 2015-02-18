@@ -1,9 +1,11 @@
 package com.esl.exception;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ESLCheckedException extends Exception {
-	private static Logger logger = Logger.getLogger("ESLException");
+	private static Logger logger = LoggerFactory.getLogger(ESLCheckedException.class);
 	
 	protected String errorCode;
 	

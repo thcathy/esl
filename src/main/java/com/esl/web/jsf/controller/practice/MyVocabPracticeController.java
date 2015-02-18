@@ -13,7 +13,8 @@ import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -29,7 +30,7 @@ import com.esl.web.model.practice.PhoneticQuestionHistory;
 @Scope("session")
 public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 	private static final long serialVersionUID = 8187935108461189362L;
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MyVocabPracticeController.class);
 	private final String bundleName = "messages.member.MemberWord";
 	private static final String practiceView = "/member/vocab/practice";
 	private static final String manageView = "/member/vocab/manage";

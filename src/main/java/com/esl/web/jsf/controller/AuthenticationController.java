@@ -9,7 +9,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.*;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -24,7 +25,7 @@ import com.esl.web.jsf.controller.member.SummaryController;
 public class AuthenticationController extends ESLController {
 	public static String SESSION_ID_COOKIE_KEY = "loginedSessionId";
 
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 	private final String bundleName = "messages.Authentication";
 	private static final String wrongPasswordView = "/error/wrongpassword";
 

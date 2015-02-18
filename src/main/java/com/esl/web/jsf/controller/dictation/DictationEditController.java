@@ -1,6 +1,9 @@
 package com.esl.web.jsf.controller.dictation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,7 +12,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -25,7 +29,7 @@ import com.esl.web.util.SelectItemUtil;
 @Controller
 @Scope("session")
 public class DictationEditController extends ESLController {
-	private static Logger logger = Logger.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(DictationEditController.class);
 	private static String bundleName = "messages.member.Dictation";
 	private static String editView = "/member/dictation/edit";
 	private static String successView = "/member/dictation/edit2";
