@@ -14,8 +14,6 @@
    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<tx:annotation-driven />
-	
-<!-- 	<neo4j:config storeDirectory="data/graph.db"/> -->
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
