@@ -21,7 +21,7 @@
 		
     <import resource="classpath:com/esl/ESL-datasource.xml" />    
     <import resource="classpath:com/esl/ESL-data.xml" />    
-    <import resource="classpath:com/esl/ESL-batch.xml" />
+<!--     <import resource="classpath:com/esl/ESL-batch.xml" /> -->
     <import resource="classpath:com/esl/esl-management.xml" />
 <!--     <import resource="classpath:com/esl/ESL-web.xml" /> -->
     

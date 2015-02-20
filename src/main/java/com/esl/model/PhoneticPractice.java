@@ -1,7 +1,9 @@
 package com.esl.model;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,9 +16,9 @@ public class PhoneticPractice implements Serializable {
 
 	private Member member;
 	private Grade grade;
-	private List<PhoneticQuestion> questions = new ArrayList();
-	private ArrayList answers = new ArrayList();
-	private ArrayList corrects = new ArrayList();
+	private List<PhoneticQuestion> questions = new ArrayList<>();
+	private ArrayList<String> answers = new ArrayList<>();
+	private ArrayList<Boolean> corrects = new ArrayList<>();
 	private int currentQuestion = 0;
 	private int mark = 0;
 	private int totalQuestions = MAX_QUESTIONS;
@@ -39,16 +41,16 @@ public class PhoneticPractice implements Serializable {
 	public void setGrade(Grade grade) {	this.grade = grade;	}
 
 	public List<PhoneticQuestion> getQuestions() {return questions;}
-	public void setQuestions(List questions) {this.questions = questions;}
+	public void setQuestions(List<PhoneticQuestion> questions) {this.questions = questions;}
 	public void addQuestions(PhoneticQuestion question) {questions.add(question);}
 
-	public List getAnswers() {return answers;}
-	public void setAnswers(ArrayList answers) {this.answers = answers;}
+	public List<String> getAnswers() {return answers;}
+	public void setAnswers(ArrayList<String> answers) {this.answers = answers;}
 	public void addAnswers(String answer) {answers.add(answer);}
 	public void addAnswers(int index, String answer) {answers.add(index, answer);}
 
-	public List getCorrects() {return corrects;}
-	public void setCorrects(ArrayList corrects) {this.corrects = corrects;}
+	public List<Boolean> getCorrects() {return corrects;}
+	public void setCorrects(ArrayList<Boolean> corrects) {this.corrects = corrects;}
 	public void addCorrects(boolean correct) {corrects.add(correct);}
 	public void addCorrects(int index, boolean correct) {corrects.add(index, correct);}
 

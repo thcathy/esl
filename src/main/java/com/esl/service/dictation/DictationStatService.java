@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -95,6 +96,7 @@ public class DictationStatService implements IDictationStatService {
 	}
 
 	@Override
+	@Scheduled(fixedRate=600000)
 	public void changeStaticDictationStatistics() {
 		final String logPrefix = "changeStaticDictationStatistics: ";
 		logger.info("{}START", logPrefix);
