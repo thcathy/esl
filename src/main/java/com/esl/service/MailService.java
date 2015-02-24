@@ -1,5 +1,6 @@
 package com.esl.service;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -21,7 +22,7 @@ import com.esl.util.SpringUtil;
 import com.esl.web.model.ContactUsForm;
 
 @Transactional
-public class MailService implements IMailService {
+public class MailService implements IMailService, Serializable {
 	// Logging
 	private static Logger log = LoggerFactory.getLogger("ESL");
 

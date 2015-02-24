@@ -206,12 +206,14 @@
 			<artifactId>javassist</artifactId>
 			<version>3.18.2-GA</version>
 		</dependency>
+		
+		<!-- Used by hibernate 3.6 -->
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-
+				
 		<!-- Test scope dependency -->
 		<dependency>
 			<groupId>org.powermock</groupId>
