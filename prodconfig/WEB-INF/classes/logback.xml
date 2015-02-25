@@ -1,13 +1,9 @@
 <configuration>
 
-	<appender name="async" class="ch.qos.logback.classic.AsyncAppender">
-		<appender-ref ref="ESL" />
-	</appender>
-
 	<appender name="ESL" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>esl.log</file>
+		<file>${catalina.base}/logs/esl.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>esl.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>${catalina.base}/logs/esl.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
@@ -18,7 +14,7 @@
 	<logger name="org.apache" level="info" />
 	<logger name="org.springframework" level="info" />
 	
-	<root level="info">
-		<appender-ref ref="async" />
+	<root level="debug">
+		<appender-ref ref="ESL" />
 	</root>
 </configuration>
