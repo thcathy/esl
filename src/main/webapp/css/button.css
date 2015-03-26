@@ -48,6 +48,7 @@
 
 .inlineButton2.blue {
 	background-color:#347dc7;
+	color: #ffffff;
 }
 .inlineButton2.blue:hover {
 	background-color:#74b1ed;
