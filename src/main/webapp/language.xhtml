@@ -8,9 +8,8 @@
       xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
       xmlns:a4j="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich">
-<link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/button.css" />      
-<h:form>
 
+<h:form>
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
   	<td width="688" valign="middle" align="left">
@@ -20,10 +19,10 @@
   		<table>
   			<tr>
   				<td width="100" align="right">
-			    	<h:commandLink action="#{languageController.toZH}" styleClass="inlinebuttons">繁體中文</h:commandLink>    	
+			    	<h:commandLink action="#{languageController.toZH}" styleClass="inlineButton blue">繁體中文</h:commandLink>    	
 			   </td>			      
 			    <td width="100" align="right">
-			    	<h:commandLink action="#{languageController.toEN}">English</h:commandLink>
+			    	<h:commandLink action="#{languageController.toEN}" styleClass="inlineButton blue">English</h:commandLink>
 			    </td>
   			</tr>
   			<tr>			  	

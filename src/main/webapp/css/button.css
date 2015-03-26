@@ -25,6 +25,34 @@
 	border: 2px solid #c2e1ef;
 	color: #336699;
 }
+
+.inlineButton2 {
+	background-color:#347dc7;	
+	border-radius:10px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:"MHei","Lucida Grande", "Lucida Sans Unicode", "STHeiti Light", "Helvetica","Arial","Verdana","sans-serif";
+	font-size:14px;
+	font-weight:bold;
+	padding:2px 10px;
+	text-decoration:none;
+}
+.inlineButton2:hover {
+	background-color:#74b1ed;
+}
+.inlineButton2:active {
+	position:relative;
+	top:1px;
+}
+
+.inlineButton2.blue {
+	background-color:#347dc7;
+}
+.inlineButton2.blue:hover {
+	background-color:#74b1ed;
+}
+
 /* ORANGE */
 .orangebuttons {
 	color: #d12f19;
