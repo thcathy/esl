@@ -81,4 +81,20 @@ public class TestPhoneticQuestion {
 		assertNotNull(question.getPronouncedLink());
 		assertTrue(question.getPronouncedLink().contains(".mp3"));
 	}
+	
+	@Test
+	public void toString_givenDetail_ShouldBePrint() {
+		String word = "apple";
+		String backupUrl = "abc2.com";
+		String pronunUrl = "abc.com";
+		String ipa = "xyz";
+		PhoneticQuestion question = new PhoneticQuestion(word, ipa, pronunUrl, backupUrl);
+		
+		String printedStr = question.toString();
+		System.out.println(printedStr);
+		assertTrue(printedStr.contains(word));
+		assertTrue(printedStr.contains(backupUrl));
+		assertTrue(printedStr.contains(pronunUrl));
+		assertTrue(printedStr.contains(ipa));
+	}
 }

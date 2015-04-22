@@ -1,7 +1,12 @@
 package com.esl.model;
 
 import java.io.Serializable;
-import java.util.*;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +24,7 @@ public class PhoneticQuestion implements Serializable {
 	private Long id = null;
 	private String IPA;
 	private String pronouncedLink;
+	private String pronouncedLinkBackup;
 	private String word;
 	private String picFileName;
 	private List<Grade> grades = new ArrayList<Grade>();
@@ -32,10 +38,11 @@ public class PhoneticQuestion implements Serializable {
 	// ********************** Constructors ********************** //
 	public PhoneticQuestion() {}
 
-	public PhoneticQuestion(String word, String IPA, String pronouncedLink) {
+	public PhoneticQuestion(String word, String IPA, String pronouncedLink, String backupLink) {
 		this.word = word;
 		this.IPA = IPA;
 		this.pronouncedLink = pronouncedLink;
+		this.pronouncedLinkBackup = backupLink;
 	}
 
 	public PhoneticQuestion(String word, String IPA) {
@@ -61,6 +68,9 @@ public class PhoneticQuestion implements Serializable {
 
 	public String getPronouncedLink() { return pronouncedLink; }
 	public void setPronouncedLink(String pronouncedLink) { this.pronouncedLink = pronouncedLink; }
+	
+	public String getPronouncedLinkBackup() { return pronouncedLinkBackup; }
+	public void setPronouncedLinkBackup(String pronouncedLink) { this.pronouncedLinkBackup = pronouncedLink; }
 
 	public String getPicFileName() {return picFileName;}
 	public void setPicFileName(String picFileName) {this.picFileName = picFileName;}
@@ -180,11 +190,7 @@ public class PhoneticQuestion implements Serializable {
 
 	@Override
 	public String toString() {
-		return  "Phonetic Question (" + getId() + "): " +
-				"Word[" + getWord() + "]," +
-				"Pic[" + getPicFileName() + "]," +
-				"IPA[" + getIPA() + "]," +
-				"Pronounced File Link[" + getPronouncedLink() + "]";
+		return MessageFormat.format("Phonetic Question ({0}): Pic[{1}], IPA[{2}], PronunUrl[{3}], PronunUrl2[{4}]", word, picFileName, IPA, pronouncedLink, pronouncedLinkBackup);
 	}
 
 	public static void main(String[] args)

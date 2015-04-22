@@ -10,6 +10,7 @@
   	<property name="word" column="WORD" length="40" />
   	<property name="IPA" column="IPA" length="2048" />
   	<property name="pronouncedLink" column="PRONOUNCED_LINK" />
+  	<property name="pronouncedLinkBackup" column="PRONOUNCED_LINK_BACKUP" />
   	<property name="picFileName" column="PIC_FILE_NAME" length="50" />
   	<property name="createdDate" column="CREATED_DATE" />  	
   	<bag name="grades" table="GRADE_PHONETICQUESTION" cascade="all">  		  		

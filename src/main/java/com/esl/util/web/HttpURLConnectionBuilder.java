@@ -6,9 +6,12 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class HttpURLConnectionBuilder {
 	String uri;
 	String encodedParams;
+	String referer;
 
 	static String proxyUrl;
 	static int proxyPort;
@@ -25,6 +28,8 @@ public class HttpURLConnectionBuilder {
 				connection = (HttpURLConnection)url.openConnection();
 			}			
 			connection.setRequestProperty ("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0)");
+			
+			if (StringUtils.isNotBlank(referer)) connection.setRequestProperty("Referer", referer);
 			
 			if (encodedParams != null) {
 				connection.setRequestMethod("POST");				
@@ -54,6 +59,11 @@ public class HttpURLConnectionBuilder {
 	
 	public HttpURLConnectionBuilder setEncodedParams(String params) {
 		this.encodedParams = params;
+		return this;
+	}
+	
+	public HttpURLConnectionBuilder referer(String referer) {
+		this.referer = referer;
 		return this;
 	}
 		
