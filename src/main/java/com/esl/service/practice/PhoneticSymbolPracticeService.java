@@ -1,7 +1,12 @@
 package com.esl.service.practice;
 
 import java.sql.Date;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.esl.entity.practice.MemberPracticeScoreCard;
 import com.esl.enumeration.ESLPracticeType;
 import com.esl.exception.IllegalParameterException;
-import com.esl.model.*;
+import com.esl.model.Member;
+import com.esl.model.PhoneticQuestion;
+import com.esl.model.PracticeResult;
 import com.esl.model.practice.PhoneticSymbols;
 import com.esl.model.practice.PhoneticSymbols.Level;
 import com.esl.web.model.practice.PhoneticPracticeSummary;
@@ -27,15 +34,11 @@ public class PhoneticSymbolPracticeService extends PhoneticPracticeService imple
 	 */
 	public boolean checkAnswer(PhoneticQuestion question, String answer) {
 		logger.info("checkAnswer: START");
-		if (question == null || question.getPhonics() == null) throw new IllegalParameterException(new String[]{"phonetic question"}, new Object[]{question});
+		if (question == null) throw new IllegalParameterException(new String[]{"phonetic question"}, new Object[]{question});
 
 		logger.info("checkAnswer: answer [{}], question.IPA [{}]", answer, question.getIPA());
 
-		//		String[] answers = answer.split(PhoneticSymbol.PHONIC_SEPARATOR);
-		//		for (int i=0; i < question.getPhonics().length && i < answers.length; i++) {
-		//			if (!question.getPhonics()[i].equals(answers[i])) return false;				// return wrong answer if any phonic is not match
-		//		}
-		return question.getIPA().equals(answer);
+		return question.ipaEqual(answer);
 	}
 
 	/**

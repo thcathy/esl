@@ -18,5 +18,14 @@ public class TestYahooDictionaryParser {
 		assertEquals("bəˋnɑ:nə",p.getIpa());
 		assertEquals("https://s.yimg.com/tn/dict/kh/v1/18498.mp3",p.getAudioLink());
 	}
+	
+	@Test
+	public void testParseBananaUpperCase() {
+		DictionaryParser p = YahooDictionaryParser.toParse("BANANA");
+
+		assertTrue(p.parse());
+		assertEquals("bəˋnɑ:nə",p.getIpa());
+		assertEquals("https://s.yimg.com/tn/dict/kh/v1/18498.mp3",p.getAudioLink());
+	}
 
 }

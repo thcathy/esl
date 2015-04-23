@@ -74,9 +74,9 @@ public class PhoneticQuestion implements Serializable {
 
 	public String getPicFileName() {return picFileName;}
 	public void setPicFileName(String picFileName) {this.picFileName = picFileName;}
-
-	public String[] getPhonics() {	return phonics;	}
-	public void setPhonics(String[] phonics) {	this.phonics = phonics;	}
+//
+//	public String[] getPhonics() {	return phonics;	}
+//	public void setPhonics(String[] phonics) {	this.phonics = phonics;	}
 
 	public List<Grade> getGrades() { return grades; }
 	public void setGrades(List<Grade> grades) { this.grades = grades; }
@@ -193,9 +193,7 @@ public class PhoneticQuestion implements Serializable {
 		return MessageFormat.format("Phonetic Question ({0}): Pic[{1}], IPA[{2}], PronunUrl[{3}], PronunUrl2[{4}]", word, picFileName, IPA, pronouncedLink, pronouncedLinkBackup);
 	}
 
-	public static void main(String[] args)
-	{
-		PhoneticQuestion q = new PhoneticQuestion();
-		q.setWord("apple");
+	public boolean ipaEqual(String input) {
+		return IPA.replaceAll("ˋ", "").equals(input);
 	}
 }

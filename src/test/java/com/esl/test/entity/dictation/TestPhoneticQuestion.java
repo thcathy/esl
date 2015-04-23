@@ -91,10 +91,15 @@ public class TestPhoneticQuestion {
 		PhoneticQuestion question = new PhoneticQuestion(word, ipa, pronunUrl, backupUrl);
 		
 		String printedStr = question.toString();
-		System.out.println(printedStr);
 		assertTrue(printedStr.contains(word));
 		assertTrue(printedStr.contains(backupUrl));
 		assertTrue(printedStr.contains(pronunUrl));
 		assertTrue(printedStr.contains(ipa));
+	}
+	
+	@Test
+	public void ipaEqual_givenWithoutStress_ShouldRemainTrue() {
+		PhoneticQuestion banana = new PhoneticQuestion("banana", "bəˋnɑ:nə");
+		assertTrue(banana.ipaEqual("bənɑ:nə"));
 	}
 }

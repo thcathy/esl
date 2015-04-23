@@ -10,12 +10,12 @@
 	xmlns:rich="http://richfaces.org/rich">	
 	
 	<h:panelGroup rendered="#{!empty phonicsMap[phonics]}">
-		<div onmouseover="this.style.backgroundColor='#FFEB99';" onmouseout="this.style.backgroundColor='#FFFFFF';" style="width: 30px; height: 25px; font-size: 20px; font-weight: bold; cursor: pointer; color: #EE6600; border: 1px solid #999999;" onclick="addPhonics('#{phonics}')">
+		<div onmouseover="this.style.backgroundColor='#FFEB99';" onmouseout="this.style.backgroundColor='#FFFFFF';" style="font-family: 'comic sans ms','Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif; width: 30px; height: 25px; font-size: 20px; font-weight: bold; cursor: pointer; color: #EE6600; border: 1px solid #999999;" onclick="addPhonics('#{phonics}')">
 			#{phonics}
 		</div>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{empty phonicsMap[phonics]}">
-		<div style="width: 30px; height: 25px; font-size: 20px; font-weight: bold; color: #DDDDDD;">
+		<div style="width: 30px; height: 25px; font-size: 20px; font-weight: bold; color: #DDDDDD; font-family: 'comic sans ms','Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif;">
 			#{phonics}
 		</div>
 	</h:panelGroup>	
