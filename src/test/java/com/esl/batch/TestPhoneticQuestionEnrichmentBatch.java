@@ -1,23 +1,32 @@
 package com.esl.batch;
-import org.junit.Test;
-import org.powermock.api.easymock.annotation.Mock;
-import org.powermock.api.extension.listener.AnnotationEnabler;
-import org.powermock.core.classloader.annotations.PowerMockListener;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import com.esl.batch.PhoneticQuestionEnrichmentBatch;
+import java.util.Arrays;
+
+import org.junit.Test;
+import org.mockito.Mock;
+
 import com.esl.dao.PhoneticQuestionDAO;
+import com.esl.model.PhoneticQuestion;
 import com.esl.util.web.DictionaryParserFactory;
 
 
-@PowerMockListener(AnnotationEnabler.class)
 public class TestPhoneticQuestionEnrichmentBatch {
 
-	@Mock private PhoneticQuestionDAO dao;
-	@Mock private DictionaryParserFactory parserFactory;
+	@Mock private PhoneticQuestionDAO mockDao;
+	@Mock private DictionaryParserFactory mockParserFactory;
 	
 	@Test
 	public void processAllQuestions_givenTwoQuestion_shouldProcessThem() {
+		PhoneticQuestion q1 = new PhoneticQuestion("banana", "");
+		PhoneticQuestion q2 = new PhoneticQuestion("zinc", "");
+		when(mockDao.getAll()).thenReturn(Arrays.asList(q1, q2));
 		
-		PhoneticQuestionEnrichmentBatch batch = new PhoneticQuestionEnrichmentBatch(dao, new DictionaryParserFactory());
+		PhoneticQuestionEnrichmentBatch batch = new PhoneticQuestionEnrichmentBatch(mockDao, new DictionaryParserFactory());
+		batch.processAllQuestions();
+		
+		verify(mockDao, times(2));
 	}
 }

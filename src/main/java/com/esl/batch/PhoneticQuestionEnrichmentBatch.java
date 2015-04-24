@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
 import com.esl.dao.PhoneticQuestionDAO;
 import com.esl.model.PhoneticQuestion;
@@ -56,5 +58,13 @@ public class PhoneticQuestionEnrichmentBatch {
 			question.setPronouncedLink(secondary.getAudioLink());
 		}
 		return Optional.of(question);
+	}
+	
+	public static void main(String[] args) {
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("ESL-context.xml");
+			    
+		PhoneticQuestionDAO dao = (PhoneticQuestionDAO)ctx.getBean("phoneticQuestionDao");
+		PhoneticQuestionEnrichmentBatch batch = new PhoneticQuestionEnrichmentBatch(dao, new DictionaryParserFactory());
+		batch.processAllQuestions();
 	}
 }
