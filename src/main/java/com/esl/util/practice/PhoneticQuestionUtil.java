@@ -46,11 +46,11 @@ public class PhoneticQuestionUtil {
 
 		public void run() {
 			try{
-				//if (question.getIPA() == null) {
-				logger.info("FindIPAAndPronoun.run: Do not have IPA, Start getting IPA");
-				findIPA(question);
-				//}
-				if (question.getIPA() == null && question.getPronouncedLink() == null) {
+				if (question.notEnriched()) {
+					logger.info("FindIPAAndPronoun.run: Do not have IPA, Start getting IPA");
+					findIPA(question);
+				}
+				if (question.notEnriched()) {
 					logger.info("FindIPAAndPronoun.run: Do not have IPA, Start get text 2 speech");
 					question.setIPAUnavailable(true);
 					//generatePronounceLink(question, rootPath, contextPath);

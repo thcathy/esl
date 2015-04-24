@@ -20,11 +20,9 @@ public class PhoneticSymbols {
 	}
 
 	public static Set<String> allPhonics;
-	//public static Map<String, PhoneticSymbol> allPhonicsMap;
 	public static Map<Level, Integer> difficultyValueMap;
 	public static Map<String, String> googlePhonicsMap;
-	public static Map<String, String> numericHTMLMap = new HashMap<String, String>();
-
+	
 	static {
 		allPhonics = new HashSet<String>();
 		allPhonics.add("iː");
@@ -90,37 +88,10 @@ public class PhoneticSymbols {
 		googlePhonicsMap.put("ˌ", "͵");
 		//googlePhonicsMap.put("ˈ", "'");
 		googlePhonicsMap.put("ɡ", "g");
-
-		numericHTMLMap.put("&#601;", "ə");
-		numericHTMLMap.put("&#712;", "ˈ");
-		numericHTMLMap.put("&#593;", "ɑ");
-		numericHTMLMap.put("&#720;", "ː");
-		numericHTMLMap.put("&#618;", "ɪ");
-		numericHTMLMap.put("&#594;", "ɒ");
-		numericHTMLMap.put("&#596;", "ɔ");
-		numericHTMLMap.put("&#650;", "ʊ");
-		numericHTMLMap.put("&#652;", "ʌ");
-
-		numericHTMLMap.put("&#230;", "æ");
-		numericHTMLMap.put("&#604;", "ɜ");
-		numericHTMLMap.put("&#952;", "θ");
-		numericHTMLMap.put("&#643;", "ʃ");
-		numericHTMLMap.put("&#331;", "ŋ");
-		numericHTMLMap.put("&#240;", "ð");
-		numericHTMLMap.put("&#658;", "ʒ");
-
-		//initPhonicsMap();
+		
 	}
 
 	// ===================== Functions ======================//
-
-	public static void initPhonicsMap() {
-		/*	allPhonicsMap = new HashMap<String, PhoneticSymbol>();
-
-		for (PhoneticSymbol s : allPhonics) {
-			allPhonicsMap.put(s.getId(), s);
-		}*/
-	}
 
 	public static String filterIPA(String IPA) {
 		final int maxIPALength = 3;
@@ -175,13 +146,6 @@ public class PhoneticSymbols {
 		}
 		log.debug("convertGoogleIPA: input [{}] , output [{}]", googleIPA, sb.toString());
 		return sb.toString();
-	}
-
-	public static String unescapeNumericHTML(String line) {
-		for (Entry<String, String> e : numericHTMLMap.entrySet()) {
-			line = line.replace(e.getKey(), e.getValue());
-		}
-		return line;
 	}
 
 	// ===================== Getter / setter =============== //

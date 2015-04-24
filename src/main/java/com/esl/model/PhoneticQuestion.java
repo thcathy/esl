@@ -8,9 +8,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import com.esl.util.WebUtil;
 
@@ -90,7 +90,7 @@ public class PhoneticQuestion implements Serializable {
 	public String[] getPicsFullPaths() {
 		if (picsFullPaths != null) return picsFullPaths;
 
-		if (StringUtils.hasText(picFileName)) {
+		if (StringUtils.isNotBlank(picFileName)) {
 			picsFullPaths = new String[]{PIC_FILE_FOLDER_PATH + picFileName};
 		} else {
 			picsFullPaths = WebUtil.getThumbnailsFromBing(word);
@@ -195,5 +195,9 @@ public class PhoneticQuestion implements Serializable {
 
 	public boolean ipaEqual(String input) {
 		return IPA.replaceAll("ˋ", "").equals(input);
+	}
+
+	public boolean notEnriched() {		
+		return StringUtils.isNotBlank(getIPA()) && StringUtils.isNotBlank(getPronouncedLink());
 	}
 }
