@@ -74,12 +74,12 @@
 				<td>
 					<table style="width: 100%"><tr>
 						<td style="width: 50%" align="left">
-							<a4j:outputPanel id="questionInfoPanel" rendered="#{not empty irregularVerbPracticeController.phoneticQ and not empty irregularVerbPracticeController.phoneticQ.pronouncedLink}">
+							<a4j:outputPanel id="questionInfoPanel" rendered="#{not empty irregularVerbPracticeController.phoneticQ and not empty irregularVerbPracticeController.phoneticQ.activePronounceLink}">
 								<div id="player1" style="clear: none"><a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> for pronounce.</div>
 							    <script type="text/javascript">
 							  	//<![CDATA[
 								    var player1 = new SWFObject("#{request.contextPath}/player/btn_#{languageController.locale}.swf", "line", "184", "30", "7");
-								    player1.addVariable("path","#{irregularVerbPracticeController.phoneticQ.pronouncedLink}");
+								    player1.addVariable("path","#{irregularVerbPracticeController.phoneticQ.activePronounceLink}");
 								    player1.write("player1");
 								//]]>
 							    </script>

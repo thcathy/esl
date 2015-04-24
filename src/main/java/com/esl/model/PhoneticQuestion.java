@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.esl.util.WebUtil;
 
@@ -20,6 +21,7 @@ public class PhoneticQuestion implements Serializable {
 	public final static String SYMBOL_GIF_PREFIX = "l.yimg.com/mq/i/dic/";
 	public final static String SYMBOL_GIF_SUFFIX =  ".gif";
 	public final static String PIC_FILE_FOLDER_PATH = "/ESL/images/graphic/word/";
+	public static boolean USE_SECEONDARY_PRONOUNCE_LINK = false;
 
 	private Long id = null;
 	private String IPA;
@@ -74,6 +76,13 @@ public class PhoneticQuestion implements Serializable {
 
 	public String getPicFileName() {return picFileName;}
 	public void setPicFileName(String picFileName) {this.picFileName = picFileName;}
+	
+	public String getActivePronounceLink() {
+		if (USE_SECEONDARY_PRONOUNCE_LINK && StringUtils.isNotBlank(pronouncedLinkBackup)) 
+			return pronouncedLinkBackup;
+		else
+			return pronouncedLink;
+	}
 //
 //	public String[] getPhonics() {	return phonics;	}
 //	public void setPhonics(String[] phonics) {	this.phonics = phonics;	}

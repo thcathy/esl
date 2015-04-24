@@ -3,10 +3,13 @@ package com.esl.util.practice;
 import java.net.HttpURLConnection;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.esl.model.PhoneticQuestion;
@@ -17,8 +20,15 @@ import com.esl.util.web.HttpURLConnectionBuilder;
 @Service("phoneticQuestionUtil")
 public class PhoneticQuestionUtil {	
 	private static Logger logger = LoggerFactory.getLogger("ESL");
+	
+	@Value("${PhoneticQuestion.useSecondaryPronounceLink}") private boolean USE_SEC_PRO_LINK = false; 
 
 	public PhoneticQuestionUtil() {}
+	
+	@PostConstruct
+	public void setPhoneticQuestionActiveLink() {
+		PhoneticQuestion.USE_SECEONDARY_PRONOUNCE_LINK = USE_SEC_PRO_LINK;
+	}
 
 	public void findIPA(PhoneticQuestion question) {
 		DictionaryParser parser = new CambridgeDictionaryParser(question.getWord());
