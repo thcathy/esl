@@ -1,6 +1,6 @@
 package com.esl.util;
 
-import org.springframework.context.*;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class SpringUtil {
@@ -12,9 +12,7 @@ public class SpringUtil {
 		System.out.println("<<<<<<<<<SpringUtil static init>>>>>>>>>>>");
 		try {
 			String[] configFiles=new String[2];
-			configFiles[0] = "WebContent/WEB-INF/ESL-data_local.xml";
-			configFiles[1] = "WebContent/WEB-INF/ESL-service_local.xml";
-			//configFiles[2] = "WebContent/WEB-INF/ESL-servlet.xml";
+			configFiles[0] = "com/esl/ESL-context.xml";
 			context = new FileSystemXmlApplicationContext(configFiles);			
 		}
 		catch (Throwable ex) {

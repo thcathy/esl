@@ -1,7 +1,9 @@
 package com.esl.model.practice;
 
-import java.util.*;
-import java.util.Map.Entry;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.LoggerFactory;
 
@@ -25,17 +27,17 @@ public class PhoneticSymbols {
 	
 	static {
 		allPhonics = new HashSet<String>();
-		allPhonics.add("iː");
+		allPhonics.add("i:");
 		allPhonics.add("i");
 		allPhonics.add("e");
 		allPhonics.add("æ");
-		allPhonics.add("ɑː");
+		allPhonics.add("ɑ:");
 		allPhonics.add("ɔ");
-		allPhonics.add("ɔː");
+		allPhonics.add("ɔ:");
 		allPhonics.add("u");
-		allPhonics.add("uː");
+		allPhonics.add("u:");
 		allPhonics.add("ʌ");
-		allPhonics.add("əː");
+		allPhonics.add("ə:");
 		allPhonics.add("ə");
 		allPhonics.add("ei");
 		allPhonics.add("ai");
@@ -77,7 +79,7 @@ public class PhoneticSymbols {
 		//allPhonics.add("͵");
 
 		googlePhonicsMap = new HashMap<String, String>();
-		//googlePhonicsMap.put("ː", ":");
+		googlePhonicsMap.put("ː", ":");
 		googlePhonicsMap.put("ɪ", "i");
 		//googlePhonicsMap.put("ː", ":");
 		googlePhonicsMap.put("ɒ", "ɔ");

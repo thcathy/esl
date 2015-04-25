@@ -11,7 +11,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.esl.util.WebUtil;
 
@@ -206,7 +205,7 @@ public class PhoneticQuestion implements Serializable {
 		return IPA.replaceAll("ˋ", "").equals(input);
 	}
 
-	public boolean notEnriched() {		
+	public boolean enriched() {		
 		return StringUtils.isNotBlank(getIPA()) && StringUtils.isNotBlank(getPronouncedLink());
 	}
 }

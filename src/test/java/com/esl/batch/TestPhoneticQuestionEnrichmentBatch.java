@@ -1,4 +1,5 @@
 package com.esl.batch;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -6,13 +7,16 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.esl.dao.PhoneticQuestionDAO;
 import com.esl.model.PhoneticQuestion;
 import com.esl.util.web.DictionaryParserFactory;
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class TestPhoneticQuestionEnrichmentBatch {
 
 	@Mock private PhoneticQuestionDAO mockDao;
@@ -25,8 +29,23 @@ public class TestPhoneticQuestionEnrichmentBatch {
 		when(mockDao.getAll()).thenReturn(Arrays.asList(q1, q2));
 		
 		PhoneticQuestionEnrichmentBatch batch = new PhoneticQuestionEnrichmentBatch(mockDao, new DictionaryParserFactory());
-		batch.processAllQuestions();
+		long enrichedQuestions = batch.processAllQuestions();
 		
-		verify(mockDao, times(2));
+		assertEquals(2, enrichedQuestions);
+		verify(mockDao, times(2)).persist(Mockito.any());
+	}
+	
+	@Test
+	public void processAllQuestions_givenWrongQuestion_shouldNotProcessThem() {
+		PhoneticQuestion q1 = new PhoneticQuestion("!@#!@#", "");
+		PhoneticQuestion q2 = new PhoneticQuestion("", "");
+		when(mockDao.getAll()).thenReturn(Arrays.asList(q1, q2));
+		
+		PhoneticQuestionEnrichmentBatch batch = new PhoneticQuestionEnrichmentBatch(mockDao, new DictionaryParserFactory());
+		batch.processAllQuestions();
+		long enrichedQuestions = batch.processAllQuestions();
+		
+		assertEquals(0, enrichedQuestions);
+		verify(mockDao, times(0)).persist(Mockito.any());
 	}
 }

@@ -6,9 +6,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Service;
 
-import com.esl.dao.PhoneticQuestionDAO;
+import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.model.PhoneticQuestion;
 import com.esl.util.web.DictionaryParser;
 import com.esl.util.web.DictionaryParserFactory;
@@ -16,10 +15,10 @@ import com.esl.util.web.DictionaryParserFactory;
 public class PhoneticQuestionEnrichmentBatch {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	private PhoneticQuestionDAO dao;
+	private IPhoneticQuestionDAO dao;
 	private DictionaryParserFactory parserFactory;
 	
-	public PhoneticQuestionEnrichmentBatch(PhoneticQuestionDAO dao, DictionaryParserFactory factory) {
+	public PhoneticQuestionEnrichmentBatch(IPhoneticQuestionDAO dao, DictionaryParserFactory factory) {
 		this.dao = dao;
 		this.parserFactory = factory;
 	}
@@ -32,6 +31,7 @@ public class PhoneticQuestionEnrichmentBatch {
 	}
 	
 	private boolean processSingle(PhoneticQuestion question) {
+		logger.debug("Process single word [{}]", question.getWord());
 		Optional<PhoneticQuestion> enrichedQuestion = enrich(question, parserFactory.yahooParserWith(question.getWord()), parserFactory.cambridgeParserWith((question.getWord())));
 		enrichedQuestion.ifPresent(dao::persist);		
 		
@@ -61,10 +61,12 @@ public class PhoneticQuestionEnrichmentBatch {
 	}
 	
 	public static void main(String[] args) {
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("ESL-context.xml");
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("/com/esl/ESL-context.xml");
 			    
-		PhoneticQuestionDAO dao = (PhoneticQuestionDAO)ctx.getBean("phoneticQuestionDao");
+		IPhoneticQuestionDAO dao = (IPhoneticQuestionDAO)ctx.getBean("phoneticQuestionDAO");
 		PhoneticQuestionEnrichmentBatch batch = new PhoneticQuestionEnrichmentBatch(dao, new DictionaryParserFactory());
 		batch.processAllQuestions();
+		
+		System.exit(0);
 	}
 }

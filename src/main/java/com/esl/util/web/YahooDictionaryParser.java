@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class YahooDictionaryParser implements DictionaryParser {
-	private Logger logger = LoggerFactory.getLogger("ESL");
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	final String URLPrefix = "https://hk.dictionary.yahoo.com/dictionary?p=";
 	final String referer = "https://hk.dictionary.yahoo.com/";
