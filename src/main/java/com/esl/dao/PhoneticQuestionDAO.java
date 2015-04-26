@@ -3,16 +3,16 @@ package com.esl.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hibernate.*;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.esl.model.Grade;
 import com.esl.model.PhoneticQuestion;
-import com.esl.util.*;
 import com.esl.util.practice.PhoneticQuestionUtil;
 import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 
@@ -99,25 +99,4 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 		return questions;
 	}
 
-	public static void main(String[] args)
-	{
-		HibernateTransactionManager sf = (HibernateTransactionManager) SpringUtil.getContext().getBean("transactionManager");
-		sf.getSessionFactory().openStatelessSession();
-		IPhoneticQuestionDAO dao = (PhoneticQuestionDAO) SpringUtil.getContext().getBean("phoneticQuestionDAO");
-
-		try
-		{
-			Grade grade = new Grade("a",1);
-			grade.setId(new Long(1));
-			List<PhoneticQuestion> r = dao.getRandomQuestionsByGrade(grade, 10, true);
-			for (int i =0 ; i< r.size(); i++) {
-				System.out.println(r.get(i).getWord());
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		sf.getSessionFactory().close();
-	}
 }

@@ -1,22 +1,25 @@
 package com.esl.service.practice;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.dao.*;
-import com.esl.model.*;
+import com.esl.dao.IGradeDAO;
+import com.esl.dao.IPracticeResultDAO;
+import com.esl.dao.PracticeResultDAO;
+import com.esl.model.Grade;
+import com.esl.model.Member;
+import com.esl.model.PracticeResult;
+import com.esl.model.TopResult;
 import com.esl.model.TopResult.OrderType;
 import com.esl.model.practice.PhoneticSymbols.Level;
-import com.esl.util.SpringUtil;
 
 @Service("topResultService")
 @Transactional

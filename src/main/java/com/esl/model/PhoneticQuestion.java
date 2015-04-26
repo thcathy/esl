@@ -64,7 +64,7 @@ public class PhoneticQuestion implements Serializable {
 	public String getIPA() {return IPA; }
 	public void setIPA(String IPA) {
 		this.IPA = IPA;
-		setPhonics(IPA);
+		//setPhonics(IPA);
 	}
 
 	public String getPronouncedLink() { return pronouncedLink; }
@@ -164,20 +164,20 @@ public class PhoneticQuestion implements Serializable {
 	}
 
 	// ********************** Supporting Methods ********************//
-	private void setPhonics(String IPA) {
-		int startPos, endPos;
-		List<String> phonicList = new ArrayList<String>();
-
-		startPos = IPA.indexOf(SYMBOL_GIF_PREFIX);
-		while (startPos >= 0) {
-			endPos = IPA.indexOf(SYMBOL_GIF_SUFFIX, startPos);
-			String symbolId = IPA.substring(startPos + SYMBOL_GIF_PREFIX.length(), endPos);
-			phonicList.add(symbolId);
-			startPos = IPA.indexOf(SYMBOL_GIF_PREFIX, endPos);
-		}
-		phonics = phonicList.toArray(new String[phonicList.size()]);
-		logger.info("setPhonics: phonics[" + Arrays.toString(phonics) + "]");
-	}
+//	private void setPhonics(String IPA) {
+//		int startPos, endPos;
+//		List<String> phonicList = new ArrayList<String>();
+//
+//		startPos = IPA.indexOf(SYMBOL_GIF_PREFIX);
+//		while (startPos >= 0) {
+//			endPos = IPA.indexOf(SYMBOL_GIF_SUFFIX, startPos);
+//			String symbolId = IPA.substring(startPos + SYMBOL_GIF_PREFIX.length(), endPos);
+//			phonicList.add(symbolId);
+//			startPos = IPA.indexOf(SYMBOL_GIF_PREFIX, endPos);
+//		}
+//		phonics = phonicList.toArray(new String[phonicList.size()]);
+//		logger.info("setPhonics: phonics[" + Arrays.toString(phonics) + "]");
+//	}
 
 	// ********************** Common Methods ********************** //
 	@Override

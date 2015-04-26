@@ -18,7 +18,6 @@ import com.esl.dao.IMemberDAO;
 import com.esl.exception.ESLSystemException;
 import com.esl.exception.IllegalParameterException;
 import com.esl.model.Member;
-import com.esl.util.SpringUtil;
 import com.esl.web.model.ContactUsForm;
 
 @Transactional
@@ -128,22 +127,6 @@ public class MailService implements IMailService, Serializable {
 		}
 
 		return member;
-	}
-
-	public static void main(String[] args)
-	{
-		IMailService es = (IMailService) SpringUtil.getContext().getBean("mailService");
-		try
-		{
-			ContactUsForm f = new ContactUsForm();
-			f.setSubject("anc");
-
-			es.contactUs(f);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	@Override

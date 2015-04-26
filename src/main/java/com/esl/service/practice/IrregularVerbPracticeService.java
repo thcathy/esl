@@ -27,6 +27,7 @@ public class IrregularVerbPracticeService implements IIrregularVerbPracticeServi
 	// supporting class
 	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
 	@Resource private IMemberPracticeScoreCardDAO scoreCardDAO;
+	@Resource private PhoneticQuestionUtil phoneticQuestionUtil;
 
 	@Override
 	public int checkAnswer(IrregularVerb entity, IrregularVerb input) {
@@ -50,14 +51,13 @@ public class IrregularVerbPracticeService implements IIrregularVerbPracticeServi
 		logger.info("{}START", logPrefix);
 		PhoneticQuestion pq = phoneticQuestionDAO.getPhoneticQuestionByWord(verb.getPresent());
 
-		if (pq == null) {
+		if (pq == null || !pq.enriched()) {
 			logger.info("Cannot find phonetic question [{}]", verb.getPresent());
 			pq = new PhoneticQuestion();
 			pq.setWord(verb.getPresent());
-		}
-
-		PhoneticQuestionUtil pqUtil = new PhoneticQuestionUtil();
-		pqUtil.findIPA(pq);
+			phoneticQuestionUtil.findIPA(pq);
+		}	
+		
 		return pq;
 	}
 
@@ -78,4 +78,5 @@ public class IrregularVerbPracticeService implements IIrregularVerbPracticeServi
 	// ============== Setter / Getter ================//
 	public void setPhoneticQuestionDAO(IPhoneticQuestionDAO phoneticQuestionDAO) {this.phoneticQuestionDAO = phoneticQuestionDAO;}
 	public void setMemberPracticeScoreCardDAO(IMemberPracticeScoreCardDAO scoreCardDAO) {this.scoreCardDAO = scoreCardDAO; }
+	public void setPhoneticQuestionUtil(PhoneticQuestionUtil util) {this.phoneticQuestionUtil = util; }
 }

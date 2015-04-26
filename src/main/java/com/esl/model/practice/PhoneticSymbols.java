@@ -7,8 +7,6 @@ import java.util.Set;
 
 import org.slf4j.LoggerFactory;
 
-import com.esl.util.SpringUtil;
-
 public class PhoneticSymbols {
 	private static org.slf4j.Logger log = LoggerFactory.getLogger("ESL");
 
@@ -167,10 +165,4 @@ public class PhoneticSymbols {
 		PhoneticSymbols.difficultyValueMap = difficultyValueMap;
 	}
 
-	public static void main(String[] args) {
-		SpringUtil.initSpring();
-		PhoneticSymbols p = (PhoneticSymbols) SpringUtil.getContext().getBean("phoneticSymbols");
-		System.out.println(p.getDifficultyValueMap().get(PhoneticSymbols.Level.Full));
-
-	}
 }

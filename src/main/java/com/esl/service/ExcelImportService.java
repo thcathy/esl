@@ -1,11 +1,16 @@
 package com.esl.service;
 
 import java.io.File;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +18,6 @@ import com.esl.dao.IGradeDAO;
 import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.model.Grade;
 import com.esl.model.PhoneticQuestion;
-import com.esl.util.SpringUtil;
 import com.esl.util.practice.PhoneticQuestionUtil;
 
 @Service("excelImportService")
@@ -129,8 +133,8 @@ public class ExcelImportService implements IExcelImportService {
 
 	public static void main(String[] args)
 	{
-		SpringUtil.initSpring();
-		IExcelImportService es = (IExcelImportService) SpringUtil.getContext().getBean("excelImportService");
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("/com/esl/ESL-context.xml");
+		IExcelImportService es = (IExcelImportService) ctx.getBean("excelImportService");
 		try
 		{
 			//es.importGrades();
