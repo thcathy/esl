@@ -11,11 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.esl.entity.practice.*;
-import com.esl.test.dao.TestDictationDao;
+import com.esl.test.dao.DictationDaoTest;
 import com.esl.util.practice.GrammarPracticeGenerator;
 
-public class TestGrammarPracticeGenerator {
-	Logger log = LoggerFactory.getLogger(TestDictationDao.class);
+public class GrammarPracticeGeneratorTest {
+	Logger log = LoggerFactory.getLogger(DictationDaoTest.class);
 	private static GrammarPractice p1 = new PrepositionPractice();
 	private static GrammarPractice article1 = new ArticlePractice();
 

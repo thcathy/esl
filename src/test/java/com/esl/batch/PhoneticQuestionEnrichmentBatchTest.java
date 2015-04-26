@@ -17,7 +17,7 @@ import com.esl.model.PhoneticQuestion;
 import com.esl.util.web.DictionaryParserFactory;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestPhoneticQuestionEnrichmentBatch {
+public class PhoneticQuestionEnrichmentBatchTest {
 
 	@Mock private PhoneticQuestionDAO mockDao;
 	@Mock private DictionaryParserFactory mockParserFactory;

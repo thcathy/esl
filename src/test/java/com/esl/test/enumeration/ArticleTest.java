@@ -9,10 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.esl.enumeration.Article;
-import com.esl.test.dao.TestDictationDao;
+import com.esl.test.dao.DictationDaoTest;
 
-public class TestArticle {
-	Logger log = LoggerFactory.getLogger(TestDictationDao.class);
+public class ArticleTest {
+	Logger log = LoggerFactory.getLogger(DictationDaoTest.class);
 
 	@Test
 	public void testArticleRegex() {

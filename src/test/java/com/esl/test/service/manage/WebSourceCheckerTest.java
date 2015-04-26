@@ -11,7 +11,7 @@ import com.esl.service.MailService;
 import com.esl.service.manage.WebSourceChecker;
 import com.esl.util.web.CambridgeDictionaryParser;
 
-public class TestWebSourceChecker extends EasyMockSupport {
+public class WebSourceCheckerTest extends EasyMockSupport {
 	WebSourceChecker checker;
 	IMailService mockMailService;
 	CambridgeDictionaryParser parser;

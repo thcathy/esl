@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.esl.util.web.CambridgeDictionaryParser;
 
-public class TestCambridgeDictionaryParser {
+public class CambridgeDictionaryParserTest {
 
 	@Test
 	public void testParseBanana() {

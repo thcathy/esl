@@ -12,7 +12,7 @@ import com.esl.dao.dictation.IDictationDAO;
 import com.esl.entity.dictation.Dictation;
 import com.esl.web.jsf.controller.dictation.DictationPracticeController;
 
-public class TestDictationPracticeController extends EasyMockSupport {
+public class DictationPracticeControllerTest extends EasyMockSupport {
 	IDictationDAO mockDictationDAO;
 
 	//	@Before

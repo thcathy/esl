@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.esl.util.web.DictionaryParser;
 import com.esl.util.web.YahooDictionaryParser;
 
-public class TestYahooDictionaryParser {
+public class YahooDictionaryParserTest {
 
 	@Test
 	public void testParseBanana() {

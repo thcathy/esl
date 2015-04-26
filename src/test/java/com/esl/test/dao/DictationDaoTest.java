@@ -23,15 +23,15 @@ import com.esl.model.Member;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:test-dao.xml"})
 @Transactional
-public class TestDictationDao {
-	Logger log = LoggerFactory.getLogger(TestDictationDao.class);
+public class DictationDaoTest {
+	Logger log = LoggerFactory.getLogger(DictationDaoTest.class);
 	Dictation dic1, dic2;
 	Member member1;
 
 	@Autowired
 	public IDictationDAO dictationDao;
 	
-	public TestDictationDao() {
+	public DictationDaoTest() {
 		member1 = new Member();
 		
 		dic1 = new Dictation("dic1");

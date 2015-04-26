@@ -11,7 +11,7 @@ import com.esl.entity.practice.*;
 import com.esl.service.practice.GrammarPracticeService;
 import com.esl.util.practice.GrammarPracticeGenerator;
 
-public class TestGrammarPracticeService {
+public class GrammarPracticeServiceTest {
 	GrammarPracticeService service = new GrammarPracticeService();
 
 	private static GrammarPractice p1 = new PrepositionPractice();

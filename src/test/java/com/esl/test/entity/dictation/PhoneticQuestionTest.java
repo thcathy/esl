@@ -21,7 +21,7 @@ import com.esl.util.practice.PhoneticQuestionUtil;
 import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 
 @RunWith(PowerMockRunner.class)
-public class TestPhoneticQuestion {
+public class PhoneticQuestionTest {
 
 	@Test
 	public void onlyReturnStoredFilePathIfAny() {

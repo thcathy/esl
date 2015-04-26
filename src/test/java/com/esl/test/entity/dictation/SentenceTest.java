@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.esl.entity.dictation.Dictation;
 import com.esl.entity.dictation.DictationSentence;
 
-public class TestSentence {
+public class SentenceTest {
 	DictationSentence d1s1;
 	DictationSentence d1s2;
 	Dictation d1;

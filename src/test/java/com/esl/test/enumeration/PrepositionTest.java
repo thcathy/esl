@@ -9,10 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.esl.enumeration.Preposition;
-import com.esl.test.dao.TestDictationDao;
+import com.esl.test.dao.DictationDaoTest;
 
-public class TestPreposition {
-	Logger log = LoggerFactory.getLogger(TestDictationDao.class);
+public class PrepositionTest {
+	Logger log = LoggerFactory.getLogger(DictationDaoTest.class);
 
 	@Test
 	public void testPrepositionRegex() {

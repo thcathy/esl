@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.esl.model.PhoneticQuestion;
 import com.esl.service.practice.PhoneticSymbolPracticeService;
 
-public class TestPhoneticSymbolPracticeService {
+public class PhoneticSymbolPracticeServiceTest {
 
 	@Test
 	public void checkAnswer_givenNoStress_shouldRemainTrue() {

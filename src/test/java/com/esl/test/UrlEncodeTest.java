@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestUrlEncode {
-	static Logger log = LoggerFactory.getLogger(TestUrlEncode.class);
+public class UrlEncodeTest {
+	static Logger log = LoggerFactory.getLogger(UrlEncodeTest.class);
 
 	@Test
 	public void testUrlEncode() {

@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.esl.entity.practice.*;
 import com.esl.web.jsf.controller.practice.GrammarPracticeController;
 
-public class TestGrammarPracticeController {
+public class GrammarPracticeControllerTest {
 
 	@Test
 	public void testSetInputPracticeType() {

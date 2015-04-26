@@ -9,10 +9,10 @@ import org.junit.Test;
 import com.esl.entity.News;
 import com.esl.service.NewsService;
 
-public class TestNewsService {
+public class NewsServiceTest {
 	NewsService newsService;
 
-	public TestNewsService() {
+	public NewsServiceTest() {
 		List<News> enNews = new ArrayList<News>();
 
 		News zhNews1 = new News();
