@@ -1,6 +1,7 @@
 package com.esl.util.web;
 
 import java.net.HttpURLConnection;
+import java.util.Optional;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -50,10 +51,15 @@ public class YahooDictionaryParser implements DictionaryParser {
 			
 			Elements tagDDs = doc.select("div.provider-kanhan + div").select("dt:containsOwn(DJ) + dd");
 			
-			tagDDs.stream().map(this::parseIpaAndAudioLink).filter(x->x).findFirst();			
+			Optional<Boolean> result = tagDDs.stream().map(this::parseIpaAndAudioLink).filter(x->x).findFirst();			
 			
-			logger.debug("Parsed ipa[{}], audio[{}] for word[{}]", ipa, audioLink, word);
-			return true;
+			if (result.isPresent()) {
+				logger.debug("Parsed ipa[{}], audio[{}] for word[{}]", ipa, audioLink, word);
+				return true;
+			} else {
+				logger.warn("Cannot parse word [{}] from url [{}]", word, url());
+				return false;
+			}
 		} catch (Exception e1) {
 			logger.warn("Exception found when parse " + word + " from url " + url(), e1);
 		}

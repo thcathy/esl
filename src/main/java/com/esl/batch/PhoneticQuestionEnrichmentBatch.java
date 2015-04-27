@@ -25,7 +25,7 @@ public class PhoneticQuestionEnrichmentBatch {
 	
 	public long processAllQuestions() {
 		List<PhoneticQuestion> questions = dao.getAll();
-		long proceed = questions.stream().map(this::processSingle).filter(x -> x).count();
+		long proceed = questions.parallelStream().map(this::processSingle).filter(x -> x).count();
 		logger.info("Enriched Question {} out of {}", proceed, questions.size());
 		return proceed;
 	}
@@ -44,14 +44,19 @@ public class PhoneticQuestionEnrichmentBatch {
 	}
 	
 	private Optional<PhoneticQuestion> enrich(PhoneticQuestion question, DictionaryParser primary, DictionaryParser secondary) {
-		if (!primary.parse()) 
-			return Optional.empty();
+		boolean primarySourceResult = primary.parse(); 
+		boolean secondarySourceResult = secondary.parse();
 		
-		if (!secondary.parse())
-		{
+		if (!primarySourceResult && !secondarySourceResult) {
+			return Optional.empty();
+		} else if (primarySourceResult && !secondarySourceResult) {
 			logger.debug("Fail to parse [{}] from secondary source, use primary only", question.getWord());
 			question.setIPA(primary.getIpa());
 			question.setPronouncedLink(primary.getAudioLink());
+		} else if (!primarySourceResult && secondarySourceResult) {
+			logger.debug("Fail to parse [{}] from primary source, use secondary only", question.getWord());
+			question.setIPA(secondary.getIpa());
+			question.setPronouncedLink(secondary.getAudioLink());
 		} else {
 			question.setIPA(primary.getIpa());
 			question.setPronouncedLinkBackup(primary.getAudioLink());
