@@ -87,9 +87,8 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 			if (answer.length() > 0 && !ValidationUtil.isValidWord(answer)) {
 				logger.info("checkAnswer: INVALID_INPUT: user input answer:" + answer);
 				return INVALID_INPUT;
-			}
-			answer = answer.trim().toLowerCase();
-			boolean isCorrect = practice.getCurrentQuestionObject().getWord().trim().toLowerCase().equals(answer);
+			}			
+			boolean isCorrect = practice.getCurrentQuestionObject().wordEqual(answer);
 			if (isCorrect) {
 				logger.info("checkAnswer: addMark: practice.mark" + practice.getMark());
 				practice.addMark(1);

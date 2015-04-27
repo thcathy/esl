@@ -98,7 +98,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 		PhoneticQuestionHistory questionG2 = new PhoneticQuestionHistory();
 		questionG2.setAnswer(answer);
 		questionG2.setQuestion(memberWord.getWord());
-		if (answer.trim().toLowerCase().equals(memberWord.getWord().getWord().toLowerCase())) {
+		if (memberWord.getWord().wordEqual(answer)) {
 			mark = 1;
 			questionG2.setCorrect(true);
 		}

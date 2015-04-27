@@ -195,7 +195,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 		PhoneticQuestionHistory questionG2 = new PhoneticQuestionHistory();
 		questionG2.setAnswer(answer);
 		questionG2.setQuestion(question);
-		if (answer.trim().toLowerCase().equals(question.getWord().toLowerCase())) {
+		if (question.wordEqual(answer)) {
 			mark = 1;
 			questionG2.setCorrect(true);
 		}
@@ -247,7 +247,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 		PhoneticQuestionHistory questionG2 = new PhoneticQuestionHistory();
 		questionG2.setAnswer(answer);
 		questionG2.setQuestion(question);
-		if (answer.trim().toLowerCase().equals(question.getWord().toLowerCase())) {
+		if (question.wordEqual(answer)) {
 			mark = 1;
 			questionG2.setCorrect(true);
 		}

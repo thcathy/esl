@@ -204,6 +204,11 @@ public class PhoneticQuestion implements Serializable {
 	public boolean ipaEqual(String input) {
 		return IPA.replaceAll("ˋ", "").equals(input);
 	}
+	
+	public boolean wordEqual(String input) { 
+		return word.replaceAll(" ", "").replaceAll("-", "").toLowerCase()
+				.equals(input.replaceAll(" ", "").replaceAll("-", "").toLowerCase());
+	}
 
 	public boolean enriched() {		
 		return StringUtils.isNotBlank(getIPA()) && StringUtils.isNotBlank(getPronouncedLink());
