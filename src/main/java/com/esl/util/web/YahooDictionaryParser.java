@@ -4,6 +4,7 @@ import java.net.HttpURLConnection;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,16 +48,27 @@ public class YahooDictionaryParser implements DictionaryParser {
 												.createConnection();
 			doc = Jsoup.parse(connection.getInputStream(), "UTF-8", connection.getURL().getPath());
 			
-			Elements dataDiv = doc.select("div.provider-kanhan + div");
-			ipa = trimBracket(dataDiv.get(0).child(0).child(3).ownText());			
-			audioLink = dataDiv.select("source[type=audio/mpeg]").attr("src");
+			Elements tagDDs = doc.select("div.provider-kanhan + div").select("dt:containsOwn(DJ) + dd");
+			
+			tagDDs.stream().map(this::parseIpaAndAudioLink).filter(x->x).findFirst();			
 			
 			logger.debug("Parsed ipa[{}], audio[{}] for word[{}]", ipa, audioLink, word);
 			return true;
 		} catch (Exception e1) {
-			logger.warn("cannot get reader when query [{}] from url [{}], reason [{}]", new Object[]{word, url(), e1.toString()});
+			logger.warn("Exception found when parse " + word + " from url " + url(), e1);
 		}
 		
+		return false;
+	}
+	
+	private boolean parseIpaAndAudioLink(Element dd) {
+		try {
+			ipa = trimBracket(dd.ownText());
+			audioLink = dd.parent().parent().select("source[type=audio/mpeg]").attr("src");
+			return true;
+		} catch (Exception e1) {
+			logger.warn("Exception found when parse " + word + " from url " + url(), e1);
+		}
 		return false;
 	}
 

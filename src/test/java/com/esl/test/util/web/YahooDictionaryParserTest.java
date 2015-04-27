@@ -27,5 +27,15 @@ public class YahooDictionaryParserTest {
 		assertEquals("bəˋnɑ:nə",p.getIpa());
 		assertEquals("https://s.yimg.com/tn/dict/kh/v1/18498.mp3",p.getAudioLink());
 	}
+	
+	@Test
+	public void parse_givenWordIn_ShouldSuccess() {
+		DictionaryParser p = YahooDictionaryParser.toParse("in");
+
+		assertTrue(p.parse());
+		assertEquals("in",p.getIpa());
+		assertEquals("https://s.yimg.com/tn/dict/kh/v1/54468.mp3",p.getAudioLink());
+	}
+
 
 }

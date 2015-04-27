@@ -12,21 +12,13 @@ public class HttpURLConnectionBuilder {
 	String uri;
 	String encodedParams;
 	String referer;
-
-	static String proxyUrl;
-	static int proxyPort;
-
+	
 	public HttpURLConnection createConnection() {
 		HttpURLConnection connection = null;
 		try {
 			URL url = new URL (uri);
 
-			if (proxyUrl != null) {
-				Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyUrl, proxyPort));
-				connection = (HttpURLConnection)url.openConnection(proxy);
-			} else {
-				connection = (HttpURLConnection)url.openConnection();
-			}			
+			connection = (HttpURLConnection)url.openConnection();
 			connection.setRequestProperty ("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0)");
 			
 			if (StringUtils.isNotBlank(referer)) connection.setRequestProperty("Referer", referer);
@@ -65,11 +57,5 @@ public class HttpURLConnectionBuilder {
 	public HttpURLConnectionBuilder referer(String referer) {
 		this.referer = referer;
 		return this;
-	}
-		
-	public static String getProxyUrl() {return proxyUrl;}
-	public static void setProxyUrl(String proxyUrl) {HttpURLConnectionBuilder.proxyUrl = proxyUrl;}
-
-	public static int getProxyPort() {return proxyPort;}
-	public static void setProxyPort(int proxyPort) {HttpURLConnectionBuilder.proxyPort = proxyPort;}
+	}	
 }
