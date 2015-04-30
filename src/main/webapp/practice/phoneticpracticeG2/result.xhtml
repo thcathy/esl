@@ -26,7 +26,7 @@
 				<f:param value="#{phoneticPracticeG2Controller.currentGrade.description}"/>
 			</h:outputFormat>
 		</h2>
-		<h:panelGroup rendered="#{phoneticPracticeG2Controller.topLevel}"><h:outputText styleClass="innerHeading" value="#{phonPracticeMsg.practiceG2LvUpReq}" /></h:panelGroup>
+		<h:panelGroup rendered="#{phoneticPracticeG2Controller.topLevel and !phoneticPracticeG2Controller.levelUp}"><h:outputText styleClass="innerHeading" value="#{phonPracticeMsg.practiceG2LvUpReq}" /></h:panelGroup>
 		<esl:scoreBar startMark="#{phoneticPracticeG2Controller.scoreBarCurrentMark}" maxMark="#{phoneticPracticeG2Controller.scoreBarMaxMark}" />
 		<a4j:outputPanel id="msgPanel">
 			<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />

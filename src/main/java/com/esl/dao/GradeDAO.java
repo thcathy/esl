@@ -46,7 +46,7 @@ public class GradeDAO extends ESLDao<Grade> implements IGradeDAO {
 
 	public Grade getGradeByLevel(int level) {
 		String queryString = "from Grade grade where grade.level = :level";
-		List result = sessionFactory.getCurrentSession().createQuery(GET_GRADE_BY_TITLE).setParameter("level", level).list();;
+		List result = sessionFactory.getCurrentSession().createQuery(queryString).setParameter("level", level).list();
 		if (result.size() > 0)
 			return (Grade) result.get(0);
 		else {
