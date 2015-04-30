@@ -39,7 +39,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
-					<warName>ESL</warName>
+					<warName>${project.name}-${project.version}_${maven.build.tim‌​estamp}</warName>
 					<webResources>
 						<resource>
 							<directory>prodconfig</directory>
