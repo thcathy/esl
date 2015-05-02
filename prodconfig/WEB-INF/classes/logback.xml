@@ -14,7 +14,7 @@
 	<logger name="org.apache" level="info" />
 	<logger name="org.springframework" level="info" />
 	
-	<root level="debug">
+	<root level="info">
 		<appender-ref ref="ESL" />
 	</root>
 </configuration>
