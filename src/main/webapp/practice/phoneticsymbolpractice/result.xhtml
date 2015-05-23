@@ -44,7 +44,7 @@
 				</div>
 			</h:panelGroup>								
 			<h:panelGroup rendered="#{authenticationController.authenticated}">									
-				<u><h:commandLink action="practice/phoneticsymbolpractice/input" value="#{phonSymPracticeMsg.resultRetryPractice}" /></u>
+				<u><h:commandLink action="/practice/phoneticsymbolpractice/input" value="#{phonSymPracticeMsg.resultRetryPractice}" /></u>
 				<img src="#{request.contextPath}/images/spacer.gif" width="20" height="1" />
 				<u><h:commandLink onclick="return submitRequest();" action="#{phoneticSymbolPracticeController.start}" value="#{phonPracticeMsg.resultRetrySameGradePractice}" /></u>
 			</h:panelGroup>
