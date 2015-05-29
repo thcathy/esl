@@ -29,7 +29,9 @@
 			contentDiv.innerHTML = '';
 			var imgContainer = document.createElement('div');                                          
 			var newImg = document.createElement('img');
-			newImg.src = picPaths[imageCount];         
+			newImg.src = picPaths[imageCount];   
+			newImg.style.width="100%";
+            newImg.style.height="auto";
 			imgContainer.appendChild(newImg);
 			contentDiv.appendChild(imgContainer);
 			
@@ -55,6 +57,8 @@
 		var imgContainer = document.createElement('div');                                          
 		var newImg = document.createElement('img');
 		newImg.src = picPaths[imageCount];
+		newImg.style.width="100%";
+        newImg.style.height="auto";
 		imgContainer.appendChild(newImg);
 		contentDiv.appendChild(imgContainer);
 	}
@@ -65,7 +69,7 @@
 <h:panelGroup rendered="#{cc.attrs.showImage and userSession.showGoogleImage}">
     <table style="width: 250px; height: 230px; border:2px solid #FF8620; margin-left: 30px;">
     	<tr>
-    		<td colspan="2" valign="middle" align="center" style="width: 100%; height: 200;"><div id="gImageContent">Loading...</div></td>
+    		<td colspan="2" valign="middle" align="center" style="width: 100%; height: 200;"><div id="gImageContent" style="width:100%; height:auto;">Loading...</div></td>
     	</tr>    	
     	<tr>
     		<td align="center" valign="top" style="height: 20px;"><div style="cursor: pointer;" id="nextImage" onclick="changeImg()"><h:graphicImage value="/images/icon/silk/picture_go.png" />#{generalMsg.nextImage}</div></td>
