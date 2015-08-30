@@ -16,7 +16,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("bənɑ:nə",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukb/ukbal/ukballs018.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukb/ukbal/ukballs018.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -26,7 +26,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("lemən",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukl/uklei/ukleisu005.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukl/uklei/ukleisu005.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -36,7 +36,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("stɑ:",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/uks/uksta/ukstand022.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/uks/uksta/ukstand022.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("pi:k",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukp/ukpay/ukpayro024.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukp/ukpay/ukpayro024.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("fit",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukf/ukfis/ukfistf003.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukf/ukfis/ukfistf003.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -66,7 +66,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("pet",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukp/ukper/ukperv_026.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukp/ukper/ukperv_026.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -76,7 +76,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("kæt",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukc/ukcas/ukcaste011.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukc/ukcas/ukcaste011.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -86,7 +86,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("frɔg",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukf/ukfri/ukfrill022.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukf/ukfri/ukfrill022.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -96,7 +96,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("kɑ:",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukc/ukcap/ukcapit027.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukc/ukcap/ukcapit027.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -106,7 +106,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("tɔ:l",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukt/uktaj/uktajik024.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukt/uktaj/uktajik024.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -116,7 +116,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("fut",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukf/ukfol/ukfolks026.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukf/ukfol/ukfolks026.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -126,7 +126,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("ru:m",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukr/ukroo/ukrooke003.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukr/ukroo/ukrooke003.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -136,7 +136,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("lʌk",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukl/ukloy/ukloyal030.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukl/ukloy/ukloyal030.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -146,7 +146,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("bə:d",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukb/ukbip/ukbipla004.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukb/ukbip/ukbipla004.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -156,7 +156,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("neim",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukm/ukmyt/ukmyth_029.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukm/ukmyt/ukmyth_029.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -166,7 +166,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("kait",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukk/ukkit/ukkit__004.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukk/ukkit/ukkit__004.mp3",p.getAudioLink());
 	}
 
 	@Test
@@ -176,7 +176,7 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.parse());
 		assertTrue(p.isContentFind());
 		assertEquals("kau",p.getIpa());
-		assertEquals("http://dictionary.cambridge.org/media/british/uk_pron/u/ukc/ukcov/ukcover011.mp3",p.getAudioLink());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukc/ukcov/ukcover011.mp3",p.getAudioLink());
 	}
 
 	@Test

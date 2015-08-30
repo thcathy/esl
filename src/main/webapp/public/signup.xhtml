@@ -104,13 +104,15 @@
 						<td class="formTitle"><h:outputLabel
 							value="#{authMsg.signupFormAddressLabel}" for="address" /></td>
 						<td class="formTitle">:</td>
-						<td><h:inputText id="address"
+						<td>
+							<h:inputText id="address"
 							value="#{profileController.newMember.address}">
-							<f:validateLength minimum="10" />
-							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*"
-								message="#{authMsg.signupFormInvalidChar}" />
-						</h:inputText> <br />
-						<h:message for="address" errorClass="error" /></td>
+								
+								<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]{10,}|^$" message="#{authMsg.signupFormInvalidChar}" />
+							</h:inputText>
+							<br />
+							<h:message for="address" errorClass="error" />
+						</td>
 					</tr>
 					<tr>
 						<td class="formTitle"><h:outputLabel
