@@ -1,5 +1,7 @@
 package com.esl.util.practice;
 
+import static org.apache.commons.lang3.CharEncoding.UTF_8;
+
 import java.net.HttpURLConnection;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import javax.annotation.PostConstruct;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -83,12 +86,27 @@ public class PhoneticQuestionUtil {
 		Document doc = null;		
 		try {						
 			HttpURLConnection connection = new HttpURLConnectionBuilder().setURL(text2SpeechURL).setEncodedParams(paramUrl).createConnection();		
-			doc = Jsoup.parse(connection.getInputStream(), "utf-8", connection.getURL().getPath());			
+			doc = Jsoup.parse(connection.getInputStream(), UTF_8, connection.getURL().getPath());			
+			
+			String mp3PageUrl = exactForwardUrl(doc);
+			
+			connection = new HttpURLConnectionBuilder().setURL(text2SpeechURL + mp3PageUrl).createConnection();		
+			doc = Jsoup.parse(connection.getInputStream(), UTF_8, connection.getURL().getPath());						
 		} catch (Exception e) {
-			System.out.println(e);
-			e.printStackTrace();
+			logger.info("Cannot get text 2 speech link", e);
 		}
 		return text2SpeechURL + doc.select("a[href$=mp3]").get(0).attr("href");
+	}
+
+	private String exactForwardUrl(Document doc) {
+		for (Element c : doc.select("script[type=text/javascript]")) {
+			String html = c.childNode(0).toString();
+			if (html.contains("/FW/result.php")) {
+				int startPos = html.indexOf("/FW/result.php");
+				return html.substring(startPos+1, html.indexOf("'", startPos));
+			}
+		}
+		throw new RuntimeException("Cannot find forward url from: " + doc.ownText());
 	}
 
 }
