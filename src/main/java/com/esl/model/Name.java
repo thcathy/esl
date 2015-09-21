@@ -2,8 +2,16 @@ package com.esl.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class Name implements Serializable {
+	@Size(max=100, message="{incorrectSize}")
+	@Pattern(regexp="[a-zA-Z\\s]*", message="{alphaOnly}")
 	private String lastName;
+	
+	@Size(max=100, message="{incorrectSize}")
+	@Pattern(regexp="[a-zA-Z\\s]*", message="{alphaOnly}")
 	private String firstName;
 	
 	// ********************** Constructors ********************** //

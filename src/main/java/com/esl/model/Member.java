@@ -1,22 +1,41 @@
 package com.esl.model;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.esl.model.group.MemberGroup;
 
 public class Member implements Serializable {
 	private Long id;
+	
+	@Pattern(regexp="[a-zA-Z0-9]*",message="{alphaNumericOnly}" )
+	@Size(min=6, max=12, message="{incorrectSize}")
 	private String userId;
+	
 	private Name name = new Name();
 	private Date birthday;
 	private String address;
+	
+	@Size(max=30, message="{incorrectSize}")
+	@Pattern(regexp="[^'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String phoneNumber;
+	
+	@Size(min=6, max=20, message="{incorrectSize}")
+	@Pattern(regexp="[^\\s'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String PIN;
 	private String school;
 	private int totalWordLearnt = 0;
 	private Date activatedDate;
 	private boolean acceptedTerm = false;
+	
+	@Pattern(regexp="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", message="{invalidEmail}")
 	private String emailAddress;
 	private Grade grade;
 	private String loginedSessionId;

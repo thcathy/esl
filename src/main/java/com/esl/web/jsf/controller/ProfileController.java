@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +34,16 @@ public class ProfileController extends ESLController {
 	private Member newMember = new Member();			// for sign up
 
 	// UI
+	@Size(min=6, max=20, message="{incorrectSize}")
+	@Pattern(regexp="[^\\s'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String confirmedPIN = "";
+	
+	@Size(min=6, max=20, message="{incorrectSize}")
+	@Pattern(regexp="[^\\s'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String existPIN = "";		// for chg pw
+	
+	@Size(min=6, max=20, message="{incorrectSize}")
+	@Pattern(regexp="[^\\s'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String newPIN = "";			// for chg pw
 
 	private boolean acceptToF = false;
