@@ -168,3 +168,12 @@ button.positive,.buttons a.positive {
 .buttons a.green:hover {
 	background-color: #51C88E;
 }
+
+.buttons .accept {
+	background-image: url("/ESL/images/icon/silk/accept.png");
+	background-repeat: no-repeat;
+	background-position: 5px;
+	padding-left: 25px;
+	width: 80px;
+	text-align: center;
+}
