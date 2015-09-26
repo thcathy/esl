@@ -17,10 +17,10 @@
 		<div align="center" style="text-align:center; border: 3px solid #BBDDCC; background: #E6F9F8; padding:5px; font-weight: bold;">
 			<h:outputText value="#{authMsg.signupHeader}" escape="false" />	
 		</div>		
-		<h:messages tooltip="true" errorClass="error" infoClass="innerHeading" globalOnly="true" />
+		<h:messages tooltip="true" errorClass="error newContent" infoClass="innerHeading newContent" globalOnly="true" />
 
 		<!-- Sign Up Form -->
-		<h:form id="signUpForm" onsubmit="return submitRequest()">
+		<h:form id="signUpForm" rendered="#{profileController.showSignUpForm}" onsubmit="return submitRequest()">
 			<div class="newContent">
 				<fieldset>
 					<legend>&nbsp;ACCOUNT INFORMATION&nbsp;</legend>

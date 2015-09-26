@@ -10,6 +10,8 @@ import java.util.List;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.esl.model.group.MemberGroup;
 
 public class Member implements Serializable {
@@ -21,6 +23,8 @@ public class Member implements Serializable {
 	
 	private Name name = new Name();
 	private Date birthday;
+	
+	@Pattern(regexp="[^'&lt;&gt;&quot;]{10,}|^$", message="{invalidAddress}")
 	private String address;
 	
 	@Size(max=30, message="{incorrectSize}")
@@ -35,7 +39,7 @@ public class Member implements Serializable {
 	private Date activatedDate;
 	private boolean acceptedTerm = false;
 	
-	@Pattern(regexp="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", message="{invalidEmail}")
+	@Pattern(regexp="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message="{invalidEmail}")
 	private String emailAddress;
 	private Grade grade;
 	private String loginedSessionId;
@@ -101,16 +105,16 @@ public class Member implements Serializable {
 	public void setGrade(Grade grade) {this.grade = grade;}
 
 	public String getAddress() { return address; }
-	public void setAddress(String address) { this.address = address; }
+	public void setAddress(String address) { this.address = StringUtils.trimToEmpty(address); }
 
 	public String getPhoneNumber() { return phoneNumber; }
-	public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+	public void setPhoneNumber(String phoneNumber) { this.phoneNumber = StringUtils.trimToEmpty(phoneNumber); }
 
 	public String getPIN() { return PIN; }
 	public void setPIN(String PIN) { this.PIN = PIN; }
 
 	public String getSchool() { return school; }
-	public void setSchool(String school) { this.school = school; }
+	public void setSchool(String school) { this.school = StringUtils.trimToEmpty(school); }
 
 	public Date getActivatedDate() { return activatedDate; }
 	public void setActivatedDate(Date activatedDate) { this.activatedDate = activatedDate; }

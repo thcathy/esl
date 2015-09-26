@@ -79,7 +79,7 @@ function isSaveSession() {
   			<h:selectBooleanCheckbox value="#{authenticationController.saveSession}" />#{generalMsg.rememberMe}</td>
   	</tr>
 	<tr>
-		<td><h:link outcome="/public/signup"><img src="#{languageController.imagesPath}/login_08.gif" width="62" height="20"  border="0" /></h:link></td>
+		<td><h:commandLink action="#{profileController.startSignUp}"><img src="#{languageController.imagesPath}/login_08.gif" width="62" height="20"  border="0" /></h:commandLink></td>
 		<td><img src="#{languageController.imagesPath}/login_09.gif" width="28" height="20" /></td>
 		<td><h:commandLink action="#{authenticationController.login}"><img src="#{languageController.imagesPath}/login_10.gif" width="47" height="20"  border="0" /></h:commandLink></td>
 	</tr>

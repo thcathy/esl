@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -31,7 +30,7 @@ public class ProfileController extends ESLController {
 	// Model and Service
 	@Resource private IMembershipService membershipSvc;
 	@Resource(name="phoneticPracticeService") private IPhoneticPracticeService phoneticPracticeSvc;
-	private Member newMember = new Member();			// for sign up
+	private Member newMember;			// for sign up
 
 	// UI
 	@Size(min=6, max=20, message="{incorrectSize}")
@@ -46,8 +45,8 @@ public class ProfileController extends ESLController {
 	@Pattern(regexp="[^\\s'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String newPIN = "";			// for chg pw
 
-	private boolean acceptToF = false;
-	private UIForm uiSignUpForm;
+	private boolean acceptToF;
+	private boolean showSignUpForm;
 
 	// ============== Setter / Getter ================//
 	public void setMembershipSvc(IMembershipService membershipSvc) {this.membershipSvc = membershipSvc;}
@@ -64,8 +63,8 @@ public class ProfileController extends ESLController {
 	public boolean isAcceptToF() {return acceptToF;}
 	public void setAcceptToF(boolean acceptToF) {this.acceptToF = acceptToF;}
 
-	public UIForm getUiSignUpForm() {return uiSignUpForm;}
-	public void setUiSignUpForm(UIForm uiSignUpForm) {this.uiSignUpForm = uiSignUpForm;	}
+	public boolean isShowSignUpForm() {return showSignUpForm;}
+	public void setShowSignUpForm(boolean showSignUpForm) {this.showSignUpForm = showSignUpForm;	}
 
 	public String getExistPIN() {return existPIN;}
 	public void setExistPIN(String existPIN) {this.existPIN = existPIN;}
@@ -78,7 +77,9 @@ public class ProfileController extends ESLController {
 
 	// ============== Functions ================//
 	public String startSignUp() {
-		if (uiSignUpForm!=null) uiSignUpForm.setRendered(true);
+		showSignUpForm = true;
+		newMember = new Member();
+		acceptToF = false;
 		return "/public/signup";
 	}
 
@@ -103,9 +104,9 @@ public class ProfileController extends ESLController {
 		// set up input data format
 		newMember.setUserId(newMember.getUserId().toLowerCase());
 		newMember.setName(newMember.getName().getLastName().trim(),	newMember.getName().getFirstName().trim());
-		newMember.setAddress(newMember.getAddress().trim());
-		newMember.setPhoneNumber(newMember.getPhoneNumber().trim());
-		newMember.setSchool(newMember.getSchool().trim());
+		newMember.setAddress(newMember.getAddress());
+		newMember.setPhoneNumber(newMember.getPhoneNumber());
+		newMember.setSchool(newMember.getSchool());
 
 		String result = membershipSvc.signUp(newMember);
 		logger.info("signUp: membershipService.signUp return code: " + result);
@@ -119,7 +120,7 @@ public class ProfileController extends ESLController {
 			if (!IPhoneticPracticeService.COMPLETED.equals(createResult)) return errorView;
 
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("signupAccountCreated"), null));
-			uiSignUpForm.setRendered(false);
+			showSignUpForm = false;
 		}
 		else if (result.equals(IMembershipService.USER_ID_DUPLICATED))
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("signupUserIdDuplicated"), null));
