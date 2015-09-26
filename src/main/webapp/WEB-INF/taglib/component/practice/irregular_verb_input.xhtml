@@ -15,7 +15,7 @@
 	</h:panelGroup>
 	<h:panelGroup rendered="#{empty questionStr}">
 		<h:inputText id="#{inputId}" autocomplete="off" style="margin-right: 5px; width: 50px;" value="#{answerField}" styleClass="practiceAnswer" maxlength="30">
-			<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)+" message="#{irregularVerbMsg.practiceInvalidInput}"/>
+<!-- 			<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)+" message="#{irregularVerbMsg.practiceInvalidInput}"/> -->
 		</h:inputText>
 	</h:panelGroup>
 </ui:composition>

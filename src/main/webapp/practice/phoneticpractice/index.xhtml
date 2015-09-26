@@ -23,7 +23,7 @@
 					<div><ui:include src="/WEB-INF/html/PhoneticPracticeHowto_#{languageController.locale}.xhtml" /></div>
 				</td>
 				<td valign="top" style="font-size:14px; color: #EE6600;">
-					<h:form id="inputForm" onsubmit="return submitRequest()">						
+					<h:form id="inputForm">						
 						<p><label for="grade" class="left"><h:outputText value="#{phonPracticeMsg.inputSelectGrading}" style="font-size: 16px;" styleClass="innerHeading" />:</label></p>
 						<p>
 							<h:selectOneMenu style="width: 160px; color: #EE6600;" id="grade" value="#{phoneticPracticeController.selectedGrade}" styleClass="formLarge">

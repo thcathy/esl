@@ -85,7 +85,7 @@
 								<td>#{phonPracticeMsg.practiceInputAnsTitle} :</td>
 								<td>
 									<h:inputText autocomplete="off" id="answer" styleClass="practiceAnswer" value="#{cc.attrs.controllerBean.answer}" maxlength="30">
-										<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)+" message="#{phonPracticeMsg.practiceInvalidInput}"/>
+<!-- 										<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)+" message="#{phonPracticeMsg.practiceInvalidInput}"/> -->
 									</h:inputText>
 									<div><h:message for="answer" errorClass="error" /></div>
 								</td>

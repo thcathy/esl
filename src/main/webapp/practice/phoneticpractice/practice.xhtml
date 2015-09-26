@@ -138,7 +138,7 @@
 								<td>#{phonPracticeMsg.practiceInputAnsTitle} :</td>
 								<td>
 									<h:inputText id="answer" autocomplete="off" style="margin-right: 5px;" value="#{phoneticPracticeController.answer}" styleClass="practiceAnswer" maxlength="30">
-										<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)+" message="#{phonPracticeMsg.practiceInvalidInput}"/>
+<!-- 										<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)+|^$" message="#{phonPracticeMsg.practiceInvalidInput}"/> -->
 									</h:inputText>
 									<div><h:message for="answer" errorClass="error" /></div>
 								</td>
