@@ -81,7 +81,7 @@ public class PhoneticQuestionUtil {
 	
 	public String getText2SpeechPronounceLink(String word) {
 		String text2SpeechURL = "http://www.text2speech.org/";
-		String paramUrl = "speech=" + word.replace(" ", "+") + "&voice=nitech_us_rms_arctic_hts&volume_scale=5&make_audio=Convert+Text+To+Speech";
+		String paramUrl = "text=" + word.replace(" ", "+") + "&voice=slt&speed=1&outname=speech";
 		
 		Document doc = null;		
 		try {						
