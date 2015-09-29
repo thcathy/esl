@@ -29,8 +29,8 @@
 						<img src="#{languageController.imagesPath}/menu_btn_02.gif" name="menu_btn_02" width="135" border="0" id="menu_btn_02" alt="#{generalMsg.menuAboutUs}" /></h:link></td>
 				</tr>				
 				<tr>
-					<td><h:link outcome="/public/contactus?locale=#{languageController.locale}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_03','','#{languageController.imagesPath}/menu_btn_03r.gif',1)">
-						<img src="#{languageController.imagesPath}/menu_btn_03.gif" name="menu_btn_03" width="135" border="0" id="menu_btn_03" alt="#{generalMsg.menuContactUs}" /></h:link></td>
+					<td><a target="_blank" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_btn_03','','#{languageController.imagesPath}/menu_btn_03r.gif',1)" href="#{generalMsg.contactUsUrl}">
+						<img src="#{languageController.imagesPath}/menu_btn_03.gif" name="menu_btn_03" width="135" border="0" id="menu_btn_03" alt="#{generalMsg.menuContactUs}" /></a></td>
 				</tr>
 				<tr><td style="background-image:url('#{languageController.imagesPath}/menu_seperator.gif')" width="135" height="3"></td></tr>				
 				<tr><td><img src="#{languageController.imagesPath}/menu_mbtn_01.gif"/></td></tr>
