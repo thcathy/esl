@@ -54,6 +54,14 @@
 	background-color:#74b1ed;
 }
 
+.inlineButton2.orange {
+	background-color:#FFA35C;
+	color: #ffffff;
+}
+.inlineButton2.orange:hover {
+	background-color:#FFCB79;
+}
+
 /* ORANGE */
 .orangebuttons {
 	color: #d12f19;

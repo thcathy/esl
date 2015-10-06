@@ -124,14 +124,9 @@
 							<tr>
 								<td>#{phonPracticeMsg.practiceVoice} :</td>
 								<td>
-									<div id="player1" style="clear: none"><a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> for pronounce.</div>
-								    <script type="text/javascript">
-								  	//<![CDATA[
-									    var player1 = new SWFObject("#{request.contextPath}/player/btn_#{languageController.locale}.swf", "line", "184", "30", "7");
-									    player1.addVariable("path","#{phoneticPracticeController.practice.currentQuestionObject.activePronounceLink}");
-									    player1.write("player1");
-									//]]>
-								    </script>
+									<a href="#" onclick="document.getElementById('speak').play(); jQuery('#inputForm\\:answer').focus();" class="inlineButton2 orange">
+										<img src="/ESL/images/icon/silk/control_play_blue.png" />#{phonPracticeMsg.realPronoun}</a>
+								    <audio id="speak" src="#{phoneticPracticeController.practice.currentQuestionObject.activePronounceLink}" />
 								</td>
 							</tr>
 							<tr>
