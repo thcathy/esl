@@ -36,11 +36,7 @@
 			if (jQuery('#inputForm\\:pastAnswer')) {jQuery('#inputForm\\:pastAnswer').keydown(answerEnterEvent);}
 			if (jQuery('#inputForm\\:pastParticipleAnswer')) {jQuery('#inputForm\\:pastParticipleAnswer').keydown(answerEnterEvent);}
 			
-			if (jQuery('#inputForm\\:presentAnswer')) {
-				jQuery('#inputForm\\:presentAnswer').focus();
-			} else {
-				jQuery('#inputForm\\:presentParticipleAnswer').focus();
-			}
+			setFocus();
 		}
 		
 		jQuery(document).ready(formSetupFunction);
@@ -49,6 +45,14 @@
 			animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
 			formSetupFunction();
 //  			resetImageSearch(jQuery('#hiddenSearchText').val());
+		}
+		
+		function setFocus() {
+			if (jQuery('#inputForm\\:presentAnswer').length != 0) {
+				jQuery('#inputForm\\:presentAnswer').focus();
+			} else {
+				jQuery('#inputForm\\:presentParticipleAnswer').focus();
+			}
 		}
 		//]]>
 		</script>
@@ -74,19 +78,18 @@
 					<table style="width: 100%"><tr>
 						<td style="width: 50%" align="left">
 							<a4j:outputPanel id="questionInfoPanel" rendered="#{not empty irregularVerbPracticeController.phoneticQ and not empty irregularVerbPracticeController.phoneticQ.activePronounceLink}">
-								<div id="player1" style="clear: none"><a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> for pronounce.</div>
-							    <script type="text/javascript">
-							  	//<![CDATA[
-								    var player1 = new SWFObject("#{request.contextPath}/player/btn_#{languageController.locale}.swf", "line", "184", "30", "7");
-								    player1.addVariable("path","#{irregularVerbPracticeController.phoneticQ.activePronounceLink}");
-								    player1.write("player1");
-								//]]>
-							    </script>
-							    <p>&nbsp;</p>
+								
+							    
 							    <table style="color: #EE6600;">
 							    	<tr id="IPA">
-							    		<td width="180" style="font-size: 16px; font-weight: bold;"><h:outputText value="#{irregularVerbMsg.practicePhonetic}" />:</td>
-								    	<td style="font-size: 16px; font-weight: bold;">[<h:outputText escape="false" value="#{irregularVerbPracticeController.phoneticQ.IPA}" />]</td>											
+							    		<td style="padding-right: 30px;">
+								    		<a href="#" onclick="document.getElementById('pronounce').play(); setFocus();" class="inlineButton2 orange">
+												<img src="/ESL/images/graphic/play_1.png" width="20" height="20" style="padding-right: 5px;" />#{phonPracticeMsg.realPronoun}</a>
+											<audio id="pronounce" src="#{irregularVerbPracticeController.phoneticQ.activePronounceLink}" />
+								    	</td>	
+							    		<td width="80" style="font-size: 16px; font-weight: bold;"><h:outputText value="#{irregularVerbMsg.practicePhonetic}" />:</td>
+								    	<td style="font-size: 16px; font-weight: bold;">[<h:outputText escape="false" value="#{irregularVerbPracticeController.phoneticQ.IPA}" />]</td>
+								    											
 								    </tr>									    
 								</table>
 							</a4j:outputPanel>
