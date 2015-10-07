@@ -15,7 +15,6 @@
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_phoneticpractice_practice_title}</ui:define>
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.practice_phoneticpractice_practice_desc}" />
-		<script type="text/javascript" src="#{request.contextPath}/player/swfobject.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script type="text/javascript" src="${request.contextPath}/js/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript">
@@ -124,9 +123,9 @@
 							<tr>
 								<td>#{phonPracticeMsg.practiceVoice} :</td>
 								<td>
-									<a href="#" onclick="document.getElementById('speak').play(); jQuery('#inputForm\\:answer').focus();" class="inlineButton2 orange">
-										<img src="/ESL/images/icon/silk/control_play_blue.png" />#{phonPracticeMsg.realPronoun}</a>
-								    <audio id="speak" src="#{phoneticPracticeController.practice.currentQuestionObject.activePronounceLink}" />
+									<a href="#" onclick="document.getElementById('pronounce').play(); jQuery('#inputForm\\:answer').focus();" class="inlineButton2 orange">
+										<img src="/ESL/images/graphic/play_1.png" width="20" height="20" style="padding-right: 5px;" />#{phonPracticeMsg.realPronoun}</a>
+								    <audio id="pronounce" src="#{phoneticPracticeController.practice.currentQuestionObject.activePronounceLink}" />
 								</td>
 							</tr>
 							<tr>
