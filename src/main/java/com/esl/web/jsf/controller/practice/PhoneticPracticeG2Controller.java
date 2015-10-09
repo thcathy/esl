@@ -172,7 +172,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 			currentGradeResult = new PracticeResult(userSession.getMember(), currentGrade, PracticeResult.PHONETICPRACTICE);
 			practiceResultDAO.makePersistent(currentGradeResult);
 		}
-		topLevel = currentGrade.equals(userSession.getMember().getGrade());
+		topLevel = currentGrade.isNotTopGrade() && currentGrade.equals(userSession.getMember().getGrade());
 
 		// get a random question
 		getRandomQuestion();

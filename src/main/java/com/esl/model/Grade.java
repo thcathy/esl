@@ -1,7 +1,9 @@
 package com.esl.model;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Grade implements Serializable, Comparable  {
 	private Long id;
@@ -56,6 +58,10 @@ public class Grade implements Serializable, Comparable  {
 
 		question.getGrades().add(this);
 		this.phoneticQuestions.add(question);
+	}
+	
+	public boolean isNotTopGrade() {
+		return level != 14;
 	}
 
 	// ********************** Common Methods ********************** //
