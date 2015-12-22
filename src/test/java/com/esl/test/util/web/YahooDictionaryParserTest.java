@@ -16,7 +16,7 @@ public class YahooDictionaryParserTest {
 
 		assertTrue(p.parse());
 		assertEquals("bəˋnɑ:nə",p.getIpa());
-		assertEquals("https://s.yimg.com/tn/dict/kh/v1/18498.mp3",p.getAudioLink());
+		assertEquals("https://s.yimg.com/tn/dict/dreye/live/f/banana.mp3",p.getAudioLink());
 	}
 	
 	@Test
@@ -25,7 +25,7 @@ public class YahooDictionaryParserTest {
 
 		assertTrue(p.parse());
 		assertEquals("bəˋnɑ:nə",p.getIpa());
-		assertEquals("https://s.yimg.com/tn/dict/kh/v1/18498.mp3",p.getAudioLink());
+		assertEquals("https://s.yimg.com/tn/dict/dreye/live/f/banana.mp3",p.getAudioLink());
 	}
 	
 	@Test
@@ -34,7 +34,7 @@ public class YahooDictionaryParserTest {
 
 		assertTrue(p.parse());
 		assertEquals("in",p.getIpa());
-		assertEquals("https://s.yimg.com/tn/dict/kh/v1/54468.mp3",p.getAudioLink());
+		assertEquals("https://s.yimg.com/tn/dict/dreye/live/f/in.mp3",p.getAudioLink());
 	}
 
 
