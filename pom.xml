@@ -34,7 +34,6 @@
 					<webResources>
 						<resource>
 							<directory>prodconfig</directory>
-							<filtering>true</filtering>
 						</resource>
 						<resource>
 							<directory>src/main/resources/messages</directory>
