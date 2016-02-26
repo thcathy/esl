@@ -17,7 +17,7 @@
 		<key column="GROUP_ID" not-null="false" />
 		<one-to-many class="com.esl.model.group.MemberGroupMessage" />
 	</bag>
-  	<bag name="members" table="MEMBER_GROUP_MEMBER" inverse="true" cascade="none" lazy="true">  		  		
+  	<bag name="members" table="member_group_member" inverse="true" cascade="none" lazy="true">  		  		
   		<key column="MEMBER_GROUP_ID" />
   		<many-to-many class="Member" column="MEMBER_ID" />
   	</bag>

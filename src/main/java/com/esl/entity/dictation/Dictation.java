@@ -2,9 +2,24 @@ package com.esl.entity.dictation;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.esl.model.Member;
 import com.esl.model.group.MemberGroup;
@@ -96,7 +111,7 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 	private List<Vocab> vocabs;
 
 	@ManyToMany()
-	@JoinTable(name="DICTATION_MEMBERGROUP", joinColumns=@JoinColumn(name="DICTATION_ID"), inverseJoinColumns=@JoinColumn(name="MEMBERGROUP_ID"))
+	@JoinTable(name="dictation_membergroup", joinColumns=@JoinColumn(name="DICTATION_ID"), inverseJoinColumns=@JoinColumn(name="MEMBERGROUP_ID"))
 	private List<MemberGroup> accessibleGroups;
 
 	@Temporal(TemporalType.TIMESTAMP)

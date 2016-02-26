@@ -41,7 +41,7 @@
 		<one-to-many class="PracticeResult"/>
 	</bag>
 	
-	<bag name="groups" table="MEMBER_GROUP_MEMBER" cascade="all" lazy="true">
+	<bag name="groups" table="member_group_member" cascade="all" lazy="true">
   		<key column="MEMBER_ID" />
   		<many-to-many class="com.esl.model.group.MemberGroup" column="MEMBER_GROUP_ID" />
   	</bag>

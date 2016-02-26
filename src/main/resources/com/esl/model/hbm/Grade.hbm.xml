@@ -13,7 +13,7 @@
   	<property name="phoneticPracticeLvUpRequire" column="PHONETIC_PRACTICE_LV_UP_REQUIRE" />
   	<property name="phoneticSymbolPracticeLvUpRequire" column="PHONETIC_SYMBOL_PRACTICE_LV_UP_REQUIRE" />
   	<property name="createdDate" column="CREATED_DATE" />
-  	<bag name="phoneticQuestions" table="GRADE_PHONETICQUESTION" inverse="true" cascade="none" lazy="true">  		  		
+  	<bag name="phoneticQuestions" table="grade_phoneticquestion" inverse="true" cascade="none" lazy="true">  		  		
   		<key column="GRADE_ID" />
   		<many-to-many class="PhoneticQuestion" column="PHONETICQUESTION_ID" />
   	</bag>  	

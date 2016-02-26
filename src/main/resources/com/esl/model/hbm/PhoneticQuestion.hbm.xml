@@ -13,7 +13,7 @@
   	<property name="pronouncedLinkBackup" column="PRONOUNCED_LINK_BACKUP" />
   	<property name="picFileName" column="PIC_FILE_NAME" length="50" />
   	<property name="createdDate" column="CREATED_DATE" />  	
-  	<bag name="grades" table="GRADE_PHONETICQUESTION" cascade="all">  		  		
+  	<bag name="grades" table="grade_phoneticquestion" cascade="all">  		  		
   		<key column="PHONETICQUESTION_ID" />
   		<many-to-many class="Grade" column="GRADE_ID" />
   	</bag>
