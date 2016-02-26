@@ -373,9 +373,9 @@ public class CambridgeDictionaryParserTest {
 	public void testParseBusstop() {
 		CambridgeDictionaryParser p = new CambridgeDictionaryParser("bus-stop");
 
-		assertEquals(false,p.parse());
-		assertEquals(false,p.isContentFind());
-		assertEquals(null,p.getIpa());
+		assertTrue(p.parse());
+		assertTrue(p.isContentFind());
+		assertEquals("bʌsstɔp",p.getIpa());
 		//assertEquals("http://dictionary.cambridge.org/media/british/us_pron/u/usc/uscld/uscld00151.mp3",p.getAudioLink());
 	}
 
