@@ -3,3 +3,6 @@
 .project
 Thumbs.db
 **/.DS_Store
+
+# IntelliJ
+.idea
