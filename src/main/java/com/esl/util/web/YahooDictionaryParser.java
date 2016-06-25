@@ -49,7 +49,7 @@ public class YahooDictionaryParser implements DictionaryParser {
 												.createConnection();
 			doc = Jsoup.parse(connection.getInputStream(), "UTF-8", connection.getURL().getPath());
 			
-			Elements tagDDs = doc.select("div.provider-kanhan + div").select("dt:containsOwn(DJ) + dd");
+			Elements tagDDs = doc.select("div.pronun").select("dt:containsOwn(DJ) + dd");
 			
 			Optional<Boolean> result = tagDDs.stream().map(this::parseIpaAndAudioLink).filter(x->x).findFirst();			
 			
