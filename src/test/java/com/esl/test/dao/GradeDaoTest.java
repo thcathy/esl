@@ -1,6 +1,8 @@
 package com.esl.test.dao;
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,10 +24,22 @@ public class GradeDaoTest {
 	@Autowired
 	public IGradeDAO gradeDao;
 	
+	private Grade testGrade = new Grade("TEST", 100);
+	
+	@Before
+	public void setupGrade() {
+		gradeDao.persist(testGrade);
+	}
+	
+	@After
+	public void removeGrade() {
+		gradeDao.delete(testGrade);
+	}
+	
 	@Test
 	public void getGradeByLevel_givenLevel_ShouldReturn() {
-		Grade g = gradeDao.getGradeByLevel(3);
-		assertEquals(3, g.getLevel());
-		assertEquals("P2", g.getTitle());
+		Grade g = gradeDao.getGradeByLevel(testGrade.getLevel());
+		assertEquals(testGrade.getLevel(), g.getLevel());
+		assertEquals(testGrade.getTitle(), g.getTitle());
 	}
 }
