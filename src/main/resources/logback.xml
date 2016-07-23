@@ -10,7 +10,7 @@
   <logger name="org.springframework" level="INFO"/>
   <logger name="com.esl" level="debug" />
 
-  <root level="info">
+  <root level="debug">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

@@ -1,8 +1,7 @@
 package com.esl.util.web;
 
-import java.net.HttpURLConnection;
-import java.text.MessageFormat;
-
+import com.esl.model.practice.PhoneticSymbols;
+import com.esl.util.SourceChecker;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -10,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import com.esl.model.practice.PhoneticSymbols;
-import com.esl.util.SourceChecker;
+import java.net.HttpURLConnection;
+import java.text.MessageFormat;
 
 public class CambridgeDictionaryParser implements SourceChecker, DictionaryParser {
 	private Logger logger = LoggerFactory.getLogger("ESL");
@@ -54,7 +53,7 @@ public class CambridgeDictionaryParser implements SourceChecker, DictionaryParse
 			HttpURLConnection connection = new HttpURLConnectionBuilder().setURL(url).createConnection();
 			doc = Jsoup.parse(connection.getInputStream(), "UTF-8", connection.getURL().getPath());
 			
-			Elements audioLinkSource = doc.select("span.sound.audio_play_button.pron-icon.uk");
+			Elements audioLinkSource = doc.select("span.audio_play_button.uk");
 			audioLink = audioLinkSource.get(0).attr("data-src-mp3");
 			
 			String orgIPA = doc.select("span.ipa").get(0).ownText();

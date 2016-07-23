@@ -1,11 +1,10 @@
 package com.esl.test.util.web;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import com.esl.util.web.CambridgeDictionaryParser;
 import org.junit.Test;
 
-import com.esl.util.web.CambridgeDictionaryParser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CambridgeDictionaryParserTest {
 
@@ -17,6 +16,16 @@ public class CambridgeDictionaryParserTest {
 		assertTrue(p.isContentFind());
 		assertEquals("bənɑ:nə",p.getIpa());
 		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/ukb/ukbal/ukballs018.mp3",p.getAudioLink());
+	}
+
+	@Test
+	public void testParseOrange() {
+		CambridgeDictionaryParser p = new CambridgeDictionaryParser("orange");
+
+		assertTrue(p.parse());
+		assertTrue(p.isContentFind());
+		assertEquals("ɔrindʒ",p.getIpa());
+		assertEquals("http://dictionary.cambridge.org/media/english/uk_pron/u/uko/ukora/ukorang001.mp3",p.getAudioLink());
 	}
 
 	@Test
