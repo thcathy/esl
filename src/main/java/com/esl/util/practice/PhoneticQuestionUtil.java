@@ -90,7 +90,7 @@ public class PhoneticQuestionUtil {
 			logger.debug("Extracted url: {}", mp3PageUrl);
 			
 			connection = new HttpURLConnectionBuilder().setURL(text2SpeechURL + mp3PageUrl).createConnection();
-			Thread.sleep(100);
+			Thread.sleep(200);
 			doc = Jsoup.parse(connection.getInputStream(), UTF_8, connection.getURL().getPath());
 			logger.debug("Mp3 page: {}", doc.html());
 		} catch (Exception e) {
