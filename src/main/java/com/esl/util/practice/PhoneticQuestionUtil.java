@@ -89,7 +89,8 @@ public class PhoneticQuestionUtil {
 			String mp3PageUrl = exactForwardUrl(doc);
 			logger.debug("Extracted url: {}", mp3PageUrl);
 			
-			connection = new HttpURLConnectionBuilder().setURL(text2SpeechURL + mp3PageUrl).createConnection();		
+			connection = new HttpURLConnectionBuilder().setURL(text2SpeechURL + mp3PageUrl).createConnection();
+			Thread.sleep(100);
 			doc = Jsoup.parse(connection.getInputStream(), UTF_8, connection.getURL().getPath());
 			logger.debug("Mp3 page: {}", doc.html());
 		} catch (Exception e) {
@@ -101,7 +102,6 @@ public class PhoneticQuestionUtil {
 	private String exactForwardUrl(Document doc) {
 		for (Element c : doc.select("script[type=text/javascript]")) {
 			String html = c.childNode(0).toString();
-			logger.debug("Try exact url from html: {}", html);
 
 			if (html.contains("/FW/result.php")) {
 				int startPos = html.indexOf("/FW/result.php");
