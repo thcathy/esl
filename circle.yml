@@ -20,8 +20,8 @@ deployment:
   hub:
     branch: master
     commands:
-      - docker build -t thcathy/esl docker/Dockerfile_esl
-      - docker build -t thcathy/esl-mysql docker/Dockerfile_esl-mysql
+      - docker build -t thcathy/esl -f docker/Dockerfile_esl .
+      - docker build -t thcathy/esl-mysql -f docker/Dockerfile_esl-mysql .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push thcathy/esl
       - docker push thcathy/esl-mysql
