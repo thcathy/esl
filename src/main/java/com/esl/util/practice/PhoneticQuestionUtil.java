@@ -1,12 +1,9 @@
 package com.esl.util.practice;
 
-import static org.apache.commons.lang3.CharEncoding.UTF_8;
-
-import java.net.HttpURLConnection;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
+import com.esl.model.PhoneticQuestion;
+import com.esl.util.web.CambridgeDictionaryParser;
+import com.esl.util.web.DictionaryParser;
+import com.esl.util.web.HttpURLConnectionBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,10 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.esl.model.PhoneticQuestion;
-import com.esl.util.web.CambridgeDictionaryParser;
-import com.esl.util.web.DictionaryParser;
-import com.esl.util.web.HttpURLConnectionBuilder;
+import javax.annotation.PostConstruct;
+import java.net.HttpURLConnection;
+import java.util.List;
+
+import static org.apache.commons.lang3.CharEncoding.UTF_8;
 
 @Service("phoneticQuestionUtil")
 public class PhoneticQuestionUtil {	
@@ -89,6 +87,7 @@ public class PhoneticQuestionUtil {
 			doc = Jsoup.parse(connection.getInputStream(), UTF_8, connection.getURL().getPath());			
 			
 			String mp3PageUrl = exactForwardUrl(doc);
+			logger.debug("Extracted url: {}", mp3PageUrl);
 			
 			connection = new HttpURLConnectionBuilder().setURL(text2SpeechURL + mp3PageUrl).createConnection();		
 			doc = Jsoup.parse(connection.getInputStream(), UTF_8, connection.getURL().getPath());						
@@ -101,6 +100,8 @@ public class PhoneticQuestionUtil {
 	private String exactForwardUrl(Document doc) {
 		for (Element c : doc.select("script[type=text/javascript]")) {
 			String html = c.childNode(0).toString();
+			logger.debug("Try exact url from html: {}", html);
+
 			if (html.contains("/FW/result.php")) {
 				int startPos = html.indexOf("/FW/result.php");
 				return html.substring(startPos+1, html.indexOf("'", startPos));
