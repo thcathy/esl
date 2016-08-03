@@ -90,7 +90,8 @@ public class PhoneticQuestionUtil {
 			logger.debug("Extracted url: {}", mp3PageUrl);
 			
 			connection = new HttpURLConnectionBuilder().setURL(text2SpeechURL + mp3PageUrl).createConnection();		
-			doc = Jsoup.parse(connection.getInputStream(), UTF_8, connection.getURL().getPath());						
+			doc = Jsoup.parse(connection.getInputStream(), UTF_8, connection.getURL().getPath());
+			logger.debug("Mp3 page: {}", doc.html());
 		} catch (Exception e) {
 			logger.info("Cannot get text 2 speech link", e);
 		}
