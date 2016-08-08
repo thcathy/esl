@@ -20,6 +20,6 @@ deployment:
   hub:
     branch: master
     commands:
-      - docker build -t thcathy/esl .
+      - docker build -t thcathy/esl -f docker/Dockerfile .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push thcathy/esl
