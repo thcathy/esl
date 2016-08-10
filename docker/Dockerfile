@@ -1,12 +1,10 @@
-FROM mysql
+FROM tomcat:8.5-alpine
+MAINTAINER thcathy@gmail.com
 
-RUN usermod -u 1000 mysql
-RUN mkdir -p /var/run/mysqld
-RUN chmod -R 777 /var/run/mysqld
+RUN rm -rf $CATALINA_HOME/webapps/* && \
+  mkdir $CATALINA_HOME/webapps/ROOT
 
-RUN sed -i "/default-character-set/d" /etc/mysql/my.cnf
-RUN sed -i "/\[mysqld]/a skip-character-set-client-handshake" /etc/mysql/my.cnf
-RUN sed -i "/\[mysqld]/a collation-server=utf8_unicode_ci" /etc/mysql/my.cnf
-RUN sed -i "/\[mysqld]/a character-set-server=utf8" /etc/mysql/my.cnf
-RUN sed -i "/\[mysqld]/a init_connect= 'SET NAMES utf8' " /etc/mysql/my.cnf
-RUN sed -i "/\[mysqld]/a init_connect= 'SET collation_connection = utf8_unicode_ci' " /etc/mysql/my.cnf
+ADD target/ESL.war $CATALINA_HOME/webapps/
+ADD docker/index.html $CATALINA_HOME/webapps/ROOT
+
+CMD ["catalina.sh", "run"]
