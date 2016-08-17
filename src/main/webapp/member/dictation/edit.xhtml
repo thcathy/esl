@@ -146,7 +146,7 @@
 					<td style="padding-top: 5px; vertical-align: top;">
 						<h:selectBooleanCheckbox value="#{dictationEditController.requirePassword}" />#{dictationMsg.require}<br />
 						<h:inputSecret id="password" value="#{dictationEditController.password}" style="width: 30%" maxlength="20">
-							<f:validateLength minimum="6" maximum="20" />
+							<t:validateRegExpr pattern="^(?:.{6,}|)$" message="#{dictationMsg.pwdInvalidInput}" />
 							<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{dictationMsg.pwdInvalidInput}" />
 						</h:inputSecret> (#{dictationMsg.atleast6char}) <br />
 						<h:message for="password" errorClass="error" /></td>
@@ -155,7 +155,7 @@
 						<td class="formTitle">#{dictationMsg.pwdRetype}</td>
 						<td class="formTitle">:</td>
 						<td><h:inputSecret id="password2" value="#{dictationEditController.confirmedPassword}" style="width: 30%" maxlength="20">
-							<f:validateLength minimum="6" maximum="20" />
+							<t:validateRegExpr pattern="^(?:.{6,}|)$" message="#{dictationMsg.pwdInvalidInput}" />
 							<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{dictationMsg.pwdInvalidInput}" />
 						</h:inputSecret> <br />
 						<h:message for="password2" errorClass="error" />

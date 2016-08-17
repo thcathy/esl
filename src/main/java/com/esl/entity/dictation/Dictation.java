@@ -170,13 +170,13 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 		}
 		return ags;
 	}
-	public void setSuitableAgeGroups(List<String> suitableAgeGroups) {
+	public void setSuitableAgeGroups(List<Integer> suitableAgeGroups) {
 		if (suitableAgeGroups != null && suitableAgeGroups.size() > 0) {
-			suitableMinAge = AgeGroup.values()[Integer.parseInt(suitableAgeGroups.get(0))].minAge;
-			suitableMaxAge = AgeGroup.values()[Integer.parseInt(suitableAgeGroups.get(0))].maxAge;
+			suitableMinAge = AgeGroup.values()[suitableAgeGroups.get(0)].minAge;
+			suitableMaxAge = AgeGroup.values()[suitableAgeGroups.get(0)].maxAge;
 		}
-		for (String i : suitableAgeGroups) {
-			AgeGroup a = AgeGroup.values()[Integer.parseInt(i)];
+		for (Integer i : suitableAgeGroups) {
+			AgeGroup a = AgeGroup.values()[i];
 			if (a == AgeGroup.AgeAny) {
 				suitableMinAge = suitableMaxAge = -1;
 				return;
@@ -282,9 +282,9 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 
 	public static void main(String[] args) {
 		Dictation d = new Dictation();
-		List<String> l = new ArrayList<String>();
-		l.add(Integer.toString(AgeGroup.Age13to15.ordinal()));
-		l.add(Integer.toString(AgeGroup.Age16to18.ordinal()));
+		List<Integer> l = new ArrayList<Integer>();
+		l.add(AgeGroup.Age13to15.ordinal());
+		l.add(AgeGroup.Age16to18.ordinal());
 		d.setSuitableAgeGroups(l);
 
 		System.out.println(d.getSuitableMinAge());
