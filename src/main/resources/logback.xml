@@ -5,12 +5,16 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
+
+  <appender name="async" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="STDOUT" />
+  </appender>
   
   <logger name="org.apache" level="INFO"/>
   <logger name="org.springframework" level="INFO"/>
   <logger name="com.esl" level="debug" />
 
   <root level="debug">
-    <appender-ref ref="STDOUT" />
+    <appender-ref ref="async" />
   </root>
 </configuration>
