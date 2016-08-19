@@ -12,6 +12,7 @@
   
   <logger name="org.apache" level="INFO"/>
   <logger name="org.springframework" level="INFO"/>
+  <logger name="org.hibernate" level="INFO"/>
   <logger name="com.esl" level="debug" />
 
   <root level="debug">
