@@ -9,79 +9,33 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:esl="http://www.funfunspell.com/jsf">
-	
-	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/esl-box.css" />
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script type="text/javascript">
-	//<![CDATA[
-		jQuery.noConflict();
 
-		function expandDictationStatistics() {			
-			if (jQuery('#dictationStatistics').is(":visible")) {
-				jQuery('#dictationStatistics').hide();
-				jQuery('#dictationStatisticsFooter').hide();
-				jQuery('#expandDictationStatisticsButton').attr('src','#{request.contextPath}/images/graphic/mb_open.gif');
-			} else {
-				jQuery('#dictationStatistics').show();
-				jQuery('#dictationStatisticsFooter').show();
-				jQuery('#expandDictationStatisticsButton').attr('src','#{request.contextPath}/images/graphic/mb_close.gif');
-				
-			}
-		}
-		//]]>
-	</script>
-	<style type="text/css">
-.dictationTooltip td {
-text-align: left;
-font: 12px "comic sans ms","Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
-}	
-	</style>
-	<table width="100%" class="eslBox" bgcolor="#3CE">
-		<tr>
-			<td colspan="3" class="head" valign="middle">
-				<table style="width: 100%;">
-					<tr>
-						<td class="head">#{title}</td>
-						<td><div style="float: right; top: 1px; position: relative;"><img id="expandDictationStatisticsButton" onclick="expandDictationStatistics()" style="cursor: pointer;" src="#{request.contextPath}/images/graphic/mb_close.gif" /></div></td>
-					</tr>
-				</table>				
-			</td>
-		</tr>
-		<tr>
-			<td class="border"></td>
-			<td class="innerBox">
-				<h:form>
-				<table id="dictationStatistics" width="100%">					
-					<a4j:repeat var="i" rowKeyVar="r" value="#{dictations}">
-						<tr>							
-							<td><img style="vertical-align: middle;" src="#{languageController.imagesPath}/rank_number#{r+1}.gif" border="0" /></td>								
-							<td class="imgLink" style="font-size: 14px; vertical-align: middle; width: 80%">
-								<h:link id="dictationLink" outcome="/member/dictation/open?id=#{i.id}">#{i.title}</h:link>
-								<rich:tooltip styleClass="tooltip" followMouse="false" target="dictationLink">
-									<table class="dictationTooltip">
-										<tr><td style="width: 100px;">#{dictationMsg.forAge}:</td><td>#{i.suitableAge}</td></tr>
-										<tr><td>#{dictationMsg.attempts}:</td><td>#{i.totalAttempt}</td></tr>										
-										<tr><td>#{dictationMsg.totalVocab}:</td><td>#{i.vocabsSize}</td></tr>										
-										<tr><td>#{dictationMsg.createdBy}:</td><td>#{i.creator.userId}</td></tr>
-									</table>
-								</rich:tooltip>
-							</td>
-							<td class="imgLink">								
-								<h:link id="practiceLink" outcome="/member/dictation/open?id=#{i.id}"><img src="#{request.contextPath}/images/graphic/Pencil_24x24.png" border="0" alt="#{dictationMsg.practice}" /></h:link>
-								<rich:tooltip styleClass="tooltip" followMouse="false" target="practiceLink">#{dictationMsg.tryPractice}</rich:tooltip>
-							</td>
-							<td style="width: 35px;"><img src="#{request.contextPath}/images/icon/silk/recommend.gif" />&nbsp;#{i.totalRecommended}</td>
-						</tr>
-					</a4j:repeat>	
-				</table>
-				</h:form>														
-				<div id="dictationStatisticsFooter" style="float:right;">* #{dictationMsg.showPublicOnly}</div>								
-			</td>
-			<td class="border"></td>
-		</tr>
-		<tr>
-			<td colspan="3" class="bottom">&nbsp;</td>
-		</tr>		
-	</table>
+	<div class="w3-card-4">
+		<div class="w3-container w3-theme"><h5><i class="fa fa-pencil-square"></i> #{title}</h5></div>
+
+		<div>
+			<ul class="w3-ul w3-white">
+				<a4j:repeat var="i" rowKeyVar="r" value="#{dictations}">
+					<h:link style="text-decoration: none;" outcome="/member/dictation/open?id=#{i.id}">
+					<li class="w3-hover-teal w3-padding-right w3-border-bottom" id="dictation#{i.id}">
+						<span class="w3-badge w3-green">#{r+1}</span> #{i.title}
+						<span class="w3-right"><i class="fa fa-thumbs-o-up"></i> #{i.totalRecommended}</span>
+						<rich:tooltip followMouse="false" target="dictation#{i.id}">
+							<table>
+								<tr><td style="width: 100px;">#{dictationMsg.forAge}:</td><td>#{i.suitableAge}</td></tr>
+								<tr><td>#{dictationMsg.attempts}:</td><td>#{i.totalAttempt}</td></tr>
+								<tr><td>#{dictationMsg.totalVocab}:</td><td>#{i.vocabsSize}</td></tr>
+								<tr><td>#{dictationMsg.createdBy}:</td><td>#{i.creator.userId}</td></tr>
+							</table>
+						</rich:tooltip>
+					</li>
+					</h:link>
+				</a4j:repeat>
+			</ul>
+		</div>
+
+		<div class="w3-container w3-theme w3-right-align">* #{dictationMsg.showPublicOnly}</div>
+	</div>
+
 	
 </ui:composition>

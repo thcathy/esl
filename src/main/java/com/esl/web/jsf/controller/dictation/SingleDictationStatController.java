@@ -1,17 +1,16 @@
 package com.esl.web.jsf.controller.dictation;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.faces.context.FacesContext;
-
+import com.esl.web.jsf.controller.ESLController;
+import com.esl.web.model.dictation.DictationStatistics;
+import com.esl.web.util.DictationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.esl.web.jsf.controller.ESLController;
-import com.esl.web.model.dictation.DictationStatistics;
-import com.esl.web.util.DictationUtil;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
 
 @Controller
 @Scope("request")
@@ -46,7 +45,10 @@ public class SingleDictationStatController extends ESLController {
 	public DictationStatistics getStat() {	return stat;}
 	public void setStat(DictationStatistics stat) {	this.stat = stat;}
 
-	public String getStatTitle() {	return statTitle;}
+	public String getStatTitle() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		return DictationUtil.getStatisticsTitle(stat, facesContext.getViewRoot().getLocale());
+	}
 	public void setStatTitle(String statTitle) {this.statTitle = statTitle;}
 
 }

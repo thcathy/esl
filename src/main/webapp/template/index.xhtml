@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -12,92 +12,153 @@
 <f:view locale="#{languageController.locale}">
 <h:head lang="#{languageController.locale.language}">
 	<ui:include src="/htmlhead.xhtml"/>
-  <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/main.css" />
-  <link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/button.css" />
-  <script type="text/javascript" src="${request.contextPath}/js/common.js"></script>  
-  <title>Fun Fun Spell<ui:insert name="subTitle">- FunFunSpell</ui:insert></title>
-  <ui:insert name="head" />  
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" />
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue.css" />
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+
+	<script type="text/javascript" src="${request.contextPath}/js/common.js"></script>
+  	<title>Fun Fun Spell <ui:insert name="subTitle"> - FunFunSpell</ui:insert></title>
+  	<ui:insert name="head" />
+	<script type="text/javascript">
+		function openSmallMenu() {
+			var x = document.getElementById("smallMenu");
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+			} else {
+				x.className = x.className.replace(" w3-show", "");
+			}
+		}
+	</script>
 </h:head>
-<h:body style="background-image: url(#{request.contextPath}/images/en/main_bg.jpg);">
-	<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
-	  <tr>
-	    <td width="173" align="right" valign="top">
-	    	<ui:include src="/left.xhtml"/>	    	
-		</td>
-	    <td width="794" align="left" valign="top">
-	    	<table width="783" border="0" cellpadding="0" cellspacing="0">
-		        <tr>
-		          <td width="776" height="71" align="right" valign="middle">
-		          	<ui:include src="/language.xhtml"/>		          	
-		          </td>
-		        </tr>
-		        <tr>
-		          <td width="776" align="left" valign="top">
-		          	<table width="100%" cellpadding="0" cellspacing="0" border="0">
-		          		<tr>
-		          			<td width="301">
-		          				<h:form style="margin: 0px; padding: 0px;">
-					          	<table id="Table_01" width="301" border="0" cellpadding="0" cellspacing="0">
-									<tr valign="top">
-										<td rowspan="4" style="background-color: #19A1E7;">
-											<img id="index_box_01" src="#{languageController.imagesPath}/index-box_01.gif" width="8" height="299"  /></td>
-										<td rowspan="2" style="background-color: #19A1E7;"><img id="index_box_02" src="#{languageController.imagesPath}/index-box_02.gif" width="49" height="42"  /></td>
-										<td rowspan="2" style="background-color: #19A1E7;"><img id="index_box_03" src="#{languageController.imagesPath}/index-box_03.gif" width="185" height="42"  /></td>
-										<td><img id="index_box_04" src="#{languageController.imagesPath}/index-box_04.gif" width="51" height="15"  /></td>
-										<td rowspan="4" style="background-color: #19A1E7;"><img id="index_box_05" src="#{languageController.imagesPath}/index-box_05.gif" width="8" height="299"  /></td>
-									</tr>
-									<tr>
-										<td style="text-align: right; vertical-align: top; background-color: #19A1E7;">
-											<h:link outcome="/public/news/news"><h:graphicImage id="newsImage" value="/images/graphic/newsIcon32.png" style="border: 0px;" alt="more news..." /></h:link>
-											<rich:tooltip styleClass="tooltip" followMouse="false" target="newsImage"><span>#{generalMsg.moreNews}</span></rich:tooltip>
-										</td>
-									</tr>
-									
-									<tr>
-										<td colspan="3" align="left" valign="top" class="innerContent" style="width: 285px; height: 250px;" bgcolor="#FFFFFF">							
-								        	<!-- Main index box -->
-								        	<ui:insert name="indexBox">Main index box</ui:insert></td>								        
-									</tr>
-									<tr>
-										<td colspan="3" align="left" valign="bottom" class="innerContent" style="width: 285px; height: 20px;" bgcolor="#FFFFFF">
-								        	<span style="float: right;"><i>#{generalMsg.lastUpdate}: #{appMsg.buildTime}</i></span></td>
-									</tr>
-									<tr>
-										<td colspan="5">
-											<img id="index_box_09" src="#{languageController.imagesPath}/index-box_09.gif" width="301" height="10"  /></td>
-									</tr>
-								</table>
-								</h:form>
-		          			</td>
-		          			<td valign="top" align="left" style="padding-top: 3px; padding-left: 10px; width: 100%;"><ui:insert name="indexRightColumn"></ui:insert></td>
-		          		</tr>
-		          		<tr>
-		          			<td colspan="2">
-		          				<table width="100%">
-		          					<tr>
-		          						<td colspan="3" style="height: 100px;">&nbsp;</td>
-		          					</tr>
-		          					<tr>
-		          						<td style="width: 140px;">&nbsp;</td>
-		          						<td style="vertical-align: top; text-align: left;"><ui:insert name="indexBubbleBox" /></td>
-		          						<td style="width: 280px;">&nbsp;</td>
-		          					</tr>
-		          				</table>
-		          			</td>
-		          		</tr>		          		
-		          	</table>
-		          	
-		          </td>
-		        </tr>
-		    </table>
-	    </td>
-	  </tr>
-	  <tr>
-	    <td height="22" colspan="2" align="center">
-	    	<ui:include src="/footer.xhtml"/>	    	
-	    </td>
-	  </tr>
-	</table>
+<h:body style="background-image: url(#{request.contextPath}/images/en/main_bg.jpg);
+background-position: left 300px;
+	background-color: #46c6fc !important;
+	background-repeat: no-repeat;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;">
+
+	<nav class="w3-row w3-theme">
+		<h:form>
+			<div class="w3-col s4 m2 l2" style="padding-left: 12px;">
+				<a href="${request.contextPath}/index.jsf"><img src="#{languageController.imagesPath}/logo.png" style="max-width: 141px; width:100%" alt="logo"/></a>
+			</div>
+			<div class="w3-col s8 m10 l10">
+				<ul class="w3-navbar w3-large">
+					<li class="w3-hide-small"><h:link outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">#{generalMsg.vocabulary}</h:link></li>
+					<li class="w3-hide-small"><h:link outcome="/practice/phoneticsymbolpractice/input?locale=#{languageController.locale}">#{generalMsg.phonetics}</h:link></li>
+					<li class="w3-hide-small">
+						<h:link rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
+						<h:link rendered="#{userSession.member != null}" outcome="/member/dictation/main">#{generalMsg.dictation}</h:link>
+					</li>
+					<li class="w3-hide-small"><h:link outcome="/practice/irregularverb/start?locale=#{languageController.locale}">#{generalMsg.irregularVerb}</h:link></li>
+					<li class="w3-hide-small"><h:link outcome="/practice/grammar/quick">#{generalMsg.grammar}</h:link></li>
+					<li class="w3-hide-small w3-dropdown-hover">
+						<a href="#">#{generalMsg.more} <i class="fa fa-caret-down"/></a>
+						<div class="w3-dropdown-content w3-card-4 w3-theme-l1">
+							<h:link outcome="/practice/topresult/ranking.jsf?locale=#{userSession.localeString}">#{generalMsg.menuRanking}</h:link>
+							<h:link outcome="/public/about?locale=#{languageController.locale}">#{generalMsg.menuAboutUs}</h:link>
+							<a target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a>
+						</div>
+					</li>
+					<li class="w3-hide-small w3-right"><h:commandLink action="#{languageController.toZH}">繁</h:commandLink></li>
+					<li class="w3-hide-small w3-right"><h:commandLink action="#{languageController.toEN}">EN</h:commandLink></li>
+					<li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
+						<a href="javascript:void(0);" onclick="openSmallMenu()">☰</a>
+					</li>
+				</ul>
+				<ul class="w3-navbar w3-large w3-hide-small">
+					<li class="w3-hide-small">
+						<h:commandLink rendered="#{userSession.member != null}" action="#{summaryController.index}">#{generalMsg.menuSummary}</h:commandLink>
+					</li>
+					<li class="w3-hide-small">
+						<h:commandLink rendered="#{userSession.member != null}" action="#{memberWordController.launchManage}">#{generalMsg.menuMyVocabulary}</h:commandLink>
+					</li>
+					<li class="w3-right">
+						<h:panelGroup rendered="#{userSession.member == null}">
+							<a href="#" onclick="document.getElementById('loginDiv').style.display='block'"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{userSession.member != null}">
+							<h:commandLink action="#{authenticationController.logout}"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
+						</h:panelGroup>
+					</li>
+				</ul>
+				<div id="smallMenu" class="w3-hide w3-hide-large w3-hide-medium">
+					<ul class="w3-navbar w3-right-align w3-large w3-theme-l1">
+						<li>
+							<h:panelGroup rendered="#{userSession.member == null}">
+								<a href="#" onclick="document.getElementById('loginDiv').style.display='block'"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{userSession.member != null}">
+								<h:commandLink action="#{authenticationController.logout}"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
+							</h:panelGroup>
+						</li>
+						<li><h:link outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">#{generalMsg.vocabulary}</h:link></li>
+						<li><h:link outcome="/practice/phoneticsymbolpractice/input?locale=#{languageController.locale}">#{generalMsg.phonetics}</h:link></li><li>
+							<h:link rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
+							<h:link rendered="#{userSession.member != null}" outcome="/member/dictation/main">#{generalMsg.dictation}</h:link>
+						</li>
+						<li><h:link outcome="/practice/irregularverb/start?locale=#{languageController.locale}">#{generalMsg.irregularVerb}</h:link></li>
+						<li><h:link outcome="/practice/grammar/quick">#{generalMsg.grammar}</h:link></li>
+						<li class="w3-green">
+							<h:commandLink rendered="#{userSession.member != null}" action="#{summaryController.index}">#{generalMsg.menuSummary}</h:commandLink>
+						</li>
+						<li class="w3-green">
+							<h:commandLink rendered="#{userSession.member != null}" action="#{memberWordController.launchManage}">#{generalMsg.menuMyVocabulary}</h:commandLink>
+						</li>
+						<li><h:link outcome="/practice/topresult/ranking.jsf?locale=#{userSession.localeString}">#{generalMsg.menuRanking}</h:link></li>
+						<li><h:link outcome="/public/about?locale=#{languageController.locale}">#{generalMsg.menuAboutUs}</h:link></li>
+						<li><a target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a></li>
+						<li><h:commandLink action="#{languageController.toZH}">繁</h:commandLink></li>
+						<li><h:commandLink action="#{languageController.toEN}">EN</h:commandLink></li>
+					</ul>
+				</div>
+			</div>
+		</h:form>
+	</nav>
+	<div id="loginDiv" class="w3-modal">
+		<div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
+			<h:form>
+				<div class="w3-center w3-theme-l1 w3-padding"><br />
+					<span onclick="document.getElementById('loginDiv').style.display='none'" class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright" title="Close Modal"><i class="fa fa-times" aria-hidden="true"></i></span>
+					<img src="#{languageController.imagesPath}/logo.png" alt="Logo" />
+				</div>
+
+				<div class="w3-section w3-padding">
+						<label>#{generalMsg.userId}</label>
+						<h:inputText styleClass="w3-input w3-margin-bottom" id="inputUserId" maxlength="20" value="#{authenticationController.inputUserId}"	/>
+						<br /><h:message for="inputUserId" styleClass="w3-leftbar w3-border-red" />
+
+						<label>#{generalMsg.password}</label>
+						<h:inputSecret id="inputPassword" styleClass="w3-input" maxlength="20" value="#{authenticationController.inputPassword}" />
+						<br /><h:message for="inputPassword" styleClass="w3-leftbar w3-border-red" />
+
+						<h:commandLink styleClass="w3-btn-block w3-theme w3-section w3-padding" action="#{authenticationController.login}">#{generalMsg.login}</h:commandLink>
+						<h:selectBooleanCheckbox styleClass="w3-check w3-margin-top" value="#{authenticationController.saveSession}" />#{generalMsg.rememberMe}
+				</div>
+
+				<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+					<h:commandLink styleClass="w3-btn w3-green" action="#{profileController.startSignUp}">#{authMsg.signupTitle}</h:commandLink>
+				</div>
+			</h:form>
+		</div>
+	</div>
+
+	<div class="w3-content">
+		<ui:insert name="mainDiv" />
+	</div>
+
+	<footer class="w3-margin-top w3-center">
+		<div class="w3-row w3-teal">
+			<div class="w3-third">Developing by Timmy Wong</div>
+			<div class="w3-third">© 2008 funfunspell.com</div>
+			<div class="w3-third">#{generalMsg.lastUpdate}: #{appMsg.buildTime}</div>
+		</div>
+	</footer>
+
 </h:body> 
 </f:view>
 </html>
