@@ -1,21 +1,16 @@
 <?xml version="1.0"?>
-<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.2.1" 
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.2.1
-                                   		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.1.xsd">
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+<!-- old config -->
 	<url-mapping id="viewSingleNews">
 		<pattern value="/rest/viewsinglenews" />
 		<query-param name="id">#{newsController.selectedNewsId}</query-param>
-		<view-id value="/public/news/html/singlenews.jsf" />		
+		<view-id value="/public/news/html/singlenews.jsf" />
 		<action>#{newsController.viewSingleNews}</action>
 	</url-mapping>
-	<url-mapping id="startDictation">
-		<pattern value="/rest/dictation/start" />
-		<query-param name="id">#{openDictationController.selectedDictationId}</query-param>
-		<view-id value="/error.jsf" />
-		<action>#{openDictationController.openDictation}</action>
-	</url-mapping>
-	
+
 	<!-- static page -->
 	<url-mapping id="ranking">
 		<pattern value="/rest/ranking" />
@@ -26,27 +21,11 @@
 		<pattern value="/rest/aboutUs" />
 		<view-id value="/public/about.jsf" />
 	</url-mapping>
-	
-	<!-- 
-	<url-mapping id="login">
-		<pattern> /login </pattern>
-		<view-id> /faces/login.jsf </view-id>
+<!-- end of old -->
+
+	<url-mapping id="practice_phoneticsymbolpractice_input">
+		<pattern value="/practice/phoneticsymbolpractice/input" />
+		<view-id value="/practice/phoneticsymbolpractice/input.jsf" />
 	</url-mapping>
-	<url-mapping id="home">
-		<pattern> /home </pattern>
-		<query-param name="displayWelcomeMessage">#{homeBean.displayWelcomeMessage}</query-param>
-		<view-id> #{homeBean.getViewPath} </view-id>
-	</url-mapping>
-	<url-mapping id="viewStory">
-		<pattern>  /story/#{myBean.currentStoryId}/  </pattern>
-		<query-param name="commentText" decode="false">#{myBean.commentText}</query-param>
-		<view-id> /faces/story/viewStory.jsf </view-id>
-		<action onPostback="false">#{myBean.loadStory}</action>
-	</url-mapping>
-	<url-mapping id="viewComment">
-		<pattern> /story/#{myBean.currentStoryId}/#{myBean.commentId} </pattern>
-		<view-id>/faces/story/comment.jsf</view-id>
-		<action>#{myBean.loadComment}</action>
-	</url-mapping>
-	 -->
+
 </pretty-config>

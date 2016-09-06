@@ -1,18 +1,18 @@
 package com.esl.model.practice;
 
+import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.slf4j.LoggerFactory;
 
 public class PhoneticSymbols {
 	private static org.slf4j.Logger log = LoggerFactory.getLogger("ESL");
 
 	// Difficulties for phonetic symbols practice
 	public enum Level {
-		Full(10), Medium(6), Low(3), Rookie(1);
+		Rookie(1), Low(3), Medium(6), Full(10);
 
 		final public int weight;
 

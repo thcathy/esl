@@ -21,6 +21,7 @@
 	<script type="text/javascript" src="${request.contextPath}/js/common.js"></script>
   	<title>Fun Fun Spell <ui:insert name="subTitle"> - FunFunSpell</ui:insert></title>
   	<ui:insert name="head" />
+	<ui:include src="/public/loading.xhtml"/>
 	<script type="text/javascript">
 		function openSmallMenu() {
 			var x = document.getElementById("smallMenu");
@@ -33,7 +34,7 @@
 	</script>
 </h:head>
 <h:body style="background-image: url(#{request.contextPath}/images/en/main_bg.jpg);
-background-position: left 300px;
+background-position: center 300px;
 	background-color: #46c6fc !important;
 	background-repeat: no-repeat;
 	margin-left: 0px;
@@ -151,14 +152,6 @@ background-position: left 300px;
 	<div class="w3-content">
 		<ui:insert name="mainDiv" />
 	</div>
-
-	<footer class="w3-margin-top w3-center">
-		<div class="w3-row w3-teal">
-			<div class="w3-third">Developing by Timmy Wong</div>
-			<div class="w3-third">© 2008 funfunspell.com</div>
-			<div class="w3-third">#{generalMsg.lastUpdate}: #{appMsg.buildTime}</div>
-		</div>
-	</footer>
 
 	<script type="text/javascript">
 		//<![CDATA[

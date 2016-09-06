@@ -33,7 +33,7 @@ public class SingleDictationStatController extends ESLController {
 		if (stat != null) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			statTitle = DictationUtil.getStatisticsTitle(stat, facesContext.getViewRoot().getLocale());
-			logger.debug("{}statTille [{}]", logPrefix, statTitle);
+			logger.debug("{}statTitle [{}]", logPrefix, statTitle);
 		}
 	}
 
