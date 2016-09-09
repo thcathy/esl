@@ -1,50 +1,66 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	template="/template/main_2column.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				template="/template/short.xhtml">
 
-	<ui:define name="subTitle">#{htmlHeadMsg.practice_phoneticpractice_index_title}</ui:define>
-	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.practice_phoneticpractice_index_desc}" /></ui:define>
-	
-	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/vocabpractice.gif" /></ui:define>
+<ui:define name="subTitle">#{htmlHeadMsg.practice_phoneticpractice_index_title}</ui:define>
+<ui:define name="head">
+	<meta name="keywords" content="#{htmlHeadMsg.practice_phoneticpractice_index_desc}" />
+</ui:define>
 
-	<ui:define name="mainContent">
-		<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
-		<table>
-			<tr>
-				<td width="500" class="innerContent">
-					<div><ui:include src="/WEB-INF/html/PhoneticPracticeHowto_#{languageController.locale}.xhtml" /></div>
-				</td>
-				<td valign="top" style="font-size:14px; color: #EE6600;">
-					<h:form id="inputForm">						
-						<p><label for="grade" class="left"><h:outputText value="#{phonPracticeMsg.inputSelectGrading}" style="font-size: 16px;" styleClass="innerHeading" />:</label></p>
-						<p>
-							<h:selectOneMenu style="width: 160px; color: #EE6600;" id="grade" value="#{phoneticPracticeController.selectedGrade}" styleClass="formLarge">
-								<f:selectItems value="#{phoneticPracticeController.availableGrades }" />
-							</h:selectOneMenu>
-                    		</p>
-                    		<div class="buttons">
-                    			<h:commandLink onclick="return submitRequest();" styleClass="orange" style="width: 140px; text-align: center;" action="#{phoneticPracticeController.start}"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{phonPracticeMsg.inputStartG1}</h:commandLink>
-								<br /><br /><br />
-	                    		<h:panelGroup rendered="#{authenticationController.authenticated}">
-	                    		<h:commandLink onclick="return submitRequest();" styleClass="orange" style="width: 140px; text-align: center;" action="#{phoneticPracticeG2Controller.start}"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{phonPracticeMsg.inputStartG2}</h:commandLink>
-	                    		</h:panelGroup>
-                    		</div>
-					</h:form>
-				</td>
-			</tr>									
-		</table>
-	</ui:define>
-	
-	<ui:define name="leftColumn">
-		<p class="innerHeading"><h:outputText value="#{phonPracticeMsg.inputDesTitle}"/></p>
-		<p><h:outputText value="#{phonPracticeMsg.inputDesTxt}"/></p>
-	</ui:define>
+<ui:define name="mainDiv">
+    <div class="w3-content w3-padding-12">
+        <div class="w3-card-4 w3-white">
+            <div class="w3-container w3-green">
+                <h2>#{generalMsg.vocabPractice} <img class="w3-padding-left" src="#{request.contextPath}/images/graphic/vocab.gif" /></h2>
+            </div>
+
+            <div class="w3-margin w3-xlarge w3-padding-bottom">
+                <h:messages styleClass="w3-panel w3-pale-red w3-leftbar w3-border-red" globalOnly="true" />
+
+                <h:form styleClass="w3-container" id="inputForm">
+                    <p>
+                        <label class="w3-label" for="grade">#{phonPracticeMsg.inputSelectGrading}</label>
+                        <h:selectOneMenu id="grade" value="#{phoneticPracticeController.selectedGrade}" styleClass="w3-select">
+                            <f:selectItems value="#{phoneticPracticeController.availableGrades }" />
+                        </h:selectOneMenu>
+                    </p>
+
+                    <h:commandLink styleClass="w3-btn w3-green" onclick="return submitRequest();" action="#{phoneticPracticeController.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG1}</h:commandLink>
+                    <h:panelGroup rendered="#{authenticationController.authenticated}">
+                        <h:commandLink styleClass="w3-btn w3-green" onclick="return submitRequest();" action="#{phoneticPracticeG2Controller.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG2}</h:commandLink>
+                    </h:panelGroup>
+                </h:form>
+
+                <div class="w3-container w3-leftbar w3-light-grey w3-margin">
+                    <ui:include src="/WEB-INF/html/VocabPracticeHowto_#{languageController.locale}.xhtml" />
+                </div>
+
+                <button onclick="showOrHiddenW3('description')" class="w3-btn-block w3-left-align w3-theme-l2">
+                    #{phonPracticeMsg.inputDesTitle} <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </button>
+                <div id="description" class="w3-accordion-content w3-container">
+                    <p>#{phonPracticeMsg.inputDesTxt}</p>
+                </div>
+            </div>
+
+            <div class="w3-center">
+                <div class="w3-row w3-teal w3-padding">
+                    <div class="w3-half w3-left-align">Developing by Timmy Wong</div>
+                    <div class="w3-half w3-right-align">© 2008 funfunspell.com</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:define>
+
 </ui:composition>

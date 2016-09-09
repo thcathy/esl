@@ -9,17 +9,6 @@
       xmlns:a4j="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich">
 
-	<script type="text/javascript">
-		function openSmallMenu() {
-			var x = document.getElementById("smallMenu");
-			if (x.className.indexOf("w3-show") == -1) {
-				x.className += " w3-show";
-			} else {
-				x.className = x.className.replace(" w3-show", "");
-			}
-		}
-	</script>
-
 	<nav class="w3-row w3-theme">
 		<h:form>
 			<div class="w3-col s4 m2 l2" style="padding-left: 12px;">
@@ -27,7 +16,7 @@
 			</div>
 			<div class="w3-col s8 m10 l10">
 				<ul class="w3-navbar w3-large">
-					<li class="w3-hide-small"><h:link outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">#{generalMsg.vocabulary}</h:link></li>
+					<li class="w3-hide-small"><h:link outcome="/practice/phoneticpractice/index">#{generalMsg.vocabulary}</h:link></li>
 					<li class="w3-hide-small"><a href="#{request.contextPath}/practice/phoneticsymbolpractice/input">#{generalMsg.phonetics}</a></li>
 					<li class="w3-hide-small">
 						<h:link rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
@@ -46,7 +35,7 @@
 					<li class="w3-hide-small w3-right"><h:commandLink action="#{languageController.toZH}">繁</h:commandLink></li>
 					<li class="w3-hide-small w3-right"><h:commandLink action="#{languageController.toEN}">EN</h:commandLink></li>
 					<li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
-						<a href="javascript:void(0);" onclick="openSmallMenu()">☰</a>
+						<a href="javascript:void(0);" onclick="showOrHiddenW3('smallMenu')">☰</a>
 					</li>
 				</ul>
 				<ul class="w3-navbar w3-large w3-hide-small">
@@ -75,7 +64,7 @@
 								<h:commandLink action="#{authenticationController.logout}"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
 							</h:panelGroup>
 						</li>
-						<li><h:link outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">#{generalMsg.vocabulary}</h:link></li>
+						<li><h:link outcome="/practice/phoneticpractice/index">#{generalMsg.vocabulary}</h:link></li>
 						<li><a href="#{request.contextPath}/practice/phoneticsymbolpractice/input">#{generalMsg.phonetics}</a></li>
 						<li>
 							<h:link rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
