@@ -34,23 +34,26 @@
                         </h:selectOneMenu>
                     </p>
 
-                    <h:commandLink styleClass="w3-btn w3-green" onclick="showOrHiddenW3('spinner'); return true;" action="#{phoneticPracticeController.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG1}</h:commandLink>
+                    <h:commandLink styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom" onclick="showSpinner()" action="#{phoneticPracticeController.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG1}</h:commandLink>
                     <h:panelGroup rendered="#{authenticationController.authenticated}">
-                        <h:commandLink styleClass="w3-btn w3-green" onclick="showOrHiddenW3('spinner'); return true;" action="#{phoneticPracticeG2Controller.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG2}</h:commandLink>
+                        <h:commandLink styleClass="w3-btn w3-green w3-margin-bottom" onclick="showSpinner()" action="#{phoneticPracticeG2Controller.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG2}</h:commandLink>
                     </h:panelGroup>
-                    <i id="spinner" class="fa fa-spinner w3-spin w3-hide" style="font-size:48px"></i>
+                    <span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
                 </h:form>
 
                 <div class="w3-container w3-leftbar w3-light-grey w3-margin">
                     <ui:include src="/WEB-INF/html/VocabPracticeHowto_#{languageController.locale}.xhtml" />
                 </div>
 
-                <button onclick="showOrHiddenW3('description')" class="w3-btn-block w3-left-align w3-theme-l2">
-                    #{phonPracticeMsg.inputDesTitle} <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div id="description" class="w3-accordion-content w3-container">
-                    <p>#{phonPracticeMsg.inputDesTxt}</p>
+                <div class="w3-container">
+                    <button onclick="addOrRemoveW3Show('description')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium w3-leftbar">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i> #{phonPracticeMsg.inputDesTitle}
+                    </button>
+                    <div id="description" class="w3-accordion-content w3-container w3-medium w3-leftbar w3-light-grey">
+                        <p>#{phonPracticeMsg.inputDesTxt}</p>
+                    </div>
                 </div>
+
             </div>
 
             <div class="w3-center">

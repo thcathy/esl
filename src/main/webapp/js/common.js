@@ -1,10 +1,24 @@
-function showOrHiddenW3(id) {
+function addOrRemoveW3Show(id) {
     var x = document.getElementById(id);
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
     } else {
         x.className = x.className.replace(" w3-show", "");
     }
+}
+
+function addOrRemoveW3Hide(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-hide") == -1) {
+        x.className += " w3-hide";
+    } else {
+        x.className = x.className.replace("w3-hide", "");
+    }
+}
+
+function showSpinner() {
+    addOrRemoveW3Hide('spinner');
+    return true;
 }
 
 function go(btn) {
