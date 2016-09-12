@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:esl="http://www.funfunspell.com/jsf"
+      xmlns:rich="http://richfaces.org/rich">
+<f:view locale="#{languageController.locale}">
+<h:head lang="#{languageController.locale.language}">
+	<ui:include src="/htmlhead.xhtml"/>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" />
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue.css" />
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+
+	<script type="text/javascript" src="${request.contextPath}/js/common.js"></script>
+  	<title>Fun Fun Spell <ui:insert name="subTitle"> - FunFunSpell</ui:insert></title>
+  	<ui:insert name="head" />
+</h:head>
+<h:body style="background-image: url(#{request.contextPath}/images/en/inner_page_bg.jpg);
+background-position: center top;
+	background-color: #46c6fc !important;
+	background-repeat: no-repeat;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;">
+
+	<ui:include src="/topmenu.xhtml"/>
+
+	<div class="w3-content">
+		<ui:insert name="mainDiv" />
+	</div>
+
+	<script type="text/javascript">
+		//<![CDATA[
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-7330590-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+		//]]>
+	</script>
+</h:body> 
+</f:view>
+</html>
+
+
+

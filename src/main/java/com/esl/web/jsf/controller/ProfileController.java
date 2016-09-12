@@ -1,21 +1,19 @@
 package com.esl.web.jsf.controller;
 
-import java.util.ResourceBundle;
+import com.esl.model.Member;
+import com.esl.service.IMembershipService;
+import com.esl.service.practice.IPhoneticPracticeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
-import com.esl.model.Member;
-import com.esl.service.IMembershipService;
-import com.esl.service.practice.IPhoneticPracticeService;
+import java.util.ResourceBundle;
 
 @Controller
 @Scope("session")
@@ -38,11 +36,9 @@ public class ProfileController extends ESLController {
 	private String confirmedPIN = "";
 	
 	@Size(min=6, max=20, message="{incorrectSize}")
-	@Pattern(regexp="[^\\s'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String existPIN = "";		// for chg pw
 	
 	@Size(min=6, max=20, message="{incorrectSize}")
-	@Pattern(regexp="[^\\s'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String newPIN = "";			// for chg pw
 
 	private boolean acceptToF;
