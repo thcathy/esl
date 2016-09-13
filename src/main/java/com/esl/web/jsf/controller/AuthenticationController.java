@@ -1,24 +1,28 @@
 package com.esl.web.jsf.controller;
 
-import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.*;
-
+import com.esl.dao.IMemberDAO;
+import com.esl.model.Member;
+import com.esl.service.IMailService;
+import com.esl.service.IMembershipService;
+import com.esl.service.MembershipService;
+import com.esl.util.ValidationUtil;
+import com.esl.web.jsf.controller.member.SummaryController;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.esl.dao.IMemberDAO;
-import com.esl.model.Member;
-import com.esl.service.*;
-import com.esl.util.ValidationUtil;
-import com.esl.web.jsf.controller.member.SummaryController;
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Controller
 @Scope("session")
@@ -202,7 +206,7 @@ public class AuthenticationController extends ESLController {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("InvalidUsername"), null));
 			isValid = false;
 		}
-		if (ValidationUtil.isContainInvalidCharacters(inputPassword)) {
+		if (StringUtils.isEmpty(inputPassword)) {
 			logger.info("validateLoginForm: InvalidPassword");
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("InvalidPassword"), null));
 			isValid = false;

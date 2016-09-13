@@ -1,16 +1,16 @@
 package com.esl.service;
 
-import javax.annotation.Resource;
-
+import com.esl.dao.IGradeDAO;
+import com.esl.dao.IMemberDAO;
+import com.esl.model.Member;
+import com.esl.util.ValidationUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.dao.IGradeDAO;
-import com.esl.dao.IMemberDAO;
-import com.esl.model.Member;
-import com.esl.util.ValidationUtil;
+import javax.annotation.Resource;
 
 @Service("membershipService")
 @Transactional
@@ -63,7 +63,7 @@ public class MembershipService implements IMembershipService {
 
 	public String login(Member member) {
 		try {
-			if (!ValidationUtil.isAlphaNumeric(member.getUserId()) || ValidationUtil.isContainInvalidCharacters(member.getPIN()))
+			if (!ValidationUtil.isAlphaNumeric(member.getUserId()) || StringUtils.isEmpty(member.getPIN()))
 			{
 				logger.info("login: INVALID_INPUT: userId:" + member.getUserId());
 				return INVALID_INPUT;
