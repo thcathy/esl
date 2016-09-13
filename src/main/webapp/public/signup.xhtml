@@ -79,6 +79,10 @@
 						<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:32px"></i></span>
 					</h:form>
 
+					<h:form rendered="#{!profileController.showSignUpForm}">
+						<a href="#" onclick="document.getElementById('loginDiv').style.display='block'"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
+					</h:form>
+
 				</div>
 
 				<div class="w3-center w3-theme">

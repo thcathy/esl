@@ -28,4 +28,10 @@
 		<view-id value="/practice/phoneticsymbolpractice/input.jsf" />
 	</url-mapping>
 
+	<url-mapping id="signup">
+		<pattern value="/signup" />
+		<view-id value="/public/signup.jsf" />
+		<action>#{profileController.startSignUp}</action>
+	</url-mapping>
+
 </pretty-config>
