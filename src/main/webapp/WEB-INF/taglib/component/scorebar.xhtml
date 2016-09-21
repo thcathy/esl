@@ -36,20 +36,20 @@
 </style>
 <table cellpadding="0" cellspacing="0">
 	<tr>
-		<td class="scoreBarHead">#{phonPracticeMsg.yourScore}</td>
-		<td class="border" width="500px"><div id="scoreBar" class="colorBar" style="width:0px;"><h:outputText id="markText" value="#{startMark}" />&nbsp;</div></td></tr>
+		<td class="scoreBarHead" style="min-width: 100px;">#{phonPracticeMsg.yourScore}</td>
+		<td class="border" id="scoreBarTD" style="width: 100%; min-width:600px;"><div id="scoreBar" class="colorBar" style="width:0px;"><h:outputText id="markText" value="#{startMark}" />&nbsp;</div></td></tr>
 </table>
 <script type="text/javascript">
 //<![CDATA[
-var fullLength = 500;
-
 function animateScoreBar(currentMark, maxMark) {
+	var fullLength = jQuery("#scoreBarTD").width();
 	jQuery("#markText").text(currentMark);
 	var widthPx = ((currentMark / maxMark) * fullLength) + 'px';
 	jQuery("#scoreBar").animate({width:widthPx},500);
 }
 
 jQuery(document).ready(function() {
+	var fullLength = jQuery("#scoreBarTD").width();
 	var widthPx = ((#{startMark} / #{maxMark}) * fullLength) + 'px';
 	jQuery("#scoreBar").animate({width: widthPx},500);
 }
