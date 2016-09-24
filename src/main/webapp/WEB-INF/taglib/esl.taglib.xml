@@ -11,6 +11,10 @@
 		<source>component/scorebar.xhtml</source>
 	</tag>
 	<tag>
+		<tag-name>scoreBar2</tag-name>
+		<source>component/scorebar2.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>dictationNav</tag-name>
 		<source>component/dictationnav.xhtml</source>
 	</tag>
