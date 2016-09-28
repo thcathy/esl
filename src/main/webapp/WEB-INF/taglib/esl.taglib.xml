@@ -7,6 +7,10 @@
 		<source>component/topresult.xhtml</source>
 	</tag>
 	<tag>
+		<tag-name>topResult2</tag-name>
+		<source>component/topresult2.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>scoreBar</tag-name>
 		<source>component/scorebar.xhtml</source>
 	</tag>
