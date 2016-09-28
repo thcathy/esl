@@ -111,7 +111,9 @@
 				<esl:scoreBar2 startMark="#{phoneticPracticeController.practice.mark}" maxMark="#{phoneticPracticeController.practice.totalQuestions}" />
 
 				<a4j:outputPanel id="msgPanel">
-					spinn
+					<div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
+						<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
+					</div>
 				</a4j:outputPanel>
 
 				<a4j:outputPanel id="historyRegion">
