@@ -8,52 +8,54 @@
 	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-<style type="text/css">
-<!--
-.colorBar {
-	overflow:hidden; /* so we can animate to zero width */
-	width:#{scoreBar.startLength}px;
-	text-align: right;
-	background-color: #6AF;
-	font-size: 14px;
-	color: #FFF;
-	height: 20px;
-	margin-top: 2px;
-	margin-bottom: 2px;
-} 
-.border {
-	border: 1px solid #66AABB;
-}
-.scoreBarHead {
-	background-color: #66AABB;
-	width: 110px;
-	text-align: center;
-	color: #FFFFFF;
-	font-size: 14px;
-	font-weight: bold;	
-}
--->
-</style>
-<table cellpadding="0" cellspacing="0">
-	<tr>
-		<td class="scoreBarHead" style="min-width: 100px;">#{phonPracticeMsg.yourScore}</td>
-		<td class="border" id="scoreBarTD" style="width: 100%;"><div id="scoreBar" class="colorBar" style="width:0px;"><h:outputText id="markText" value="#{startMark}" />&nbsp;</div></td></tr>
-</table>
-<script type="text/javascript">
-//<![CDATA[
-function animateScoreBar(currentMark, maxMark) {
-	var fullLength = jQuery("#scoreBarTD").width();
-	jQuery("#markText").text(currentMark);
-	var widthPx = ((currentMark / maxMark) * fullLength) + 'px';
-	jQuery("#scoreBar").animate({width:widthPx},500);
-}
 
-jQuery(document).ready(function() {
-	var fullLength = jQuery("#scoreBarTD").width();
-	var widthPx = ((#{startMark} / #{maxMark}) * fullLength) + 'px';
-	jQuery("#scoreBar").animate({width: widthPx},500);
-}
-);
-//]]>
-</script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<style type="text/css">
+	<!--
+	.colorBar {
+		overflow:hidden; /* so we can animate to zero width */
+		width:#{scoreBar.startLength}px;
+		text-align: right;
+		background-color: #6AF;
+		font-size: 14px;
+		color: #FFF;
+		height: 20px;
+		margin-top: 2px;
+		margin-bottom: 2px;
+	}
+	.border {
+		border: 1px solid #66AABB;
+	}
+	.scoreBarHead {
+		background-color: #66AABB;
+		width: 110px;
+		text-align: center;
+		color: #FFFFFF;
+		font-size: 14px;
+		font-weight: bold;
+	}
+	-->
+	</style>
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="scoreBarHead" style="min-width: 100px;">#{phonPracticeMsg.yourScore}</td>
+			<td class="border" id="scoreBarTD" style="width: 100%;"><div id="scoreBar" class="colorBar" style="width:0px;"><h:outputText id="markText" value="#{startMark}" />&nbsp;</div></td></tr>
+	</table>
+	<script type="text/javascript">
+	//<![CDATA[
+	function animateScoreBar(currentMark, maxMark) {
+		var fullLength = jQuery("#scoreBarTD").width();
+		jQuery("#markText").text(currentMark);
+		var widthPx = ((currentMark / maxMark) * fullLength) + 'px';
+		jQuery("#scoreBar").animate({width:widthPx},500);
+	}
+
+	jQuery(document).ready(function() {
+		var fullLength = jQuery("#scoreBarTD").width();
+		var widthPx = ((#{startMark} / #{maxMark}) * fullLength) + 'px';
+		jQuery("#scoreBar").animate({width: widthPx},500);
+	}
+	);
+	//]]>
+	</script>
 </ui:composition>

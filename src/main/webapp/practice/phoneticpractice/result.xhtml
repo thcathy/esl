@@ -51,7 +51,7 @@
 									<h:outputText value="#{phonPracticeMsg.resultVisitorMessage}" />
 									<h:commandLink action="#{profileController.startSignUp}"><u><h:outputText value="#{phonPracticeMsg.resultSignupMessage}" /></u></h:commandLink>
 								</p>
-								<h:commandLink styleClass="w3-btn w3-green" action="#{profileController.startSignUp}">#{authMsg.signupTitle}</h:commandLink>
+								<h:commandLink styleClass="w3-btn w3-green w3-margin-bottom" action="#{profileController.startSignUp}">#{authMsg.signupTitle}</h:commandLink>
 							</div>
 						</h:panelGroup>
 
@@ -71,6 +71,15 @@
 								</h:panelGroup>
 							</div>
 						</h:panelGroup>
+
+						<div class="w3-row w3-center w3-margin w3-medium">
+							<div class="w3-half w3-margin-bottom">
+								<h:link styleClass="w3-btn w3-green" outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">#{phonPracticeMsg.resultRetryPractice}</h:link>
+							</div>
+							<div class="w3-half">
+								<h:commandLink styleClass="w3-btn w3-red" action="#{phoneticPracticeController.start}">#{phonPracticeMsg.resultRetrySameGradePractice}</h:commandLink>
+							</div>
+						</div>
 
 						<esl:scoreBar2 startMark="#{phoneticPracticeController.practice.mark}" maxMark="#{phoneticPracticeController.practice.totalQuestions}" />
 						<div class="w3-responsive">
@@ -118,17 +127,8 @@
 							<p>* #{phonPracticeMsg.practiceWordExplanation}</p>
 						</div>
 
-						<div class="w3-row w3-center w3-margin w3-medium">
-							<div class="w3-half w3-margin-bottom">
-								<h:link styleClass="w3-btn w3-green" outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">#{phonPracticeMsg.resultRetryPractice}</h:link>
-							</div>
-							<div class="w3-half">
-								<h:commandLink styleClass="w3-btn w3-red" action="#{phoneticPracticeController.start}">#{phonPracticeMsg.resultRetrySameGradePractice}</h:commandLink>
-							</div>
-						</div>
-
 						<h:panelGroup rendered="#{authenticationController.authenticated}">
-							<div class="w3-row w3-center w3-medium">
+							<div class="w3-row w3-center w3-medium w3-border w3-margin-top">
 								<div class="w3-half w3-panel">
 									<esl:topResult2 title="#{memberSumMsg.summaryScoreRanking}" topResult="#{phoneticPracticeController.scoreRanking}" />
 								</div>
