@@ -10,11 +10,11 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 	<table class="w3-table-all w3-medium">
-		<tr class="w3-theme-l1 w3-large w3-center"><th colspan="3">#{title}</th></tr>
-		<tr class="w3-theme-l1">
-			<th>#{memberSumMsg.summaryPosition}</th>
-			<th>#{memberSumMsg.summaryUsername}</th>
-			<th>#{topResultMsg[topResult.orderType]}</th>
+		<tr class="w3-teal w3-large w3-center"><td colspan="3">#{title}</td></tr>
+		<tr class="w3-teal">
+			<td>#{memberSumMsg.summaryPosition}</td>
+			<td>#{memberSumMsg.summaryUsername}</td>
+			<td>#{topResultMsg[topResult.orderType]}</td>
 		</tr>
 		<a4j:repeat var="i" rowKeyVar="r" value="#{topResult.topResultsArray}" rendered="#{topResult.topResults != null}">
 		<h:panelGroup rendered="#{i.member.userId != userSession.member.userId}">
