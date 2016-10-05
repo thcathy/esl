@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition>
+	<h:form>
+	<ul class="w3-navbar w3-topbar w3-bottombar w3-border-deep-orange w3-orange w3-center">
+		<li id="#{current=='SHOWALL'?'current':''}" class="#{current=='CREATE'?'w3-deep-orange':''}">
+			<h:commandLink action="#{dictationManageController.launchMain}"><span class="title">#{dictationMsg.navShow}</span><br/><span class="desc">#{dictationMsg.navShowDesc}</span></h:commandLink>
+		</li>
+		<li id="#{current=='CREATE'?'current':''}" class="#{current=='CREATE'?'w3-deep-orange':''}">
+			<h:commandLink action="#{dictationEditController.launchCreate}"><span class="title">#{dictationMsg.navCreate}</span><br/><span class="desc">#{dictationMsg.navCreateDesc}</span></h:commandLink>
+		</li>
+		<li id="#{current=='INSTANT'?'current':''}" class="#{current=='CREATE'?'w3-deep-orange':''}">
+			<h:commandLink action="/practice/selfdictation/input"><span class="title">#{dictationMsg.navInstant}</span><br/><span class="desc">#{dictationMsg.navInstantDesc}</span></h:commandLink>
+		</li>
+		<li id="#{current=='FIND'?'current':''}" class="#{current=='CREATE'?'w3-deep-orange':''}">
+			<h:commandLink action="/member/dictation/search"><span class="title">#{dictationMsg.navFind}</span><br/><span class="desc">#{dictationMsg.navFindDesc}</span></h:commandLink>
+		</li>
+		<li>
+			<h:commandLink action="#{openDictationController.randomDictation}"><span class="title">#{dictationMsg.navRandom}</span><br/><span class="desc">#{dictationMsg.navRandomDesc}</span></h:commandLink>
+		</li>
+	</ul>
+	</h:form>
+</ui:composition>
+</html>
