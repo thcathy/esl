@@ -11,21 +11,21 @@
 	
 <ui:composition>
 	<h:form>
-	<ul class="w3-navbar w3-topbar w3-bottombar w3-border-deep-orange w3-orange w3-center">
-		<li id="#{current=='SHOWALL'?'current':''}" class="#{current=='CREATE'?'w3-deep-orange':''}">
-			<h:commandLink action="#{dictationManageController.launchMain}"><span class="title">#{dictationMsg.navShow}</span><br/><span class="desc">#{dictationMsg.navShowDesc}</span></h:commandLink>
+	<ul class="w3-navbar w3-topbar w3-bottombar w3-border-deep-orange w3-center w3-small w3-white">
+		<li style="width:20%" id="#{current=='SHOWALL'?'current':''}">
+			<h:commandLink styleClass="#{current=='SHOWALL'?'w3-deep-orange':''} w3-hover-deep-orange" action="#{dictationManageController.launchMain}"><span class="w3-large">#{dictationMsg.navShow}</span><br/>#{dictationMsg.navShowDesc}</h:commandLink>
 		</li>
-		<li id="#{current=='CREATE'?'current':''}" class="#{current=='CREATE'?'w3-deep-orange':''}">
-			<h:commandLink action="#{dictationEditController.launchCreate}"><span class="title">#{dictationMsg.navCreate}</span><br/><span class="desc">#{dictationMsg.navCreateDesc}</span></h:commandLink>
+		<li style="width:20%" id="#{current=='CREATE'?'current':''}">
+			<h:commandLink styleClass="#{current=='CREATE'?'w3-deep-orange':''} w3-hover-deep-orange" action="#{dictationEditController.launchCreate}"><span class="w3-large">#{dictationMsg.navCreate}</span><br/>#{dictationMsg.navCreateDesc}</h:commandLink>
 		</li>
-		<li id="#{current=='INSTANT'?'current':''}" class="#{current=='CREATE'?'w3-deep-orange':''}">
-			<h:commandLink action="/practice/selfdictation/input"><span class="title">#{dictationMsg.navInstant}</span><br/><span class="desc">#{dictationMsg.navInstantDesc}</span></h:commandLink>
+		<li style="width:20%" id="#{current=='INSTANT'?'current':''}">
+			<h:commandLink styleClass="#{current=='INSTANT'?'w3-deep-orange':''} w3-hover-deep-orange" action="/practice/selfdictation/input"><span class="w3-large">#{dictationMsg.navInstant}</span><br/>#{dictationMsg.navInstantDesc}</h:commandLink>
 		</li>
-		<li id="#{current=='FIND'?'current':''}" class="#{current=='CREATE'?'w3-deep-orange':''}">
-			<h:commandLink action="/member/dictation/search"><span class="title">#{dictationMsg.navFind}</span><br/><span class="desc">#{dictationMsg.navFindDesc}</span></h:commandLink>
+		<li style="width:20%" id="#{current=='FIND'?'current':''}">
+			<h:commandLink styleClass="#{current=='FIND'?'w3-deep-orange':''} w3-hover-deep-orange" action="/member/dictation/search"><span class="w3-large">#{dictationMsg.navFind}</span><br/>#{dictationMsg.navFindDesc}</h:commandLink>
 		</li>
-		<li>
-			<h:commandLink action="#{openDictationController.randomDictation}"><span class="title">#{dictationMsg.navRandom}</span><br/><span class="desc">#{dictationMsg.navRandomDesc}</span></h:commandLink>
+		<li style="width:20%" >
+			<h:commandLink styleClass="w3-hover-deep-orange" action="#{openDictationController.randomDictation}"><span class="w3-large">#{dictationMsg.navRandom}</span><br/>#{dictationMsg.navRandomDesc}</h:commandLink>
 		</li>
 	</ul>
 	</h:form>

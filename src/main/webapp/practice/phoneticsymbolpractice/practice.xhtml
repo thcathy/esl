@@ -42,200 +42,188 @@
 	</ui:define>
 
     <ui:define name="mainDiv">
-        <div class="w3-content w3-padding-12">
-            <div class="w3-card-4 w3-white w3-margin-bottom">
-                <div class="w3-container w3-green">
-                    <h3>
-                        <a4j:outputPanel id="topHeader">
-                            <h:outputFormat value="#{phonSymPracticeMsg.practiceQuestion}">
-                                <f:param value="#{phoneticSymbolPracticeController.totalFullMark}"/>
-                            </h:outputFormat>
-                            : #{phonSymPracticeMsg.practiceMark} #{phoneticSymbolPracticeController.totalMark}
-                        </a4j:outputPanel>
-                        <span class="w3-right w3-hide-small">#{generalMsg.IPAPractice} <img class="w3-padding-left" src="#{request.contextPath}/images/graphic/phoneitcsymbol.png" /></span>
-                    </h3>
-                </div>
 
-                <div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
-                    <a4j:outputPanel id="questionRegion">
-                        <h:form id="inputForm">
-
-                            <a4j:queue />
-                            <audio id="pronounce" onloadeddata="this.play()" src="#{phoneticSymbolPracticeController.question.activePronounceLink}" />
-
-                            <div class="w3-row">
-                                <div class="w3-half">
-                                    <div class="w3-margin-right w3-margin-bottom w3-card-2">
-                                        <util:vocabimage2 picPaths="#{phoneticSymbolPracticeController.question.picsFullPathsInString}" />
-
-                                        <div class="w3-row w3-padding-top w3-padding-bottom w3-center w3-border-top">
-                                            <div class="w3-col l6 m12">
-                                                #{phoneticSymbolPracticeController.question.word}
-                                            </div>
-                                            <div class="w3-col l6 m12">
-                                                <a href="#" onclick="document.getElementById('pronounce').play();" class="w3-btn w3-medium w3-green w3-round-xlarge">
-                                                    <i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w3-half w3-margin-bottom">
-                                    <div class="w3-card-4 w3-container w3-text-deep-orange">
-                                        <!-- Select Phonics -->
-                                        <table class="phonicsTable" cellspacing="2">
-                                            <tr>
-                                                <td align="center"><esl:phonicsButton phonics="i:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="i" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="e" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="æ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ɑ:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ɔ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ɔ:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center"><esl:phonicsButton phonics="u" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="u:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ʌ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ə:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ə" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ei" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ai" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                            </tr>
-                                            <tr>
-
-                                                <td align="center"><esl:phonicsButton phonics="au" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ɔi" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="əu" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="iə" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ɛə" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="uə" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                            </tr>
-                                            <tr><td height="5"></td></tr>
-                                            <tr>
-                                                <td align="center"><esl:phonicsButton phonics="p" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="t" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="k" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="f" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="θ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="s" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ʃ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center"><esl:phonicsButton phonics="h" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="tʃ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="w" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                            </tr>
-                                            <tr><td height="5"></td></tr>
-                                            <tr>
-                                                <td align="center"><esl:phonicsButton phonics="b" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="d" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="g" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="m" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="n"  phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ŋ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="l" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="v" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center"><esl:phonicsButton phonics="ð" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="z" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="ʒ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="r" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="dʒ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                                <td align="center"><esl:phonicsButton phonics="j" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
-                                            </tr>
-                                        </table>
-
-                                        <div class="w3-text-deep-orange">
-                                            <p>
-                                                #{phonSymPracticeMsg.practiceSelectPhonics}:[<span id="phonicsInputSpan"></span>]
-                                                <span class="w3-right-align w3-medium w3-text-blue">
-                                                    <a href="#" onclick="clearPhonics();" class="w3-hover-blue" style="text-decoration: none;"><i class="fa fa-times" aria-hidden="true"></i>#{phonSymPracticeMsg.practiceClear}</a>
-                                                </span>
-                                                <h:inputHidden id="inputPhonics" value="#{phoneticSymbolPracticeController.answer}" />
-                                            </p>
-
-                                            <a4j:commandLink render="topHeader questionRegion historyRegion msgPanel"
-                                                             oncomplete="updateAfterSubmit()" id="eslSubmit"
-                                                             styleClass="w3-btn w3-deep-orange w3-margin-right w3-margin-bottom"
-                                                             action="#{phoneticSymbolPracticeController.submitAnswer}">
-                                                #{phonPracticeMsg.practiceSubmit}
-                                            </a4j:commandLink>
-                                            <a4j:status>
-                                                <f:facet name="start">
-                                                    <span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
-                                                </f:facet>
-                                            </a4j:status>
-                                            <input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{phoneticSymbolPracticeController.totalFullMark}" />
-                                            <input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{phoneticSymbolPracticeController.totalMark}" />
-                                            <input type="hidden" name="hiddenPicPaths" id="hiddenPicPaths" value="#{phoneticSymbolPracticeController.question.picsFullPathsInString}" />
-                                            <span class="w3-right w3-medium">
-                                                <a4j:commandLink action="#{phoneticSymbolPracticeController.completePractice}" style="text-decoration: none;" styleClass="w3-hover-deep-orange"><h:outputText value="#{phonSymPracticeMsg.practiceComplete}" /></a4j:commandLink>
-                                            </span>
-                                        </div>
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </h:form>
-                    </a4j:outputPanel>
-
-                    <esl:scoreBar2 startMark="#{phoneticSymbolPracticeController.totalMark}" maxMark="#{phoneticSymbolPracticeController.totalFullMark}" />
-
-                    <a4j:outputPanel id="msgPanel">
-                        <div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
-                            <h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
-                        </div>
-                    </a4j:outputPanel>
-
-                    <a4j:outputPanel id="historyRegion">
-                        <h:panelGroup rendered="#{phoneticSymbolPracticeController.totalFullMark > 1}">
-                            <div class="w3-responsive">
-                                <!-- Histories -->
-                                <table class="w3-table-all w3-medium w3-margin-top">
-                                    <thead>
-                                    <tr class="w3-theme">
-                                        <td></td>
-                                        <td>#{phonSymPracticeMsg.practiceWord}</td>
-                                        <td>#{phonSymPracticeMsg.practicePhonetic}</td>
-                                        <td>#{phonSymPracticeMsg.practiceAnswer}</td>
-                                        <td></td>
-                                    </tr>
-                                    </thead>
-                                    <t:dataList var="i" rowIndexVar="index" value="#{phoneticSymbolPracticeController.history}" >
-                                        <tr>
-                                            <td>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-index-1}" /></td>
-                                            <td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[index].question.word}" /></u></a></td>
-                                            <td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[index].question.IPA}" />]</td>
-                                            <td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[index].answer}]</td>
-                                            <td>
-                                                <a4j:outputPanel rendered="#{phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-                                                <a4j:outputPanel rendered="#{!phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
-                                            </td>
-                                        </tr>
-                                    </t:dataList>
-                                </table>
-                            </div>
-                            <div class="w3-container w3-light-grey w3-border w3-small">
-                                <p>* #{phonPracticeMsg.practiceWordExplanation}</p>
-                            </div>
-                        </h:panelGroup>
-                    </a4j:outputPanel>
-                </div>
-
-                <div class="w3-center w3-theme">
-                    <img src="#{request.contextPath}/images/graphic/footer_1.png" alt="footer" style="width:100%" />
-                </div>
-                <div class="w3-center">
-                    <div class="w3-row w3-theme w3-padding">
-                        <div class="w3-half w3-left-align">Developing by Timmy Wong</div>
-                        <div class="w3-half w3-right-align">© 2008 funfunspell.com</div>
-                    </div>
-                </div>
-            </div>
+        <div class="w3-container w3-green">
+            <h3>
+                <a4j:outputPanel id="topHeader">
+                    <h:outputFormat value="#{phonSymPracticeMsg.practiceQuestion}">
+                        <f:param value="#{phoneticSymbolPracticeController.totalFullMark}"/>
+                    </h:outputFormat>
+                    : #{phonSymPracticeMsg.practiceMark} #{phoneticSymbolPracticeController.totalMark}
+                </a4j:outputPanel>
+                <span class="w3-right w3-hide-small">#{generalMsg.IPAPractice} <img class="w3-padding-left" src="#{request.contextPath}/images/graphic/phoneitcsymbol.png" /></span>
+            </h3>
         </div>
+
+        <div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
+            <a4j:outputPanel id="questionRegion">
+                <h:form id="inputForm">
+
+                    <a4j:queue />
+                    <audio id="pronounce" onloadeddata="this.play()" src="#{phoneticSymbolPracticeController.question.activePronounceLink}" />
+
+                    <div class="w3-row">
+                        <div class="w3-half">
+                            <div class="w3-margin-right w3-margin-bottom w3-card-2">
+                                <util:vocabimage2 picPaths="#{phoneticSymbolPracticeController.question.picsFullPathsInString}" />
+
+                                <div class="w3-row w3-padding-top w3-padding-bottom w3-center w3-border-top">
+                                    <div class="w3-col l6 m12">
+                                        #{phoneticSymbolPracticeController.question.word}
+                                    </div>
+                                    <div class="w3-col l6 m12">
+                                        <a href="#" onclick="document.getElementById('pronounce').play();" class="w3-btn w3-medium w3-green w3-round-xlarge">
+                                            <i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-half w3-margin-bottom">
+                            <div class="w3-card-4 w3-container w3-text-deep-orange">
+                                <!-- Select Phonics -->
+                                <table class="phonicsTable" cellspacing="2">
+                                    <tr>
+                                        <td align="center"><esl:phonicsButton phonics="i:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="i" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="e" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="æ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ɑ:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ɔ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ɔ:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center"><esl:phonicsButton phonics="u" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="u:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ʌ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ə:" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ə" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ei" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ai" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td align="center"><esl:phonicsButton phonics="au" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ɔi" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="əu" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="iə" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ɛə" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="uə" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                    </tr>
+                                    <tr><td height="5"></td></tr>
+                                    <tr>
+                                        <td align="center"><esl:phonicsButton phonics="p" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="t" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="k" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="f" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="θ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="s" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ʃ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center"><esl:phonicsButton phonics="h" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="tʃ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="w" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                    </tr>
+                                    <tr><td height="5"></td></tr>
+                                    <tr>
+                                        <td align="center"><esl:phonicsButton phonics="b" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="d" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="g" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="m" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="n"  phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ŋ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="l" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="v" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center"><esl:phonicsButton phonics="ð" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="z" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="ʒ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="r" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="dʒ" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                        <td align="center"><esl:phonicsButton phonics="j" phonicsMap="#{phoneticSymbolPracticeController.selectionPhonics}" /></td>
+                                    </tr>
+                                </table>
+
+                                <div class="w3-text-deep-orange">
+                                    <p>
+                                        #{phonSymPracticeMsg.practiceSelectPhonics}:[<span id="phonicsInputSpan"></span>]
+                                        <span class="w3-right-align w3-medium w3-text-blue">
+                                            <a href="#" onclick="clearPhonics();" class="w3-hover-blue" style="text-decoration: none;"><i class="fa fa-times" aria-hidden="true"></i>#{phonSymPracticeMsg.practiceClear}</a>
+                                        </span>
+                                        <h:inputHidden id="inputPhonics" value="#{phoneticSymbolPracticeController.answer}" />
+                                    </p>
+
+                                    <a4j:commandLink render="topHeader questionRegion historyRegion msgPanel"
+                                                     oncomplete="updateAfterSubmit()" id="eslSubmit"
+                                                     styleClass="w3-btn w3-deep-orange w3-margin-right w3-margin-bottom"
+                                                     action="#{phoneticSymbolPracticeController.submitAnswer}">
+                                        #{phonPracticeMsg.practiceSubmit}
+                                    </a4j:commandLink>
+                                    <a4j:status>
+                                        <f:facet name="start">
+                                            <span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
+                                        </f:facet>
+                                    </a4j:status>
+                                    <input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{phoneticSymbolPracticeController.totalFullMark}" />
+                                    <input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{phoneticSymbolPracticeController.totalMark}" />
+                                    <input type="hidden" name="hiddenPicPaths" id="hiddenPicPaths" value="#{phoneticSymbolPracticeController.question.picsFullPathsInString}" />
+                                    <span class="w3-right w3-medium">
+                                        <a4j:commandLink action="#{phoneticSymbolPracticeController.completePractice}" style="text-decoration: none;" styleClass="w3-hover-deep-orange"><h:outputText value="#{phonSymPracticeMsg.practiceComplete}" /></a4j:commandLink>
+                                    </span>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </a4j:outputPanel>
+
+            <esl:scoreBar2 startMark="#{phoneticSymbolPracticeController.totalMark}" maxMark="#{phoneticSymbolPracticeController.totalFullMark}" />
+
+            <a4j:outputPanel id="msgPanel">
+                <div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
+                    <h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+                </div>
+            </a4j:outputPanel>
+
+            <a4j:outputPanel id="historyRegion">
+                <h:panelGroup rendered="#{phoneticSymbolPracticeController.totalFullMark > 1}">
+                    <div class="w3-responsive">
+                        <!-- Histories -->
+                        <table class="w3-table-all w3-medium w3-margin-top">
+                            <thead>
+                            <tr class="w3-theme">
+                                <td></td>
+                                <td>#{phonSymPracticeMsg.practiceWord}</td>
+                                <td>#{phonSymPracticeMsg.practicePhonetic}</td>
+                                <td>#{phonSymPracticeMsg.practiceAnswer}</td>
+                                <td></td>
+                            </tr>
+                            </thead>
+                            <t:dataList var="i" rowIndexVar="index" value="#{phoneticSymbolPracticeController.history}" >
+                                <tr>
+                                    <td>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-index-1}" /></td>
+                                    <td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[index].question.word}" /></u></a></td>
+                                    <td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[index].question.IPA}" />]</td>
+                                    <td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[index].answer}]</td>
+                                    <td>
+                                        <a4j:outputPanel rendered="#{phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
+                                        <a4j:outputPanel rendered="#{!phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
+                                    </td>
+                                </tr>
+                            </t:dataList>
+                        </table>
+                    </div>
+                    <div class="w3-container w3-light-grey w3-border w3-small">
+                        <p>* #{phonPracticeMsg.practiceWordExplanation}</p>
+                    </div>
+                </h:panelGroup>
+            </a4j:outputPanel>
+        </div>
+
     </ui:define>
 
 </ui:composition>

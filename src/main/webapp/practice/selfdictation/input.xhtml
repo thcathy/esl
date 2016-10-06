@@ -30,34 +30,63 @@
 	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/mydictation.gif" /></ui:define>
 
 	<ui:define name="mainDiv">
-		<esl:dictationNav2 current="INSTANT" />
-		<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
-		<p class="innerHeading"><h:outputText value="#{selfDictationMsg.inputDesTitle}"/></p>
-		<p><h:outputText value="#{selfDictationMsg.inputDesTxt}"/></p>
+        <div class="w3-container w3-green">
+            <h2><i class="fa fa-pencil-square-o" aria-hidden="true"></i> #{generalMsg.dictation}</h2>
+        </div>
 
-		<h:form class="formContent">
-		<p>
-			<h:outputFormat value="#{selfDictationMsg.inputVocabularyLabel}" styleClass="innerBold"><f:param value="#{selfDictationService.maxQuestions}"/></h:outputFormat><br /><br />			
-			<a4j:repeat var="vocab" rowKeyVar="r" value="#{selfDictationController.inputVocab}">
-				<h:graphicImage rendered="#{r%2 == 1}" value="/images/en/spacer.gif" width="10" height="1" />
-				#{r+1}<h:outputText rendered="#{r lt 9}" escape="false" value="&amp;nbsp&#59;&amp;nbsp&#59;"/>
-				<input style="margin: 2px; width: 130px;" type="text" id="vocab#{r+1}" name="vocab#{r+1}" value="#{vocab}" />
-				<h:outputText escape="false" value="&lt;br /&gt;" rendered="#{(r+1)%2 == 0}"/>
-			</a4j:repeat>	
-		</p>
-		<p>
-		    <h:outputText value="#{selfDictationMsg.tipsTitle}" />: <br />
-		    <h:selectBooleanCheckbox title="withIPA" value="#{selfDictationController.withIPA}"  />
-		    <h:outputText value="#{selfDictationMsg.withIPA}"/> <br />
-		    <h:selectBooleanCheckbox title="withRandomCharacters" value="#{selfDictationController.withRandomCharacters}" />
-		    <h:outputText value="#{selfDictationMsg.withRamdomCharacters}" />
-		</p>
-		<div class="buttons">
-			<h:commandLink onclick="return submitRequest();" action="#{selfDictationController.start}"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{selfDictationMsg.inputCommandStartTitle}</h:commandLink>
-			<a style="margin-left: 20px;" class="negative" onclick="return clearVocab()" href="#"><img border="0" src="#{request.contextPath}/images/icon/silk/cross.png" /><h:outputText value="#{selfDictationMsg.inputClearFields}" /></a>			
+		<div class="w3-margin w3-padding-bottom">
+			<div class="w3-panel">
+				<esl:dictationNav2 current="INSTANT" />
+				<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+
+				<h:form styleClass="w3-margin-top w3-large">
+					<label class="w3-label"><h:outputFormat value="#{selfDictationMsg.inputVocabularyLabel}"><f:param value="#{selfDictationService.maxQuestions}"/></h:outputFormat></label>
+					<div class="w3-row-padding">
+						<a4j:repeat var="vocab" rowKeyVar="r" value="#{selfDictationController.inputVocab}">
+							<div class="w3-quarter">
+								<!--#{r+1}<h:outputText rendered="#{r lt 9}" escape="false" value="&amp;nbsp&#59;&amp;nbsp&#59;"/>-->
+								<input placeholder="#{r+1}" class="w3-input" type="text" id="vocab#{r+1}" name="vocab#{r+1}" value="#{vocab}" />
+								<!--<h:outputText escape="false" value="&lt;br /&gt;" rendered="#{(r+1)%2 == 0}"/>-->
+							</div>
+						</a4j:repeat>
+					</div>
+
+					<a style="margin-left: 20px;" onclick="return clearVocab()" href="#"><i class="fa fa-times" aria-hidden="true"></i> <h:outputText value="#{selfDictationMsg.inputClearFields}" /></a>
+
+					<div class="w3-row">
+						<div class="w3-third">
+							<label class="w3-label">#{selfDictationMsg.tipsTitle}:</label>
+						</div>
+						<div class="w3-third">
+							<h:selectBooleanCheckbox styleClass="w3-check" title="withIPA" value="#{selfDictationController.withIPA}" />
+							<label class="w3-validate">#{selfDictationMsg.withIPA}</label>
+						</div>
+						<div class="w3-third">
+							<h:selectBooleanCheckbox styleClass="w3-check" title="withRandomCharacters" value="#{selfDictationController.withRandomCharacters}" />
+							<label class="w3-validate">#{selfDictationMsg.withRamdomCharacters}</label>
+						</div>
+					</div>
+
+					<p>
+						<h:commandLink onclick="return showSpinner();" styleClass="w3-btn w3-green w3-margin-bottom" action="#{selfDictationController.start}"><i class="fa fa-pencil" aria-hidden="true"></i> #{selfDictationMsg.inputCommandStartTitle}</h:commandLink>
+						<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:28px"></i></span>
+					</p>
+				</h:form>
+
+				<div class="w3-container w3-leftbar w3-light-grey w3-margin">
+					<ui:include src="/WEB-INF/html/SelfDictationHowtoUse_#{languageController.locale}.xhtml" />
+				</div>
+
+				<div class="w3-container">
+					<button onclick="addOrRemoveW3Show('description')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium w3-leftbar">
+						<i class="fa fa-chevron-down" aria-hidden="true"></i> #{selfDictationMsg.inputDesTitle}
+					</button>
+					<div id="description" class="w3-accordion-content w3-container w3-medium w3-leftbar w3-light-grey">
+						<p>#{selfDictationMsg.inputDesTxt}</p>
+					</div>
+				</div>
+			</div>
 		</div>
-		</h:form>
 
-		<ui:include src="/WEB-INF/html/SelfDictationHowtoUse_#{languageController.locale}.xhtml" />	
 	</ui:define>
 </ui:composition>
