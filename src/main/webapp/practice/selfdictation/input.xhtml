@@ -53,23 +53,8 @@
 							</div>
 						</a4j:repeat>
                         <span class="w3-right w3-margin-top">
-                            <button onclick="return clearVocab()" class="w3-btn w3-white w3-border w3-border-green w3-round-large w3-medium"><i class="fa fa-times" aria-hidden="true"></i>&#160;<h:outputText value="#{selfDictationMsg.inputClearFields}" /></button>
+                            <a onclick="return clearVocab()" class="w3-btn w3-white w3-border w3-border-green w3-round-large w3-medium"><i class="fa fa-times" aria-hidden="true"></i>&#160;<h:outputText value="#{selfDictationMsg.inputClearFields}" /></a>
                         </span>
-					</div>
-
-					<div class="w3-row">
-						<div class="w3-col l1 m2">
-							<label class="w3-label">#{selfDictationMsg.tipsTitle}:</label>
-						</div>
-						<div class="w3-col l4 m5">
-							<h:selectBooleanCheckbox styleClass="w3-check" title="withIPA" value="#{selfDictationController.withIPA}" />
-							<label class="w3-validate">#{selfDictationMsg.withIPA}</label>
-						</div>
-						<div class="w3-col l4 m5">
-							<h:selectBooleanCheckbox styleClass="w3-check" title="withRandomCharacters" value="#{selfDictationController.withRandomCharacters}" />
-							<label class="w3-validate">#{selfDictationMsg.withRamdomCharacters}</label>
-						</div>
-                        <div class="w3-col l3 w3-hide-medium w3-hide-small">&#160;</div>
 					</div>
 
 					<p>
