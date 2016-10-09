@@ -23,6 +23,10 @@
 		<source>component/dictationnav.xhtml</source>
 	</tag>
 	<tag>
+		<tag-name>dictationNav2</tag-name>
+		<source>component/dictationnav2.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>oneDictationSummary</tag-name>
 		<source>component/dictationsummary.xhtml</source>
 	</tag>

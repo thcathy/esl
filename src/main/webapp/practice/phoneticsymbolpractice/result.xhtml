@@ -18,105 +18,92 @@
 	</ui:define>
 
 	<ui:define name="mainDiv">
-		<div class="w3-content w3-padding-12">
-			<div class="w3-card-4 w3-white w3-margin-bottom">
-				<div class="w3-container w3-green">
-					<h3>
-						#{generalMsg.IPAPractice} <img class="w3-padding-left" src="#{request.contextPath}/images/graphic/phoneitcsymbol.png" />
-					</h3>
-				</div>
-
-				<h:form>
-					<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
-						<h3>
-							<h:outputFormat value="#{phonSymPracticeMsg.resultTitle}">
-								<f:param value="#{phoneticSymbolPracticeController.totalMark}"/>
-								<f:param value="#{phoneticSymbolPracticeController.totalFullMark}"/>
-								<f:param value="#{phoneticSymbolPracticeController.currentGrade.description}"/>
-							</h:outputFormat>
-						</h3>
-						<a4j:outputPanel id="msgPanel">
-							<div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
-								<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
-							</div>
-						</a4j:outputPanel>
-
-						<h:panelGroup rendered="#{!authenticationController.authenticated}">
-							<div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
-								<p>
-									#{phonSymPracticeMsg.resultVisitorMessage}<br />
-									<h:commandLink action="#{profileController.startSignUp}"><u><h:outputText value="#{phonSymPracticeMsg.resultSignupMessage}" /></u></h:commandLink>
-								</p>
-								<h:commandLink styleClass="w3-btn w3-green w3-margin-bottom" action="#{profileController.startSignUp}">#{authMsg.signupTitle}</h:commandLink>
-							</div>
-						</h:panelGroup>
-
-						<div class="w3-row w3-center w3-margin w3-medium">
-							<div class="w3-half w3-margin-bottom">
-								<h:commandLink styleClass="w3-btn w3-green" action="/practice/phoneticsymbolpractice/input" value="#{phonSymPracticeMsg.resultRetryPractice}" />
-							</div>
-							<div class="w3-half">
-								<h:commandLink styleClass="w3-btn w3-red" action="#{phoneticSymbolPracticeController.start}" value="#{phonPracticeMsg.resultRetrySameGradePractice}" />
-							</div>
-						</div>
-
-						<esl:scoreBar2 startMark="#{phoneticSymbolPracticeController.totalMark}" maxMark="#{phoneticSymbolPracticeController.totalFullMark}" />
-						<div class="w3-responsive">
-							<h:panelGroup rendered="#{phoneticSymbolPracticeController.totalFullMark > 0}">
-								<table class="w3-table-all w3-medium w3-margin-top">
-									<thead>
-									<tr class="w3-theme">
-										<td></td>
-										<td><h:outputText value="#{phonSymPracticeMsg.practiceWord}" /></td>
-										<td><h:outputText value="#{phonSymPracticeMsg.practicePhonetic}" /></td>
-										<td><h:outputText value="#{phonSymPracticeMsg.practiceAnswer}" /></td>
-										<td></td>
-									</tr>
-									</thead>
-									<t:dataList var="i" rowIndexVar="index" value="#{phoneticSymbolPracticeController.history}" >
-										<tr>
-											<td><strong>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-index}" /></strong></td>
-											<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[index].question.word}" /></u></a></td>
-											<td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[index].question.IPA}" />]</td>
-											<td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[index].answer}]</td>
-											<td>
-												<a4j:outputPanel rendered="#{phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-												<a4j:outputPanel rendered="#{!phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
-											</td>
-										</tr>
-									</t:dataList>
-								</table>
-							</h:panelGroup>
-						</div>
-						<div class="w3-container w3-light-grey w3-border w3-small">
-							<h:panelGroup rendered="#{authenticationController.authenticated}"><p><i class="fa fa-plus-circle" aria-hidden="true"></i> <h:outputText value="#{phonPracticeMsg.practiceUseMemberWord}" /></p></h:panelGroup>
-							<p>* #{phonPracticeMsg.practiceWordExplanation}</p>
-						</div>
-
-						<h:panelGroup rendered="#{authenticationController.authenticated}">
-							<div class="w3-row w3-center w3-medium w3-border w3-margin-top¢¢">
-								<div class="w3-half w3-panel">
-									<esl:topResult2 title="#{memberSumMsg.summaryScoreRanking}" topResult="#{phoneticSymbolPracticeController.scoreRanking}" />
-								</div>
-								<div class="w3-half w3-panel">
-									<esl:topResult2 title="#{memberSumMsg.summaryRatingRanking}" topResult="#{phoneticSymbolPracticeController.rateRanking}" />
-								</div>
-							</div>
-						</h:panelGroup>
-					</div>
-				</h:form>
-
-				<div class="w3-center w3-theme">
-					<img src="#{request.contextPath}/images/graphic/footer_1.png" alt="footer" style="width:100%" />
-				</div>
-				<div class="w3-center">
-					<div class="w3-row w3-theme w3-padding">
-						<div class="w3-half w3-left-align">Developing by Timmy Wong</div>
-						<div class="w3-half w3-right-align">© 2008 funfunspell.com</div>
-					</div>
-				</div>
-			</div>
+		<div class="w3-container w3-green">
+			<h3>
+				#{generalMsg.IPAPractice} <img class="w3-padding-left" src="#{request.contextPath}/images/graphic/phoneitcsymbol.png" />
+			</h3>
 		</div>
+
+		<h:form>
+			<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
+				<h3>
+					<h:outputFormat value="#{phonSymPracticeMsg.resultTitle}">
+						<f:param value="#{phoneticSymbolPracticeController.totalMark}"/>
+						<f:param value="#{phoneticSymbolPracticeController.totalFullMark}"/>
+						<f:param value="#{phoneticSymbolPracticeController.currentGrade.description}"/>
+					</h:outputFormat>
+				</h3>
+				<a4j:outputPanel id="msgPanel">
+					<div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
+						<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
+					</div>
+				</a4j:outputPanel>
+
+				<h:panelGroup rendered="#{!authenticationController.authenticated}">
+					<div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
+						<p>
+							#{phonSymPracticeMsg.resultVisitorMessage}<br />
+							<h:commandLink action="#{profileController.startSignUp}"><u><h:outputText value="#{phonSymPracticeMsg.resultSignupMessage}" /></u></h:commandLink>
+						</p>
+						<h:commandLink styleClass="w3-btn w3-green w3-margin-bottom" action="#{profileController.startSignUp}">#{authMsg.signupTitle}</h:commandLink>
+					</div>
+				</h:panelGroup>
+
+				<div class="w3-row w3-center w3-margin w3-medium">
+					<div class="w3-half w3-margin-bottom">
+						<h:commandLink styleClass="w3-btn w3-green" action="/practice/phoneticsymbolpractice/input" value="#{phonSymPracticeMsg.resultRetryPractice}" />
+					</div>
+					<div class="w3-half">
+						<h:commandLink styleClass="w3-btn w3-red" action="#{phoneticSymbolPracticeController.start}" value="#{phonPracticeMsg.resultRetrySameGradePractice}" />
+					</div>
+				</div>
+
+				<esl:scoreBar2 startMark="#{phoneticSymbolPracticeController.totalMark}" maxMark="#{phoneticSymbolPracticeController.totalFullMark}" />
+				<div class="w3-responsive">
+					<h:panelGroup rendered="#{phoneticSymbolPracticeController.totalFullMark > 0}">
+						<table class="w3-table-all w3-medium w3-margin-top">
+							<thead>
+							<tr class="w3-theme">
+								<td></td>
+								<td><h:outputText value="#{phonSymPracticeMsg.practiceWord}" /></td>
+								<td><h:outputText value="#{phonSymPracticeMsg.practicePhonetic}" /></td>
+								<td><h:outputText value="#{phonSymPracticeMsg.practiceAnswer}" /></td>
+								<td></td>
+							</tr>
+							</thead>
+							<t:dataList var="i" rowIndexVar="index" value="#{phoneticSymbolPracticeController.history}" >
+								<tr>
+									<td><strong>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-index}" /></strong></td>
+									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[index].question.word}" /></u></a></td>
+									<td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[index].question.IPA}" />]</td>
+									<td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[index].answer}]</td>
+									<td>
+										<a4j:outputPanel rendered="#{phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
+										<a4j:outputPanel rendered="#{!phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
+									</td>
+								</tr>
+							</t:dataList>
+						</table>
+					</h:panelGroup>
+				</div>
+				<div class="w3-container w3-light-grey w3-border w3-small">
+					<h:panelGroup rendered="#{authenticationController.authenticated}"><p><i class="fa fa-plus-circle" aria-hidden="true"></i> <h:outputText value="#{phonPracticeMsg.practiceUseMemberWord}" /></p></h:panelGroup>
+					<p>* #{phonPracticeMsg.practiceWordExplanation}</p>
+				</div>
+
+				<h:panelGroup rendered="#{authenticationController.authenticated}">
+					<div class="w3-row w3-center w3-medium w3-border w3-margin-top¢¢">
+						<div class="w3-half w3-panel">
+							<esl:topResult2 title="#{memberSumMsg.summaryScoreRanking}" topResult="#{phoneticSymbolPracticeController.scoreRanking}" />
+						</div>
+						<div class="w3-half w3-panel">
+							<esl:topResult2 title="#{memberSumMsg.summaryRatingRanking}" topResult="#{phoneticSymbolPracticeController.rateRanking}" />
+						</div>
+					</div>
+				</h:panelGroup>
+			</div>
+		</h:form>
+
 	</ui:define>
 	
 </ui:composition>
