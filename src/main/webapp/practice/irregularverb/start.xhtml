@@ -22,7 +22,7 @@
 		</div>
 
 		<div class="w3-margin w3-xlarge w3-padding-bottom">
-			<h:form id="inputForm">
+			<h:form class="w3-container">
 				#{irregularVerbMsg.practiceOption}:
 				<h:selectBooleanCheckbox styleClass="w3-check" value="#{irregularVerbPracticeController.withPastParticiple}" />
 				<label class="w3-validate w3-large">#{irregularVerbMsg.includePastParticiple}</label><br />
@@ -45,7 +45,29 @@
 						<i class="fa fa-chevron-down" aria-hidden="true"></i> #{irregularVerbMsg.listAll}
 					</button>
 					<div id="verbList" class="w3-accordion-content w3-container w3-medium w3-leftbar w3-light-grey">
-						<p>#{phonPracticeMsg.inputDesTxt}</p>
+						<div class="w3-container w3-light-grey w3-border w3-small">
+							<p>* #{irregularVerbMsg.dictionaryLink}</p>
+						</div>
+						<div class="w3-responsive">
+							<table class="w3-table-all w3-medium">
+								<thead>
+								<tr class="w3-blue-grey">
+									<td>#{irregularVerbMsg.present}</td>
+									<td>#{irregularVerbMsg.presentParticiple}</td>
+									<td>#{irregularVerbMsg.past}</td>
+									<td>#{irregularVerbMsg.pastParticiple}</td>
+								</tr>
+								</thead>
+								<a4j:repeat var="verb" rowKeyVar="r" value="#{irregularVerbListController.verbs}">
+									<tr>
+										<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{verb.present}" target="_blank"><u>#{verb.present}</u></a></td>
+										<td>#{verb.presentParticiple}</td>
+										<td>#{verb.past}</td>
+										<td>#{verb.pastParticiple}</td>
+									</tr>
+								</a4j:repeat>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
