@@ -1,37 +1,78 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fmt="http://java.sun.com/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	template="/template/main.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				template="/template/short.xhtml">
+
 
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_irregularverb_start_title}</ui:define>
 	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.practice_irregularverb_start_desc}" /></ui:define>	
 	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/irregularverb.png" /></ui:define>
 
-	<ui:define name="mainContent">
-		<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
-		<table>
-			<tr>
-				<td width="500" class="innerContent">
-					<div style="font-size:14px"><ui:include src="/WEB-INF/html/IrregularVerbPracticeHowto_#{languageController.locale}.xhtml" /></div>
-					<h:form><h:link outcome="/practice/irregularverb/list"><h3><u>&gt;&nbsp;#{irregularVerbMsg.listAll}</u></h3></h:link></h:form>
-				</td>
-				<td valign="top" style="font-size:14px; color: #EE6600;" class="innerHeading">
-					<h:form id="inputForm">
-						<p>#{irregularVerbMsg.practiceOption}</p>
-						<h:selectBooleanCheckbox value="#{irregularVerbPracticeController.withPastParticiple}" />#{irregularVerbMsg.includePastParticiple}<br /><br />
-		           		<div class="buttons">
-		           			<h:commandLink onclick="return submitRequest();" styleClass="orange" style="width: 120px; text-align: center;" action="#{irregularVerbPracticeController.start}"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{irregularVerbMsg.start}</h:commandLink>
-		           		</div>
-					</h:form>					
-				</td>
-			</tr>									
-		</table>
+	<ui:define name="mainDiv">
+		<div class="w3-container w3-green">
+			<h2>#{generalMsg.menuIrregularVerb}</h2>
+		</div>
+
+		<div class="w3-margin w3-xlarge w3-padding-bottom">
+			<h:form class="w3-container">
+				#{irregularVerbMsg.practiceOption}:
+				<h:selectBooleanCheckbox styleClass="w3-check" value="#{irregularVerbPracticeController.withPastParticiple}" />
+				<label class="w3-validate w3-large">#{irregularVerbMsg.includePastParticiple}</label><br />
+
+				<p>
+					<h:commandLink styleClass="w3-btn w3-green" onclick="showSpinner();" action="#{irregularVerbPracticeController.start}">
+						#{irregularVerbMsg.start}</h:commandLink>
+					<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:32px"></i></span>
+				</p>
+
+			</h:form>
+
+			<div class="w3-container w3-leftbar w3-light-grey w3-margin">
+				<div style="font-size:14px"><ui:include src="/WEB-INF/html/IrregularVerbPracticeHowto_#{languageController.locale}.xhtml" /></div>
+			</div>
+
+			<div>
+				<div class="w3-container">
+					<button onclick="addOrRemoveW3Show('verbList')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium w3-leftbar">
+						<i class="fa fa-chevron-down" aria-hidden="true"></i> #{irregularVerbMsg.listAll}
+					</button>
+					<div id="verbList" class="w3-accordion-content w3-container w3-medium w3-leftbar w3-light-grey">
+						<div class="w3-container w3-light-grey w3-border w3-small">
+							<p>* #{irregularVerbMsg.dictionaryLink}</p>
+						</div>
+						<div class="w3-responsive">
+							<table class="w3-table-all w3-medium">
+								<thead>
+								<tr class="w3-blue-grey">
+									<td>#{irregularVerbMsg.present}</td>
+									<td>#{irregularVerbMsg.presentParticiple}</td>
+									<td>#{irregularVerbMsg.past}</td>
+									<td>#{irregularVerbMsg.pastParticiple}</td>
+								</tr>
+								</thead>
+								<a4j:repeat var="verb" rowKeyVar="r" value="#{irregularVerbListController.verbs}">
+									<tr>
+										<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{verb.present}" target="_blank"><u>#{verb.present}</u></a></td>
+										<td>#{verb.presentParticiple}</td>
+										<td>#{verb.past}</td>
+										<td>#{verb.pastParticiple}</td>
+									</tr>
+								</a4j:repeat>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</ui:define>
+
 </ui:composition>
