@@ -10,12 +10,12 @@
 	xmlns:rich="http://richfaces.org/rich">
 	
 	<h:panelGroup rendered="#{type=='Question'}">
-		<span class="ivpHistoryQuestion">#{word}</span>
+		<span class="w3-text-black">#{word}</span>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{type=='Correct'}">
-		<span class="ivpHistoryCorrect">#{word}</span>
+		<span class="w3-text-green">#{word} <i class="fa fa-check"></i></span>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{type=='Wrong'}">
-		<span class="ivpHistoryWrong">#{word}</span>
+		<span class="w3-text-red">#{word} <i class="fa fa-times"></i></span>
 	</h:panelGroup>
 </ui:composition>
