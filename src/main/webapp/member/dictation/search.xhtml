@@ -1,140 +1,144 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-  	xmlns:esl="http://www.funfunspell.com/jsf"
-  	template="/template/main.xhtml">
-	
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+				template="/template/short.xhtml">
+
 	<ui:define name="subTitle">#{htmlHeadMsg.member_dictation_main_title}</ui:define>
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.member_dictation_main_desc}" />
-		<link type="text/css" href="${request.contextPath}/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="Stylesheet" />	
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-		<script type="text/javascript" src="${request.contextPath}/js/jquery-ui-1.7.2.custom.min.js"></script>
-		<script type="text/javascript">
-		//<![CDATA[
-		jQuery.noConflict();
-		
-		jQuery(document).ready(
-			function($) {
-				$("#moreOptionTable").hide();
+		<link type="text/css" href="${request.contextPath}/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="Stylesheet" />
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 
-				$("#showMoreOption").click(
-					function() {						
-						if ($("#moreOptionTable").is(":hidden")) {
-							$("#showMoreOptionImg").attr("src","#{request.contextPath}/images/graphic/mb_close.gif");
-							$("#moreOptionTable").slideDown();
-								
-						}
-					}
-				)
-			}
-		)		
-		//]]>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript">
+			//<![CDATA[
+			jQuery.noConflict();
+			//]]>
 		</script>
 	</ui:define>
-	
-	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/mydictation.gif" /></ui:define>
 
-	<ui:define name="mainContent">
-		<esl:dictationNav current="FIND" />
-		<h:form id="inputForm">
-		<h:messages tooltip="true" errorClass="error" infoClass="innerHeading" globalOnly="true" />
-		<fieldset>
-			<table width="90%">
-				<tr>
-					<td width="120" class="formTitle"></td>
-					<td width="5" class="formTitle"></td>
-					<td>
-						<h:inputText id="keyword" style="width: 250px;" value="#{searchDictationController.inputForm.keyword}" styleClass="formLarge" maxlength="255">
-							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />	
-						</h:inputText>
-						&nbsp;
-						<h:commandButton value="#{dictationMsg.search}" styleClass="formLarge" action="#{searchDictationController.search}" />
-						<br /> 
-						<h:message for="keyword" errorClass="error" />
-						<br />
-						<h:selectBooleanCheckbox value="#{searchDictationController.inputForm.searchTitle}" />#{dictationMsg.searchTitle}&nbsp;
-						<h:selectBooleanCheckbox value="#{searchDictationController.inputForm.searchDescription}" />#{dictationMsg.searchDesc}&nbsp;
-						<h:selectBooleanCheckbox value="#{searchDictationController.inputForm.searchTags}" />#{dictationMsg.searchTags}&nbsp;
-					</td>
-					<td valign="bottom" align="right"><a id="showMoreOption"><img id="showMoreOptionImg" src="#{request.contextPath}/images/graphic/mb_open.gif" />&nbsp;#{dictationMsg.moreOptions}...</a></td>
-				</tr>
-			</table>
-			<table id="moreOptionTable" width="90%" class="formContent">
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.forAge}</td>
-					<td width="5" class="formTitle">:</td>
-					<td>
-						<table>
-							<tr>
-								<td style="padding-right: 10px; font-size: 14px; width: 50px;">								
-									<strong><span id="ageValue">#{searchDictationController.inputForm.minAge} - #{searchDictationController.inputForm.maxAge}&nbsp;</span></strong>
-								</td>
-								<td width="200"><div id="ageSlider" style="font-size: 10px; width: 90%;"></div></td>
-							</tr>
-						</table>
-						<h:inputHidden id="minAge" value="#{searchDictationController.inputForm.minAge}" />
-						<h:inputHidden id="maxAge" value="#{searchDictationController.inputForm.maxAge}" />
-						<script type="text/javascript">
-						//<![CDATA[
-						jQuery(function($) {
-							$("#ageSlider").slider({
-								range: true,
-								min: 0,
-								max: 30,
-								values: [#{searchDictationController.inputForm.minAge}, #{searchDictationController.inputForm.maxAge}],
-								slide: function(event, ui) {
-									$("#ageValue").text(ui.values[0] + ' - ' + ui.values[1] + ' ');
-									$("#inputForm:minAge").val(ui.values[0]);
-									$("#inputForm:maxAge").val(ui.values[1]);
-								}
-							});							
-						});
-						//]]>
-						</script>
-					</td>
-				</tr>				
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.lastModifyDate}</td>
-					<td width="5" class="formTitle">:</td>
-					<td>
-						<rich:calendar value="#{searchDictationController.inputForm.minDate}"                  	
-                        	popup="true" locale="#{userSession.localeString}"
-                        	datePattern="dd/MM/yyyy"
-                        	showApplyButton="false" style="width:80px"/>
-                        &nbsp;-&nbsp;
-                        <rich:calendar value="#{searchDictationController.inputForm.maxDate}"                  	
-                        	popup="true" locale="#{userSession.localeString}"
-                        	datePattern="dd/MM/yyyy"
-                        	showApplyButton="false" style="width:80px"/>
-					</td>
-				</tr>
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.createdBy}</td>
-					<td width="5" class="formTitle">:</td>
-					<td>
-						<h:inputText id="creatorName" value="#{searchDictationController.inputForm.creatorName}">
-							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />
-						</h:inputText><br />
-						<h:message for="creatorName" errorClass="error" /></td>
-				</tr>
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.accessibility}</td>
-					<td width="5" class="formTitle">:</td>
-					<td>
-						<h:selectBooleanCheckbox value="#{searchDictationController.inputForm.accessible}" />#{dictationMsg.canPractice}&nbsp;
-						<h:selectBooleanCheckbox value="#{searchDictationController.inputForm.notRequirePassword}" />#{dictationMsg.notReqPwd}&nbsp;
-					</td>
-				</tr>
-			</table>
-		</fieldset>
-		</h:form>
+	<ui:define name="mainDiv">
+		<div class="w3-container w3-green">
+			<h2><i class="fa fa-pencil-square-o" aria-hidden="true"></i> #{generalMsg.dictation}</h2>
+		</div>
+
+		<div class="w3-margin w3-padding-bottom">
+			<div class="w3-panel">
+				<esl:dictationNav2 current="FIND" />
+
+				<h:messages styleClass="w3-large" tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+
+				<h:form id="inputForm" styleClass="w3-card-4 w3-padding w3-margin-top">
+					<div class="w3-row-padding">
+						<div class="w3-col l1 m1 w3-hide-small w3-hide-medium">&#160;</div>
+						<div class="w3-col l10">
+							<div class="w3-row">
+								<div class="w3-threequarter">
+									<h:inputText id="keyword" value="#{searchDictationController.inputForm.keyword}" styleClass="w3-input w3-border" maxlength="255">
+										<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />
+									</h:inputText>
+									<h:message for="keyword" errorClass="w3-text-red" />
+
+
+									<div class="w3-row">
+										<div class="w3-third">
+											<h:selectBooleanCheckbox styleClass="w3-check" value="#{searchDictationController.inputForm.searchTitle}" /><label class="w3-validate">#{dictationMsg.searchTitle}</label>
+										</div>
+										<div class="w3-third">
+											<h:selectBooleanCheckbox styleClass="w3-check" value="#{searchDictationController.inputForm.searchDescription}" /><label class="w3-validate">#{dictationMsg.searchDesc}</label>
+										</div>
+										<div class="w3-third">
+											<h:selectBooleanCheckbox styleClass="w3-check" value="#{searchDictationController.inputForm.searchTags}" /><label class="w3-validate">#{dictationMsg.searchTags}</label>
+										</div>
+									</div>
+								</div>
+								<div class="w3-quarter w3-right-align">
+									<h:commandLink styleClass="w3-btn w3-green" action="#{searchDictationController.search}"><i class="fa fa-search" aria-hidden="true"></i> #{dictationMsg.search}</h:commandLink>
+								</div>
+							</div>
+
+							<div class="w3-margin-top">
+								<div class="w3-right-align">
+									<button onclick="addOrRemoveW3Show('moreOptions'); return false;" class="w3-btn w3-white w3-hover-light-grey">
+										<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.moreOptions}
+									</button>
+								</div>
+								<div id="moreOptions" class="w3-accordion-content w3-panel">
+									<div class="w3-row">
+										<div class="w3-quarter"><label class="w3-label">#{dictationMsg.forAge}</label></div>
+										<div class="w3-threequarter">
+											<span id="ageValue">#{searchDictationController.inputForm.minAge} - #{searchDictationController.inputForm.maxAge}</span>
+											<div id="ageSlider" style="font-size: 10px; width: 90%;"></div>
+											<h:inputHidden id="minAge" value="#{searchDictationController.inputForm.minAge}" />
+											<h:inputHidden id="maxAge" value="#{searchDictationController.inputForm.maxAge}" />
+											<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+											<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+											<script type="text/javascript">
+												//<![CDATA[
+												jQuery(function($) {
+													$('#ageSlider').slider({
+														range: true,
+														min: 0,
+														max: 30,
+														values: [#{searchDictationController.inputForm.minAge}, #{searchDictationController.inputForm.maxAge}],
+														slide: function(event, ui) {
+															$("#ageValue").text(ui.values[0] + ' - ' + ui.values[1] + ' ');
+															$("#inputForm\\:minAge").val(ui.values[0]);
+															$("#inputForm\\:maxAge").val(ui.values[1]);
+														}
+													});
+												});
+												//]]>
+											</script>
+										</div>
+									</div>
+									<div class="w3-row w3-margin-top">
+										<div class="w3-quarter" style="vertical-align: middle;"><label class="w3-label">#{dictationMsg.lastModifyDate}</label></div>
+										<div class="w3-threequarter">
+											<h:inputText a:type="date" value="#{searchDictationController.inputForm.minDate}" styleClass="w3-input w3-small" style="max-width: 150px; display: inline;">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:inputText>-
+											<h:inputText a:type="date" value="#{searchDictationController.inputForm.maxDate}" styleClass="w3-input w3-small" style="max-width: 150px; display: inline;">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:inputText>
+										</div>
+									</div>
+									<div class="w3-row w3-margin-top">
+										<div class="w3-quarter" style="vertical-align: middle;"><label class="w3-label">#{dictationMsg.createdBy}</label></div>
+										<div class="w3-threequarter">
+											<h:inputText id="creatorName" styleClass="w3-input" value="#{searchDictationController.inputForm.creatorName}">
+												<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />
+											</h:inputText>
+											<h:message for="creatorName" errorClass="w3-text-red" />
+										</div>
+									</div>
+									<div class="w3-row w3-margin-top">
+										<div class="w3-quarter"><label class="w3-label">#{dictationMsg.accessibility}</label></div>
+										<div class="w3-threequarter">
+											<h:selectBooleanCheckbox styleClass="w3-check" value="#{searchDictationController.inputForm.accessible}" /><label class="w3-validate">#{dictationMsg.canPractice}</label>
+											<h:selectBooleanCheckbox styleClass="w3-check" value="#{searchDictationController.inputForm.notRequirePassword}" /><label class="w3-validate">#{dictationMsg.notReqPwd}</label>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="w3-col l1 m1 w3-hide-small w3-hide-medium">&#160;</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+
 	</ui:define>
 </ui:composition>
