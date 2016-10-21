@@ -37,7 +37,7 @@
 		<div class="w3-margin w3-padding-bottom">
 			<div class="w3-panel">
 				<esl:dictationNav2 current="INSTANT" />
-				<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+				<h:messages styleClass="w3-large" tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
 
 				<h:form styleClass="w3-margin-top w3-large">
 					<p class="w3-text-teal">
@@ -52,15 +52,15 @@
 								<!--<h:outputText escape="false" value="&lt;br /&gt;" rendered="#{(r+1)%2 == 0}"/>-->
 							</div>
 						</a4j:repeat>
-                        <span class="w3-right w3-margin-top">
-                            <a onclick="return clearVocab()" class="w3-btn w3-white w3-border w3-border-green w3-round-large w3-medium"><i class="fa fa-times" aria-hidden="true"></i>&#160;<h:outputText value="#{selfDictationMsg.inputClearFields}" /></a>
-                        </span>
-					</div>
 
-					<p>
-						<h:commandLink onclick="return showSpinner();" styleClass="w3-btn w3-green w3-margin-bottom" action="#{selfDictationController.start}"><i class="fa fa-pencil" aria-hidden="true"></i> #{selfDictationMsg.inputCommandStartTitle}</h:commandLink>
+					</div>
+					<div class="w3-padding-left w3-margin-top">
+						<a onclick="return clearVocab()" class="w3-btn w3-white w3-border w3-border-green w3-medium"><i class="fa fa-times" aria-hidden="true"></i>&#160;<h:outputText value="#{selfDictationMsg.inputClearFields}" /></a>
+						<span class="w3-right-align">
+						<h:commandLink onclick="return showSpinner();" styleClass="w3-btn w3-green w3-margin-left" action="#{selfDictationController.start}"><i class="fa fa-pencil" aria-hidden="true"></i> #{selfDictationMsg.inputCommandStartTitle}</h:commandLink>
 						<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:28px"></i></span>
-					</p>
+						</span>
+					</div>
 				</h:form>
 
 				<div class="w3-container w3-leftbar w3-light-grey w3-margin">
