@@ -35,8 +35,12 @@
 										<i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 									<script type="text/javascript">
 										//<![CDATA[
-											responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}');
+										responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}');
 
+										responsiveVoice.AddEventListener('OnReady', function() {
+											console.log('ResponsiveVoice OnReady');
+											responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}');
+										});
 										//]]>
 									</script>
 								</h:panelGroup>
