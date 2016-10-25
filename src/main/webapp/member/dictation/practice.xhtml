@@ -63,7 +63,7 @@
 		<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
 			<practice:dictationpracticemain2 id="practiceDiv" controllerBean="#{dictationPracticeController}" />
 
-			<esl:scoreBar startMark="#{dictationPracticeController.practice.mark}" maxMark="#{dictationPracticeController.practice.totalQuestions}" />
+			<esl:scoreBar2 startMark="#{dictationPracticeController.practice.mark}" maxMark="#{dictationPracticeController.practice.totalQuestions}" />
 
 			<a4j:outputPanel id="msgPanel">
 				<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
@@ -96,7 +96,6 @@
 										<h:panelGroup rendered="#{dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><i class="fa fa-check w3-text-light-green"></i></h:panelGroup>
 										<h:panelGroup rendered="#{!dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><i class="fa fa-times w3-text-red"></i></h:panelGroup>
 									</td>
-									<td align="center"></td>
 								</tr>
 							</t:dataList>
 						</table>
