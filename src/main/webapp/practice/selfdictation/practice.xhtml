@@ -86,7 +86,7 @@
 							</tr>
 							</thead>
 							<tfoot>
-								<tr><td colspan="5" class="resultTableFooter"><h:outputText value="#{selfDictationMsg.practiceMark}" />: ${selfDictationController.practice.mark}  / ${selfDictationController.practice.currentQuestion}</td></tr>
+								<tr><td colspan="5"><h:outputText value="#{selfDictationMsg.practiceMark}" />: ${selfDictationController.practice.mark}  / ${selfDictationController.practice.currentQuestion}</td></tr>
 							</tfoot>
 							<t:dataList var="i" rowIndexVar="index" value="#{selfDictationController.practice.answers}" >
 								<tr>

@@ -1,23 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fmt="http://java.sun.com/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:esl="http://www.funfunspell.com/jsf"
-	xmlns:util="http://java.sun.com/jsf/composite/components/util"
-	xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
-	template="/template/main2_2column.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+				template="/template/short.xhtml">
 
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_selfdictation_practice_title}</ui:define>	
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.practice_selfdictation_practice_desc}" />		
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script type="text/javascript" src="${request.contextPath}/js/jquery-ui-1.7.2.custom.min.js"></script>
+		<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
 		<script type="text/javascript">
 		//<![CDATA[ 
 		jQuery.noConflict();
@@ -45,62 +45,69 @@
 		//]]>
 		</script>
 	</ui:define>
-	
-	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/mydictation.gif" /></ui:define>
-	
-	<ui:define name="leftColumn">
-		<!-- Histories -->
-		<a4j:outputPanel id="historyRegion">
-		<a4j:outputPanel rendered="#{dictationPracticeController.practice.currentQuestion > 0}">
-		<p class="innerHeading"><h:outputText value="#{selfDictationMsg.practicePreviousQuestionsTitle}" /></p>					
-		<table class="resultTable">
-			<thead>
-			<tr>
-				<td width="20">&nbsp;</td>
-				<td width="150"><h:outputText value="#{selfDictationMsg.practicePhonetic}" /></td>
-				<td width="80"><h:outputText value="#{selfDictationMsg.practiceWord}" /></td>
-				<td width="80"><h:outputText value="#{selfDictationMsg.practiceAnswer}" /></td>
-				<td width="20">&nbsp;</td>
-			</tr>
-			</thead>
-			<tfoot>
-				<tr><td colspan="5" class="resultTableFooter"><h:outputText value="#{selfDictationMsg.practiceMark}" />: ${dictationPracticeController.practice.mark}  / ${dictationPracticeController.practice.currentQuestion}</td></tr>
-			</tfoot>
-			<t:dataList var="i" rowIndexVar="index" value="#{dictationPracticeController.practice.answers}" >
-				<tr>
-					<td><strong>Q<h:outputText value="#{dictationPracticeController.practice.currentQuestion-index}" /></strong></td>
-					<td>[<h:outputText escape="false" value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].IPA}" />]</td>
-					<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].word}" target="_blank"><u><h:outputText value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].word}" /></u></a></td>
-					<td><h:outputText value="#{dictationPracticeController.practice.answers[dictationPracticeController.practice.currentQuestion-1-index]}" /></td>
-					<td>
-						<h:panelGroup rendered="#{dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><img src="#{request.contextPath}/images/graphic/right.gif" /></h:panelGroup>
-						<h:panelGroup rendered="#{!dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><img src="#{request.contextPath}/images/graphic/wrong.gif" /></h:panelGroup>
-					</td>											
-					<td align="center"></td>
-				</tr>
-			</t:dataList>			
-		</table>
-		<p>* #{selfDictationMsg.practiceWordExplanation}</p>
-		</a4j:outputPanel>	
-		</a4j:outputPanel>
+
+	<ui:define name="mainDiv">
+
+		<div class="w3-container w3-green">
+			<h3>
+				<a4j:outputPanel id="topHeader">
+					<h:outputFormat value="#{selfDictationMsg.practiceQuestionTitle}">
+						<f:param value="#{dictationPracticeController.practice.currentQuestion+1}"/>
+						<f:param value="#{dictationPracticeController.practice.totalQuestions}"/>
+					</h:outputFormat>
+				</a4j:outputPanel>
+				<span class="w3-right w3-hide-small"><i class="fa fa-pencil-square" aria-hidden="true"></i> #{generalMsg.dictation}</span>
+			</h3>
+		</div>
+
+		<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
+			<practice:dictationpracticemain2 id="practiceDiv" controllerBean="#{dictationPracticeController}" />
+
+			<esl:scoreBar startMark="#{dictationPracticeController.practice.mark}" maxMark="#{dictationPracticeController.practice.totalQuestions}" />
+
+			<a4j:outputPanel id="msgPanel">
+				<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+			</a4j:outputPanel>
+
+			<a4j:outputPanel id="historyRegion">
+				<a4j:outputPanel rendered="#{dictationPracticeController.practice.currentQuestion > 0}">
+					<div class="w3-responsive">
+						<!-- Histories -->
+						<table class="w3-table-all w3-medium w3-margin-top">
+							<thead>
+							<tr class="w3-theme">
+								<td></td>
+								<td><h:outputText value="#{selfDictationMsg.practicePhonetic}" /></td>
+								<td><h:outputText value="#{selfDictationMsg.practiceWord}" /></td>
+								<td><h:outputText value="#{selfDictationMsg.practiceAnswer}" /></td>
+								<td></td>
+							</tr>
+							</thead>
+							<tfoot>
+								<tr><td colspan="5"><h:outputText value="#{selfDictationMsg.practiceMark}" />: ${dictationPracticeController.practice.mark}  / ${dictationPracticeController.practice.currentQuestion}</td></tr>
+							</tfoot>
+							<t:dataList var="i" rowIndexVar="index" value="#{dictationPracticeController.practice.answers}" >
+								<tr>
+									<td><strong>Q<h:outputText value="#{dictationPracticeController.practice.currentQuestion-index}" /></strong></td>
+									<td>[<h:outputText escape="false" value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].IPA}" />]</td>
+									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].word}" target="_blank"><u><h:outputText value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].word}" /></u></a></td>
+									<td><h:outputText value="#{dictationPracticeController.practice.answers[dictationPracticeController.practice.currentQuestion-1-index]}" /></td>
+									<td>
+										<h:panelGroup rendered="#{dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><i class="fa fa-check w3-text-light-green"></i></h:panelGroup>
+										<h:panelGroup rendered="#{!dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><i class="fa fa-times w3-text-red"></i></h:panelGroup>
+									</td>
+									<td align="center"></td>
+								</tr>
+							</t:dataList>
+						</table>
+					</div>
+					<div class="w3-container w3-light-grey w3-border w3-small">
+						<p>* #{selfDictationMsg.practiceWordExplanation}</p>
+					</div>
+				</a4j:outputPanel>
+			</a4j:outputPanel>
+		</div>
+
 	</ui:define>
-	
-	<ui:define name="upperMainContent">
-		<practice:dictationpracticemain id="practiceDiv" controllerBean="#{dictationPracticeController}" />
-	</ui:define>
-	
-	<ui:define name="lowerMainContent">
-		<a4j:outputPanel id="topHeader">
-		<h2>
-			<h:outputFormat value="#{selfDictationMsg.practiceQuestionTitle}">
-				<f:param value="#{dictationPracticeController.practice.currentQuestion+1}"/>
-				<f:param value="#{dictationPracticeController.practice.totalQuestions}"/>
-			</h:outputFormat>
-		</h2>		
-		</a4j:outputPanel>
-		<esl:scoreBar startMark="#{dictationPracticeController.practice.mark}" maxMark="#{dictationPracticeController.practice.totalQuestions}" />		
-		<a4j:outputPanel id="msgPanel">
-			<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
-		</a4j:outputPanel>
-	</ui:define>
+
 </ui:composition>

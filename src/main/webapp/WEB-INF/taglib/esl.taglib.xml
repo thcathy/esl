@@ -31,6 +31,10 @@
 		<source>component/dictationsummary.xhtml</source>
 	</tag>
 	<tag>
+		<tag-name>oneDictationSummary2</tag-name>
+		<source>component/dictationsummary2.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>memberDictationHistory</tag-name>
 		<source>component/memberdictationhistory.xhtml</source>
 	</tag>

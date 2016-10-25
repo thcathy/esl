@@ -1,43 +1,55 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fmt="http://java.sun.com/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-  	xmlns:esl="http://www.funfunspell.com/jsf"
-  	template="/template/main_2column.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+				template="/template/short.xhtml">
 
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_selfdictation_input_title}</ui:define>
 	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.practice_selfdictation_input_desc}" /></ui:define>
-	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/mydictation.gif" /></ui:define>
 
-	<ui:define name="mainContent">
-		<esl:dictationNav />
-		<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
-	</ui:define>
-	
-	<ui:define name="leftColumn">
-		<esl:oneDictationSummary dictation="#{dictationPracticeController.dictation}" />		
-		<a4j:outputPanel rendered="#{not empty dictationPracticeController.memberDictationHistory}">
-			<esl:memberDictationHistory history="#{dictationPracticeController.memberDictationHistory}" />
-		</a4j:outputPanel>
-	</ui:define>
-	
-	<ui:define name="rightColumn">
-		<h3 style="color: #EE6600;">#{dictationMsg.dictationOptions}</h3>
-		<h:form style="color: #EE6600;">									
-			<p>
-			    #{dictationMsg.tipsTitle}:&nbsp; <br />
-			    <h:selectBooleanCheckbox title="withIPA" disabled="#{dictationPracticeController.dictation.notAllowIPA}" value="#{dictationPracticeController.withIPA}"  />#{dictationMsg.withIPA}<br />
-			    <h:selectBooleanCheckbox title="withRandomCharacters" disabled="#{dictationPracticeController.dictation.notAllowRandomCharacters}" value="#{dictationPracticeController.withRandomCharacters}" />#{dictationMsg.withRamdomCharacters}
-			</p>
-			<div class="buttons">
-				<h:commandLink onclick="return submitRequest();" styleClass="orange" action="#{dictationPracticeController.start}"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{dictationMsg.start}</h:commandLink>
-			</div>
-		</h:form>	
+	<ui:define name="mainDiv">
+		<div class="w3-container w3-green">
+			<h3>
+				<i class="fa fa-pencil-square" aria-hidden="true"></i> #{generalMsg.dictation}
+			</h3>
+		</div>
+
+		<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
+			<esl:dictationNav2 />
+			<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+
+			<h:form>
+				<div class="w3-card-4 w3-margin-top w3-padding">
+					<div class="w3-row w3-large w3-text-dark-grey">
+						<div class="w3-half">
+							<esl:oneDictationSummary2 dictation="#{dictationPracticeController.dictation}" />
+							<h:commandLink onclick="showSpinner()"
+										   styleClass="w3-btn w3-green w3-margin-top w3-margin-bottom w3-xlarge"
+										   action="#{dictationPracticeController.start}">
+								<i class="fa fa-play"></i> #{dictationMsg.start}</h:commandLink>
+							<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:36px"></i></span>
+						</div>
+						<div class="w3-half">
+							<div class="w3-margin-bottom">#{dictationMsg.vocab}:</div>
+							<a4j:repeat var="i" rowKeyVar="r" value="#{dictationPracticeController.dictation.vocabs}">
+								<span class="w3-tag w3-round-large w3-green" style="margin: 2px!important;">#{i.word}</span>&#160;
+							</a4j:repeat>
+
+							<a4j:outputPanel rendered="#{not empty dictationPracticeController.memberDictationHistory}">
+								<esl:memberDictationHistory history="#{dictationPracticeController.memberDictationHistory}" />
+							</a4j:outputPanel>
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</div>
 	</ui:define>
 </ui:composition>
