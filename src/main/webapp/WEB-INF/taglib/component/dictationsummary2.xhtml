@@ -6,8 +6,8 @@
 	<script type="text/javascript">
 		//<![CDATA[
 		function highlightDictationSummaryRecommendation() {
-			jQuery('#dictationSummaryRecommendation').effect("highlight", {},
-					8000);
+			jQuery('#dictationSummaryRecommendation').toggle("highlight").toggle("highlight");
+			jQuery('#inputForm\\:recommendDictation').addClass('w3-disabled');
 		}
 		//]]>
 	</script>
@@ -32,8 +32,8 @@
 			<td>:</td>
 			<td>#{dictation.vocabsSize}</td>
 		</tr>
-		<tr>
-			<td id="dictationSummaryRecommendation">#{dictationMsg.recommendation}</td>
+		<tr id="dictationSummaryRecommendation">
+			<td>#{dictationMsg.recommendation}</td>
 			<td>:</td>
 			<td><i class="fa fa-thumbs-o-up"></i> #{dictation.totalRecommended}</td>
 		</tr>

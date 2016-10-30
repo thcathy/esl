@@ -39,6 +39,10 @@
 		<source>component/memberdictationhistory.xhtml</source>
 	</tag>
 	<tag>
+		<tag-name>memberDictationHistory2</tag-name>
+		<source>component/memberdictationhistory2.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>rateDictation</tag-name>
 		<source>component/ratedictation.xhtml</source>
 	</tag>

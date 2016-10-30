@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">	
+<a4j:outputPanel rendered="#{history!=null}" >
+	<table class="w3-margin-top">
+		<tr>
+			<td>#{dictationMsg.yourHistory}</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>#{dictationMsg.lastPracticeDate}</td>
+			<td>:</td>
+			<td><h:outputText value="#{history.lastPracticeDate}"><f:convertDateTime pattern="dd/MM hh:mm" /></h:outputText></td>
+		</tr>
+		<tr>
+			<td>#{dictationMsg.attempts}</td>
+			<td>:</td>
+			<td>#{history.totalAttempt}</td>
+		</tr>
+	</table>
+	<rich:popupPanel switchType="client" label="#{dictationMsg.vocab}">
+	<h:form style="margin: 0px; padding: 0px;">
+        <rich:dataTable value="#{history.vocabHistories}" var="vh" width="100%" rows="15" reRender="ds">		        		           
+            <rich:column sortBy="#{vh.vocab.word}"><f:facet name="header">#{dictationMsg.vocab}</f:facet>
+                <h:outputText value="#{vh.vocab.word}"/>
+            </rich:column>		           
+            <rich:column sortBy="#{vh.totalCorrect}"><f:facet name="header">#{dictationMsg.correctOrWrong}</f:facet>
+                <table border="0" width="90%">
+					<tr>
+				    	<td width="#{vh.correctPercent}%" bgcolor="#66FF00" align="left">#{vh.totalCorrect}</td>
+				        <td width="#{vh.wrongPercent}%" bgcolor="#FFFF00" align="right">#{vh.totalWrong}</td>
+				    </tr>
+				</table>
+            </rich:column>           
+            <f:facet name="footer">
+                <rich:dataScroller id="ds"></rich:dataScroller>
+            </f:facet>
+        </rich:dataTable>
+    </h:form>
+    </rich:popupPanel>
+</a4j:outputPanel>
+</ui:composition>

@@ -1,13 +1,12 @@
 package com.esl.entity.dictation;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import com.esl.model.Member;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
-
-import com.esl.model.Member;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "dictation_history")
@@ -74,6 +73,7 @@ public class DictationHistory implements Serializable {
 		if (practicerAgeGroup == null) return null;
 		else return practicerAgeGroup.ordinal(); }
 	public void setAgeGroupValue(Integer ageGroup) {
+		if (practicerAgeGroup==null) return;
 		this.practicerAgeGroup = Dictation.AgeGroup.values()[ageGroup];
 	}
 

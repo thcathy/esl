@@ -14,9 +14,11 @@
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_selfdictation_result_title}</ui:define>
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.practice_selfdictation_result_desc}" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/js/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript">
-			//<![CDATA[       
-			jQuery.noConflict();			
+			//<![CDATA[
+			jQuery.noConflict();
 			//]]>
 		</script>
 	</ui:define>
@@ -28,17 +30,17 @@
 			</h3>
 		</div>
 
-		<h:form>
-			<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
+		<h:form id="inputForm">
+			<div class="w3-margin w3-padding-bottom w3-text-teal">
 				<esl:dictationNav2 />
 
 				<div class="w3-row w3-center w3-margin w3-medium">
-					<h:commandLink styleClass="w3-btn w3-green" onclick="showSpinner()" action="#{dictationPracticeController.authDictation}">
+					<h:commandLink styleClass="w3-btn w3-green w3-margin-right" onclick="return showSpinner();"
+                                   action="#{dictationPracticeController.authDictation}">
 						<i class="fa fa-repeat" aria-hidden="true"></i> #{selfDictationMsg.resultRetry}</h:commandLink>
 					<a4j:commandLink id="recommendDictation" render="dictationButtons dictationSummary"
-									 oncomplete="highlightDictationSummaryRecommendation()"
+									 oncomplete="highlightDictationSummaryRecommendation();"
 									 action="#{dictationPracticeController.recommendDictation}"
-									 rendered="#{!dictationPracticeController.recommended}"
 									 styleClass="w3-btn w3-theme-l1">
 						<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> #{selfDictationMsg.resultRecommend}</a4j:commandLink>
 
@@ -52,101 +54,103 @@
 					</h:outputFormat>
 				</h3>
 
-				<esl:scoreBar2 startMark="#{dictationPracticeController.practice.mark}" maxMark="#{dictationPracticeController.practice.totalQuestions}" />
-				<div class="w3-row-padding">
+				<div class="w3-row-padding w3-margin-top w3-margin-bottom">
 					<div class="w3-half">
 						<a4j:outputPanel id="dictationSummary">
 							<esl:oneDictationSummary2 dictation="#{dictationPracticeController.dictation}" />
 						</a4j:outputPanel>
 					</div>
-					<div>
-						<div class="w3-responsive">
-							<table class="w3-table-all w3-medium w3-margin-top">
-								<thead>
-								<tr class="w3-theme">
-									<td></td>
-									<td><h:outputText value="#{selfDictationMsg.practicePhonetic}" /></td>
-									<td><h:outputText value="#{selfDictationMsg.practiceWord}" /></td>
-									<td><h:outputText value="#{selfDictationMsg.practiceAnswer}" /></td>
-									<td></td>
-								</tr>
-								</thead>
-								<tfoot>
-									<tr>
-										<td colspan="5">
-											<h:outputText value="#{selfDictationMsg.practiceMark}" />: #{dictationPracticeController.practice.mark} / #{dictationPracticeController.practice.totalQuestions}
-										</td>
-									</tr>
-								</tfoot>
-								<t:dataList var="i" rowIndexVar="index" value="#{dictationPracticeController.practice.answers}" >
-									<tr>
-										<td>Q<h:outputText value="#{dictationPracticeController.practice.currentQuestion-index}" /></td>
-										<td>[<h:outputText escape="false" value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].IPA}" />]</td>
-										<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].word}" target="_blank"><u><h:outputText
-												value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].word}" /></u></a></td>
-										<td><h:outputText value="#{dictationPracticeController.practice.answers[dictationPracticeController.practice.currentQuestion-1-index]}" /></td>
-										<td>
-											<a4j:outputPanel rendered="#{dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-											<a4j:outputPanel rendered="#{!dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
-										</td>
-									</tr>
-								</t:dataList>
-							</table>
-						</div>
-						<div class="w3-container w3-light-grey w3-border w3-small">
-							<h:panelGroup rendered="#{authenticationController.authenticated}"><p><i class="fa fa-plus-circle" aria-hidden="true"></i> <h:outputText value="#{phonPracticeMsg.practiceUseMemberWord}" /></p></h:panelGroup>
-							<p>* #{selfDictationMsg.practiceWordExplanation}</p>
-						</div>
+					<div class="w3-half">
+                        <a4j:outputPanel id="dictationHistoryInput">
+                            <h:messages tooltip="true" errorClass="w3-text-red" globalOnly="false" />
+                            <h:panelGroup rendered="#{dictationPracticeController.showHistoryInputForm}">
+                                <div class="w3-panel">
+                                    <a onclick="addOrRemoveW3Show('description')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium w3-leftbar">
+                                        <i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.submitYourInfo}
+                                    </a>
+                                    <div id="description" class="w3-accordion-content w3-container w3-medium w3-leftbar">
+                                        <a4j:region>
+
+                                                <table>
+                                                    <tr>
+                                                        <td>#{dictationMsg.name}</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <h:inputText id="name" value="#{dictationPracticeController.dictationHistory.practicerName}"
+                                                                         maxlength="50" styleClass="w3-input"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>#{dictationMsg.school}</td>
+                                                        <td>:</td>
+                                                        <td><h:inputText id="school" value="#{dictationPracticeController.dictationHistory.practicerSchool}"
+                                                                         maxlength="255" styleClass="w3-input" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>#{dictationMsg.age}</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <h:selectOneRadio id="ageGroup" value="#{dictationPracticeController.dictationHistory.ageGroupValue}"
+                                                                              layout="pageDirection" layoutWidth="4">
+                                                                <f:selectItems value="#{dictationEditController.availableAgeGroups}" />
+                                                            </h:selectOneRadio>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <a4j:commandButton render="dictationHistoryInput" styleClass="w3-btn w3-light-grey"
+                                                                   action="#{dictationPracticeController.submitDictationHistory}"
+                                                                   value="#{dictationMsg.submit}" />
+
+                                        </a4j:region>
+                                    </div>
+                                </div>
+                            </h:panelGroup>
+                            <c:if test="#{not empty dictationPracticeController.memberDictationHistory}">
+                                <esl:memberDictationHistory2 history="#{dictationPracticeController.memberDictationHistory}" />
+                            </c:if>
+                        </a4j:outputPanel>
 					</div>
 				</div>
 
-				<div class="w3-container">
-					<button onclick="addOrRemoveW3Show('description')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium w3-leftbar">
-						<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.submitYourInfo}
-					</button>
-					<div id="description" class="w3-accordion-content w3-container w3-medium w3-leftbar w3-light-grey">
-						<h:panelGroup rendered="#{empty dictationPracticeController.memberDictationHistory}">
-							<a4j:outputPanel id="dictationHistoryInput">
-								<a4j:region>
-									<fieldset>
-										#{dictationMsg.submitYourInfo}
-										<h:messages tooltip="true" errorClass="error" infoClass="innerHeading" globalOnly="false" />
-										<a4j:outputPanel id="outputPanel" rendered="#{dictationPracticeController.showHistoryInputForm}">
-											<table width="90%" class="formContent">
-												<tr>
-													<td width="120" class="formTitle">#{dictationMsg.name}</td>
-													<td width="5" class="formTitle">:</td>
-													<td><h:inputText id="name" value="#{dictationPracticeController.dictationHistory.practicerName}" style="width: 90%" maxlength="50">
-													</h:inputText></td>
-												</tr>
-												<tr>
-													<td class="formTitle">#{dictationMsg.school}</td>
-													<td class="formTitle">:</td>
-													<td><h:inputText id="school" value="#{dictationPracticeController.dictationHistory.practicerSchool}" style="width: 90%" maxlength="255">
-													</h:inputText></td>
-												</tr>
-												<tr>
-													<td class="formTitle">#{dictationMsg.age}</td>
-													<td class="formTitle">:</td>
-													<td><h:selectOneRadio id="ageGroup" value="#{dictationPracticeController.dictationHistory.ageGroupValue}" layout="pageDirection" layoutWidth="4">
-														<f:selectItems value="#{dictationEditController.availableAgeGroups}" />
-													</h:selectOneRadio></td>
-												</tr>
-											</table>
-											<p>
-												<a4j:commandButton render="dictationHistoryInput" action="#{dictationPracticeController.submitDictationHistory}" value="#{dictationMsg.submit}" />
-											</p>
-										</a4j:outputPanel>
-									</fieldset>
-								</a4j:region>
-							</a4j:outputPanel>
-						</h:panelGroup>
-					</div>
-				</div>
+                <esl:scoreBar2 startMark="#{dictationPracticeController.practice.mark}" maxMark="#{dictationPracticeController.practice.totalQuestions}" />
+                <div class="w3-responsive">
+                    <table class="w3-table-all w3-medium w3-margin-top">
+                        <thead>
+                        <tr class="w3-theme">
+                            <td></td>
+                            <td><h:outputText value="#{selfDictationMsg.practicePhonetic}" /></td>
+                            <td><h:outputText value="#{selfDictationMsg.practiceWord}" /></td>
+                            <td><h:outputText value="#{selfDictationMsg.practiceAnswer}" /></td>
+                            <td></td>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <h:outputText value="#{selfDictationMsg.practiceMark}" />: #{dictationPracticeController.practice.mark} / #{dictationPracticeController.practice.totalQuestions}
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <t:dataList var="i" rowIndexVar="index" value="#{dictationPracticeController.practice.answers}" >
+                            <tr>
+                                <td>Q<h:outputText value="#{dictationPracticeController.practice.currentQuestion-index}" /></td>
+                                <td>[<h:outputText escape="false" value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].IPA}" />]</td>
+                                <td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].word}" target="_blank"><u><h:outputText
+                                        value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-index].word}" /></u></a></td>
+                                <td><h:outputText value="#{dictationPracticeController.practice.answers[dictationPracticeController.practice.currentQuestion-1-index]}" /></td>
+                                <td>
+                                    <a4j:outputPanel rendered="#{dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
+                                    <a4j:outputPanel rendered="#{!dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-index]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
+                                </td>
+                            </tr>
+                        </t:dataList>
+                    </table>
+                </div>
+                <div class="w3-container w3-light-grey w3-border w3-small">
+                    <p>* #{selfDictationMsg.practiceWordExplanation}</p>
+                </div>
 
-				<c:if test="#{not empty dictationPracticeController.memberDictationHistory}">
-					<esl:memberDictationHistory history="#{dictationPracticeController.memberDictationHistory}" />
-				</c:if>
+
 
 			</div>
 		</h:form>
