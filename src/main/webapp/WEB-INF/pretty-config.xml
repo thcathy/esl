@@ -28,4 +28,9 @@
 		<view-id value="/practice/phoneticsymbolpractice/input.jsf" />
 	</url-mapping>
 
+	<url-mapping id="practice_irregularverb_start">
+		<pattern value="/practice/iv/start" />
+		<view-id value="/practice/irregularverb/start.jsf" />
+	</url-mapping>
+
 </pretty-config>

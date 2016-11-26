@@ -22,13 +22,14 @@
 				
 		jQuery.noConflict();
 		
-		jQuery(document).ready(function(){			
-			
+		jQuery(document).ready(function(){
+
+			console.log('ready 1');
+
 			// setup default passage to help user understand input
 			if (jQuery('#inputForm\\:passage').val() == defaultPassage) {
 				jQuery('#inputForm\\:passage').val(pastePassage);
 				jQuery('#inputForm\\:passage').css('color','#000000');
-				jQuery('#inputForm\\:passage').css('font-size','24px');
 				jQuery('#inputForm\\:passage').css('font-weight','bold');
 				jQuery('#inputForm\\:passage').css('text-align','center');
 				jQuery('#inputForm\\:passage').css('cursor','pointer');
@@ -62,7 +63,7 @@
 			}
 		});
 		//]]>
-		</script>	
+		</script>
 	</ui:define>
 
 	<ui:define name="mainDiv">
@@ -83,12 +84,12 @@
 					<rich:message for="passage" styleClass="w3-text-red" />
 					<hr />
 
-					<div id="chooseSection2" class="w3-opacity">
+					<div id="chooseSection2">
 						<label id="chooseSection2a" class="w3-label w3-text-teal">2. #{grammarMsg.choosePracticeType} :</label>
 						<comp:selectpracticetype inputBean="#{grammarPracticeController}" />
 					</div>
 
-					<div id="chooseSection3" class="w3-opacity">
+					<div id="chooseSection3">
 						<label id="chooseSection3a" class="w3-label w3-text-teal">3. #{grammarMsg.chooseQuickFormat} :</label>
 						<div id="chooseSection3b" class="w3-padding">
 							<img class="w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-border-green" src="#{request.contextPath}/images/graphic/grammar/fillintheblank.png" alt="fill in the blank" /><br/>
