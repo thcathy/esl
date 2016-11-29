@@ -1,97 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-      xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:rich="http://richfaces.org/rich">
-      
-<f:view>
-<head>
-  <ui:include src="/htmlhead.xhtml"/>
-  <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/main.css" />
-  <script type="text/javascript" src="${request.contextPath}/js/common.js"></script>  
-  <title>Fun Fun Spell</title>
-</head>
-<body style="background-image: url(${request.contextPath}/images/en/inner_page_bg.jpg);">
-	<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
-	  <tr>
-	    <td width="173" height="642" align="right" valign="top">
-	    	<table width="162" border="0" cellpadding="0" cellspacing="0">
-				<tr>
-				  <td align="left"><a herf="http://www.funfunspell.com/index.jsf" ><img src="${request.contextPath}/images/en/logo.png" width="150" height="61" border="0" /></a></td>	  
-				</tr>
-			</table>	    	
-		</td>
-	    <td width="794" align="left" valign="top">
-	    	<table width="783" border="0" cellpadding="0" cellspacing="0">
-		        <tr>
-		          <td width="776" height="71" align="right" valign="middle">
-		          	&nbsp;
-		          </td>
-		        </tr>
-		        <tr>
-		          <td width="776" align="left" valign="top">
-		          	<!-- Main Content -->
-		          	<table id="Table_01" width="775" border="0" cellpadding="0" cellspacing="0">
-						<tr>
-							<td colspan="2">
-								<img id="inner_box_01" src="${request.contextPath}/images/en/inner-box_01.gif" width="69" height="48"  /></td>
-							<td colspan="4" width="706" headers="48" background="${request.contextPath}/images/en/inner-box_02.gif" class="innerTitle" align="left" valign="middle">
-								<img id="innerbox2_02" src="${request.contextPath}/images/graphic/sessionexpired.gif" /></td>
-						</tr>
-						<tr>
-							<td width="19" background="${request.contextPath}/images/en/inner-box_03.gif">&nbsp;</td>
-							<td colspan="4" width="733" bgcolor="#FFFFFF" class="innerContent">
-								<p>Your session is expired due to not action received within time-out limited. Please continue from our index page.</p>
-								<p>你的停留時間己經超越上限，請重新登入我們的主頁。</p>
-								<p><h:link outcome="/index?locale=#{languageController.locale}"> Back to index 返回主頁</h:link></p>
-							</td>
-							<td width="23" background="${request.contextPath}/images/en/inner-box_05.gif">&nbsp;</td>
-						</tr>
-						<tr>
-							<td colspan="6">
-								<img id="inner_box_06" src="${request.contextPath}/images/en/inner-box_06.gif" width="775" height="179"  /></td>
-						</tr>
-						<tr>
-							<td colspan="3" rowspan="2" valign="top">
-								<img id="inner_box_07" src="${request.contextPath}/images/en/inner-box_07.gif" width="546" height="43"  /></td>
-							<td><a href="${request.contextPath}/index.jsf"><img id="inner_box_08" src="${request.contextPath}/images/en/inner-box_08.gif" width="80" height="34" border="0" /></a></td>
-							<td colspan="2">
-								<img id="inner_box_09" src="${request.contextPath}/images/en/inner-box_09.gif" width="149" height="34"  /></td>
-						</tr>
-						<tr>
-							<td colspan="3">
-								<img id="inner_box_10" src="${request.contextPath}/images/en/inner-box_10.gif" width="229" height="9"  /></td>
-						</tr>
-						<tr>
-							<td>
-								<img src="${request.contextPath}/images/en/spacer.gif" width="19" height="1"  /></td>
-							<td>
-								<img src="${request.contextPath}/images/en/spacer.gif" width="50" height="1"  /></td>
-							<td>
-								<img src="${request.contextPath}/images/en/spacer.gif" width="477" height="1"  /></td>
-							<td>
-								<img src="${request.contextPath}/images/en/spacer.gif" width="80" height="1"  /></td>
-							<td>
-								<img src="${request.contextPath}/images/en/spacer.gif" width="126" height="1"  /></td>
-							<td>
-								<img src="${request.contextPath}/images/en/spacer.gif" width="23" height="1"  /></td>
-						</tr>
-					</table>
-          			<!-- Main Content  (End) -->
-		          </td>
-		        </tr>
-		    </table>
-	    </td>
-	  </tr>	  
-	</table>
-</body> 
-</f:view>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				template="/template/short.xhtml">
+
+	<ui:define name="mainDiv">
+		<div class="w3-container w3-red w3-center">
+			<h2><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Session Expired 停留時間超越上限</h2>
+		</div>
+
+		<div class="w3-margin w3-large w3-padding-bottom w3-center">
+			<p>Your session is expired due to not action received within time-out limited. <br />Please continue from our index page.</p>
+			<p>你的停留時間己經超越上限，請重新登入我們的主頁。</p>
+		</div>
+
+	</ui:define>
+</ui:composition>
 
 
 
