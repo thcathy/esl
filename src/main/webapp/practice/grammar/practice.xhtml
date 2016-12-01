@@ -1,19 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:fmt="http://java.sun.com/jstl/fmt"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
   	xmlns:esl="http://www.funfunspell.com/jsf"
-  	template="/template/main.xhtml">
-  	
-  	<h:outputStylesheet>	
-	
-	</h:outputStylesheet>
+  	template="/template/short.xhtml">
   	
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_grammar_practice_title}</ui:define>
 	<ui:define name="head">
@@ -37,79 +33,86 @@
 							jQuery('#question'+(i+1)).css('background-color','');
 						});
 					})
-					
-					// Hide the possible question first
-					jQuery('#possibleAnswers').hide();			
 			});
-			
-			function expandPossibleAns() {			
-				if (jQuery('#possibleAnswers').is(":visible")) {
-					jQuery('#possibleAnswers').slideUp(1000);
-					jQuery('#expandPossibleAnsBtn').attr('src','#{request.contextPath}/images/graphic/mb_open.gif');
-				} else {
-					jQuery('#possibleAnswers').slideDown(1000);
-					jQuery('#expandPossibleAnsBtn').attr('src','#{request.contextPath}/images/graphic/mb_close.gif');
-					
-				}
-			}
+
 		//]]>
-		</script>	
+		</script>
+		<style type="text/css">
+			.grammarPassage {
+				color: #555;
+				font-family: courier, monospace;
+
+				line-height : 30px;
+			}
+			.grammarPassage span.grammarQuestion {
+				border-bottom: 2px solid #763232;
+				color: #763232;
+				font-weight : bold;
+			}
+		</style>
 	</ui:define>
-	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/grammarpractice.gif" /></ui:define>
 	
-	<ui:define name="mainContent">
-		<div class="comicBlue">
-		<h:form id="inputForm">
-			<table style="width: 100%;" cellpadding="0" cellspacing="0">
-				<tr>
-					<td>#{grammarMsg.practiceType}: <strong>#{grammarPracticeController.practiceTypeString}</strong></td>
-					<td valign="bottom"><div style="float: right; top: 1px; position: relative; cursor: pointer;" onclick="expandPossibleAns()" class="expandButton">#{grammarMsg.possibleAnswers}&nbsp;<img id="expandPossibleAnsBtn" src="#{request.contextPath}/images/graphic/mb_open.gif" /></div></td>
-				</tr>
-				<tr>
-					<td colspan="2" style="padding-bottom: 20px;">
-						<div id="possibleAnswers" class="expandBox">
-							<style type="text/css">
-								.rf-dg, .rf-dg-c {
-									padding: 2px; width: 16.66%; background-color: whiteSmoke; border-right-width: 0px;
-								}
-							</style>							
-							<rich:dataGrid style="width: 100%;" value="#{grammarPracticeController.practice.sortedPossibleQuestions}" var="q" columns="6" border="0">
-								<h:outputText style="color: #333; font-family: courier, monospace; font-size: 16px;" value="#{q}" />
-							</rich:dataGrid>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td style="width: 80%; padding-right: 5px;" valign="top" align="left">
-						<table style="background-color: #f5f5f5; table-layout:fixed; background-image: url('#{request.contextPath}/images/graphic/notebook.png'); background-repeat:repeat;">
-							<tr>
-								<td style="width: 25px;">&nbsp;</td>
-								<td style="width: 1px; border-left: 1px solid #ffaa9f; border-right: 1px solid #ffaa9f;"></td>
-								<td style="max-width:500px; padding-left: 5px; padding-right: 5px;"><div id="scrollablePassage" style="overflow: auto; max-width:500px; max-height: 650px;"><h:outputText escape="false" styleClass="grammarPassage" value="#{grammarPracticeController.practice.htmlPassageWithQuestions}" /></div></td>
-							</tr>
-						</table>												
-					</td>
-					<td valign="top">						
-						<table>
-							<a4j:repeat var="answer" rowKeyVar="r" value="#{grammarPracticeController.inputAnswers}">
-							<tr>
-								<td>#{r+1}.</td>
-								<td id="inputTD#{r+1}"><h:inputText style="margin: 2px; width: 130px;" type="text" maxlength="15" id="answer#{r+1}" name="answer#{r+1}" value="#{grammarPracticeController.inputAnswers[r]}" autocomplete="off" /></td>
-							</tr>
-							</a4j:repeat>
-						</table>						
-					</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>
-						<div class="buttons">
-							<h:commandLink onclick="return submitRequest();" action="#{grammarPracticeController.submitAnswer}"><img src="#{request.contextPath}/images/icon/silk/tick.png" />#{grammarMsg.submitAnswer}</h:commandLink>			
-						</div>
-					</td>
-				</tr>
-			</table>
-		</h:form>
+	<ui:define name="mainDiv">
+		<div class="w3-container w3-green">
+			<h2>#{grammarMsg.grammarPractice} <i class="fa fa-language" aria-hidden="true"></i></h2>
+		</div>
+
+		<div class="w3-margin w3-padding-bottom">
+			<div class="w3-panel">
+				<h:form id="inputForm">
+					<table style="width: 100%;" cellpadding="0" cellspacing="0">
+						<tr>
+							<td>#{grammarMsg.practiceType}: <strong>#{grammarPracticeController.practiceTypeString}</strong></td>
+							<td valign="bottom"></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="padding-bottom: 20px;">
+								<div id="possibleAnswers" class="w3-container">
+									<button onclick="addOrRemoveW3Show('q1')" class="w3-btn-block w3-left-align w3-medium w3-pale-blue">
+										<i class="fa fa-chevron-down" aria-hidden="true"></i> #{grammarMsg.possibleAnswers}
+									</button>
+									<div id="q1" class="w3-accordion-content w3-container w3-medium w3-pale-blue w3-leftbar w3-border-blue">
+										<rich:dataGrid style="width: 100%;" value="#{grammarPracticeController.practice.sortedPossibleQuestions}" var="q" columns="6" border="0">
+											<h:outputText style="color: #333; font-family: courier, monospace; font-size: 16px;" value="#{q}" />
+										</rich:dataGrid>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-right: 5px;" valign="top" align="left">
+								<table style="background-color: #f5f5f5; table-layout:fixed; background-image: url('#{request.contextPath}/images/graphic/notebook.png'); background-repeat:repeat;">
+									<tr>
+										<td style="width: 25px;" class="w3-hide-small">&#160;</td>
+										<td style="width: 1px; border-left: 1px solid #ffaa9f; border-right: 1px solid #ffaa9f;" class="w3-hide-small"></td>
+										<td>
+											<div id="scrollablePassage" style="overflow: auto; max-width: 700px;">
+												<h:outputText escape="false" styleClass="grammarPassage" value="#{grammarPracticeController.practice.htmlPassageWithQuestions}" />
+											</div>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td valign="top">
+								<table>
+									<a4j:repeat var="answer" rowKeyVar="r" value="#{grammarPracticeController.inputAnswers}">
+									<tr>
+										<td id="inputTD#{r+1}" class="w3-medium">
+											<h:inputText type="text" style="min-width: 120px; padding: 0px;" maxlength="15" id="answer#{r+1}" name="answer#{r+1}"
+														 a:placeholder="#{r+1}" styleClass="w3-input"
+														 value="#{grammarPracticeController.inputAnswers[r]}" autocomplete="off" />
+										</td>
+									</tr>
+									</a4j:repeat>
+								</table>
+							</td>
+						</tr>
+					</table>
+					<div class="w3-right-align w3-padding-top">
+						<h:commandLink styleClass="w3-btn w3-green" onclick="return submitRequest();" action="#{grammarPracticeController.submitAnswer}"><i class="fa fa-check" aria-hidden="true"></i> #{grammarMsg.submitAnswer}</h:commandLink>
+					</div>
+				</h:form>
+			</div>
 		</div>
 	</ui:define>	
 	
