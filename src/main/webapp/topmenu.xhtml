@@ -27,7 +27,6 @@
 					<li class="w3-hide-medium w3-hide-small w3-dropdown-hover">
 						<a href="#">#{generalMsg.more} <i class="fa fa-caret-down"/></a>
 						<div class="w3-dropdown-content w3-card-4 w3-theme-l1">
-							<h:link outcome="/practice/topresult/ranking.jsf?locale=#{userSession.localeString}">#{generalMsg.menuRanking}</h:link>
 							<h:link outcome="/public/about?locale=#{languageController.locale}">#{generalMsg.menuAboutUs}</h:link>
 							<a target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a>
 						</div>
@@ -78,7 +77,6 @@
 						<li class="w3-green">
 							<h:commandLink rendered="#{userSession.member != null}" action="#{memberWordController.launchManage}">#{generalMsg.menuMyVocabulary}</h:commandLink>
 						</li>
-						<li><h:link outcome="/practice/topresult/ranking.jsf?locale=#{userSession.localeString}">#{generalMsg.menuRanking}</h:link></li>
 						<li><h:link outcome="/public/about?locale=#{languageController.locale}">#{generalMsg.menuAboutUs}</h:link></li>
 						<li><a target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a></li>
 						<li><h:commandLink action="#{languageController.toZH}">繁</h:commandLink></li>

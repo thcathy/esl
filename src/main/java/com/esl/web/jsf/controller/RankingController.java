@@ -1,21 +1,5 @@
 package com.esl.web.jsf.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.annotation.Resource;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.dao.IGradeDAO;
 import com.esl.entity.practice.PracticeMedal;
 import com.esl.model.Grade;
@@ -27,6 +11,16 @@ import com.esl.model.practice.PhoneticSymbols.Level;
 import com.esl.service.practice.ITopResultService;
 import com.esl.web.util.LanguageUtil;
 import com.esl.web.util.SelectItemUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @Scope("session")
@@ -170,8 +164,7 @@ public class RankingController extends ESLController {
 	}
 
 	public String a4jSubmit() {
-		start();
-		return null;
+		return start();
 	}
 
 	// ============== Private Functions ===============//

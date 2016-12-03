@@ -47,10 +47,6 @@
 			<to-view-id>/public/news.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>public/news/singlenews</from-outcome>
-			<to-view-id>/public/news/singlenews.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-action>#{authenticationController.login}</from-action>
 			<from-outcome>member/index</from-outcome>
 			<to-view-id>/member/index.xhtml</to-view-id>
@@ -74,10 +70,6 @@
 			<from-action>#{authenticationController.login}</from-action>
 			<from-outcome>error/wrongpassword</from-outcome>
 			<to-view-id>/error/wrongpassword.xhtml</to-view-id>
-		</navigation-case>		
-		<navigation-case>			
-			<from-outcome>public/news/news</from-outcome>
-			<to-view-id>/public/news/news.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>			
 			<from-outcome>public/message</from-outcome>
@@ -216,10 +208,6 @@
 		<navigation-case>			
 			<from-outcome>practice/irregularverb/start</from-outcome>
 			<to-view-id>/practice/irregularverb/start.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>			
-			<from-outcome>practice/irregularverb/list</from-outcome>
-			<to-view-id>/practice/irregularverb/list.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>

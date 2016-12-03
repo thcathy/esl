@@ -1,75 +1,80 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:esl="http://www.funfunspell.com/jsf"
-	template="/template/main.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				template="/template/short.xhtml">
 	
-	<f:metadata>	
+	<!--<f:metadata>
 		<f:event type="preRenderView" listener="#{rankingController.start}"/>
-	</f:metadata>	
+	</f:metadata>-->
 
-	<ui:define name="subTitle">#{htmlHeadMsg.practice_topresult_ranking_title}</ui:define>	
+	<ui:define name="subTitle">#{htmlHeadMsg.practice_topresult_ranking_title}</ui:define>
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.practice_topresult_ranking_desc}" />
 		<h:outputText value="#{rankingController.initLanguage}" />
 	</ui:define>
-	
-	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/ranking.gif" /></ui:define>
 
-	<ui:define name="mainContent">		
-		<a4j:outputPanel id="rankingPanel">
-		<a4j:region>
-		<h:form>			
-			<div align="center" class="formContent" style="border: 2px solid #BBDDCC; background: #EEFFF8; padding-top: 7px; padding-bottom: 7px; color: #EE6600; font-weight: bold;">
-				<h:outputText value="#{topResultMsg.rankingSelectGrade}" />:
-				<h:selectOneMenu id="grade" value="#{rankingController.selectedGradeId}" styleClass="orange" style="margin-left: 3px;">
-					<f:selectItems value="#{rankingController.availableGrades }" />			
-				</h:selectOneMenu>
-				<img src="#{request.contextPath}/images/spacer.gif" width="10" height="1" />
-				<h:outputText value="#{topResultMsg.rankingSelectPracticeType}" />:
-				<h:selectOneMenu id="practiceType" value="#{rankingController.selectedPracticeType}" styleClass="orange" style="margin-left: 3px;">
-					<f:selectItems value="#{rankingController.practiceList }" />			
-				</h:selectOneMenu>
-				<img src="#{request.contextPath}/images/spacer.gif" width="5" height="1" />
-				<h:panelGroup rendered="#{rankingController.showLevels}">
-					<h:outputText value="#{topResultMsg.rankingSelectLevel}" />:
-					<h:selectOneMenu id="selectLevel" value="#{rankingController.selectedLevel}" styleClass="orange" style="margin-left: 3px;">
-						<f:selectItems value="#{rankingController.levels}" />
-					</h:selectOneMenu>
-					<img src="#{request.contextPath}/images/spacer.gif" width="5" height="1" />
-				</h:panelGroup>
-				<a4j:commandLink render="rankingPanel" styleClass="inlinebuttons" action="#{rankingController.a4jSubmit}"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{topResultMsg.rankingEnquiry}</a4j:commandLink>
-			</div>
-		</h:form>
-		<table width="100%">
-			<tr>
-				<td width="50%" class="innerContent" valign="top">
-					<esl:topResult topResult="#{rankingController.topScore}" title="#{rankingController.topScore.longTitle}" />			
-				</td>
-				<td width="50%" class="innerContent" valign="top">
-					<esl:topResult topResult="#{rankingController.topRate}" title="#{rankingController.topRate.longTitle}" />			
-				</td>
-			</tr>
-		
-			<h:panelGroup rendered="#{userSession.logined}">
-			<tr>
-				<td width="50%" class="innerContent" valign="top">
-					<esl:topResult topResult="#{rankingController.userScore}" title="#{rankingController.userScore.title}" />			
-				</td>
-				<td width="50%" class="innerContent" valign="top">
-					<esl:topResult topResult="#{rankingController.userRate}" title="#{rankingController.userRate.title}" />			
-				</td>
-			</tr>
-			</h:panelGroup>
-		</table>	
-		</a4j:region>
-		</a4j:outputPanel>	
+	<ui:define name="mainDiv">
+		<div class="w3-container w3-green">
+			<h2><i class="fa fa-trophy" aria-hidden="true"></i> #{generalMsg.menuRanking}</h2>
+		</div>
+
+		<div class="w3-margin w3-padding-bottom">
+
+					<h:form id="inputForm">
+						<div class="w3-panel w3-center-align">
+							<label class="w3-label"><b>#{topResultMsg.rankingSelectGrade}: </b></label>
+							<h:selectOneMenu id="grade" value="#{rankingController.selectedGradeId}" styleClass="w3-select" style="max-width: 100px;">
+								<f:selectItems value="#{rankingController.availableGrades}" />
+							</h:selectOneMenu>
+
+							<label class="w3-label"><b>#{topResultMsg.rankingSelectPracticeType}: </b></label>
+							<h:selectOneMenu id="practiceType" value="#{rankingController.selectedPracticeType}" styleClass="w3-select" style="max-width: 100px;">
+								<f:selectItems value="#{rankingController.practiceList}" />
+							</h:selectOneMenu>
+
+							<h:panelGroup rendered="#{rankingController.showLevels}">
+								<h:outputText value="#{topResultMsg.rankingSelectLevel}" />:
+								<h:selectOneMenu id="selectLevel" value="#{rankingController.selectedLevel}" styleClass="w3-select" >
+									<f:selectItems value="#{rankingController.levels}" />
+								</h:selectOneMenu>
+								<img src="#{request.contextPath}/images/spacer.gif" width="5" height="1" />
+							</h:panelGroup>
+							<h:commandLink render="rankingPanel" styleClass="w3-btn w3-theme" action="#{rankingController.a4jSubmit}">#{topResultMsg.rankingEnquiry}</h:commandLink>
+						</div>
+					</h:form>
+
+					<table width="100%">
+						<tr>
+							<td width="50%" class="innerContent" valign="top">
+								<esl:topResult topResult="#{rankingController.topScore}" title="#{rankingController.topScore.longTitle}" />
+							</td>
+							<td width="50%" class="innerContent" valign="top">
+								<esl:topResult topResult="#{rankingController.topRate}" title="#{rankingController.topRate.longTitle}" />
+							</td>
+						</tr>
+
+						<h:panelGroup rendered="#{userSession.logined}">
+							<tr>
+								<td width="50%" class="innerContent" valign="top">
+									<esl:topResult topResult="#{rankingController.userScore}" title="#{rankingController.userScore.title}" />
+								</td>
+								<td width="50%" class="innerContent" valign="top">
+									<esl:topResult topResult="#{rankingController.userRate}" title="#{rankingController.userRate.title}" />
+								</td>
+							</tr>
+						</h:panelGroup>
+					</table>
+
+		</div>
 	</ui:define>
+
+
 </ui:composition>
