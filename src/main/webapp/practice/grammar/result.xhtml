@@ -1,15 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fmt="http://java.sun.com/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:esl="http://www.funfunspell.com/jsf"
-	template="/template/main.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jstl/core"
+				xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+				xmlns:fmt="http://java.sun.com/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				template="/template/short.xhtml">
 
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_grammar_practice_title}</ui:define>
 	<ui:define name="head">
@@ -36,65 +36,74 @@
 			});
 		//]]>
 		</script>
-	</ui:define>
-	<ui:define name="titleImg">
-		<img src="#{languageController.imagesPath}/title/grammarpractice.gif" />
+		<style type="text/css">
+			.grammarPassage {
+				color: #555;
+				font-family: courier, monospace;
+				line-height : 30px;
+			}
+			.grammarPassage span.grammarQuestion {
+				border-bottom: 2px solid #763232;
+				color: #763232;
+				font-weight : bold;
+			}
+		</style>
 	</ui:define>
 
-	<ui:define name="mainContent">
-		<div class="comicBlue">
-			<h:form id="inputForm">
-				<table style="width: 100%; padding-bottom: 20px;">
-					<tr>
-						<td>
-							<h3>
-								<h:outputFormat value="#{selfDictationMsg.resultTitle}">
-									<f:param value="#{grammarPracticeController.mark}"/>
-									<f:param value="#{grammarPracticeController.practice.totalQuestions}"/>
-								</h:outputFormat>
-							</h3>
-						</td>
-					</tr>
-					<tr>						
-						<td>
-							<div class="buttons">
-								<h:link outcome="/practice/grammar/quick"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{grammarMsg.resultRetry}</h:link>			
-							</div>
-						</td>
-					</tr>
-				</table>
-				<table style="width: 100%;">					
-					<tr>
-						<td style="padding-right: 5px;" valign="top"
-							align="left">
-							<table
-								style="background-color: #f5f5f5; table-layout:fixed; background-image: url('#{request.contextPath}/images/graphic/notebook.png'); background-repeat: repeat;">
-								<tr>
-									<td style="width: 25px;">&nbsp;</td>
-									<td
-										style="width: 1px; border-left: 1px solid #ffaa9f; border-right: 1px solid #ffaa9f;"></td>
-									<td style="max-width:500px; padding-left: 5px; padding-right: 5px;"><div id="scrollablePassage" style="overflow: auto; max-width:500px; max-height: 650px;"><h:outputText
-											escape="false" styleClass="grammarPassage"
-											value="#{grammarPracticeController.htmlPassageWithAnswer}" /></div></td>									
-								</tr>
-							</table>
-						</td>
-						<td valign="top" style="width: 30%;">
-							<table style="width: 100%;">
-								<a4j:repeat var="answer" rowKeyVar="r" value="#{grammarPracticeController.inputAnswers}">
+	<ui:define name="mainDiv">
+		<div class="w3-container w3-green">
+			<h2>#{grammarMsg.grammarPractice} - #{grammarPracticeController.practiceTypeString}</h2>
+		</div>
+
+		<div class="w3-margin w3-padding-bottom">
+			<div class="w3-panel">
+				<h3>
+					<h:outputFormat value="#{selfDictationMsg.resultTitle}">
+						<f:param value="#{grammarPracticeController.mark}"/>
+						<f:param value="#{grammarPracticeController.practice.totalQuestions}"/>
+					</h:outputFormat>
+				</h3>
+
+
+				<h:form id="inputForm">
+					<table style="width: 100%;">
+						<tr>
+							<td valign="top" align="left">
+								<table style="background-color: #f5f5f5; table-layout:fixed; background-image: url('#{request.contextPath}/images/graphic/notebook.png'); background-repeat: repeat;">
 									<tr>
-										<td width="20">#{r+1}.</td>
-										<td id="inputTD#{r+1}" class="inputAnswer">#{answer}&nbsp; 
-											<h:panelGroup rendered="#{grammarPracticeController.results[r]}"><img src="#{request.contextPath}/images/graphic/right.gif" /></h:panelGroup>
-											<h:panelGroup rendered="#{!grammarPracticeController.results[r]}"><img src="#{request.contextPath}/images/graphic/wrong.gif" /></h:panelGroup>
+										<td style="width: 25px;" class="w3-hide-small">&#160;</td>
+										<td	style="width: 1px; border-left: 1px solid #ffaa9f; border-right: 1px solid #ffaa9f;"></td>
+										<td>
+											<div id="scrollablePassage" style="overflow: auto; max-width:720px;">
+												<h:outputText escape="false" styleClass="grammarPassage" value="#{grammarPracticeController.htmlPassageWithAnswer}" />
+											</div>
 										</td>
 									</tr>
-								</a4j:repeat>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</h:form>
+								</table>
+							</td>
+							<td valign="top" style="min-width: 100px;">
+								<table class="w3-medium">
+									<tr>
+										<td>#{generalMsg.youAnswered}:</td>
+									</tr>
+									<a4j:repeat var="answer" rowKeyVar="r" value="#{grammarPracticeController.inputAnswers}">
+										<tr>
+											<td id="inputTD#{r+1}" class="inputAnswer">#{r+1}.&#160;
+												<h:panelGroup rendered="#{grammarPracticeController.results[r]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+												<h:panelGroup rendered="#{!grammarPracticeController.results[r]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
+												&#160;#{answer}
+											</td>
+										</tr>
+									</a4j:repeat>
+								</table>
+							</td>
+						</tr>
+					</table>
+					<div class="w3-right-align w3-padding-top">
+						<h:link styleClass="w3-btn w3-green" outcome="/practice/grammar/quick"><i class="fa fa-repeat" aria-hidden="true"></i> #{grammarMsg.resultRetry}</h:link>
+					</div>
+				</h:form>
+			</div>
 		</div>
 	</ui:define>
 
