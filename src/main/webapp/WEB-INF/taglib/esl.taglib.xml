@@ -51,6 +51,10 @@
 		<source>component/nav/membernav.xhtml</source>
 	</tag>
 	<tag>
+		<tag-name>memberNav2</tag-name>
+		<source>component/nav/membernav2.xhtml</source>
+	</tag>
+	<tag>
 		<tag-name>vocabPracticeSummary</tag-name>
 		<source>component/summary/vocabpractice.xhtml</source>
 	</tag>

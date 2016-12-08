@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -12,176 +11,175 @@
 
 <!-- All phonetic Practice result -->
 <h:form id="mainForm">
-<rich:tabPanel styleClass="tabNormal" style="width: 100%" switchType="client">
-<rich:tab header="#{memberSumMsg.summaryAll}">	
-	<table width="100%" cellpadding="5px">
-		<tr>
-			<td style="width: 50%;" valign="top">
-				<rich:collapsiblePanel style="width: 100%" height="180" switchType="client" header="#{memberSumMsg.vocabPracticeSummary}" headerClass="summaryBoxHeader">
-					<esl:vocabPracticeSummary summary="#{summaryController.vocabPracticeSummary}" />						
-				</rich:collapsiblePanel>
-			</td>
-			<td style="width: 50%;" valign="top">
-				<rich:collapsiblePanel style="width: 100%" height="180" switchType="client" header="#{memberSumMsg.phoneticPracticeSummary}" headerClass="summaryBoxHeader">
-					<esl:phoneticPracticeSummary summary="#{summaryController.phonPracticeSummary}" />						
-				</rich:collapsiblePanel>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" valign="top" style="width: 100%;">
-				<rich:collapsiblePanel style="width: 100%" switchType="client" header="#{memberSumMsg.myDictationSummary}" headerClass="summaryBoxHeader">				
-					<esl:dictationSummary summary="#{summaryController.dictationSummary}" />						
-				</rich:collapsiblePanel>
-			</td>
-		</tr>
-	</table>
-</rich:tab>
-<rich:tab header="#{summaryController.vocabSummary.scoreRanking.practiceTitle}">
-	<h1>#{memberSumMsg.indexVocabPractSummary}</h1>
-	<table width="100%">
-		<tr>
-			<td width="50%" class="innerContent">
-				<table class="summaryTable">
-					<tr><th colspan="2" class="innerHeading" bgcolor="#CCFFCC" width="270"><h:outputText value="#{userSession.member.grade.description}" />:</th></tr>
+	<div class="w3-row w3-margin-bottom w3-large">
+		<a href="javascript:void(0)" onclick="openW3Tab(event, 'vocabSummaryTab');">
+			<div class="w3-third w3-tablink w3-bottombar w3-border-green w3-hover-light-grey w3-padding">#{summaryController.vocabSummary.scoreRanking.practiceTitle}</div>
+		</a>
+		<a href="javascript:void(0)" onclick="openW3Tab(event, 'phonicsSummaryTab');">
+			<div class="w3-third w3-tablink w3-bottombar w3-hover-light-grey w3-padding">#{summaryController.phonicsSummary.scoreRanking.practiceTitle}</div>
+		</a>
+		<a href="javascript:void(0)" onclick="openW3Tab(event, 'dictationSummaryTab');">
+			<div class="w3-third w3-tablink w3-bottombar w3-hover-light-grey w3-padding">#{generalMsg.dictation}</div>
+		</a>
+	</div>
+
+	<div id="vocabSummaryTab" class="w3-container w3-tab w3-padding-0">
+		<div class="w3-row w3-margin-bottom">
+			<div class="w3-half">
+				<table class="w3-table-all w3-margin-bottom">
+					<tr><td colspan="2" class="w3-teal w3-large">#{userSession.member.grade.description}:</td></tr>
 					<h:panelGroup rendered="#{summaryController.vocabSummary.gradedPracticeResult!=null}">
-					<tr>
-						<td width="200" class="summaryTitle"><h:outputText value="#{memberSumMsg.indexMark}" />:</td>
-						<td><h:outputText value="#{summaryController.vocabSummary.gradedPracticeResult.mark}" /> / <h:outputText value="#{summaryController.vocabSummary.gradedPracticeResult.fullMark}" /></td>			
-					</tr>
-					<tr>
-						<td class="summaryTitle"><h:outputText value="#{memberSumMsg.indexCorrectRate}" />:</td>
-						<td><h:outputText value="#{summaryController.vocabSummary.gradedPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
-					</tr>
-					<tr>
-						<td class="summaryTitle"><h:outputText value="#{memberSumMsg.indexPractCompleted}" />:</td>
-						<td><h:outputText value="#{summaryController.vocabSummary.gradedPracticeResult.totalPractices}" /></td>
-					</tr>
+						<tr>
+							<td><h:outputText value="#{memberSumMsg.indexMark}" />:</td>
+							<td><h:outputText value="#{summaryController.vocabSummary.gradedPracticeResult.mark}" /> / <h:outputText value="#{summaryController.vocabSummary.gradedPracticeResult.fullMark}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="#{memberSumMsg.indexCorrectRate}" />:</td>
+							<td><h:outputText value="#{summaryController.vocabSummary.gradedPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="#{memberSumMsg.indexPractCompleted}" />:</td>
+							<td><h:outputText value="#{summaryController.vocabSummary.gradedPracticeResult.totalPractices}" /></td>
+						</tr>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{summaryController.vocabSummary.gradedPracticeResult==null}">
-					<tr><td colspan="2" class="summaryTitle" align="center" valign="middle" height="80px">#{memberSumMsg.summaryNoData}</td></tr>
+						<tr><td colspan="2" align="center" valign="middle" height="80px">#{memberSumMsg.summaryNoData}</td></tr>
 					</h:panelGroup>
 				</table>
-				<br />
-				<table class="summaryTable">
-					<tr><th colspan="2" class="innerHeading" bgcolor="#CCFFCC" width="270"><h:outputText value="#{memberSumMsg.indexOverallGrade}" />:</th></tr>
+
+				<table class="w3-table-all">
+					<tr><td colspan="2" class="w3-teal w3-large">#{memberSumMsg.indexOverallGrade}:</td></tr>
 					<h:panelGroup rendered="#{summaryController.vocabSummary.overallPracticeResult!=null}">
-					<tr>
-						<td width="200" class="summaryTitle"><h:outputText value="#{memberSumMsg.indexMark}" />:</td>
-						<td><h:outputText value="#{summaryController.vocabSummary.overallPracticeResult.mark}" /> / <h:outputText value="#{summaryController.vocabSummary.overallPracticeResult.fullMark}" /></td>			
-					</tr>
-					<tr>
-						<td class="summaryTitle"><h:outputText value="#{memberSumMsg.indexCorrectRate}" />:</td>
-						<td><h:outputText value="#{summaryController.vocabSummary.overallPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
-					</tr>
-					<tr>
-						<td class="summaryTitle"><h:outputText value="#{memberSumMsg.indexPractCompleted}" />:</td>
-						<td><h:outputText value="#{summaryController.vocabSummary.overallPracticeResult.totalPractices}" /></td>
-					</tr>
+						<tr>
+							<td><h:outputText value="#{memberSumMsg.indexMark}" />:</td>
+							<td><h:outputText value="#{summaryController.vocabSummary.overallPracticeResult.mark}" /> / <h:outputText value="#{summaryController.vocabSummary.overallPracticeResult.fullMark}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="#{memberSumMsg.indexCorrectRate}" />:</td>
+							<td><h:outputText value="#{summaryController.vocabSummary.overallPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="#{memberSumMsg.indexPractCompleted}" />:</td>
+							<td><h:outputText value="#{summaryController.vocabSummary.overallPracticeResult.totalPractices}" /></td>
+						</tr>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{summaryController.vocabSummary.overallPracticeResult==null}">
-					<tr><td colspan="2" class="summaryTitle" align="center" valign="middle" height="80px">#{memberSumMsg.summaryNoData}</td></tr>
+						<tr><td colspan="2" align="center" valign="middle" height="80px">#{memberSumMsg.summaryNoData}</td></tr>
 					</h:panelGroup>
 				</table>
-			</td>
-			<td width="50%" align="center">
+			</div>
+			<div class="w3-half w3-center">
 				<h:panelGroup rendered="#{summaryController.vocabSummary.overallPracticeResult.fullMark > 0}">
-				<!-- Google Charts -->
-				<img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=88CCCC&amp;chs=350x100&amp;#{summaryController.vocabSummary.scoreChartRS}" />
-				<br /><h:outputText value="#{memberSumMsg.PhoneticPracticeChartMarks}" />			
-				<br /><img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=EEAA88&amp;chs=350x100&amp;#{summaryController.vocabSummary.countChartRS}" />
-				<br /><h:outputText value="#{memberSumMsg.PhoneticPracticeChartTotalPracties}" />
+					<!-- Google Charts -->
+					<img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=88CCCC&amp;chs=350x100&amp;#{summaryController.vocabSummary.scoreChartRS}" />
+					<br /><span>#{memberSumMsg.PhoneticPracticeChartMarks}</span>
+					<br /><img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=EEAA88&amp;chs=350x100&amp;#{summaryController.vocabSummary.countChartRS}" />
+					<br /><span>#{memberSumMsg.PhoneticPracticeChartTotalPracties}</span>
 				</h:panelGroup>
-			</td>
-		</tr>
-	</table>
-	<table width="100%">
-		<tr>
-			<td width="50%" align="center" valign="top" class="innerContent">
-				<esl:topResult topResult="#{summaryController.vocabSummary.scoreRanking}" title="#{memberSumMsg.summaryScoreRanking}" />			
-			</td>
-			<td width="50%" align="center" valign="top" class="innerContent">			
-				<esl:topResult topResult="#{summaryController.vocabSummary.rateRanking}" title="#{memberSumMsg.summaryRatingRanking}" />		
-			</td>
-		</tr>
-	</table>
-</rich:tab>
-<rich:tab header="#{summaryController.phonicsSummary.scoreRanking.practiceTitle}">
-<h1><h:outputText value="#{memberSumMsg.indexPhonPractSummary}" /></h1>
-<h:form id="summary">
-<table width="100%">
-	<tr>
-		<td width="50%" class="innerContent" valign="top">
-			<h:outputText value="#{memberSumMsg.summaryLevel}" styleClass="formLarge" />:&nbsp;
-			<h:selectOneMenu id="level" value="#{summaryController.selectedLevel}" styleClass="formLarge">
-				<f:selectItems value="#{summaryController.levels}" />		
-				<a4j:ajax event="valueChange" execute="@this" render="summary" listener="#{summaryController.phonicsLevelChangeListener}"  />					
-			</h:selectOneMenu>
-			<br /><br />
-			<table class="summaryTable">				
-				<tr><th colspan="2" class="innerHeading" bgcolor="#CCFFCC" width="270"><h:outputText value="#{userSession.member.grade.description}" />:</th></tr>
-				<h:panelGroup rendered="#{summaryController.phonicsSummary.gradedPracticeResult!=null}">
-				<tr>
-					<td width="200" class="summaryTitle"><h:outputText value="#{memberSumMsg.indexMark}" />:</td>
-					<td><h:outputText value="#{summaryController.phonicsSummary.gradedPracticeResult.mark}" /> / <h:outputText value="#{summaryController.phonicsSummary.gradedPracticeResult.fullMark}" /></td>			
-				</tr>
-				<tr>
-					<td class="summaryTitle"><h:outputText value="#{memberSumMsg.indexCorrectRate}" />:</td>
-					<td><h:outputText value="#{summaryController.phonicsSummary.gradedPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
-				</tr>
-				<tr>
-					<td class="summaryTitle"><h:outputText value="#{memberSumMsg.indexPractCompleted}" />:</td>
-					<td><h:outputText value="#{summaryController.phonicsSummary.gradedPracticeResult.totalPractices}" /></td>
-				</tr>
-				</h:panelGroup>
-				<h:panelGroup rendered="#{summaryController.phonicsSummary.gradedPracticeResult==null}">
-				<tr><td colspan="2" class="summaryTitle" align="center" valign="middle" height="80px">#{memberSumMsg.summaryNoData}</td></tr>
-				</h:panelGroup>
-			</table>
-			<br />
-			<table class="summaryTable">				
-				<tr><th colspan="2" class="innerHeading" bgcolor="#CCFFCC" width="270"><h:outputText value="#{memberSumMsg.indexOverallGrade}" />:</th></tr>
-				<h:panelGroup rendered="#{summaryController.phonicsSummary.overallPracticeResult!=null}">
-				<tr>
-					<td width="200" class="summaryTitle"><h:outputText value="#{memberSumMsg.indexMark}" />:</td>
-					<td><h:outputText value="#{summaryController.phonicsSummary.overallPracticeResult.mark}" /> / <h:outputText value="#{summaryController.phonicsSummary.overallPracticeResult.fullMark}" /></td>			
-				</tr>
-				<tr>
-					<td class="summaryTitle"><h:outputText value="#{memberSumMsg.indexCorrectRate}" />:</td>
-					<td><h:outputText value="#{summaryController.phonicsSummary.overallPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
-				</tr>
-				<tr>
-					<td class="summaryTitle"><h:outputText value="#{memberSumMsg.indexPractCompleted}" />:</td>
-					<td><h:outputText value="#{summaryController.phonicsSummary.overallPracticeResult.totalPractices}" /></td>
-				</tr>
-				</h:panelGroup>
-				<h:panelGroup rendered="#{summaryController.phonicsSummary.overallPracticeResult==null}">
-				<tr><td colspan="2" class="summaryTitle" align="center" valign="middle" height="80px">#{memberSumMsg.summaryNoData}</td></tr>
-				</h:panelGroup>
-			</table>
-		</td>
-		<td width="50%" align="center">			
-			<h:panelGroup rendered="#{summaryController.phonicsSummary.overallPracticeResult.fullMark > 0}">
-			<!-- Google Charts -->
-			<img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=88CCCC&amp;chs=350x100&amp;#{summaryController.phonicsSummary.scoreChartRS}" />
-			<br /><h:outputText value="#{memberSumMsg.PhoneticPracticeChartMarks}" />			
-			<br /><img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=EEAA88&amp;chs=350x100&amp;#{summaryController.phonicsSummary.countChartRS}" />
-			<br /><h:outputText value="#{memberSumMsg.PhoneticPracticeChartTotalPracties}" />
-			</h:panelGroup>
-		</td>
-	</tr>
-</table>
-<table width="100%">
-	<tr>
-		<td width="50%" align="center" valign="top" class="innerContent">
-			<esl:topResult topResult="#{summaryController.phonicsSummary.scoreRanking}" title="#{memberSumMsg.summaryScoreRanking}" />			
-		</td>
-		<td width="50%" align="center" valign="top" class="innerContent">			
-			<esl:topResult topResult="#{summaryController.phonicsSummary.rateRanking}" title="#{memberSumMsg.summaryRatingRanking}" />		
-		</td>
-	</tr>
-</table>
-</h:form>
-</rich:tab>
-</rich:tabPanel>
+			</div>
+		</div>
+		<div class="w3-row">
+			<div class="w3-half w3-margin-bottom">
+				<esl:topResult2 topResult="#{summaryController.vocabSummary.scoreRanking}" title="#{memberSumMsg.summaryScoreRanking}" />
+			</div>
+			<div class="w3-half">
+				<esl:topResult2 topResult="#{summaryController.vocabSummary.rateRanking}" title="#{memberSumMsg.summaryRatingRanking}" />
+			</div>
+		</div>
+	</div>
+
+	<div id="phonicsSummaryTab" class="w3-container w3-tab w3-padding-0" style="display:none;">
+		<h:form id="summary">
+			<div class="w3-row w3-margin-bottom">
+				<div class="w3-half">
+					<label class="w3-label w3-large">#{memberSumMsg.summaryLevel}:</label>
+					<h:selectOneMenu styleClass="w3-select w3-margin-bottom" style="max-width: 50%;" id="level" value="#{summaryController.selectedLevel}">
+						<f:selectItems value="#{summaryController.levels}" />
+						<a4j:ajax event="valueChange" execute="@this" render="summary" listener="#{summaryController.phonicsLevelChangeListener}"  />
+					</h:selectOneMenu>
+
+					<table class="w3-table-all w3-margin-bottom">
+						<tr><td colspan="2" class="w3-teal w3-large">#{userSession.member.grade.description}:</td></tr>
+						<h:panelGroup rendered="#{summaryController.phonicsSummary.gradedPracticeResult!=null}">
+							<tr>
+								<td><h:outputText value="#{memberSumMsg.indexMark}" />:</td>
+								<td><h:outputText value="#{summaryController.phonicsSummary.gradedPracticeResult.mark}" /> / <h:outputText value="#{summaryController.phonicsSummary.gradedPracticeResult.fullMark}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="#{memberSumMsg.indexCorrectRate}" />:</td>
+								<td><h:outputText value="#{summaryController.phonicsSummary.gradedPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="#{memberSumMsg.indexPractCompleted}" />:</td>
+								<td><h:outputText value="#{summaryController.phonicsSummary.gradedPracticeResult.totalPractices}" /></td>
+							</tr>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{summaryController.phonicsSummary.gradedPracticeResult==null}">
+							<tr><td colspan="2" class="w3-center">#{memberSumMsg.summaryNoData}</td></tr>
+						</h:panelGroup>
+					</table>
+
+					<table class="w3-table-all">
+						<tr><td colspan="2" class="w3-teal w3-large">#{memberSumMsg.indexOverallGrade}:</td></tr>
+						<h:panelGroup rendered="#{summaryController.vocabSummary.overallPracticeResult!=null}">
+							<tr>
+								<td><h:outputText value="#{memberSumMsg.indexMark}" />:</td>
+								<td><h:outputText value="#{summaryController.phonicsSummary.overallPracticeResult.mark}" /> / <h:outputText value="#{summaryController.phonicsSummary.overallPracticeResult.fullMark}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="#{memberSumMsg.indexCorrectRate}" />:</td>
+								<td><h:outputText value="#{summaryController.phonicsSummary.overallPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="#{memberSumMsg.indexPractCompleted}" />:</td>
+								<td><h:outputText value="#{summaryController.phonicsSummary.overallPracticeResult.totalPractices}" /></td>
+							</tr>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{summaryController.phonicsSummary.overallPracticeResult==null}">
+							<tr><td colspan="2" class="w3-center">#{memberSumMsg.summaryNoData}</td></tr>
+						</h:panelGroup>
+					</table>
+				</div>
+				<div class="w3-half w3-center">
+					<h:panelGroup rendered="#{summaryController.phonicsSummary.overallPracticeResult.fullMark > 0}">
+						<!-- Google Charts -->
+						<img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=88CCCC&amp;chs=350x100&amp;#{summaryController.phonicsSummary.scoreChartRS}" />
+						<br /><span>#{memberSumMsg.PhoneticPracticeChartMarks}</span>
+						<br /><img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=EEAA88&amp;chs=350x100&amp;#{summaryController.phonicsSummary.countChartRS}" />
+						<br /><span>#{memberSumMsg.PhoneticPracticeChartTotalPracties}</span>
+					</h:panelGroup>
+				</div>
+			</div>
+			<div class="w3-row">
+				<div class="w3-half w3-margin-bottom">
+					<esl:topResult2 topResult="#{summaryController.phonicsSummary.scoreRanking}" title="#{memberSumMsg.summaryScoreRanking}" />
+				</div>
+				<div class="w3-half">
+					<esl:topResult2 topResult="#{summaryController.phonicsSummary.rateRanking}" title="#{memberSumMsg.summaryRatingRanking}" />
+				</div>
+			</div>
+		</h:form>
+	</div>
+
+	<div id="dictationSummaryTab" class="w3-container w3-tab w3-padding-0" style="display:none;">
+		<!--<div class="w3-row">
+			<div class="w3-half">
+				<div class="w3-container w3-border w3-padding-0">
+					<button onclick="addOrRemoveW3Show('vocabPracticeSummaryPanel'); return false;" class="w3-btn-block w3-left-align w3-medium w3-green">
+						<i class="fa fa-chevron-down" aria-hidden="true"></i> #{memberSumMsg.vocabPracticeSummary}
+					</button>
+					<div id="vocabPracticeSummaryPanel" class="w3-accordion-content w3-container w3-medium">
+						<esl:vocabPracticeSummary summary="#{summaryController.vocabPracticeSummary}" />
+					</div>
+				</div>
+			</div>
+			<div class="w3-half">
+				<rich:collapsiblePanel style="width: 100%" height="180" switchType="client" header="#{memberSumMsg.phoneticPracticeSummary}" headerClass="summaryBoxHeader">
+					<esl:phoneticPracticeSummary summary="#{summaryController.phonPracticeSummary}" />
+				</rich:collapsiblePanel>
+			</div>
+		</div>-->
+		<esl:dictationSummary summary="#{summaryController.dictationSummary}" />
+	</div>
 </h:form>
 </ui:composition>

@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -9,38 +8,37 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">	
 	
-	<div style="position: relative; height: 180px">
-		<table class="summaryBox">
+	<div>
+		<table class="w3-table-all w3-padding-0 w3-small">
 			<tr>
 				<td class="titleLarge">#{memberSumMsg.existingGrade}</td>
-				<td class="contentLarge">#{summary.existingGrade.description}</td>
+				<td class="w3-text-black">#{summary.existingGrade.description}</td>
 			</tr>
 			<tr>
 				<td class="titleMedium">#{memberSumMsg.scoreRanking}</td>
-				<td class="contentMedium">#{summary.existingScoreRank}</td>
+				<td class="w3-text-black">#{summary.existingScoreRank}</td>
 			</tr>
 			<tr>
 				<td class="titleMedium">#{memberSumMsg.rateRanking}</td>
-				<td class="contentMedium">#{summary.existingRateRank}</td>
+				<td class="w3-text-black">#{summary.existingRateRank}</td>
 			</tr>
 			<tr>
 				<td class="titleLarge">#{memberSumMsg.favourGrade}</td>
-				<td class="contentLarge">#{summary.favourGrade.description}</td>
+				<td class="w3-text-black">#{summary.favourGrade.description}</td>
 			</tr>
 			<tr><td class="titleLarge" colspan="2">#{memberSumMsg.overall}</td></tr>
 			<tr>
 				<td class="titleMedium">#{memberSumMsg.totalMark}</td>
-				<td class="contentMedium">#{summary.overallPracticeResult.mark} / #{summary.overallPracticeResult.fullMark}</td>
+				<td class="w3-text-black">#{summary.overallPracticeResult.mark} / #{summary.overallPracticeResult.fullMark}</td>
 			</tr>
 			<tr>
 				<td class="titleMedium">#{memberSumMsg.accuracy}</td>
-				<td class="contentMedium"><h:outputText value="#{summary.overallPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
+				<td class="w3-text-black"><h:outputText value="#{summary.overallPracticeResult.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText></td>
 			</tr>			
 		</table>
 		<div class="summaryBoxFooter">
-			<h:link outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">
-				<img src="#{request.contextPath}/images/graphic/vocab.gif" border="0" width="18" height="18" />
-				<u>&gt; #{memberSumMsg.toVocabPractice}</u>
+			<h:link styleClass="w3-btn w3-ripple w3-teal" outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">
+				<img src="#{request.contextPath}/images/graphic/vocab.gif" border="0" width="18" height="18" />	#{memberSumMsg.toVocabPractice}
 			</h:link>
 		</div>
 	</div>

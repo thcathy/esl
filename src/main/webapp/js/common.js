@@ -32,6 +32,20 @@ function go(btn) {
 	}
 }
 
+function openW3Tab(evt, tabId) {
+    var i, x, tablinks;
+    x = document.getElementsByClassName("w3-tab");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("w3-tablink");
+    for (i = 0; i < x.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" w3-border-green", "");
+    }
+    document.getElementById(tabId).style.display = "block";
+    evt.currentTarget.firstElementChild.className += " w3-border-green";
+}
+
 function MM_preloadImages() { //v3.0
   var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
     var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)

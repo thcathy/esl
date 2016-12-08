@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition>
+	<h:form>
+		<ul class="w3-navbar w3-border-top w3-border-bottom w3-border-green w3-center w3-small w3-white">
+			<li style="width: 12.5%;" class="w3-hide-small">&#160;</li>
+			<li style="width:25%" id="#{current=='SUMMARY'?'current':''}">
+				<h:commandLink styleClass="#{current=='SUMMARY'?'w3-green':''} w3-hover-teal w3-padding-0" action="#{summaryController.index}"><span class="w3-large">#{memberSumMsg.navSummary}</span>
+					<br/><span class="w3-hide-medium w3-hide-small">#{memberSumMsg.navSummaryDesc}</span>
+				</h:commandLink>
+			</li>
+			<li style="width:25%" id="#{current=='MYVOCAB'?'current':''}">
+				<h:commandLink styleClass="#{current=='MYVOCAB'?'w3-green':''} w3-hover-teal w3-padding-0" action="#{memberWordController.launchManage}"><span class="w3-large">#{memberSumMsg.navMyVocab}</span>
+					<br/><span class="w3-hide-medium w3-hide-small">#{memberSumMsg.navMyVocabDesc}</span>
+				</h:commandLink>
+			</li>
+			<li style="width:25%" id="#{current=='PROFILE'?'current':''}">
+				<h:commandLink styleClass="#{current=='PROFILE'?'w3-green':''} w3-hover-teal w3-padding-0" action="#{profileController.profile}"><span class="w3-large">#{memberSumMsg.navProfile}</span>
+					<br/><span class="w3-hide-medium w3-hide-small">#{memberSumMsg.navProfileDesc}</span>
+				</h:commandLink>
+			</li>
+			<li style="width: 12.5%;" class="w3-hide-small">&#160;</li>
+		</ul>
+	</h:form>
+</ui:composition>
+</html>

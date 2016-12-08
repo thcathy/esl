@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -9,78 +8,71 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">	
 	
-	<div style="position: relative; height: 220px">
-		<table width="100%" class="summaryBox">
-			<tr>
-				<td width="50%" valign="top" style="padding-right: 10px;">
-					<table class="summaryBox">
-						<tr><td colspan="2" class="header">#{memberSumMsg.summary}</td></tr>
-						<tr>
-							<td class="titleLarge">#{memberSumMsg.totalDictationCreated}</td>
-							<td class="contentLarge">#{summary.dictationCreated}</td>
-						</tr>
-						<tr>
-							<td class="titleLarge">#{memberSumMsg.totalAttempted}</td>
-							<td class="contentLarge">#{summary.totalAttempted}</td>
-						</tr>
-						<tr>
-							<td class="titleLarge">#{memberSumMsg.mostAttemptedDictation}</td>
-							<td class="contentLarge"></td>
-						</tr>					
-						<tr>
-							<td class="titleMedium">#{memberSumMsg.title}</td>
-							<td class="contentMedium">#{summary.mostAttemptedDictation.title}</td>
-						</tr>
-						<tr>
-							<td class="titleMedium">#{memberSumMsg.attempted}</td>
-							<td class="contentMedium">#{summary.mostAttemptedDictation.totalAttempt}</td>
-						</tr>
-						<tr>
-							<td class="titleLarge">#{memberSumMsg.mostRecommendedDictation}</td>
-							<td class="contentLarge"></td>
-						</tr>					
-						<tr>
-							<td class="titleMedium">#{memberSumMsg.title}</td>
-							<td class="contentMedium">#{summary.mostRecommendedDictation.title}</td>
-						</tr>
-						<tr>
-							<td class="titleMedium">#{dictationMsg.recommendation}</td>
-							<td class="contentMedium">#{summary.mostRecommendedDictation.totalRecommended}</td>
-						</tr>					
-					</table>		
-				</td>
-				<td width="50%" valign="top" style="padding-left: 10px;">
-					<table class="summaryBox">
-						<tr><td colspan="2" class="header">#{memberSumMsg.lastPracticer}</td></tr>
-						<tr>
-							<td class="titleLarge">#{memberSumMsg.dictation}</td>
-							<td class="contentLarge">#{summary.lastHistory.dictation.title}</td>
-						</tr>
-						<tr>
-							<td class="titleLarge">#{memberSumMsg.practicerName}</td>
-							<td class="contentLarge">#{summary.lastHistory.practicerName}</td>
-						</tr>
-						<tr>
-							<td class="titleLarge">#{memberSumMsg.practicerSchool}</td>
-							<td class="contentLarge">#{summary.lastHistory.practicerSchool}</td>
-						</tr>
-						<tr>
-							<td class="titleLarge">#{memberSumMsg.mark}</td>
-							<td class="contentLarge">#{summary.lastHistory.mark}</td>
-						</tr>
-					</table>
-				</td>
-			</tr>			
-		</table>
-		<div class="summaryBoxFooter">
-			<h:commandLink action="#{dictationEditController.launchCreate}">
-				<img src="#{request.contextPath}/images/graphic/create.gif" border="0" width="18" height="18" />
-				<u>&gt; #{memberSumMsg.createDictation}</u>
+	<div>
+		<div class="w3-row">
+			<div class="w3-half">
+				<table class="w3-table-all">
+					<tr><td colspan="2" class="w3-teal">#{memberSumMsg.summary}</td></tr>
+					<tr>
+						<td>#{memberSumMsg.totalDictationCreated}</td>
+						<td>#{summary.dictationCreated}</td>
+					</tr>
+					<tr>
+						<td>#{memberSumMsg.totalAttempted}</td>
+						<td>#{summary.totalAttempted}</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="w3-teal">#{memberSumMsg.mostAttemptedDictation}</td>
+					</tr>
+					<tr>
+						<td>#{memberSumMsg.title}</td>
+						<td>#{summary.mostAttemptedDictation.title}</td>
+					</tr>
+					<tr>
+						<td>#{memberSumMsg.attempted}</td>
+						<td>#{summary.mostAttemptedDictation.totalAttempt}</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="w3-teal">#{memberSumMsg.mostRecommendedDictation}</td>
+					</tr>
+					<tr>
+						<td>#{memberSumMsg.title}</td>
+						<td>#{summary.mostRecommendedDictation.title}</td>
+					</tr>
+					<tr>
+						<td>#{dictationMsg.recommendation}</td>
+						<td>#{summary.mostRecommendedDictation.totalRecommended}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="w3-half">
+				<table class="w3-table-all">
+					<tr><td colspan="2" class="w3-teal">#{memberSumMsg.lastPracticer}</td></tr>
+					<tr>
+						<td>#{memberSumMsg.dictation}</td>
+						<td>#{summary.lastHistory.dictation.title}</td>
+					</tr>
+					<tr>
+						<td>#{memberSumMsg.practicerName}</td>
+						<td>#{summary.lastHistory.practicerName}</td>
+					</tr>
+					<tr>
+						<td>#{memberSumMsg.practicerSchool}</td>
+						<td>#{summary.lastHistory.practicerSchool}</td>
+					</tr>
+					<tr>
+						<td>#{memberSumMsg.mark}</td>
+						<td>#{summary.lastHistory.mark}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="w3-right">
+			<h:commandLink styleClass="w3-btn w3-theme w3-margin" action="#{dictationEditController.launchCreate}">
+				<i class="fa fa-file-text-o" aria-hidden="true"></i> #{memberSumMsg.createDictation}
 			</h:commandLink>
-			<img src="${request.contextPath}/images/spacer.gif" width="20" height="1"  />
-			<h:commandLink action="#{dictationManageController.launchMain}">
-				<img src="#{request.contextPath}/images/graphic/dictation1.gif" border="0" width="18" height="18" />
-				<u>&gt; #{memberSumMsg.toDictationSummary}</u>
+			<h:commandLink styleClass="w3-btn w3-theme w3-margin" action="#{dictationManageController.launchMain}">
+				<i class="fa fa-list-ul" aria-hidden="true"></i> #{memberSumMsg.toDictationSummary}
 			</h:commandLink>
 		</div>
 	</div>	
