@@ -1,143 +1,88 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="/template/main.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:esl="http://www.funfunspell.com/jsf">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+				template="/template/long.xhtml">
 
 	<ui:define name="subTitle">#{htmlHeadMsg.member_profile_title}</ui:define>
 	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.member_profile_desc}" /></ui:define>
-	
-	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/myprofile.gif" /></ui:define>
 
-	<ui:define name="mainContent">
-		<esl:memberNav current="PROFILE" />
-		<h:messages tooltip="true" errorClass="error newContent" globalOnly="true"	infoClass="innerHeading newContent" />
+	<ui:define name="mainDiv">
+		<div class="w3-content w3-padding-12">
+			<div class="w3-card-4 w3-white">
+				<div class="w3-container w3-green">
+					<h3>#{memberSumMsg.navProfile}</h3>
+				</div>
 
-		<h:panelGroup id="inputForm" styleClass="newContent">
-			<!-- Change password form -->
-			<h:form id="changepwForm">
-				<fieldset><legend class="formTitle">&nbsp;ACCOUNT INFORMATION&nbsp;</legend>
-				<table width="90%">
-					<tr>
-						<td width="210"><strong><h:outputText	value="#{authMsg.signupFormUserIdLabel}" /></strong></td>
-						<td width="5">:</td>
-						<td>#{userSession.member.userId}</td>
-					</tr>
-					<tr>
-						<td><h:outputLabel value="#{authMsg.profileFormExistPINLabel}" for="existPIN" /> *</td>
-						<td>:</td>
-						<td><h:inputSecret id="existPIN" value="#{profileController.existPIN}" style="width: 30%" maxlength="20" /><br />
-						<h:message for="existPIN" errorClass="error" /></td>
-					</tr>					
-					<tr>
-						<td><h:outputLabel value="#{authMsg.profileFormNewPINLabel}" for="PIN" /> *</td>
-						<td>:</td>
-						<td><h:inputSecret id="PIN"	value="#{profileController.newPIN}" style="width: 30%" maxlength="20" />
-						<small>(#{authMsg.signupFormAtleast6char})</small><br />
-						<h:message for="PIN" errorClass="error" /></td>
-					</tr>
-					<tr>
-						<td><h:outputLabel value="#{authMsg.signupFormPIN2Label}" for="PIN2" /> *</td>
-						<td>:</td>
-						<td><h:inputSecret id="PIN2" value="#{profileController.confirmedPIN }" style="width: 30%" maxlength="20" /><br />
-						<h:message for="PIN2" errorClass="error" /></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td align="left">
-							<div class="buttons">
-								<h:commandLink styleClass="accept" action="#{profileController.changePIN}" value="#{authMsg.profileFormChgPIN}" />
-							</div>
-						</td>
-					</tr>
-				</table>
-				</fieldset>
-			</h:form>
+				<div class="w3-margin w3-padding-bottom">
+					<esl:memberNav2 current="PROFILE" />
 
-			<!-- Change profile form -->
-			<h:form id="profileForm" onsubmit="return submitRequest()">
-				<fieldset><legend class="formTitle">&nbsp;USER PROFILE&nbsp;</legend>
-				<table width="90%" class="formContent">
-					<tr>
-						<td width="210"><h:outputLabel value="#{authMsg.signupFormFirstNameLabel}" for="firstName" /></td>
-						<td width="5">:</td>
-						<td>
-							<h:inputText id="firstName"	value="#{profileController.member.name.firstName}" maxlength="100" /><br />
-							<h:message for="firstName" errorClass="error" />
-						</td>
-					</tr>
-					<tr>
-						<td><h:outputLabel value="#{authMsg.signupFormLastNameLabel}" for="lastName" /></td>
-						<td>:</td>
-						<td><h:inputText id="lastName" value="#{profileController.member.name.lastName}" maxlength="100" /><br />
-						<h:message for="lastName" errorClass="error" /></td>
-					</tr>
-					<tr>
-						<td><h:outputLabel value="#{authMsg.signupFormBirthdayLabel}" for="birthday" /></td>
-						<td>:</td>
-						<td>
-							<rich:calendar value="#{profileController.member.birthday}"                  	
-	                       		popup="true" locale="#{userSession.localeString}"
-	                       		datePattern="dd/MM/yyyy"
-	                       		showApplyButton="false" style="font-size: 16px;"/>
-						</td>
-					</tr>
-					
-					<tr>
-						<td><h:outputLabel value="#{authMsg.signupFormAddressLabel}" for="address" /></td>
-						<td>:</td>
-						<td>
-							<h:inputText id="address" value="#{profileController.member.address}" /><br />
-							<h:message for="address" errorClass="error" />
-						</td>
-					</tr>
-					<tr>
-						<td><h:outputLabel value="#{authMsg.signupFormPhoneNumberLabel}" for="phoneNumber" /></td>
-						<td>:</td>
-						<td>
-							<h:inputText id="phoneNumber" value="#{profileController.member.phoneNumber}" /><br />
-							<h:message for="phoneNumber" errorClass="error" />
-						</td>
-					</tr>
-					<tr>
-						<td><h:outputLabel value="#{authMsg.signupFormEmailLabel}" for="email" /> *</td>
-						<td>:</td>
-						<td><h:inputText id="email"	value="#{profileController.member.emailAddress}" required="true" /><br />
-						<h:message for="email" errorClass="error" /></td>
-					</tr>				
-					
-<!-- 					<tr> -->
-<!-- 						<td class="formTitle"><h:outputLabel -->
-<!-- 							value="#{authMsg.signupFormSchoolLabel}" for="school" /></td> -->
-<!-- 						<td class="formTitle">:</td> -->
-<!-- 						<td><h:inputText id="school" -->
-<!-- 							value="#{profileController.member.school}"> -->
-<!-- 							<f:validateLength minimum="10" /> -->
-<!-- 							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{authMsg.signupFormInvalidChar}" />						 -->
-													
-<!-- 						</h:inputText> <br /> -->
-<!-- 						<h:message for="school" errorClass="error" /></td> -->
-<!-- 					</tr> -->
-					<tr>
-						<td></td>
-						<td></td>
-						<td>
-							<div class="buttons">
-								<h:commandLink styleClass="accept" style="width: 120px;" action="#{profileController.updateProfile}" value="#{authMsg.profileFormChgProfile}" />
-							</div>
-						</td>
-					</tr>
-				</table>
-				</fieldset>
-			</h:form>
-		</h:panelGroup>
+					<h:messages errorClass="w3-panel w3-text-red w3-large" infoClass="w3-panel w3-text-blue w3-large" globalOnly="true" />
+
+					<div class="w3-row">
+						<div class="w3-half w3-padding">
+							<h:form id="profileForm">
+								<div class="w3-container w3-border w3-margin-bottom">
+									<h:outputLabel value="#{authMsg.signupFormFirstNameLabel}" for="firstName" styleClass="w3-label" />&#160;<h:message for="firstName" errorClass="w3-text-red" />
+									<h:inputText id="firstName"	value="#{profileController.member.name.firstName}" maxlength="100" styleClass="w3-input w3-margin-bottom" />
+
+									<h:outputLabel value="#{authMsg.signupFormLastNameLabel}" for="lastName" styleClass="w3-label" />&#160;<h:message for="lastName" errorClass="w3-text-red" />
+									<h:inputText id="lastName" value="#{profileController.member.name.lastName}" maxlength="100" styleClass="w3-input w3-margin-bottom" />
+
+									<h:outputLabel value="#{authMsg.signupFormBirthdayLabel}" for="birthday" styleClass="w3-label" />
+									<h:inputText id="birthday" a:type="date" value="#{profileController.member.birthday}" styleClass="w3-input w3-margin-bottom" style="width: 30%; min-width: 319px;">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:inputText>
+
+									<h:outputLabel value="#{authMsg.signupFormAddressLabel}" for="address" styleClass="w3-label" />&#160;<h:message for="address" errorClass="w3-text-red" />
+									<h:inputText id="address" value="#{profileController.member.address}" styleClass="w3-input w3-margin-bottom" />
+
+									<h:outputLabel value="#{authMsg.signupFormPhoneNumberLabel}" for="phoneNumber" styleClass="w3-label" />&#160;<h:message for="phoneNumber" errorClass="w3-text-red" />
+									<h:inputText id="phoneNumber" value="#{profileController.member.phoneNumber}" styleClass="w3-input w3-margin-bottom" />
+
+									<h:outputLabel value="#{authMsg.signupFormEmailLabel}" for="email" styleClass="w3-label" /> * <h:message for="email" errorClass="w3-text-red" />
+									<h:inputText id="email"	value="#{profileController.member.emailAddress}" required="true" styleClass="w3-input" />
+
+									<div class="w3-right">
+										<h:commandLink styleClass="w3-btn w3-theme w3-margin" action="#{profileController.updateProfile}" value="#{authMsg.profileFormChgProfile}" />
+									</div>
+								</div>
+							</h:form>
+						</div>
+						<div class="w3-half w3-padding">
+							<h:form id="changepwForm">
+								<div class="w3-container w3-border">
+									<label class="w3-label">#{authMsg.signupFormUserIdLabel}</label>
+									<input class="w3-input w3-margin-bottom" disabled="disabled" value="#{userSession.member.userId}"/>
+
+									<h:outputLabel value="#{authMsg.profileFormExistPINLabel}" for="existPIN" styleClass="w3-label" /> * <h:message for="existPIN" errorClass="w3-text-red" />
+									<h:inputSecret id="existPIN" value="#{profileController.existPIN}" styleClass="w3-input w3-margin-bottom" maxlength="20" />
+
+									<h:outputLabel value="#{authMsg.profileFormNewPINLabel}" for="PIN" styleClass="w3-label" /> * <small>(#{authMsg.signupFormAtleast6char})</small> <h:message for="PIN" errorClass="w3-text-red" />
+									<h:inputSecret id="PIN"	value="#{profileController.newPIN}" styleClass="w3-input w3-margin-bottom" maxlength="20" />
+
+									<h:outputLabel value="#{authMsg.signupFormPIN2Label}" for="PIN2" styleClass="w3-label" /> * <h:message for="PIN2" errorClass="w3-text-red" />
+									<h:inputSecret id="PIN2" value="#{profileController.confirmedPIN }" styleClass="w3-input" maxlength="20" />
+
+									<div class="w3-right">
+										<h:commandLink styleClass="w3-btn w3-theme w3-margin" action="#{profileController.changePIN}" value="#{authMsg.profileFormChgPIN}" />
+									</div>
+								</div>
+							</h:form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
 		
 	</ui:define>
 </ui:composition>

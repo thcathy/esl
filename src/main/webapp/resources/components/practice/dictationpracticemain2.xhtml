@@ -28,11 +28,11 @@
 								<h:panelGroup rendered="#{!cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
 									<audio id="pronounce" onloadeddata="this.play()" src="#{cc.attrs.controllerBean.practice.currentQuestionObject.activePronounceLink}" />
 									<a onclick="document.getElementById('pronounce').play(); jQuery('#practiceDiv\\:inputForm\\:answer').focus();" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
-										<i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
+										<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 								</h:panelGroup>
 								<h:panelGroup rendered="#{cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
 									<a onclick="responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}'); jQuery('#practiceDiv\\:inputForm\\:answer').focus();" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
-										<i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
+										<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 									<script type="text/javascript">
 										//<![CDATA[
 										responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}');
