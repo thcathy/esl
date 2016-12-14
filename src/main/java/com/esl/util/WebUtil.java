@@ -18,6 +18,7 @@ public class WebUtil {
 	static {
 		String host = System.getenv("APISERVER_HOST");
 		if (Strings.isNullOrEmpty(host)) host = System.getProperty("APISERVER_HOST");
+		if (Strings.isNullOrEmpty(host)) host = "funfunspell.com:8091";
 		service = new WebParserRestService(host);
 	}
 
