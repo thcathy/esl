@@ -1,15 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-  	xmlns:esl="http://www.funfunspell.com/jsf"
-  	template="/template/main.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+				template="/template/short.xhtml">
 	
 	<ui:define name="subTitle">#{htmlHeadMsg.member_dictation_main_title}</ui:define>
 	<ui:define name="head">
@@ -32,12 +33,15 @@
 						helpIndex = helpIndex + 1;
 						jQuery('#helpDiv' + helpIndex).slideDown();
 					}	
-				})
+				});
+
 				jQuery('#startGuide').click(function() {
 					jQuery('.helpDiv').hide();
 					helpIndex = 1 ;
 					jQuery('#helpDiv' + helpIndex).slideDown();
-				})
+				});
+
+				calculateTotalWords();
 			}
 		)
 		
@@ -58,81 +62,105 @@
 		//]]>
 		</script>
 	</ui:define>
-	
-	<ui:define name="titleImg"><img src="#{languageController.imagesPath}/title/mydictation.gif" /></ui:define>
+
+	<ui:define name="mainDiv">
+
+		<div class="w3-container w3-green">
+			<h3>
+				<i class="fa fa-pencil-square-o" aria-hidden="true"></i> #{dictationMsg.createDictation}
+			</h3>
+		</div>
+
+		<div class="w3-margin w3-padding-bottom w3-text-teal">
+			<esl:dictationNav2 current="CREATE" />
+
+			<h:form id="editDictation" styleClass="w3-margin-top">
+				<h:messages errorClass="w3-panel w3-text-red w3-large" infoClass="w3-panel w3-text-blue w3-large" globalOnly="true" />
+
+				<div>
+					<label class="w3-label">#{dictationMsg.title} *</label>
+					<h:inputText id="title" value="#{dictationEditController.editDictation.title}" styleClass="w3-input" required="true" maxlength="255">
+						<f:validateLength minimum="6" maximum="255" />
+						<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />
+					</h:inputText>
+					<h:message for="title" errorClass="w3-text-red" />
+					<div id="helpDiv1" class="w3-text-blue helpDiv">
+						<i class="fa fa-hand-o-up" aria-hidden="true"></i>&#160;<h:outputText value="#{dictationMsg.titleHelpDivContent}" escape="false" />
+						<a id="helpNext1" class="w3-btn w3-white w3-border w3-border-light-grey w3-round-large w3-padding-4 helpNext">
+							<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>#{dictationMsg.nextStep}</a>
+					</div>
+				</div>
+
+				<div class="w3-margin-top">
+					<label class="w3-label w3-margin-top">#{dictationMsg.desc}</label>
+					<h:inputText id="description" value="#{dictationEditController.editDictation.description}" styleClass="w3-input" maxlength="255">
+						<f:validateLength maximum="255" />
+						<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />
+					</h:inputText>
+					<h:message for="description" errorClass="w3-text-red" />
+					<div id="helpDiv2" class="w3-text-blue helpDiv">
+						<i class="fa fa-hand-o-up" aria-hidden="true"></i>&#160;<h:outputText value="#{dictationMsg.descHelpDivContent}" escape="false" />
+						<a id="helpNext2" class="w3-btn w3-white w3-border w3-border-light-grey w3-round-large w3-padding-4 helpNext">
+							<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>#{dictationMsg.nextStep}</a>
+					</div>
+				</div>
+
+				<div class="w3-margin-top">
+					<label class="w3-label w3-tooltip">
+						#{dictationMsg.suitableAge} (#{dictationMsg.suitableAgeDesc}) <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+						<span style="position:absolute;left:0;bottom:18px" class="w3-text w3-tag w3-theme w3-round-large">#{dictationMsg.suitableAgeTips}</span>
+					</label>
+					<t:selectManyCheckbox id="suitableAgeGroups" styleClass="w3-select" value="#{dictationEditController.editDictation.suitableAgeGroups}" layout="pageDirection" layoutWidth="4">
+						<f:selectItems value="#{dictationEditController.availableAgeGroups}" />
+					</t:selectManyCheckbox>
+					<div id="helpDiv3" class="w3-text-blue helpDiv">
+						<i class="fa fa-hand-o-up" aria-hidden="true"></i>&#160;<h:outputText value="#{dictationMsg.suitableAgeHelpDivContent}" escape="false" />
+						<a id="helpNext3" class="w3-btn w3-white w3-border w3-border-light-grey w3-round-large w3-padding-4 helpNext">
+							<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>#{dictationMsg.nextStep}</a>
+					</div>
+				</div>
+
+				<div class="w3-margin-top">
+					<label class="w3-label w3-tooltip">
+						#{dictationMsg.tags} (#{dictationMsg.tagsDesc}) <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+						<span style="position:absolute;left:0;bottom:18px" class="w3-text w3-tag w3-theme w3-round-large">#{dictationMsg.tagsTips}</span>
+					</label>
+					<h:inputText id="tags" value="#{dictationEditController.editDictation.tags}" styleClass="w3-input">
+						<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />
+					</h:inputText>
+					<h:message for="tags" errorClass="w3-text-red" />
+					<div id="helpDiv4" class="w3-text-blue helpDiv">
+						<i class="fa fa-hand-o-up" aria-hidden="true"></i>&#160;<h:outputText value="#{dictationMsg.tagHelpDivContent}" escape="false" />
+						<a id="helpNext4" class="w3-btn w3-white w3-border w3-border-light-grey w3-round-large w3-padding-4 helpNext">
+							<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>#{dictationMsg.nextStep}</a>
+					</div>
+				</div>
+
+				<div class="w3-margin-top">
+					<label class="w3-label">#{dictationMsg.vocab} * (<h:outputText value="#{dictationMsg.vocabDesc}" escape="false" />)</label><br />
+					#{dictationMsg.maxWord}: <strong>#{dictationEditController.maxVocabs}</strong>, #{dictationMsg.youHaveInput}: <strong><span id="totalWords"></span></strong>
+					<h:inputTextarea id="vocabs" required="true" rows="4" cols="50" style="width: 100%;" value="#{dictationEditController.vocabs}" onkeyup="calculateTotalWords();"></h:inputTextarea>
+					<h:message for="vocabs" errorClass="w3-text-red" />
+					<div id="helpDiv5" class="w3-text-blue helpDiv">
+						<i class="fa fa-hand-o-up" aria-hidden="true"></i>&#160;<h:outputText value="#{dictationMsg.vocabHelpDivContent}" escape="false" />
+						<a id="helpNext5" class="w3-btn w3-white w3-border w3-border-light-grey w3-round-large w3-padding-4 helpNext">
+							<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>#{dictationMsg.nextStep}</a>
+					</div>
+				</div>
+
+				<div class="w3-margin-top">
+					<h:commandLink action="#{dictationEditController.submit}" styleClass="w3-btn w3-green w3-margin-right">#{dictationMsg.submit}</h:commandLink>
+					<a id="startGuide" class="w3-btn w3-light-grey"><i class="fa fa-question" aria-hidden="true"></i> #{dictationMsg.formFillGuide}</a>
+					<div id="helpDiv6" class="w3-text-blue helpDiv">
+						<i class="fa fa-hand-o-up" aria-hidden="true"></i>&#160;<h:outputText value="#{dictationMsg.finalHelpDivContent}" escape="false" />
+					</div>
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
 
 	<ui:define name="mainContent">
-		<esl:dictationNav current="CREATE" />
-		<h:form id="editDictation">
-		<h:messages tooltip="true" errorClass="error" infoClass="innerHeading" globalOnly="true" />
-		<div style="text-align: right;"><img src="#{request.contextPath}/images/graphic/iconQuestionMark.gif" /><a id="startGuide" style="font-size: 16px; font-weight: bold; cursor:pointer;"><u> #{dictationMsg.formFillGuide}</u></a></div>
-		<fieldset><legend class="formTitle">&nbsp;MAIN&nbsp;</legend>
-			<table width="90%" class="formContent">
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.title} *</td>
-					<td width="5" class="formTitle">:</td>
-					<td><h:inputText id="title" value="#{dictationEditController.editDictation.title}" style="width: 50%" required="true" maxlength="255">
-							<f:validateLength minimum="6" maximum="255" />
-							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />
-						</h:inputText><br />					
-						<h:message for="title" errorClass="error" />
-						<div id="helpDiv1" class="helpDiv">
-							<table>
-								<tr><td><img src="#{request.contextPath}/images/graphic/hand_point.png" /></td><td><h:outputText value="#{dictationMsg.titleHelpDivContent}" escape="false" /></td></tr>
-								<tr><td colspan="2" align="right"><a id="helpNext1" class="helpNext">&gt; #{dictationMsg.nextStep}</a></td></tr>
-							</table>							
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.desc}</td>
-					<td width="5" class="formTitle">:</td>
-					<td><h:inputText id="description" value="#{dictationEditController.editDictation.description}" style="width: 100%" maxlength="255">
-							<f:validateLength maximum="255" />
-							<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />
-						</h:inputText><br />
-						<h:message for="description" errorClass="error" />
-						<div id="helpDiv2" class="helpDiv">
-							<table>
-								<tr><td><img src="#{request.contextPath}/images/graphic/hand_point.png" /></td><td><h:outputText value="#{dictationMsg.descHelpDivContent}" escape="false" /></td></tr>
-								<tr><td colspan="2" align="right"><a id="helpNext2" class="helpNext">&gt; #{dictationMsg.nextStep}</a></td></tr>
-							</table>							
-						</div>
-					</td>
-				</tr>				
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.suitableAge}&nbsp;<h:graphicImage id="suitableAgeTips" value="#{context.requestPath}/images/graphic/iconQuestionMark.gif" /><rich:tooltip value="#{dictationMsg.suitableAgeTips}" target="suitableAgeTips"/><br />(#{dictationMsg.suitableAgeDesc})</td>
-					<td width="5" class="formTitle">:</td>
-					<td>
-						<t:selectManyCheckbox id="suitableAgeGroups" value="#{dictationEditController.editDictation.suitableAgeGroups}" layout="pageDirection" layoutWidth="4">
-							<f:selectItems value="#{dictationEditController.availableAgeGroups}" />						
-						</t:selectManyCheckbox>
-						<div id="helpDiv3" class="helpDiv">
-							<table>
-								<tr><td><img src="#{request.contextPath}/images/graphic/hand_point.png" /></td><td><h:outputText value="#{dictationMsg.suitableAgeHelpDivContent}" escape="false" /></td></tr>
-								<tr><td colspan="2" align="right"><a id="helpNext2" class="helpNext">&gt; #{dictationMsg.nextStep}</a></td></tr>
-							</table>							
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.tags}&nbsp;<h:graphicImage id="tagsTips" value="#{context.requestPath}/images/graphic/iconQuestionMark.gif" /><rich:tooltip value="#{dictationMsg.tagsTips}" target="tagsTips"/><br />(#{dictationMsg.tagsDesc})</td>
-					<td width="5" class="formTitle">:</td>
-					<td style="padding-top: 5px; vertical-align: top;"><h:inputText id="tags" value="#{dictationEditController.editDictation.tags}" style="width: 100%">
-						<t:validateRegExpr pattern="[^'&lt;&gt;&quot;]*" message="#{dictationMsg.containInvalidChar}" />
-						</h:inputText><br />
-						<h:message for="tags" errorClass="error" />
-						<div id="helpDiv4" class="helpDiv">
-							<table>
-								<tr><td><img src="#{request.contextPath}/images/graphic/hand_point.png" /></td><td><h:outputText value="#{dictationMsg.tagHelpDivContent}" escape="false" /></td></tr>
-								<tr><td colspan="2" align="right"><a id="helpNext2" class="helpNext">&gt; #{dictationMsg.nextStep}</a></td></tr>
-							</table>							
-						</div>
-					</td>
-				</tr>
-			</table>
-		</fieldset>
-		<fieldset><legend class="formTitle">&nbsp;AUTHENTICATION&nbsp;</legend>
+		<!--<fieldset><legend class="formTitle">&nbsp;AUTHENTICATION&nbsp;</legend>
 			<table width="90%" class="formContent">
 				<tr>
 					<td width="120" class="formTitle">#{dictationMsg.allowPublicAccess}&nbsp;<h:graphicImage id="allowPublicAccessTips" value="#{context.requestPath}/images/graphic/iconQuestionMark.gif" /><rich:tooltip value="#{dictationMsg.allowPublicAccessTips}" target="allowPublicAccessTips"/></td>
@@ -149,7 +177,7 @@
 							<t:validateRegExpr pattern="^(?:.{6,}|)$" message="#{dictationMsg.pwdInvalidInput}" />
 							<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{dictationMsg.pwdInvalidInput}" />
 						</h:inputSecret> (#{dictationMsg.atleast6char}) <br />
-						<h:message for="password" errorClass="error" /></td>
+						<h:message for="password" errorClass="w3-text-red" /></td>
 					</tr>
 					<tr>
 						<td class="formTitle">#{dictationMsg.pwdRetype}</td>
@@ -158,10 +186,10 @@
 							<t:validateRegExpr pattern="^(?:.{6,}|)$" message="#{dictationMsg.pwdInvalidInput}" />
 							<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{dictationMsg.pwdInvalidInput}" />
 						</h:inputSecret> <br />
-						<h:message for="password2" errorClass="error" />
+						<h:message for="password2" errorClass="w3-text-red" />
 						<div id="helpDiv5" class="helpDiv">
 							<table>
-								<tr><td><img src="#{request.contextPath}/images/graphic/hand_point.png" /></td><td><h:outputText value="#{dictationMsg.passwordHelpDivContent}" escape="false" /></td></tr>
+								<tr><td><i class="fa fa-hand-o-up" aria-hidden="true"></i></td><td><h:outputText value="#{dictationMsg.passwordHelpDivContent}" escape="false" /></td></tr>
 								<tr><td colspan="2" align="right"><a id="helpNext2" class="helpNext">&gt; #{dictationMsg.nextStep}</a></td></tr>
 							</table>							
 						</div>
@@ -182,8 +210,8 @@
 					<td><h:outputText value="#{dictationEditController.editDictation.lastModifyDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
 				</tr>
 			</table>
-		</fieldset>
-		<fieldset><legend class="formTitle">&nbsp;VOCABULARY&nbsp;</legend>
+		</fieldset>-->
+		<!--<fieldset><legend class="formTitle">&nbsp;VOCABULARY&nbsp;</legend>
 			<table width="90%" class="formContent">
 				<tr>
 					<td width="180" class="formTitle">#{dictationMsg.dictationOptions}&nbsp;<h:graphicImage id="dictationOptionsTips" value="#{context.requestPath}/images/graphic/iconQuestionMark.gif" /><rich:tooltip value="#{dictationMsg.dictationOptionsTips}" target="dictationOptionsTips"/></td>
@@ -195,38 +223,18 @@
 						<br />
 						<div id="helpDiv6" class="helpDiv">
 							<table>
-								<tr><td><img src="#{request.contextPath}/images/graphic/hand_point.png" /></td><td><h:outputText value="#{dictationMsg.dictationOptionsHelpDivContent}" escape="false" /></td></tr>
+								<tr><td><i class="fa fa-hand-o-up" aria-hidden="true"></i></td><td><h:outputText value="#{dictationMsg.dictationOptionsHelpDivContent}" escape="false" /></td></tr>
 								<tr><td colspan="2" align="right"><a id="helpNext2" class="helpNext">&gt; #{dictationMsg.nextStep}</a></td></tr>
 							</table>							
 						</div>
 					</td>
 				</tr>
 				<tr>
-					<td width="180" class="formTitle">#{dictationMsg.vocab} *<br /><h:outputText value="#{dictationMsg.vocabDesc}" escape="false" /></td>
-					<td width="5" class="formTitle">:</td>
-					<td>
-						#{dictationMsg.maxWord}: <strong>#{dictationEditController.maxVocabs}</strong>, #{dictationMsg.youHaveInput}: <strong><span id="totalWords"></span></strong><br /> 
-						<h:inputTextarea id="vocabs" required="true" rows="4" cols="50" value="#{dictationEditController.vocabs}" onkeyup="calculateTotalWords();">
-						</h:inputTextarea>
-						<br /><h:message for="vocabs" errorClass="error" />
-						<div id="helpDiv7" class="helpDiv">
-							<table>
-								<tr><td><img src="#{request.contextPath}/images/graphic/hand_point.png" /></td><td><h:outputText value="#{dictationMsg.vocabHelpDivContent}" escape="false" /></td></tr>
-								<tr><td colspan="2" align="right"><a id="helpNext2" class="helpNext">&gt; #{dictationMsg.nextStep}</a></td></tr>
-							</table>							
-						</div>
-					</td>
+
 				</tr>
 			</table>
 		</fieldset>
-		<div class="buttons" style="margin-top: 10px; margin-bottom:50px;">
-			<h:commandLink action="#{dictationEditController.submit}"><img src="#{request.contextPath}/images/icon/silk/font.png" />#{dictationMsg.submit}</h:commandLink>				
-		</div>
-		<div id="helpDiv8" class="helpDiv">
-			<table>
-				<tr><td><img src="#{request.contextPath}/images/graphic/hand_point.png" /></td><td><h:outputText value="#{dictationMsg.finalHelpDivContent}" escape="false" /></td></tr>				
-			</table>							
-		</div>
-		</h:form>
+-->
+
 	</ui:define>
 </ui:composition>
