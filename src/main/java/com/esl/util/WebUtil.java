@@ -13,20 +13,23 @@ public class WebUtil {
 	private static Logger logger = LoggerFactory.getLogger("ESL");
 	public static int MAX_QUERY_RESULT = 50;
 
-	static WebParserRestService service;
+	private static WebParserRestService service = null;
 
-	static {
-		String host = System.getenv("APISERVER_HOST");
-		if (Strings.isNullOrEmpty(host)) host = System.getProperty("APISERVER_HOST");
-		if (Strings.isNullOrEmpty(host)) host = "funfunspell.com:8091";
-		service = new WebParserRestService(host);
+	public static synchronized WebParserRestService getInstance() {
+		if (service == null) {
+			String host = System.getenv("APISERVER_HOST");
+			if (Strings.isNullOrEmpty(host)) host = System.getProperty("APISERVER_HOST");
+			if (Strings.isNullOrEmpty(host)) host = "funfunspell.com:8091";
+			service = new WebParserRestService(host);
+		}
+		return service;
 	}
 
 	public static String[] searchImageUrls(String query) {
 		logger.info("getImageUrlFromWeb from word [{}]", query);
 
 		try {
-			WebItem[] items = service.searchGoogleImage(query + " clipart").get().getBody();
+			WebItem[] items = getInstance().searchGoogleImage(query + " clipart").get().getBody();
 			String[] urls = Arrays.stream(items).map(i -> i.url).collect(Collectors.toList()).toArray(new String[]{});
 			logger.info("Urls found: {}", urls);
 			return urls;

@@ -20,7 +20,10 @@ public class WebParserRestServiceTest {
 
     @BeforeClass
     public static void setup() {
-        service = new WebParserRestService(System.getProperty("APISERVER_HOST"));
+        String host = System.getenv("APISERVER_HOST");
+        if (com.google.common.base.Strings.isNullOrEmpty(host)) host = System.getProperty("APISERVER_HOST");
+        if (com.google.common.base.Strings.isNullOrEmpty(host)) host = "funfunspell.com:8091";
+        service = new WebParserRestService(host);
     }
 
     @Test(expected = IllegalArgumentException.class)
