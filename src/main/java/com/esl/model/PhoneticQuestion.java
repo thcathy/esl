@@ -1,18 +1,15 @@
 package com.esl.model;
 
-import java.io.Serializable;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
+import com.esl.service.rest.WebParserRestService;
+import com.esl.util.WebUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.esl.util.WebUtil;
+import java.io.Serializable;
+import java.text.MessageFormat;
+import java.util.*;
 
 public class PhoneticQuestion implements Serializable {
 	private static Logger logger = LoggerFactory.getLogger(PhoneticQuestion.class);
@@ -21,6 +18,9 @@ public class PhoneticQuestion implements Serializable {
 	public final static String SYMBOL_GIF_SUFFIX =  ".gif";
 	public final static String PIC_FILE_FOLDER_PATH = "/ESL/images/graphic/word/";
 	public static boolean USE_SECEONDARY_PRONOUNCE_LINK = false;
+
+	@Autowired
+	public WebParserRestService parserRestService;
 
 	private Long id = null;
 	private String IPA;
@@ -101,10 +101,11 @@ public class PhoneticQuestion implements Serializable {
 		if (StringUtils.isNotBlank(picFileName)) {
 			picsFullPaths = new String[]{PIC_FILE_FOLDER_PATH + picFileName};
 		} else {
-			picsFullPaths = WebUtil.getThumbnailsFromBing(word);
+			picsFullPaths = WebUtil.searchImageUrls(word);
 		}
 		return picsFullPaths;
 	}
+
 	public void setPicsFullPaths(String[] picsFullPaths) {this.picsFullPaths = picsFullPaths;}
 
 	public void setPicsFullPathsInString(String dummy) {}

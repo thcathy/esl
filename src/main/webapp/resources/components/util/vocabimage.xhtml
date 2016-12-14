@@ -55,11 +55,14 @@
 		var contentDiv = document.getElementById('gImageContent');
 		contentDiv.innerHTML = '';
 		var imgContainer = document.createElement('div');
-		var newImg = document.createElement('img');
-		newImg.src = picPaths[imageCount];
-		newImg.style.width="100%";
-        newImg.style.height="auto";
-		imgContainer.appendChild(newImg);
+		//var newImg = document.createElement('img');
+		//newImg.src = picPaths[imageCount];
+		//newImg.style.width="100%";
+        //newImg.style.height="auto";
+		//imgContainer.appendChild(newImg);
+		jQuery('<img src="'+ picPaths[imageCount] +'">').load(function() {
+			jQuery(this).width('100%').height('auto').appendTo(imgContainer);
+		});
 		contentDiv.appendChild(imgContainer);
 	}
 	//]]>

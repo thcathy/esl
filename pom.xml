@@ -222,5 +222,11 @@
 			<version>3.4.1.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+
 	</dependencies>
 </project>

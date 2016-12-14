@@ -1,24 +1,19 @@
 package com.esl.test.entity.dictation;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.powermock.api.easymock.PowerMock.mockStatic;
-import static org.powermock.api.easymock.PowerMock.replay;
-import static org.powermock.api.easymock.PowerMock.verify;
-
-import java.util.ArrayList;
-
+import com.esl.model.PhoneticQuestion;
+import com.esl.util.WebUtil;
+import com.esl.util.practice.PhoneticQuestionUtil;
+import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.esl.model.PhoneticQuestion;
-import com.esl.util.WebUtil;
-import com.esl.util.practice.PhoneticQuestionUtil;
-import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
+import java.util.ArrayList;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.*;
+import static org.powermock.api.easymock.PowerMock.*;
 
 @RunWith(PowerMockRunner.class)
 public class PhoneticQuestionTest {
@@ -47,7 +42,7 @@ public class PhoneticQuestionTest {
 	@Test @PrepareForTest(WebUtil.class)
 	public void queryWebOnceOnlyAfterFirstCall() {
 		mockStatic(WebUtil.class);
-		expect(WebUtil.getThumbnailsFromBing("abc")).andReturn(new String[] {"filepath1"}).once();
+		expect(WebUtil.searchImageUrls("abc")).andReturn(new String[] {"filepath1"}).once();
 		replay(WebUtil.class);
 
 		PhoneticQuestion q = new PhoneticQuestion("abc", "abc");
@@ -62,7 +57,7 @@ public class PhoneticQuestionTest {
 	@Test @PrepareForTest(WebUtil.class)
 	public void testGetPicsFullPathsString() {
 		mockStatic(WebUtil.class);
-		expect(WebUtil.getThumbnailsFromBing("abc")).andReturn(new String[] {"filepath1", "filepath2"}).once();
+		expect(WebUtil.searchImageUrls("abc")).andReturn(new String[] {"filepath1", "filepath2"}).once();
 		replay(WebUtil.class);
 		String expectedString = "filepath1,filepath2";
 
