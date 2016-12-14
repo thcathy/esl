@@ -2,6 +2,7 @@ package com.esl.util;
 
 import com.esl.entity.rest.WebItem;
 import com.esl.service.rest.WebParserRestService;
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,9 +13,16 @@ public class WebUtil {
 	private static Logger logger = LoggerFactory.getLogger("ESL");
 	public static int MAX_QUERY_RESULT = 50;
 
+	static WebParserRestService service;
+
+	static {
+		String host = System.getenv("APISERVER_HOST");
+		if (Strings.isNullOrEmpty(host)) host = System.getProperty("APISERVER_HOST");
+		service = new WebParserRestService(host);
+	}
+
 	public static String[] searchImageUrls(String query) {
 		logger.info("getImageUrlFromWeb from word [{}]", query);
-		WebParserRestService service = new WebParserRestService(System.getProperty("APISERVER_HOST"));
 
 		try {
 			WebItem[] items = service.searchGoogleImage(query + " clipart").get().getBody();
