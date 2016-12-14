@@ -28,17 +28,6 @@ public class PhoneticQuestionTest {
 		assertEquals("/ESL/images/graphic/word/file1.png",picsFullPaths[0]);
 	}
 
-	@Test
-	public void returnListOfFullPathIfNoFilePathStored() {
-		PhoneticQuestion q = new PhoneticQuestion("abc", "abc");
-		String[] picsFullPaths = q.getPicsFullPaths();
-
-		assertEquals(WebUtil.MAX_QUERY_RESULT, picsFullPaths.length);
-		for (String path : picsFullPaths) {
-			assertTrue(path.contains("bing.net"));
-		}
-	}
-
 	@Test @PrepareForTest(WebUtil.class)
 	public void queryWebOnceOnlyAfterFirstCall() {
 		mockStatic(WebUtil.class);
