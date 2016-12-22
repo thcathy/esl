@@ -32,7 +32,6 @@ public class ProfileController extends ESLController {
 
 	// UI
 	@Size(min=6, max=20, message="{incorrectSize}")
-	@Pattern(regexp="[^\\s'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String confirmedPIN = "";
 	
 	@Size(min=6, max=20, message="{incorrectSize}")
