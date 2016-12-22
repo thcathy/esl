@@ -31,8 +31,7 @@ public class Member implements Serializable {
 	@Pattern(regexp="[^'&lt;&gt;&quot;]*", message="{containInvalidChar}")
 	private String phoneNumber;
 	
-	@Size(min=6, max=20, message="{incorrectSize}")
-	@Pattern(regexp="[^\\s'&lt;&gt;&quot;]*", message="{containInvalidChar}")
+	@Size(min=6, max=20, message="{incorrectSize}")	
 	private String PIN;
 	private String school;
 	private int totalWordLearnt = 0;
