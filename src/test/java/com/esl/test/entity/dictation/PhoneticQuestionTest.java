@@ -36,7 +36,6 @@ public class PhoneticQuestionTest {
 
 		PhoneticQuestion q = new PhoneticQuestion("abc", "abc");
 		String[] picsFullPaths = q.getPicsFullPaths();
-		picsFullPaths = q.getPicsFullPaths();
 
 		verify(WebUtil.class);
 
@@ -48,7 +47,7 @@ public class PhoneticQuestionTest {
 		mockStatic(WebUtil.class);
 		expect(WebUtil.searchImageUrls("abc")).andReturn(new String[] {"filepath1", "filepath2"}).once();
 		replay(WebUtil.class);
-		String expectedString = "filepath1,filepath2";
+		String expectedString = "filepath1^_^filepath2";
 
 		PhoneticQuestion q = new PhoneticQuestion("abc", "abc");
 		assertEquals(expectedString, q.getPicsFullPathsInString());

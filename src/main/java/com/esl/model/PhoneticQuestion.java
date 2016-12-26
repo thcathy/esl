@@ -101,7 +101,7 @@ public class PhoneticQuestion implements Serializable {
 		if (StringUtils.isNotBlank(picFileName)) {
 			picsFullPaths = new String[]{PIC_FILE_FOLDER_PATH + picFileName};
 		} else {
-			picsFullPaths = WebUtil.searchImageBinary(word);
+			picsFullPaths = WebUtil.searchImageUrls(word);
 		}
 		return picsFullPaths;
 	}
