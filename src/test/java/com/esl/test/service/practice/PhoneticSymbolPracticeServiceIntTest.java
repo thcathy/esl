@@ -6,12 +6,12 @@ import com.esl.service.practice.IPhoneticPracticeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(locations={"classpath:com/esl/ESL-context.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:/com/esl/ESL-context.xml"})
 public class PhoneticSymbolPracticeServiceIntTest {
     @Resource(name="phoneticPracticeService") private IPhoneticPracticeService service;
 

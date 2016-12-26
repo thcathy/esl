@@ -1,6 +1,7 @@
 package com.esl.test.dao;
-import static org.junit.Assert.assertEquals;
 
+import com.esl.dao.IGradeDAO;
+import com.esl.model.Grade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.dao.IGradeDAO;
-import com.esl.model.Grade;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/com/esl/ESL-context.xml"})
