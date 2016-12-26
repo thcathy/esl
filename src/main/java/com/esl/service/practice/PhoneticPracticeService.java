@@ -1,17 +1,8 @@
 package com.esl.service.practice;
 
-import java.sql.Date;
-import java.util.*;
-
-import javax.annotation.Resource;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.esl.dao.*;
 import com.esl.dao.practice.IMemberPracticeScoreCardDAO;
+import com.esl.entity.VocabImage;
 import com.esl.entity.practice.MemberPracticeScoreCard;
 import com.esl.enumeration.ESLPracticeType;
 import com.esl.exception.IllegalParameterException;
@@ -21,6 +12,15 @@ import com.esl.util.ValidationUtil;
 import com.esl.util.practice.PhoneticQuestionUtil;
 import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 import com.esl.web.model.practice.VocabPracticeSummary;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.sql.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("phoneticPracticeService")
 @Transactional
@@ -34,6 +34,7 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 	@Resource protected IPhoneticPracticeQuestionHistoryDAO phoneticPracticeQuestionHistoryDAO = null;
 	@Resource protected IPracticeResultDAO practiceResultDAO = null;
 	@Resource protected IMemberPracticeScoreCardDAO scoreCardDAO;
+	@Resource protected IVocabImageDAO vocabImageDAO;
 
 	public List<Grade> getUserAvailableGrades(String userId) {
 		List<Grade> grades = getAllGrades();
@@ -60,17 +61,15 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 
 		boolean isRandom = true;
 
-		// all question random for visitor too
-		//if (member == null) isRandom = false;
-
 		logger.info("generatePractice: PhoneticPractice.TOTAL_QUESTIONS[" + PhoneticPractice.MAX_QUESTIONS + "]");
 		List questions = phoneticQuestionDAO.getRandomQuestionsByGrade(practiceGrade, PhoneticPractice.MAX_QUESTIONS, isRandom);
+		logger.info("generatePractice: questions.size:" + questions.size());
 		if (questions == null) {
 			logger.warn("generatePractice: No question return by DAO");
 			return null;
 		}
 
-		logger.info("generatePractice: questions.size:" + questions.size());
+		enrichVocabImageForQuestions(questions);
 
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setMember(member);
@@ -78,6 +77,17 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 		practice.setQuestions(questions);
 
 		return practice;
+	}
+
+	private void enrichVocabImageForQuestions(List<PhoneticQuestion> questions) {
+		for (PhoneticQuestion question : questions) {
+			List<String> images = vocabImageDAO.listByWord(question.getWord()).stream()
+					.map(VocabImage::getBase64Image)
+					.collect(Collectors.toList());
+			Collections.shuffle(images);
+
+			question.setPicsFullPaths(images.toArray(new String[1]));
+		}
 	}
 
 	// Check Answer

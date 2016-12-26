@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:t="http://myfaces.apache.org/tomahawk"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:esl="http://www.funfunspell.com/jsf"
+        xmlns:rich="http://richfaces.org/rich">
+
+    <h:body>
+        <a4j:repeat var="i" rowKeyVar="r" value="#{vocabImageController.images}">
+            <div style="float: left; padding: 4px;">
+                <p>#{i.id} - #{i.word} - #{i.createdDate}</p>
+                <img src="#{i.base64Image}"/>
+            </div>
+        </a4j:repeat>
+    </h:body>
+</html>
+
+
+

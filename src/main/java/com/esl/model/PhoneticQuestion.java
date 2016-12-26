@@ -101,7 +101,7 @@ public class PhoneticQuestion implements Serializable {
 		if (StringUtils.isNotBlank(picFileName)) {
 			picsFullPaths = new String[]{PIC_FILE_FOLDER_PATH + picFileName};
 		} else {
-			picsFullPaths = WebUtil.searchImageUrls(word);
+			picsFullPaths = WebUtil.searchImageBinary(word);
 		}
 		return picsFullPaths;
 	}
@@ -113,9 +113,9 @@ public class PhoneticQuestion implements Serializable {
 		StringBuilder sb = new StringBuilder();
 		getPicsFullPaths();
 		for (String path : picsFullPaths) {
-			sb.append(path + ",");
+			sb.append(path + "^_^");
 		}
-		if (sb.length() > 1) sb.deleteCharAt(sb.length()-1);
+		if (sb.length() > 3) sb.delete(sb.length()-3, sb.length());
 		return sb.toString();
 	}
 

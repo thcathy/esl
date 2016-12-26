@@ -21,7 +21,7 @@
 		<pattern value="/rest/aboutUs" />
 		<view-id value="/public/about.jsf" />
 	</url-mapping>
-<!-- end of old -->
+	<!-- end of old -->
 
 	<url-mapping id="practice_phoneticsymbolpractice_input">
 		<pattern value="/practice/phoneticsymbolpractice/input" />
@@ -31,6 +31,13 @@
 	<url-mapping id="practice_irregularverb_start">
 		<pattern value="/startivp" />
 		<view-id value="/practice/irregularverb/start.jsf" />
+	</url-mapping>
+	
+	<url-mapping>
+		<pattern value="/manage/vocabimage"/>
+		<query-param name="fromid">#{vocabImageController.fromId}</query-param>
+		<view-id value="/manage/vocabimage.jsf"/>
+		<action>#{vocabImageController.listImage}</action>
 	</url-mapping>
 
 </pretty-config>
