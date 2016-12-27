@@ -72,7 +72,7 @@
 				<hr />
 
 				<h:messages errorClass="w3-panel w3-text-red w3-large" infoClass="w3-panel w3-text-blue w3-large" globalOnly="true" />
-				<div class="w3-row">
+				<div class="w3-row w3-large w3-margin-bottom">
 					<div class="w3-third">#{memberWordMsg.manageTotalWordInList}: #{memberWordController.vocabsSize}</div>
 					<div class="w3-third">#{memberWordMsg.manageTotalWordLearnt}: #{userSession.member.totalWordLearnt}</div>
 				</div>
@@ -83,10 +83,10 @@
 						<a href="#{phonPracticeMsg.practiceDictionaryLink}#{i.word.word}" target="_blank"><u>#{i.word.word}</u></a>
 					</span>
 				</a4j:repeat>
-				<p class="w3-small">
+				<div class="w3-container w3-leftbar w3-light-grey w3-padding w3-small w3-margin-top">
 					* <span class="w3-badge w3-green w3-tiny">x</span> #{memberWordMsg.correctCount}<br/>
 					** #{phonPracticeMsg.practiceWordExplanation}
-				</p>
+				</div>
 
 			</h:form>
 		</div>
