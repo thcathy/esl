@@ -1,32 +1,10 @@
 package com.esl.web.jsf.controller.practice;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.dao.IGradeDAO;
 import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.dao.IPracticeResultDAO;
 import com.esl.exception.ESLSystemException;
-import com.esl.model.Grade;
-import com.esl.model.Member;
-import com.esl.model.PhoneticQuestion;
-import com.esl.model.PracticeResult;
-import com.esl.model.TopResult;
+import com.esl.model.*;
 import com.esl.model.practice.PhoneticSymbols;
 import com.esl.service.practice.IPhoneticSymbolPracticeService;
 import com.esl.service.practice.ITopResultService;
@@ -35,6 +13,16 @@ import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.model.practice.PhoneticQuestionHistory;
 import com.esl.web.util.LanguageUtil;
 import com.esl.web.util.SelectItemUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import java.util.*;
 
 @Controller
 @Scope("session")
@@ -227,15 +215,19 @@ public class PhoneticSymbolPracticeController extends ESLController {
 
 	private void getRandomQuestion() {
 		List<PhoneticQuestion> questions = phoneticQuestionDAO.getRandomQuestionsByGrade(currentGrade, 1, true);
-		if (questions == null || questions.size() < 1) {throw new ESLSystemException("getRandomQuestion: cannot get any question","getRandomQuestion: cannot get any question");}
+		if (questions == null || questions.size() < 1) {
+			throw new ESLSystemException("getRandomQuestion: cannot get any question","getRandomQuestion: cannot get any question");
+		}
+
 		question = questions.get(0);
 		logger.info("getRandomQuestion: a random question: word[" + question.getWord() + "]");
 
 		phoneticSymbolPracticeService.findIPAAndPronoun(question);
+		phoneticSymbolPracticeService.enrichVocabImageForQuestion(question);
 
 		// get list of phonics
 		Set<String> phonics = phoneticSymbolPracticeService.getPhonicsListByLevel(selectedLevel, question.getIPA());
-		selectionPhonics = new HashMap<String, Boolean>();
+		selectionPhonics = new HashMap<>();
 		for (String p : phonics) {
 			selectionPhonics.put(p, Boolean.TRUE);
 		}
