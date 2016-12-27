@@ -150,7 +150,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 		memberWordController.setSavedQuestion(new HashMap<PhoneticQuestion, Boolean>());
 	}
 
-	private void getRandomQuestion() {
+	public void getRandomQuestion() {
 		List<MemberWord> memberWords = memberWordDAO.listRandomWords(userSession.getMember(), 1, practicedWord);
 
 		if (memberWords == null || memberWords.size() < 1) {

@@ -9,16 +9,16 @@ import spock.lang.Specification
 
 @ContextConfiguration(locations = "/com/esl/ESL-context.xml")
 @SpringBootTest
-class MyVocabPracticeControllerSpec extends Specification {
+class MyVocabPracticeControllerSpec extends BaseSpec {
     @Autowired MyVocabPracticeController myVocabPracticeController
     @Autowired IMemberDAO memberDAO
 
     @Test
     def "Test spring setup"() {
         when:
-        String view = myVocabPracticeController.start()
+        myVocabPracticeController.getRandomQuestion()
 
         then:
-        view == "/member/vocab/practice"
+        myVocabPracticeController.memberWord.word.picsFullPathsInString != null
     }
 }
