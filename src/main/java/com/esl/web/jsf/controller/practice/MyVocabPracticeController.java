@@ -141,7 +141,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 	}
 
 	// ============== Supporting Functions ================//
-	private void clearController() {
+	public void clearController() {
 		answer = "";
 		history.clear();
 		totalFullMark = 0;
@@ -154,11 +154,13 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 		List<MemberWord> memberWords = memberWordDAO.listRandomWords(userSession.getMember(), 1, practicedWord);
 
 		if (memberWords == null || memberWords.size() < 1) {
+			logger.debug("No saved vocab on member: {}", userSession.getMember().getUserId());
 			memberWord = null;
 			return;
 		}
 		memberWord = memberWords.get(0);
 		phoneticPracticeService.findIPAAndPronoun(memberWord.getWord());
+		phoneticPracticeService.enrichVocabImageForQuestion(memberWord.getWord());
 
 		practicedWord.add(memberWord);
 		logger.info("getRandomQuestion: a random memberWord: word[" + memberWord.getWord() + "]");

@@ -45,12 +45,27 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
+				<!-- The gmavenplus plugin is used to compile Groovy code. To learn more about this plugin,
+                visit https://github.com/groovy/GMavenPlus/wiki -->
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Optional plugins for using Spock -->
+			<!-- Only required if names of spec classes don't match default Surefire patterns (`*Test` etc.) -->
+			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
+					<useFile>false</useFile>
 					<includes>
-						<!-- By default only files ending in 'Test' will be included, so also include support for Spock style naming convention -->
-						<!-- Oddly enough for Groovy files, *Spec.groovy does not work, but *Spec.java does -->
 						<include>**/*Test.java</include>
 						<include>**/*Spec.java</include>
 					</includes>
