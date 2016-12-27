@@ -1,30 +1,11 @@
 package com.esl.web.jsf.controller.practice;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-
-import javax.annotation.Resource;
-import javax.faces.context.FacesContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.dao.IGradeDAO;
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.dao.IPracticeResultDAO;
 import com.esl.exception.ESLSystemException;
-import com.esl.model.Grade;
-import com.esl.model.Member;
-import com.esl.model.PhoneticQuestion;
-import com.esl.model.PracticeResult;
-import com.esl.model.TopResult;
+import com.esl.model.*;
 import com.esl.service.practice.IPhoneticPracticeService;
 import com.esl.service.practice.ITopResultService;
 import com.esl.util.JSFUtil;
@@ -32,6 +13,15 @@ import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.jsf.controller.member.MemberWordController;
 import com.esl.web.model.practice.PhoneticQuestionHistory;
 import com.esl.web.util.LanguageUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
+import java.util.*;
 
 @Controller
 @Scope("session")
@@ -297,7 +287,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	}
 
 	// ============== Supporting Functions ================//
-	private void clearController() {
+	public void clearController() {
 		answer = "";
 		history.clear();
 		isLevelUp = false;
@@ -306,10 +296,14 @@ public class PhoneticPracticeG2Controller extends ESLController {
 		memberWordController.setSavedQuestion(new HashMap<PhoneticQuestion, Boolean>());
 	}
 
-	private void getRandomQuestion() {
+	public void getRandomQuestion() {
 		List<PhoneticQuestion> questions = phoneticQuestionDAO.getRandomQuestionsByGrade(currentGrade, 1, true);
-		if (questions == null || questions.size() < 1) {throw new ESLSystemException("getRandomQuestion: cannot get any question","getRandomQuestion: cannot get any question");}
+		if (questions == null || questions.size() < 1) {
+			throw new ESLSystemException("getRandomQuestion: cannot get any question","getRandomQuestion: cannot get any question");
+		}
+
 		question = questions.get(0);
+		phoneticPracticeService.enrichVocabImageForQuestion(question);
 		logger.info("getRandomQuestion: a random question: word[" + question.getWord() + "]");
 
 		// add full mark in practice result

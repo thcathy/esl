@@ -11,8 +11,8 @@
   	<property name="comment" column="MESSAGE" length="255"/>
   	<property name="createdDate" column="CREATED_DATE" />
   	
-  	<many-to-one name="member" column="MEMBER_ID" cascade="none" foreign-key="FK1_MEMBER_ID" />
-  	<many-to-one name="group" column="GROUP_ID" cascade="none" foreign-key="FK1_GROUP_ID" />
+<!--  	<many-to-one name="member" column="MEMBER_ID" cascade="none" foreign-key="FK1_MEMBER_ID" />
+  	<many-to-one name="group" column="GROUP_ID" cascade="none" foreign-key="FK1_GROUP_ID" />-->
   	
   </class>
 </hibernate-mapping>

@@ -261,37 +261,7 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 		logger.info("checkLevelUp: LEVEL_RETAIN: practice grade:" + grade + ", marks:" + result.getMark());
 		return LEVEL_RETAIN;
 	}
-	/*
-	public ChartValues getSummaryChartValues(List<PracticeResult> results) {
-		// input checking and loggging
-		if (results == null || results.size() < 1) {
-			logger.info("getSummaryChartValues: Input list is null or < 1, return null");
-			return null;
-		}
-		logger.info("getSummaryChartValues: PracticeResults.size: " + results.size());
 
-		List<Double> totalPractices = new ArrayList<Double>();
-		List<Double> marks = new ArrayList<Double>();
-		List<String> seriesLabels = new ArrayList<String>();
-
-		for (PracticeResult result : results)
-		{
-			logger.info("getSummaryChartValues: add Practice Result to list: result[" + result + "]");
-			totalPractices.add(Double.valueOf((double)result.getTotalPractices()));
-			marks.add(Double.valueOf((double)result.getMark())+0.0001);				// add 0.0001 as the pie chart do not show 0.0 value
-			seriesLabels.add(result.getGrade().getDescription());
-		}
-
-		List<List<Double>> yValues = new ArrayList<List<Double>>();
-		yValues.add(totalPractices);
-		yValues.add(marks);
-
-		ChartValues chartValues = new ChartValues();
-		chartValues.setYValues(yValues);
-		chartValues.setSeriesLabels(seriesLabels);
-		return chartValues;
-	}
-	 */
 	// Get total result of member most frequently grade of phonetic practice
 	public PracticeResult getTotalResultByFrequentGrade(Member member) {
 		return getTotalResultByGrade(member, phoneticPracticeHistoryDAO.getMostFrequentGradeIDbyMember(member));
@@ -410,51 +380,4 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 		practiceResultDAO.makePersistent(resultWithoutGrade);
 	}
 
-	/*
-	private List randomQuestions(Member member, List allQuestions, int total) {
-		List questions = new ArrayList();
-		int i = 0;
-		int maxlength = allQuestions.size();
-		Random generator = new Random();
-
-		if (member == null) {
-			if (maxlength < total)
-				questions = allQuestions;
-			else
-				questions = allQuestions.subList(0, total);
-			for (i=0; i<questions.size(); i++)
-				PhoneticQuestionUtil.findPronouncedLink((PhoneticQuestion)questions.get(i));
-			return questions;
-		}
-
-		while (i < total && i < allQuestions.size()) {
-			PhoneticQuestion question = (PhoneticQuestion) allQuestions.get(generator.nextInt(maxlength));
-			if (!questions.contains(question)) {
-				PhoneticQuestionUtil.findPronouncedLink(question);
-				questions.add(question);
-				i++;
-			}
-		}
-		return questions;
-	}*/
-
-	public static void main(String[] args)
-	{
-		/*
-		HibernateUtil.beginTransaction();
-		IPhoneticPracticeService s = (IPhoneticPracticeService) SpringUtil.getContext().getBean("phoneticPracticeService");
-		IMemberDAO mdao = (MemberDAO) SpringUtil.getContext().getBean("memberDAO");
-		IGradeDAO gdao = (GradeDAO) SpringUtil.getContext().getBean("gradeDAO");
-		try
-		{
-			Member member = (Member) mdao.findAll().get(0);
-			Grade grade = (Grade) gdao.getFirstLevelGrade();
-
-		}
-		catch (Exception e)
-		{
-			e.printStackinfo();
-		}
-		HibernateUtil.commitTransaction();*/
-	}
 }
