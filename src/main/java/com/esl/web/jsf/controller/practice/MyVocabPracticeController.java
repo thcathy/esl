@@ -1,23 +1,5 @@
 package com.esl.web.jsf.controller.practice;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.dao.IMemberWordDAO;
 import com.esl.model.MemberWord;
 import com.esl.model.PhoneticQuestion;
@@ -25,6 +7,16 @@ import com.esl.service.practice.IPhoneticPracticeService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.member.MemberWordController;
 import com.esl.web.model.practice.PhoneticQuestionHistory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import java.text.MessageFormat;
+import java.util.*;
 
 @Controller
 @Scope("session")
@@ -167,6 +159,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 		}
 		memberWord = memberWords.get(0);
 		phoneticPracticeService.findIPAAndPronoun(memberWord.getWord());
+
 		practicedWord.add(memberWord);
 		logger.info("getRandomQuestion: a random memberWord: word[" + memberWord.getWord() + "]");
 

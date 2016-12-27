@@ -1,12 +1,12 @@
 package com.esl.service.practice;
 
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
-
 import com.esl.entity.practice.MemberPracticeScoreCard;
 import com.esl.model.*;
 import com.esl.web.model.practice.VocabPracticeSummary;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 public interface IPhoneticPracticeService {
 	// Use for check answer
@@ -51,4 +51,7 @@ public interface IPhoneticPracticeService {
 	 * Update score card
 	 */
 	public MemberPracticeScoreCard updateScoreCard(Member member, Date today, boolean isCorrect, PhoneticQuestion question);
+
+	public void enrichVocabImageForQuestions(List<PhoneticQuestion> questions);
+	public void enrichVocabImageForQuestion(PhoneticQuestion questions);
 }

@@ -79,15 +79,19 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 		return practice;
 	}
 
-	private void enrichVocabImageForQuestions(List<PhoneticQuestion> questions) {
-		for (PhoneticQuestion question : questions) {
-			List<String> images = vocabImageDAO.listByWord(question.getWord()).stream()
-					.map(VocabImage::getBase64Image)
-					.collect(Collectors.toList());
-			Collections.shuffle(images);
+	@Override
+	public void enrichVocabImageForQuestions(List<PhoneticQuestion> questions) {
+		questions.forEach(this::enrichVocabImageForQuestion);
+	}
 
-			question.setPicsFullPaths(images.toArray(new String[1]));
-		}
+	@Override
+	public void enrichVocabImageForQuestion(PhoneticQuestion question) {
+		List<String> images = vocabImageDAO.listByWord(question.getWord()).stream()
+				.map(VocabImage::getBase64Image)
+				.collect(Collectors.toList());
+		Collections.shuffle(images);
+
+		question.setPicsFullPaths(images.toArray(new String[1]));
 	}
 
 	// Check Answer
