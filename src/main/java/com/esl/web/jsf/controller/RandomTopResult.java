@@ -1,28 +1,30 @@
 package com.esl.web.jsf.controller;
 
-import java.text.NumberFormat;
-import java.util.*;
-
-import javax.annotation.Resource;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.dao.IGradeDAO;
 import com.esl.entity.practice.PracticeMedal;
-import com.esl.model.*;
+import com.esl.model.PracticeResult;
+import com.esl.model.TopResult;
 import com.esl.model.TopResult.OrderType;
 import com.esl.service.medal.IPracticeMedalService;
 import com.esl.service.practice.ITopResultService;
 import com.esl.web.model.practice.Standing;
 import com.esl.web.model.practice.TopPracticeMedals;
 import com.esl.web.util.LanguageUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Controller
 @Scope("session")
 public class RandomTopResult extends ESLController {
-	private static org.slf4j.Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(RandomTopResult.class);
 	private final String bundleName = "messages.TopResult";
 
 	public enum TopType { Result, Medal };

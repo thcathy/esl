@@ -1,15 +1,5 @@
 package com.esl.service.practice;
 
-import java.sql.Date;
-
-import javax.annotation.Resource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.dao.practice.IMemberPracticeScoreCardDAO;
 import com.esl.entity.practice.MemberPracticeScoreCard;
@@ -19,10 +9,18 @@ import com.esl.exception.IllegalParameterException;
 import com.esl.model.Member;
 import com.esl.model.PhoneticQuestion;
 import com.esl.util.practice.PhoneticQuestionUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.sql.Date;
 
 @Service("irregularVerbPracticeService")
 public class IrregularVerbPracticeService implements IIrregularVerbPracticeService {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(IrregularVerbPracticeService.class);
 
 	// supporting class
 	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;

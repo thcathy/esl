@@ -1,16 +1,5 @@
 package com.esl.service.medal;
 
-import java.sql.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.esl.dao.practice.IMemberPracticeScoreCardDAO;
 import com.esl.dao.practice.IPracticeMedalDAO;
 import com.esl.entity.practice.MemberPracticeScoreCard;
@@ -19,11 +8,20 @@ import com.esl.enumeration.ESLPracticeType;
 import com.esl.enumeration.Medal;
 import com.esl.exception.IllegalParameterException;
 import com.esl.util.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.sql.Date;
+import java.util.List;
 
 @Transactional
 @Service("practiceMedalService")
 public class PracticeMedalService implements IPracticeMedalService {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(PracticeMedalService.class);
 
 
 	// supporting class

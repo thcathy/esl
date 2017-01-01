@@ -18,7 +18,7 @@ import com.esl.model.practice.PhoneticSymbols.Level;
 @Transactional
 @Repository("practiceResultDAO")
 public class PracticeResultDAO extends ESLDao<PracticeResult> implements IPracticeResultDAO {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(PracticeResultDAO.class);
 
 	public static int TOP_RESULT_QUANTITY = 10;
 	public static int MIN_FULL_MARK = 20;

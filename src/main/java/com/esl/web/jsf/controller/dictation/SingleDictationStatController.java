@@ -15,7 +15,7 @@ import javax.faces.context.FacesContext;
 @Controller
 @Scope("request")
 public class SingleDictationStatController extends ESLController {
-	private final Logger logger = LoggerFactory.getLogger("ESL");
+	private final Logger logger = LoggerFactory.getLogger(SingleDictationStatController.class);
 	private static String bundleName = "messages.member.Dictation";
 
 	//	 Supporting instance

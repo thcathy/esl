@@ -1,19 +1,18 @@
 package com.esl.util.practice;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import com.esl.entity.practice.GrammarPractice;
 import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.HtmlUtils;
 
-import com.esl.entity.practice.GrammarPractice;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GrammarPracticeGenerator {
-	private static Logger log = LoggerFactory.getLogger("ESL");
+	private static Logger log = LoggerFactory.getLogger(GrammarPracticeGenerator.class);
 
 	static public List<String> retrieveQuestions(GrammarPractice practice)  {
 		if (practice == null || practice.getPassage() == null) return null;

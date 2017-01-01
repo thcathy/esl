@@ -1,19 +1,17 @@
 package com.esl.web.lifecycle;
 
-import java.util.Locale;
-import java.util.Map;
-
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
-import org.slf4j.LoggerFactory;
-
 import com.esl.web.jsf.controller.LanguageController;
 import com.esl.web.model.UserSession;
 import com.sun.faces.application.view.MultiViewHandler;
+import org.slf4j.LoggerFactory;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import java.util.Locale;
+import java.util.Map;
 
 public class ESLViewHandler extends MultiViewHandler {
-	private static org.slf4j.Logger logger = LoggerFactory.getLogger("ESL");
+	private static org.slf4j.Logger logger = LoggerFactory.getLogger(ESLViewHandler.class);
 
 
 	@Override

@@ -1,27 +1,25 @@
 package com.esl.service;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-
+import com.esl.dao.INewsDAO;
+import com.esl.entity.News;
+import com.esl.enumeration.ESLSupportedLocale;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.esl.dao.INewsDAO;
-import com.esl.entity.News;
-import com.esl.enumeration.ESLSupportedLocale;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service("newsService")
 public class NewsService {
 	// Logging
-	private static Logger log = LoggerFactory.getLogger("ESL");
+	private static Logger log = LoggerFactory.getLogger(NewsService.class);
 	private static String htmlFilesFolder = "/com/esl/news/html/";
 
 	private Map<String, List<News>> newsMap;

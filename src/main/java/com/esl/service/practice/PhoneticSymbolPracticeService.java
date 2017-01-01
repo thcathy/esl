@@ -1,19 +1,5 @@
 package com.esl.service.practice;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.esl.entity.practice.MemberPracticeScoreCard;
 import com.esl.enumeration.ESLPracticeType;
 import com.esl.exception.IllegalParameterException;
@@ -23,11 +9,19 @@ import com.esl.model.PracticeResult;
 import com.esl.model.practice.PhoneticSymbols;
 import com.esl.model.practice.PhoneticSymbols.Level;
 import com.esl.web.model.practice.PhoneticPracticeSummary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.util.*;
 
 @Service("phoneticSymbolPracticeService")
 @Transactional
 public class PhoneticSymbolPracticeService extends PhoneticPracticeService implements IPhoneticSymbolPracticeService {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(PhoneticSymbolPracticeService.class);
 
 	/**
 	 * Check answer for phonetic symbol practice

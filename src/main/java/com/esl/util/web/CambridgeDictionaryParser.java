@@ -1,7 +1,6 @@
 package com.esl.util.web;
 
 import com.esl.model.practice.PhoneticSymbols;
-import com.esl.util.SourceChecker;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -10,17 +9,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.net.HttpURLConnection;
-import java.text.MessageFormat;
 
-public class CambridgeDictionaryParser implements SourceChecker, DictionaryParser {
-	private Logger logger = LoggerFactory.getLogger("ESL");
+public class CambridgeDictionaryParser implements DictionaryParser {
+	private Logger logger = LoggerFactory.getLogger(CambridgeDictionaryParser.class);
 
 	final String URLPrefix = "http://dictionary.cambridge.org/dictionary/british/";
 	
 	String ipa;
 	String audioLink;
 	String query;			// input word
-	String expectedContent; 	// used for SourceChecker
 
 	// ------------------------ getter / setter --------------------- //
 	public CambridgeDictionaryParser(String query) {
@@ -33,9 +30,6 @@ public class CambridgeDictionaryParser implements SourceChecker, DictionaryParse
 
 	public String getIpa() {return this.ipa;}
 	public String getAudioLink() {return this.audioLink;}
-
-	public void setParsedContentCheck(String expected) {this.expectedContent = expected;}
-	public String getParsedContentCheck() { return expectedContent;}
 
 	// ------------------------ function --------------------- //
 	public boolean parse() {
@@ -64,21 +58,6 @@ public class CambridgeDictionaryParser implements SourceChecker, DictionaryParse
 		}
 		return isContentFind();
 	}
-
-//	private void extractIPA(String line, int lastPos) {
-//		line = PhoneticSymbols.unescapeNumericHTML(line);
-//		int startPos = line.indexOf(IPAPrefix, lastPos);
-//		int endPos = line.indexOf("/", startPos + IPAPrefix.length());
-//		int endPosOfSmallThan = line.indexOf("<", startPos + IPAPrefix.length());
-//		if (endPosOfSmallThan > 0 && endPosOfSmallThan < endPos) {
-//			endPos = endPosOfSmallThan;
-//		}
-//
-//		// only set the IPA if the ipa found within limit
-//		if (startPos > 0 && startPos < (lastPos + IPAPositionLimit)) {
-//			ipa = PhoneticSymbols.filterIPA(PhoneticSymbols.convertGoogleIPA(line.substring(startPos + IPAPrefix.length(), endPos)));
-//		}
-//	}
 	
 	private String concatURL() {
 		return URLPrefix + query;
@@ -92,19 +71,4 @@ public class CambridgeDictionaryParser implements SourceChecker, DictionaryParse
 		return URLPrefix + query + "_2?q=" + query;
 	}
 
-	@Override
-	public String getSourceLink() {
-		return concatURL() + " or " + concatURL2();
-	}
-
-	@Override
-	public String getParsedContent() {
-		return MessageFormat.format("[ipa:{0}],[audioLink:{1}]", ipa, audioLink);
-	}
-
-
-	@Override
-	public boolean isContentCorrect() {
-		return getParsedContent().equals(expectedContent);
-	}
 }

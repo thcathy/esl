@@ -1,24 +1,22 @@
 package com.esl.service.medal;
 
-import java.sql.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.esl.dao.practice.IMemberPracticeScoreCardDAO;
+import com.esl.entity.practice.MemberPracticeScoreCard;
+import com.esl.exception.IllegalParameterException;
+import com.esl.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.dao.practice.IMemberPracticeScoreCardDAO;
-import com.esl.entity.practice.MemberPracticeScoreCard;
-import com.esl.exception.IllegalParameterException;
-import com.esl.util.DateUtil;
+import javax.annotation.Resource;
+import java.sql.Date;
+import java.util.List;
 
 @Service("memberPracticeScoreCardService")
 public class MemberPracticeScoreCardService implements IMemberPracticeScoreCardService {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(MemberPracticeScoreCardService.class);
 
 	// supporting class
 	@Resource private IMemberPracticeScoreCardDAO scoreCardDAO;

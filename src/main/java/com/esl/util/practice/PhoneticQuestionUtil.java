@@ -20,7 +20,7 @@ import static org.apache.commons.lang3.CharEncoding.UTF_8;
 
 @Service("phoneticQuestionUtil")
 public class PhoneticQuestionUtil {	
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(PhoneticQuestionUtil.class);
 	
 	@Value("${PhoneticQuestion.useSecondaryPronounceLink}") private boolean USE_SEC_PRO_LINK = false; 
 

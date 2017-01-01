@@ -19,7 +19,7 @@ import com.esl.util.DateUtil;
 @Transactional
 @Repository("memberPracticeScoreCardDAO")
 public class MemberPracticeScoreCardDAO extends ESLDao<MemberPracticeScoreCard> implements IMemberPracticeScoreCardDAO {
-	private static org.slf4j.Logger logger = LoggerFactory.getLogger("ESL");
+	private static org.slf4j.Logger logger = LoggerFactory.getLogger(MemberPracticeScoreCardDAO.class);
 
 	public MemberPracticeScoreCard getScoreCard(Member member, ESLPracticeType practiceType, Date scoreCardDate) {
 		final String logPrefix = "getScoreCard: ";

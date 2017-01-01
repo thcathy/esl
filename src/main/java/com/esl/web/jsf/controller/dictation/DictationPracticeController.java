@@ -1,18 +1,5 @@
 package com.esl.web.jsf.controller.dictation;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.dictation.IDictationDAO;
 import com.esl.dao.dictation.IDictationHistoryDAO;
@@ -33,6 +20,17 @@ import com.esl.web.jsf.controller.CheckPasswordController;
 import com.esl.web.jsf.controller.UserCreatedPracticeController;
 import com.esl.web.model.practice.ScoreBar;
 import com.esl.web.util.LanguageUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @SuppressWarnings("serial")
 @Controller
@@ -41,7 +39,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 	public static int SCOREBAR_FULLLENGTH = 500;
 	public static int BASE_RATING = 3;
 
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(DictationPracticeController.class);
 	private static final String bundleName = "messages.member.Dictation";
 	private static final String startDictationURL = "/member/dictation/open.jsf?id=";
 	private static final String startView = "/member/dictation/start";

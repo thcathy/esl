@@ -18,7 +18,7 @@ import com.esl.util.DateUtil;
 @Transactional
 @Repository("practiceMedalDAO")
 public class PracticeMedalDAO extends ESLDao<PracticeMedal> implements IPracticeMedalDAO {
-	private static org.slf4j.Logger logger = LoggerFactory.getLogger("ESL");
+	private static org.slf4j.Logger logger = LoggerFactory.getLogger(PracticeMedalDAO.class);
 
 	@Override
 	@SuppressWarnings("unchecked")

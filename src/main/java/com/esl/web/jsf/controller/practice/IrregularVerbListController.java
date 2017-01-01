@@ -1,25 +1,23 @@
 package com.esl.web.jsf.controller.practice;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-
+import com.esl.dao.practice.IIrregularVerbDAO;
+import com.esl.entity.practice.qa.IrregularVerb;
+import com.esl.util.BeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.esl.dao.practice.IIrregularVerbDAO;
-import com.esl.entity.practice.qa.IrregularVerb;
-import com.esl.util.BeanUtil;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A application scoped controller contains all irregular verbs
  */
 @Service("irregularVerbListController")
 public class IrregularVerbListController {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(IrregularVerbListController.class);
 
 	//	 Supporting instance
 	@Resource private IIrregularVerbDAO irregularVerbDAO;

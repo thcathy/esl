@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class PhoneticQuestionService {
-    private static Logger log = LoggerFactory.getLogger("ESL");
+    private static Logger log = LoggerFactory.getLogger(PhoneticQuestionService.class);
 
     @Resource private IVocabImageDAO vocabImageDao;
     @Resource private WebParserRestService webService;

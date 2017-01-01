@@ -10,7 +10,7 @@ import com.esl.entity.dictation.UserCreatedPractice;
 @SuppressWarnings("serial")
 public abstract class UserCreatedPracticeController<T extends UserCreatedPractice> extends ESLController {
 
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(UserCreatedPracticeController.class);
 	private boolean isRecommended = false;
 
 	private IESLDao<T> eslDao;

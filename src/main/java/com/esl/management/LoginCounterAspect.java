@@ -1,17 +1,16 @@
 package com.esl.management;
 
-import javax.annotation.Resource;
-
+import com.esl.service.IMembershipService;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.esl.service.IMembershipService;
+import javax.annotation.Resource;
 
 @Aspect
 public class LoginCounterAspect {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(LoginCounterAspect.class);
 
 	@Resource
 	private LoginMBean loginBean;

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class PhoneticSymbols {
-	private static org.slf4j.Logger log = LoggerFactory.getLogger("ESL");
+	private static org.slf4j.Logger log = LoggerFactory.getLogger(PhoneticSymbol.class);
 
 	// Difficulties for phonetic symbols practice
 	public enum Level {

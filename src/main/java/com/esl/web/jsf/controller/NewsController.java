@@ -1,27 +1,25 @@
 package com.esl.web.jsf.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.faces.context.FacesContext;
-
+import com.esl.dao.INewsDAO;
+import com.esl.dao.NewsDAO;
+import com.esl.entity.News;
+import com.esl.service.NewsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.esl.dao.INewsDAO;
-import com.esl.dao.NewsDAO;
-import com.esl.entity.News;
-import com.esl.service.NewsService;
+import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.List;
 
 @Controller
 @Scope("session")
 public class NewsController extends ESLController {
 	private static final long serialVersionUID = 1L;
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(NewsController.class);
 
 	private static String singleNewsView = "/public/news/singlenews";
 	private static String newsView = "/public/news/news";

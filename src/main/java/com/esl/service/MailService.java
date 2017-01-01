@@ -1,29 +1,27 @@
 package com.esl.service;
 
-import java.io.Serializable;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
+import com.esl.dao.IMemberDAO;
+import com.esl.exception.ESLSystemException;
+import com.esl.exception.IllegalParameterException;
+import com.esl.model.Member;
+import com.esl.web.model.ContactUsForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.dao.IMemberDAO;
-import com.esl.exception.ESLSystemException;
-import com.esl.exception.IllegalParameterException;
-import com.esl.model.Member;
-import com.esl.web.model.ContactUsForm;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.Serializable;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 @Transactional
 public class MailService implements IMailService, Serializable {
 	// Logging
-	private static Logger log = LoggerFactory.getLogger("ESL");
+	private static Logger log = LoggerFactory.getLogger(MailService.class);
 
 	private String primaryMailAddress;
 	private JavaMailSenderImpl mailSender;

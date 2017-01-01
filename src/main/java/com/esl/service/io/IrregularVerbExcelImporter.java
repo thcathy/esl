@@ -1,16 +1,15 @@
 package com.esl.service.io;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import com.esl.dao.practice.IIrregularVerbDAO;
+import com.esl.entity.practice.qa.IrregularVerb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.esl.dao.practice.IIrregularVerbDAO;
-import com.esl.entity.practice.qa.IrregularVerb;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class IrregularVerbExcelImporter implements IExcelImporter {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(IrregularVerbExcelImporter.class);
 	private static final String SELECT_SQL = "select [present], [present participle], [past], [past participle] from [IrregularVerb$]";
 
 	private IIrregularVerbDAO irregularVerbDAO;

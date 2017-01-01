@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Service("phoneticPracticeService")
 @Transactional
 public class PhoneticPracticeService implements IPhoneticPracticeService {
-	private static org.slf4j.Logger logger = LoggerFactory.getLogger("ESL");
+	private static org.slf4j.Logger logger = LoggerFactory.getLogger(PhoneticPracticeService.class);
 
 	@Resource protected IMemberDAO memberDAO = null;
 	@Resource protected IGradeDAO gradeDAO = null;

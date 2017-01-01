@@ -14,7 +14,7 @@ import java.util.List;
 @Scope("session")
 public class VocabImageController extends ESLController {
 	private static final long serialVersionUID = 1L;
-	private static Logger log = LoggerFactory.getLogger("ESL");
+	private static Logger log = LoggerFactory.getLogger(VocabImageController.class);
 
 	private static String imagesView = "/manage/vocabimage";
 	private static int maxImage = 500;

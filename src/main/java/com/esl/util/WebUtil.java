@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class WebUtil {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(WebUtil.class);
 	public static int MAX_QUERY_RESULT = 50;
 
 	private static WebParserRestService service = null;

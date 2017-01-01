@@ -1,19 +1,20 @@
 package com.esl.web.jsf.controller.practice;
 
-import java.util.*;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
+import com.esl.entity.practice.GrammarPractice;
+import com.esl.service.practice.IGrammarPracticeService;
+import com.esl.util.practice.GrammarPracticeGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.esl.entity.practice.GrammarPractice;
-import com.esl.service.practice.IGrammarPracticeService;
-import com.esl.util.practice.GrammarPracticeGenerator;
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Controller
 @Scope("session")
@@ -24,8 +25,7 @@ public class GrammarPracticeController extends BaseWithScoreBarController {
 	private static String QUESTION_PATTERN = "&nbsp;&nbsp;\\(\\d+\\)&nbsp;&nbsp;";
 	private static String ANSWER_PATTERN = "{number}){answer}";
 
-	private static Logger logger = LoggerFactory.getLogger("ESL");
-	private static Logger grammarLogger = LoggerFactory.getLogger("Grammar");
+	private static Logger logger = LoggerFactory.getLogger(GrammarPracticeController.class);
 	private static final String bundleName = "messages.practice.Grammar";
 	private static final String quickStartView = "/practice/grammar/quick";
 	private static final String practiceView = "/practice/grammar/practice";
@@ -67,7 +67,7 @@ public class GrammarPracticeController extends BaseWithScoreBarController {
 
 		setupInputAnswers();
 
-		grammarLogger.info(inputPassage);
+		logger.info(inputPassage);
 
 		return practiceView;
 	}

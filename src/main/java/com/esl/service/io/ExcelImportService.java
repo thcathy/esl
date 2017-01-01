@@ -1,12 +1,12 @@
 package com.esl.service.io;
 
-import java.sql.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.*;
+
 public class ExcelImportService implements IStaticDataImportService {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(ExcelImportService.class);
 	private static final String DRIVER_NAME = "sun.jdbc.odbc.JdbcOdbcDriver";
 	private static final String CONNECTION_STRING = "jdbc:odbc:Driver={Microsoft Excel Driver (*.xls)};DriverID=22;READONLY=true;DBQ=";
 	private String databasePath = "D:/Upload/esl_data.xls";

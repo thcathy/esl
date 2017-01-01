@@ -1,16 +1,15 @@
 package com.esl.service.io;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-
+import com.esl.dao.practice.IIrregularVerbDAO;
+import com.esl.entity.practice.qa.IrregularVerb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.esl.dao.practice.IIrregularVerbDAO;
-import com.esl.entity.practice.qa.IrregularVerb;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 public class IrregularVerbCSVImporter implements ICSVImporter {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(IrregularVerbCSVImporter.class);
 
 	private String filePath = "f:/upload/irregularverb.csv";
 

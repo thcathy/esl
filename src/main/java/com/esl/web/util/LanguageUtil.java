@@ -1,19 +1,23 @@
 package com.esl.web.util;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
-
+import com.esl.entity.practice.PracticeMedal;
+import com.esl.model.Grade;
+import com.esl.model.PhoneticQuestion;
+import com.esl.model.TopResult;
+import com.esl.model.practice.PhoneticSymbols.Level;
+import com.esl.web.model.practice.TopPracticeMedals;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.esl.entity.practice.PracticeMedal;
-import com.esl.model.*;
-import com.esl.model.practice.PhoneticSymbols.Level;
-import com.esl.web.model.practice.TopPracticeMedals;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 public class LanguageUtil {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(LanguageUtil.class);
 
 	/**
 	 * Set TopResult title, longTitle and Grade Title

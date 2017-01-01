@@ -1,30 +1,5 @@
 package com.esl.service.dictation;
 
-import static com.esl.entity.dictation.DictationSearchCriteria.Accessible;
-import static com.esl.entity.dictation.DictationSearchCriteria.CreatorName;
-import static com.esl.entity.dictation.DictationSearchCriteria.Description;
-import static com.esl.entity.dictation.DictationSearchCriteria.MaxAge;
-import static com.esl.entity.dictation.DictationSearchCriteria.MaxDate;
-import static com.esl.entity.dictation.DictationSearchCriteria.MinAge;
-import static com.esl.entity.dictation.DictationSearchCriteria.MinDate;
-import static com.esl.entity.dictation.DictationSearchCriteria.NotRequirePassword;
-import static com.esl.entity.dictation.DictationSearchCriteria.Tag;
-import static com.esl.entity.dictation.DictationSearchCriteria.Title;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.annotation.Resource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.esl.dao.dictation.IDictationDAO;
 import com.esl.dao.dictation.IDictationHistoryDAO;
 import com.esl.entity.dictation.Dictation;
@@ -34,11 +9,25 @@ import com.esl.model.Member;
 import com.esl.web.model.SearchDictationInputForm;
 import com.esl.web.model.dictation.DictationStatistics;
 import com.esl.web.model.dictation.DictationSummary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import static com.esl.entity.dictation.DictationSearchCriteria.*;
 
 @Transactional
 @Service("dictationStatService")
 public class DictationStatService implements IDictationStatService {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(DictationStatService.class);
 	public static int maxDictationStatistics = 5;
 
 	// supporting class

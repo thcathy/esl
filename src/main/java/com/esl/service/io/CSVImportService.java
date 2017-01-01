@@ -1,12 +1,12 @@
 package com.esl.service.io;
 
-import java.io.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.*;
+
 public class CSVImportService implements IStaticDataImportService {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(CSVImportService.class);
 
 	private ICSVImporter[] importers;
 

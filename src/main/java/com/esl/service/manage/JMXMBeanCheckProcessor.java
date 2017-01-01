@@ -1,19 +1,19 @@
 package com.esl.service.manage;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.management.MBeanServerConnection;
-import javax.management.ObjectName;
-import javax.management.remote.*;
-
+import com.esl.service.IMailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.esl.service.IMailService;
+import javax.management.MBeanServerConnection;
+import javax.management.ObjectName;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JMXMBeanCheckProcessor {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(JMXMBeanCheckProcessor.class);
 
 
 	List<JMXMBeanChecker> checkers = new ArrayList<JMXMBeanChecker>();

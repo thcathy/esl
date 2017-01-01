@@ -1,22 +1,7 @@
 package com.esl.service.dictation;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.esl.dao.IMemberDAO;
-import com.esl.dao.dictation.IDictationDAO;
-import com.esl.dao.dictation.IDictationHistoryDAO;
-import com.esl.dao.dictation.IMemberDictationHistoryDAO;
-import com.esl.dao.dictation.IVocabDAO;
-import com.esl.dao.dictation.IVocabHistoryDAO;
+import com.esl.dao.dictation.*;
 import com.esl.entity.dictation.Dictation;
 import com.esl.entity.dictation.DictationHistory;
 import com.esl.entity.dictation.MemberDictationHistory;
@@ -25,11 +10,20 @@ import com.esl.exception.BusinessValidationException;
 import com.esl.exception.IllegalParameterException;
 import com.esl.model.Member;
 import com.esl.model.group.MemberGroup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("dictationManageService")
 @Transactional
 public class DictationManageService implements IDictationManageService {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(DictationManageService.class);
 
 	public static int MAX_VOCABS = 100;
 

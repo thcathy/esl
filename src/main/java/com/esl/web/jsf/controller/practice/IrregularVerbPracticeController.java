@@ -1,21 +1,22 @@
 package com.esl.web.jsf.controller.practice;
 
-import java.util.*;
-
-import javax.annotation.Resource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.dao.practice.IIrregularVerbDAO;
 import com.esl.entity.practice.qa.IrregularVerb;
 import com.esl.model.PhoneticQuestion;
 import com.esl.service.practice.IIrregularVerbPracticeService;
 import com.esl.web.model.practice.IrregularVerbPracticeHistory;
 import com.esl.web.model.practice.IrregularVerbPracticeHistoryUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 @Controller
 @Scope("session")
@@ -24,7 +25,7 @@ public class IrregularVerbPracticeController extends BaseWithScoreBarController 
 	public static int MARK_PER_QUESTION_WO_PP = 3;
 	public static int MARK_PER_QUESTION_WITH_PP = 3;
 
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(IrregularVerbPracticeController.class);
 	private static final String bundleName = "messages.practice.IrregularVerbPractice";
 	private static final String practiceView = "/practice/irregularverb/practice";
 	private static final String resultView = "/practice/irregularverb/result";

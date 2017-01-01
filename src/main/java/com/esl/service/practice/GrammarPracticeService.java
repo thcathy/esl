@@ -1,21 +1,20 @@
 package com.esl.service.practice;
 
-import java.util.List;
-
+import com.esl.entity.practice.*;
+import com.esl.entity.practice.GrammarPractice.PracticeType;
+import com.esl.entity.practice.GrammarPractice.QuestionFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.entity.practice.*;
-import com.esl.entity.practice.GrammarPractice.PracticeType;
-import com.esl.entity.practice.GrammarPractice.QuestionFormat;
+import java.util.List;
 
 @Transactional
 @Service("grammarPracticeService")
 public class GrammarPracticeService implements IGrammarPracticeService {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(GrammarPracticeService.class);
 
 	@Value("${GrammarPractice.MaxQuestions}")
 	private int maxQuestions = 10;

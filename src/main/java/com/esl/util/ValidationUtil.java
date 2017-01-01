@@ -1,13 +1,14 @@
 package com.esl.util;
 
-import java.text.*;
-import java.util.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ValidationUtil {
-	private static Logger log = LoggerFactory.getLogger("ESL");
+	private static Logger log = LoggerFactory.getLogger(ValidationUtil.class);
 	
 	public static boolean isEmailAddress(final String aEmailAddress)
 	{

@@ -13,7 +13,7 @@ import com.esl.entity.practice.qa.IrregularVerb;
 
 @Repository("irregularVerbDAO")
 public class IrregularVerbDAO extends ESLDao<IrregularVerb> implements IIrregularVerbDAO {
-	private static Logger logger = LoggerFactory.getLogger("ESL");
+	private static Logger logger = LoggerFactory.getLogger(IrregularVerbDAO.class);
 
 	@SuppressWarnings("unchecked")
 	@Override
