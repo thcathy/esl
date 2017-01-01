@@ -208,11 +208,11 @@
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
 			<version>2.2.12</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>org.richfaces</groupId>
 			<artifactId>richfaces</artifactId>
-			<version>4.5.8.Final</version>
+			<version>4.5.17.Final</version>
 		</dependency>
 
 		<dependency>
@@ -229,6 +229,11 @@
 					<groupId>xml-apis</groupId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.0</version>
 		</dependency>
 		<!-- JSF 2.0 (END) -->
 		
