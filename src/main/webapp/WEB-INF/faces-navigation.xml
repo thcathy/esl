@@ -39,14 +39,6 @@
 			<to-view-id>/public/about.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>contactus</from-outcome>
-			<to-view-id>/public/contactus.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>public/news</from-outcome>
-			<to-view-id>/public/news.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-action>#{authenticationController.login}</from-action>
 			<from-outcome>member/index</from-outcome>
 			<to-view-id>/member/index.xhtml</to-view-id>
@@ -61,11 +53,6 @@
 			<from-outcome>member/index</from-outcome>
 			<to-view-id>/member/index.xhtml</to-view-id>
 		</navigation-case>
-		<navigation-case>
-			<from-action>#{teamController.showTeams}</from-action>
-			<from-outcome>member/team/teams</from-outcome>
-			<to-view-id>/member/team/teams.xhtml</to-view-id>
-		</navigation-case>		
 		<navigation-case>
 			<from-action>#{authenticationController.login}</from-action>
 			<from-outcome>error/wrongpassword</from-outcome>
@@ -217,52 +204,7 @@
 			<to-view-id>/practice/irregularverb/practice.xhtml</to-view-id>
 		</navigation-case>		
 	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/practice/irregularverb/practice.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>practice/irregularverb/result</from-outcome>
-			<to-view-id>/practice/irregularverb/result.xhtml</to-view-id>
-		</navigation-case>		
-	</navigation-rule>	
-	
-	<!-- navigation-rules for Team (Member Group)  -->
-	<navigation-rule>
-		<from-view-id>/member/team/teams.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>member/team/createteam</from-outcome>
-			<to-view-id>/member/team/createteam.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>member/team/team</from-outcome>
-			<to-view-id>/member/team/team.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/member/team/createteam.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>member/team/createteam2</from-outcome>
-			<to-view-id>/member/team/createteam2.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/member/team/team.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>member/team/update</from-outcome>
-			<to-view-id>/member/team/update.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>member/team/leave</from-outcome>
-			<to-view-id>/member/team/leave.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/member/team/update.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>member/team/team</from-outcome>
-			<to-view-id>/member/team/team.xhtml</to-view-id>
-		</navigation-case>		
-	</navigation-rule>
-	
+
 	<!-- navigation-rules for My Vocab  -->
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
@@ -298,11 +240,6 @@
 		<navigation-case>			
 			<from-outcome>member/dictation/search</from-outcome>
 			<to-view-id>/member/dictation/search.xhtml</to-view-id>
-		</navigation-case>	
-		<navigation-case>
-			<from-action>#{dictationManageController.launchSingleView}</from-action>
-			<from-outcome>member/dictation/singleview</from-outcome>
-			<to-view-id>/member/dictation/singleview.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>

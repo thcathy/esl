@@ -36,8 +36,7 @@
 		});
 		
 		function updateAfterSubmit() {
-			animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());			
-			resetImage(jQuery('#hiddenPicPaths').val().split(','));			
+			animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
 			jQuery('#practiceDiv\\:inputForm\\:answer').keydown(answerEnterEvent);
 			jQuery('#practiceDiv\\:inputForm\\:answer').focus();
 			

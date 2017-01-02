@@ -3,9 +3,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"	
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 
 <composite:interface>
@@ -31,14 +28,6 @@
 		}
 	}
 
-	function resetImage(newPicPaths) {
-		picPaths = newPicPaths;
-		imageCount = 0;
-		if (#{cc.attrs.showImage} && #{userSession.showGoogleImage}) {
-			showImage();
-		}
-	}
-
 	function changeImg() {
 		imageCount = imageCount + 1;
 		if (imageCount >= picPaths.length) imageCount = 0;
@@ -47,8 +36,8 @@
 	}
 	//]]>
     </script>
-    
-<a4j:outputPanel id="googleImagePanel">
+
+<h:panelGroup id="googleImagePanel">
 	<div id="gImageContent" class="w3-accordion-content w3-show w3-center">
 		<div class="w3-display-container w3-padding-top">
 			<img id="vocabImage" src="" alt="No Image" style="max-width: 300px; max-height:300px; width: auto;" />
@@ -62,7 +51,7 @@
 		showImage();
 	//]]>
 	</script>
-</a4j:outputPanel>
+</h:panelGroup>
 
 </composite:implementation>
 </html>

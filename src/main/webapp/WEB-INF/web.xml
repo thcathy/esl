@@ -17,10 +17,10 @@
 		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
 		<param-value>/WEB-INF/taglib/esl.taglib.xml</param-value>
 	</context-param>
-	<context-param>
+	<!--<context-param>
 		<param-name>org.apache.myfaces.USE_ENCRYPTION</param-name>
 		<param-value>false</param-value>
-	</context-param>	
+	</context-param>	-->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -76,11 +76,11 @@
 		<url-pattern>*.jsf</url-pattern>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-	<context-param>
+	<!--<context-param>
 		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
-	</context-param>
+	</context-param>-->
 	<context-param>
 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
 		<param-value>resources.application</param-value>
