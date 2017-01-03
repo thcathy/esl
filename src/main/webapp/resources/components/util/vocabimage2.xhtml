@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:composite="http://java.sun.com/jsf/composite">
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:t="http://myfaces.apache.org/tomahawk"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:composite="http://java.sun.com/jsf/composite" xmlns:p="http://java.sun.com/jsf/html">
 
 <composite:interface>
 	<composite:attribute name="picPaths" required="true"/>
@@ -11,47 +14,18 @@
 </composite:interface>
 
 <composite:implementation>
-	<script id="searchCallback" type="text/javascript" src=""></script>
-	<script type="text/javascript">
-	//<![CDATA[    
-	var picPaths = '#{cc.attrs.picPaths}'.split('^_^');
-    var imageCount = 0;
-    
-    function showImage() {
-		if (picPaths.length < 1) {
-			jQuery('#gImageContent').html('#{generalMsg.imageNA}');
-		} else {
-			jQuery('#vocabImage').attr("src", picPaths[imageCount]);
-			
-			if (picPaths.length == 1) {jQuery('#nextImage').hide();}
-			else {jQuery('#nextImage').show();}
-		}
-	}
-
-	function changeImg() {
-		imageCount = imageCount + 1;
-		if (imageCount >= picPaths.length) imageCount = 0;
-
-		jQuery('#vocabImage').attr("src", picPaths[imageCount]);
-	}
-	//]]>
-    </script>
-
-<h:panelGroup id="googleImagePanel">
-	<div id="gImageContent" class="w3-accordion-content w3-show w3-center">
-		<div class="w3-display-container w3-padding-top">
-			<img id="vocabImage" src="" alt="No Image" style="max-width: 300px; max-height:300px; width: auto;" />
-			<div id="nextImage" class="w3-display-topright w3-container">
-				<span class="w3-hover-green" onclick="changeImg()"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+	<script type="text/javascript" src="${request.contextPath}/js/vocabimage.js"></script>
+	<p:panelGroup id="googleImagePanel">
+		<div id="gImageContent" class="w3-accordion-content w3-show w3-center">
+			<div class="w3-display-container w3-padding-top">
+				<img id="vocabImage" src="" alt="No Image" style="max-width: 300px; max-height:300px; width: auto;" />
+				<div id="nextImage" class="w3-display-topright w3-container">
+					<span class="w3-hover-green" onclick="changeImg()"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+				</div>
 			</div>
 		</div>
-	</div>
-	<script language="Javascript" type="text/javascript">
-	//<![CDATA[
-		showImage();
-	//]]>
-	</script>
-</h:panelGroup>
+		<div id="hiddenPicPaths" style="display:none;">#{cc.attrs.picPaths}</div>
+	</p:panelGroup>
 
 </composite:implementation>
 </html>

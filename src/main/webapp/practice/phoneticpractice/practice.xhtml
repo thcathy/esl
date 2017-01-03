@@ -2,23 +2,18 @@
 					xmlns:ui="http://java.sun.com/jsf/facelets"
 					xmlns:h="http://java.sun.com/jsf/html"
 					xmlns:f="http://java.sun.com/jsf/core"
-					xmlns:t="http://myfaces.apache.org/tomahawk"
-					xmlns:c="http://java.sun.com/jsp/jstl/core"
-					xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-					xmlns:a4j="http://richfaces.org/a4j"
-					xmlns:rich="http://richfaces.org/rich"
+					xmlns:p="http://primefaces.org/ui"
 					xmlns:esl="http://www.funfunspell.com/jsf"
 					xmlns:util="http://java.sun.com/jsf/composite/components/util"
 					template="/template/short.xhtml">
 
 <ui:define name="subTitle">#{htmlHeadMsg.practice_phoneticpractice_practice_title}</ui:define>
 <ui:define name="head">
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
 	<meta name="keywords" content="#{htmlHeadMsg.practice_phoneticpractice_practice_desc}" />
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script type="text/javascript" src="${request.contextPath}/js/jquery-ui-1.7.2.custom.min.js"></script>
 	<script type="text/javascript">
 	//<![CDATA[
-	jQuery.noConflict();
 
 	var answerEnterEvent = function(event) {
 		var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
@@ -28,15 +23,19 @@
 		}
 	};
 
-	jQuery(document).ready(function() {
+	$(window).load(function(){
+		console.log("when window load");
 		jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
 		jQuery('#inputForm\\:answer').focus();
+		showImage();
 	});
 
 	function updateAfterSubmit() {
+		console.log("updateAfterSubmit");
 		animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
 		jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
 		jQuery('#inputForm\\:answer').focus();
+		showImage();
 	}
 	//]]>
 	</script>
@@ -47,20 +46,19 @@
 
 	<div class="w3-container w3-green">
 		<h3>
-			<a4j:outputPanel id="topHeader">
+			<h:panelGroup id="topHeader">
 				<h:outputFormat value="#{phonPracticeMsg.practiceQuestionTitle}">
 					<f:param value="#{phoneticPracticeController.practice.currentQuestion+1}"/>
 					<f:param value="#{phoneticPracticeController.practice.totalQuestions}"/>
 				</h:outputFormat>
-			</a4j:outputPanel>
+			</h:panelGroup>
 			<span class="w3-right w3-hide-small"><i class="fa fa-pencil-square" aria-hidden="true"></i> #{generalMsg.vocabPractice}</span>
 		</h3>
 	</div>
 
 	<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
-		<a4j:outputPanel id="questionRegion">
+		<h:panelGroup id="questionRegion">
 		<h:form styleClass="practiceForm" id="inputForm">
-			<a4j:queue />
 			<audio id="pronounce" onloadeddata="this.play()" src="#{phoneticPracticeController.practice.currentQuestionObject.activePronounceLink}" />
 			<div class="w3-row">
 				<div class="w3-half">
@@ -85,81 +83,79 @@
 
 						<h:message for="answer" errorClass="w3-red" />
 
-						<a4j:commandLink render="topHeader questionRegion historyRegion msgPanel" oncomplete="updateAfterSubmit()" id="eslSubmit"
+						<p:commandLink oncomplete="updateAfterSubmit()" id="eslSubmit" update="topHeader questionRegion historyRegion msgPanel"
 										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange"
 										 action="#{phoneticPracticeController.submitAnswer}">
 							#{phonPracticeMsg.practiceSubmit}
-						</a4j:commandLink>
-						<a4j:status>
+						</p:commandLink>
+						<p:ajaxStatus style="display: inline-block;">
 							<f:facet name="start">
 								<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
 							</f:facet>
-						</a4j:status>
+						</p:ajaxStatus>
 						<input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{phoneticPracticeController.practice.totalQuestions}" />
 						<input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{phoneticPracticeController.practice.mark}" />
-						<input type="hidden" name="hiddenPicPaths" id="hiddenPicPaths" value="#{phoneticPracticeController.practice.currentQuestionObject.picsFullPathsInString}" />
 					</div>
 				</div>
 			</div>
 		</h:form>
-		</a4j:outputPanel>
+		</h:panelGroup>
 
 		<esl:scoreBar2 startMark="#{phoneticPracticeController.practice.mark}" maxMark="#{phoneticPracticeController.practice.totalQuestions}" />
 
-		<a4j:outputPanel id="msgPanel">
-			<div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
-				<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
-			</div>
-		</a4j:outputPanel>
+		<h:panelGroup id="msgPanel">
+			<h:messages errorClass="w3-panel w3-text-red w3-large" infoClass="w3-panel w3-text-blue w3-large" globalOnly="true" />
+		</h:panelGroup>
 
-		<a4j:outputPanel id="historyRegion">
-			<a4j:outputPanel rendered="#{phoneticPracticeController.practice.currentQuestion > 0}">
+		<h:panelGroup id="historyRegion">
+			<h:panelGroup rendered="#{phoneticPracticeController.practice.currentQuestion > 0}">
 				<div class="w3-responsive">
 				<!-- Histories -->
-				<table class="w3-table-all w3-medium w3-margin-top">
-					<thead>
-					<tr class="w3-theme">
-						<td></td>
-						<td>#{phonPracticeMsg.practicePhonetic}</td>
-						<td>#{phonPracticeMsg.practiceWord}</td>
-						<td>#{phonPracticeMsg.practiceAnswer}</td>
-						<td></td>
-						<td></td>
-					</tr>
-					</thead>
-					<tfoot><tr>
-						<td colspan="6"><div style="text-align: right; font-weight: bolder" ><h:outputText value="#{phonPracticeMsg.practiceMark}" />: ${phoneticPracticeController.practice.mark}  / ${phoneticPracticeController.practice.currentQuestion}</div></td>
-					</tr></tfoot>
-					<a4j:repeat var="i" rowKeyVar="r" value="#{phoneticPracticeController.practice.answers}">
-						<tr>
-							<td>Q#{phoneticPracticeController.practice.currentQuestion-r}</td>
-							<td>[<h:outputText escape="false" value="#{phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r].IPA}" />]</td>
-							<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r].word}" target="_blank"><u><h:outputText value="#{phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r].word}" /></u></a></td>
-							<td><h:outputText value="#{phoneticPracticeController.practice.answers[phoneticPracticeController.practice.currentQuestion-1-r]}" /></td>
-							<td>
-								<a4j:outputPanel rendered="#{phoneticPracticeController.practice.corrects[phoneticPracticeController.practice.currentQuestion-1-r]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-								<a4j:outputPanel rendered="#{!phoneticPracticeController.practice.corrects[phoneticPracticeController.practice.currentQuestion-1-r]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
-							</td>
-							<td align="center">
-								<a4j:outputPanel rendered="#{authenticationController.authenticated and !memberWordController.savedQuestion[phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r]]}">
-									<a4j:region>
-										<a4j:commandLink render="msgPanel" action="#{memberWordController.saveWord}">
-											<f:setPropertyActionListener target="#{memberWordController.selectedPhoneticQuestion}" value="#{phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r]}" />
-											<i class="fa fa-plus-circle" aria-hidden="true"></i>
-										</a4j:commandLink>
-									</a4j:region>
-								</a4j:outputPanel>
-							</td>
-						</tr>
-					</a4j:repeat>
-				</table>
+					<h:form>
+						<table class="w3-table-all w3-medium w3-margin-top">
+							<thead>
+							<tr class="w3-theme">
+								<td></td>
+								<td>#{phonPracticeMsg.practicePhonetic}</td>
+								<td>#{phonPracticeMsg.practiceWord}</td>
+								<td>#{phonPracticeMsg.practiceAnswer}</td>
+								<td></td>
+								<td></td>
+							</tr>
+							</thead>
+							<tfoot><tr>
+								<td colspan="6"><div style="text-align: right; font-weight: bolder" ><h:outputText value="#{phonPracticeMsg.practiceMark}" />: ${phoneticPracticeController.practice.mark}  / ${phoneticPracticeController.practice.currentQuestion}</div></td>
+							</tr></tfoot>
+
+							<ui:repeat var="i" varStatus="r" value="#{phoneticPracticeController.practice.answers}">
+								<tr>
+									<td>Q#{phoneticPracticeController.practice.currentQuestion-r.index}</td>
+									<td>[<h:outputText escape="false" value="#{phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r.index].IPA}" />]</td>
+									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r.index].word}" target="_blank"><u><h:outputText value="#{phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r.index].word}" /></u></a></td>
+									<td><h:outputText value="#{phoneticPracticeController.practice.answers[phoneticPracticeController.practice.currentQuestion-1-r.index]}" /></td>
+									<td>
+										<h:panelGroup rendered="#{phoneticPracticeController.practice.corrects[phoneticPracticeController.practice.currentQuestion-1-r.index]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+										<h:panelGroup rendered="#{!phoneticPracticeController.practice.corrects[phoneticPracticeController.practice.currentQuestion-1-r.index]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
+									</td>
+									<td align="center">
+										<h:panelGroup rendered="#{authenticationController.authenticated and !memberWordController.savedQuestion[phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r.index]]}">
+											<p:commandLink update="msgPanel" action="#{memberWordController.saveWord}">
+												<f:setPropertyActionListener target="#{memberWordController.selectedPhoneticQuestion}" value="#{phoneticPracticeController.practice.questions[phoneticPracticeController.practice.currentQuestion-1-r.index]}" />
+												<i class="fa fa-plus-circle" aria-hidden="true"></i>
+											</p:commandLink>
+										</h:panelGroup>
+									</td>
+								</tr>
+							</ui:repeat>
+						</table>
+					</h:form>
 				</div>
 				<div class="w3-container w3-light-grey w3-border w3-small">
 					<h:panelGroup rendered="#{authenticationController.authenticated}"><p><i class="fa fa-plus-circle" aria-hidden="true"></i> <h:outputText value="#{phonPracticeMsg.practiceUseMemberWord}" /></p></h:panelGroup>
 					<p>* #{phonPracticeMsg.practiceWordExplanation}</p>
 				</div>
-			</a4j:outputPanel>
-		</a4j:outputPanel>
+			</h:panelGroup>
+		</h:panelGroup>
 	</div>
 
 </ui:define>

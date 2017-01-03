@@ -76,7 +76,7 @@
 			<var>grammarMsg</var>
 		</resource-bundle>
 		<resource-bundle>
-			<base-name>messages.Application</base-name>
+			<base-name>messages.application</base-name>
 			<var>appMsg</var>
 		</resource-bundle>	
 			
