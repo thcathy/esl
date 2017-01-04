@@ -2,11 +2,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:t="http://myfaces.apache.org/tomahawk"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
-                xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.org/ui"
                 xmlns:esl="http://www.funfunspell.com/jsf"
                 xmlns:util="http://java.sun.com/jsf/composite/components/util"
                 template="/template/short.xhtml">
@@ -35,7 +31,12 @@
 		  	
 		  	function updateAfterSubmit() {
 				animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
+                showImage();
 			}
+
+            $(window).load(function(){
+                showImage();
+            });
 		//]]>
 		</script>
 	</ui:define>
@@ -44,21 +45,19 @@
 
         <div class="w3-container w3-green">
             <h3>
-                <a4j:outputPanel id="topHeader">
+                <h:panelGroup id="topHeader">
                     <h:outputFormat value="#{phonSymPracticeMsg.practiceQuestion}">
                         <f:param value="#{phoneticSymbolPracticeController.totalFullMark}"/>
                     </h:outputFormat>
                     : #{phonSymPracticeMsg.practiceMark} #{phoneticSymbolPracticeController.totalMark}
-                </a4j:outputPanel>
+                </h:panelGroup>
                 <span class="w3-right w3-hide-small">#{generalMsg.IPAPractice} <img class="w3-padding-left" src="#{request.contextPath}/images/graphic/phoneitcsymbol.png" /></span>
             </h3>
         </div>
 
         <div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
-            <a4j:outputPanel id="questionRegion">
+            <h:panelGroup id="questionRegion">
                 <h:form id="inputForm">
-
-                    <a4j:queue />
                     <audio id="pronounce" onloadeddata="this.play()" src="#{phoneticSymbolPracticeController.question.activePronounceLink}" />
 
                     <div class="w3-row">
@@ -153,22 +152,21 @@
                                         <h:inputHidden id="inputPhonics" value="#{phoneticSymbolPracticeController.answer}" />
                                     </p>
 
-                                    <a4j:commandLink render="topHeader questionRegion historyRegion msgPanel"
+                                    <p:commandLink update="topHeader questionRegion historyRegion msgPanel"
                                                      oncomplete="updateAfterSubmit()" id="eslSubmit"
                                                      styleClass="w3-btn w3-deep-orange w3-margin-right w3-margin-bottom"
                                                      action="#{phoneticSymbolPracticeController.submitAnswer}">
                                         #{phonPracticeMsg.practiceSubmit}
-                                    </a4j:commandLink>
-                                    <a4j:status>
+                                    </p:commandLink>
+                                    <p:ajaxStatus style="display: inline-block;">
                                         <f:facet name="start">
                                             <span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
                                         </f:facet>
-                                    </a4j:status>
+                                    </p:ajaxStatus>
                                     <input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{phoneticSymbolPracticeController.totalFullMark}" />
                                     <input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{phoneticSymbolPracticeController.totalMark}" />
-                                    <input type="hidden" name="hiddenPicPaths" id="hiddenPicPaths" value="#{phoneticSymbolPracticeController.question.picsFullPathsInString}" />
                                     <span class="w3-right w3-medium">
-                                        <a4j:commandLink action="#{phoneticSymbolPracticeController.completePractice}" style="text-decoration: none;" styleClass="w3-hover-deep-orange"><h:outputText value="#{phonSymPracticeMsg.practiceComplete}" /></a4j:commandLink>
+                                        <h:commandLink action="#{phoneticSymbolPracticeController.completePractice}" style="text-decoration: none;" styleClass="w3-hover-deep-orange"><h:outputText value="#{phonSymPracticeMsg.practiceComplete}" /></h:commandLink>
                                     </span>
                                 </div>
 
@@ -178,17 +176,17 @@
                         </div>
                     </div>
                 </h:form>
-            </a4j:outputPanel>
+            </h:panelGroup>
 
             <esl:scoreBar2 startMark="#{phoneticSymbolPracticeController.totalMark}" maxMark="#{phoneticSymbolPracticeController.totalFullMark}" />
 
-            <a4j:outputPanel id="msgPanel">
+            <h:panelGroup id="msgPanel">
                 <div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
                     <h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
                 </div>
-            </a4j:outputPanel>
+            </h:panelGroup>
 
-            <a4j:outputPanel id="historyRegion">
+            <h:panelGroup id="historyRegion">
                 <h:panelGroup rendered="#{phoneticSymbolPracticeController.totalFullMark > 1}">
                     <div class="w3-responsive">
                         <!-- Histories -->
@@ -202,25 +200,25 @@
                                 <td></td>
                             </tr>
                             </thead>
-                            <t:dataList var="i" rowIndexVar="index" value="#{phoneticSymbolPracticeController.history}" >
+                            <ui:repeat var="i" varStatus="r" value="#{phoneticSymbolPracticeController.history}" >
                                 <tr>
-                                    <td>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-index-1}" /></td>
-                                    <td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[index].question.word}" /></u></a></td>
-                                    <td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[index].question.IPA}" />]</td>
-                                    <td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[index].answer}]</td>
+                                    <td>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-r.index-1}" /></td>
+                                    <td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[r.index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[r.index].question.word}" /></u></a></td>
+                                    <td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[r.index].question.IPA}" />]</td>
+                                    <td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[r.index].answer}]</td>
                                     <td>
-                                        <a4j:outputPanel rendered="#{phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-                                        <a4j:outputPanel rendered="#{!phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
+                                        <h:panelGroup rendered="#{phoneticSymbolPracticeController.history[r.index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+                                        <h:panelGroup rendered="#{!phoneticSymbolPracticeController.history[r.index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
                                     </td>
                                 </tr>
-                            </t:dataList>
+                            </ui:repeat>
                         </table>
                     </div>
                     <div class="w3-container w3-light-grey w3-border w3-small">
                         <p>* #{phonPracticeMsg.practiceWordExplanation}</p>
                     </div>
                 </h:panelGroup>
-            </a4j:outputPanel>
+            </h:panelGroup>
         </div>
 
     </ui:define>

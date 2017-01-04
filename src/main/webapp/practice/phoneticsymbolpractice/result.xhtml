@@ -2,11 +2,7 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
+				xmlns:p="http://primefaces.org/ui"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
@@ -33,11 +29,11 @@
 						<f:param value="#{phoneticSymbolPracticeController.currentGrade.description}"/>
 					</h:outputFormat>
 				</h3>
-				<a4j:outputPanel id="msgPanel">
+				<h:panelGroup id="msgPanel">
 					<div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
 						<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
 					</div>
-				</a4j:outputPanel>
+				</h:panelGroup>
 
 				<h:panelGroup rendered="#{!authenticationController.authenticated}">
 					<div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
@@ -71,18 +67,18 @@
 								<td></td>
 							</tr>
 							</thead>
-							<t:dataList var="i" rowIndexVar="index" value="#{phoneticSymbolPracticeController.history}" >
+							<ui:repeat var="i" varStatus="r" value="#{phoneticSymbolPracticeController.history}" >
 								<tr>
-									<td><strong>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-index}" /></strong></td>
-									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[index].question.word}" /></u></a></td>
-									<td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[index].question.IPA}" />]</td>
-									<td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[index].answer}]</td>
+									<td><strong>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-r.index}" /></strong></td>
+									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[r.index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[r.index].question.word}" /></u></a></td>
+									<td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[r.index].question.IPA}" />]</td>
+									<td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[r.index].answer}]</td>
 									<td>
-										<a4j:outputPanel rendered="#{phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-										<a4j:outputPanel rendered="#{!phoneticSymbolPracticeController.history[index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
+										<h:panelGroup rendered="#{phoneticSymbolPracticeController.history[r.index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+										<h:panelGroup rendered="#{!phoneticSymbolPracticeController.history[r.index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
 									</td>
 								</tr>
-							</t:dataList>
+							</ui:repeat>
 						</table>
 					</h:panelGroup>
 				</div>
