@@ -2,11 +2,7 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
+				xmlns:p="http://primefaces.org/ui"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
@@ -14,29 +10,29 @@
 	<ui:define name="subTitle">#{htmlHeadMsg.member_vocab_practice_title}</ui:define>
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.member_vocab_practice_desc}" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-		<script type="text/javascript" src="${request.contextPath}/js/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript">
 		//<![CDATA[
-		jQuery.noConflict();
-		
-		var answerEnterEvent = function(event) {				
+		var answerEnterEvent = function(event) {
 			var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
 	      	if (keycode == 13) { // keycode for enter key
 	        	jQuery('#inputForm\\:eslSubmit').click();
 	        	return false;
 	      	}
 		};
-				
-		jQuery(document).ready(function() {
+
+		$(window).load(function(){
+			console.log("when window load");
 			jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
 			jQuery('#inputForm\\:answer').focus();
+			showImage();
 		});
+
 		
 		function updateAfterSubmit() {
 			animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
 			jQuery('#inputForm\\:answer').keydown(answerEnterEvent);			
 			jQuery('#inputForm\\:answer').focus();
+			showImage();
 		}
 		//]]>
 		</script>
@@ -45,20 +41,19 @@
 	<ui:define name="mainDiv">
 		<div class="w3-container w3-green">
 			<h3>
-				<a4j:outputPanel id="topHeader">
+				<h:panelGroup id="topHeader">
 					<h:outputFormat value="#{memberWordMsg.practiceQuestionNo}">
 						<f:param value="#{myVocabPracticeController.totalFullMark}"/>
 					</h:outputFormat>
 					#{phonPracticeMsg.practiceMark}&#160;#{myVocabPracticeController.totalMark}
-				</a4j:outputPanel>
+				</h:panelGroup>
 				<span class="w3-right w3-hide-small"><i class="fa fa-pencil-square" aria-hidden="true"></i> #{generalMsg.menuMyVocabulary}</span>
 			</h3>
 		</div>
 
 		<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
-			<a4j:outputPanel id="questionRegion">
+			<h:panelGroup id="questionRegion">
 				<h:form styleClass="practiceForm" id="inputForm">
-					<a4j:queue />
 					<audio id="pronounce" onloadeddata="this.play()" src="#{myVocabPracticeController.memberWord.word.activePronounceLink}" />
 					<div class="w3-row">
 						<div class="w3-half">
@@ -82,33 +77,33 @@
 								<h:inputText id="answer" styleClass="w3-input w3-margin-bottom" autocomplete="off" value="#{myVocabPracticeController.answer}" maxlength="30" />
 								<h:message for="answer" errorClass="w3-red" />
 
-								<a4j:commandLink render="topHeader questionRegion historyRegion msgPanel" oncomplete="updateAfterSubmit()" id="eslSubmit" action="#{myVocabPracticeController.submitAnswer}"
+								<p:commandLink update="topHeader questionRegion historyRegion" oncomplete="updateAfterSubmit()" id="eslSubmit" action="#{myVocabPracticeController.submitAnswer}"
 												 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-green">
 									<i class="fa fa-check" aria-hidden="true"></i> #{phonPracticeMsg.practiceSubmit}
-								</a4j:commandLink>
+								</p:commandLink>
 
-								<a4j:status>
+								<p:ajaxStatus style="display: inline-block;">
 									<f:facet name="start">
 										<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
 									</f:facet>
-								</a4j:status>
+								</p:ajaxStatus>
+
 								<input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{myVocabPracticeController.totalFullMark}" />
 								<input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{myVocabPracticeController.totalMark}" />
-								<input type="hidden" name="hiddenPicPaths" id="hiddenPicPaths" value="#{myVocabPracticeController.memberWord.word.picsFullPathsInString}" />
 								<span class="w3-right w3-medium">
-								<a4j:commandLink action="#{myVocabPracticeController.completePractice}" style="text-decoration: none;" styleClass="w3-hover-deep-orange">
-									<h:outputText value="#{memberWordMsg.practiceComplete}" /></a4j:commandLink>
+								<h:commandLink action="#{myVocabPracticeController.completePractice}" style="text-decoration: none;" styleClass="w3-hover-deep-orange">
+									<h:outputText value="#{memberWordMsg.practiceComplete}" /></h:commandLink>
 							</span>
 							</div>
 						</div>
 					</div>
 				</h:form>
-			</a4j:outputPanel>
+			</h:panelGroup>
 
 			<esl:scoreBar2 startMark="#{myVocabPracticeController.totalMark}" maxMark="#{myVocabPracticeController.totalFullMark}" />
 
-			<a4j:outputPanel id="historyRegion">
-				<a4j:outputPanel rendered="#{myVocabPracticeController.totalFullMark > 1}">
+			<h:panelGroup id="historyRegion">
+				<h:panelGroup rendered="#{myVocabPracticeController.totalFullMark > 1}">
 					<!-- Histories -->
 					<div class="w3-responsive">
 						<table class="w3-table-all w3-medium w3-margin-top">
@@ -121,25 +116,25 @@
 								<td></td>
 							</tr>
 							</thead>
-							<a4j:repeat var="i" rowKeyVar="r" value="#{myVocabPracticeController.history}">
+							<ui:repeat var="i" varStatus="r" value="#{myVocabPracticeController.history}">
 								<tr>
-									<td>Q#{myVocabPracticeController.totalFullMark-r-1}</td>
-									<td>[<h:outputText escape="false" value="#{myVocabPracticeController.history[r].question.IPA}" />]</td>
-									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{myVocabPracticeController.history[r].question.word}" target="_blank"><u>#{myVocabPracticeController.history[r].question.word}</u></a></td>
-									<td><h:outputText value="#{myVocabPracticeController.history[r].answer}" /></td>
+									<td>Q#{myVocabPracticeController.totalFullMark-r.index-1}</td>
+									<td>[<h:outputText escape="false" value="#{myVocabPracticeController.history[r.index].question.IPA}" />]</td>
+									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{myVocabPracticeController.history[r.index].question.word}" target="_blank"><u>#{myVocabPracticeController.history[r.index].question.word}</u></a></td>
+									<td><h:outputText value="#{myVocabPracticeController.history[r.index].answer}" /></td>
 									<td>
-										<a4j:outputPanel rendered="#{myVocabPracticeController.history[r].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-										<a4j:outputPanel rendered="#{!myVocabPracticeController.history[r].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
+										<h:panelGroup rendered="#{myVocabPracticeController.history[r.index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+										<h:panelGroup rendered="#{!myVocabPracticeController.history[r.index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
 									</td>
 								</tr>
-							</a4j:repeat>
+							</ui:repeat>
 						</table>
 					</div>
 					<div class="w3-container w3-light-grey w3-border w3-small">
 						<p>* #{phonPracticeMsg.practiceWordExplanation}</p>
 					</div>
-				</a4j:outputPanel>
-			</a4j:outputPanel>
+				</h:panelGroup>
+			</h:panelGroup>
 		</div>
 	</ui:define>
 

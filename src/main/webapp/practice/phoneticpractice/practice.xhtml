@@ -104,7 +104,9 @@
 		<esl:scoreBar2 startMark="#{phoneticPracticeController.practice.mark}" maxMark="#{phoneticPracticeController.practice.totalQuestions}" />
 
 		<h:panelGroup id="msgPanel">
-			<h:messages errorClass="w3-panel w3-text-red w3-large" infoClass="w3-panel w3-text-blue w3-large" globalOnly="true" />
+			<div class="w3-medium w3-panel w3-pale-green">
+				<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
+			</div>
 		</h:panelGroup>
 
 		<h:panelGroup id="historyRegion">

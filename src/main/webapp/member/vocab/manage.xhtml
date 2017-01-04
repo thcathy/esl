@@ -1,12 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
@@ -76,13 +70,13 @@
 					<div class="w3-third">#{memberWordMsg.manageTotalWordInList}: #{memberWordController.vocabsSize}</div>
 					<div class="w3-third">#{memberWordMsg.manageTotalWordLearnt}: #{userSession.member.totalWordLearnt}</div>
 				</div>
-				<a4j:repeat var="i" rowKeyVar="r" value="#{memberWordController.vocabs}">
+				<ui:repeat var="i" varStatus="r" value="#{memberWordController.vocabs}">
 					<span style="width: 150px; display: inline-block;">
 						<span class="w3-badge w3-green w3-small">#{i.correctCount}</span>&#160;
 						<h:selectBooleanCheckbox value="#{memberWordController.selectedVocabs[i]}" />
 						<a href="#{phonPracticeMsg.practiceDictionaryLink}#{i.word.word}" target="_blank"><u>#{i.word.word}</u></a>
 					</span>
-				</a4j:repeat>
+				</ui:repeat>
 				<div class="w3-container w3-leftbar w3-light-grey w3-padding w3-small w3-margin-top">
 					* <span class="w3-badge w3-green w3-tiny">x</span> #{memberWordMsg.correctCount}<br/>
 					** #{phonPracticeMsg.practiceWordExplanation}
