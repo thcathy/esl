@@ -1,13 +1,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fmt="http://java.sun.com/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:esl="http://www.funfunspell.com/jsf">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:esl="http://www.funfunspell.com/jsf">
 
 <!-- All phonetic Practice result -->
 <h:form id="mainForm">
@@ -95,7 +91,7 @@
 					<label class="w3-label w3-large">#{memberSumMsg.summaryLevel}:</label>
 					<h:selectOneMenu styleClass="w3-select w3-margin-bottom" style="max-width: 50%;" id="level" value="#{summaryController.selectedLevel}">
 						<f:selectItems value="#{summaryController.levels}" />
-						<a4j:ajax event="valueChange" execute="@this" render="summary" listener="#{summaryController.phonicsLevelChangeListener}"  />
+						<p:ajax event="change" update="@form" listener="#{summaryController.phonicsLevelChangeListener}"  />
 					</h:selectOneMenu>
 
 					<table class="w3-table-all w3-margin-bottom">
