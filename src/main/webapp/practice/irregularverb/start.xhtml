@@ -2,11 +2,6 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
@@ -58,14 +53,14 @@
 									<td>#{irregularVerbMsg.pastParticiple}</td>
 								</tr>
 								</thead>
-								<a4j:repeat var="verb" rowKeyVar="r" value="#{irregularVerbListController.verbs}">
+								<ui:repeat var="verb" varStatus="r" value="#{irregularVerbListController.verbs}">
 									<tr>
 										<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{verb.present}" target="_blank"><u>#{verb.present}</u></a></td>
 										<td>#{verb.presentParticiple}</td>
 										<td>#{verb.past}</td>
 										<td>#{verb.pastParticiple}</td>
 									</tr>
-								</a4j:repeat>
+								</ui:repeat>
 							</table>
 						</div>
 					</div>

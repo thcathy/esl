@@ -55,6 +55,14 @@ public class GrammarPracticeController extends BaseWithScoreBarController {
 	//============== Functions ================//
 
 	public String quickStart() {
+		if (inputPassage.length() > 2000) {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			Locale locale = facesContext.getViewRoot().getLocale();
+			ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);
+			facesContext.addMessage("inputForm:passage", new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("passageTooLong"), null));
+			return quickStartView;
+		}
+
 		practice = service.generatePracticeByPassage(inputPassage, practiceType, questionFormat, QUESTION_HTML_TAG, QUESTION_PATTERN, ANSWER_PATTERN);
 
 		if (practice.getQuestionPositions().size() < 1) {

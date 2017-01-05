@@ -1,13 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:fmt="http://java.sun.com/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
   	xmlns:esl="http://www.funfunspell.com/jsf"
   	template="/template/short.xhtml">
   	
@@ -16,27 +10,24 @@
 		<meta name="keywords" content="#{htmlHeadMsg.practice_grammar_desc}" />		 
 		<script type="text/javascript">
 		//<![CDATA[
-			jQuery.noConflict();
-			
-			jQuery(document).ready(
-				function() {
-					jQuery('input[id*=answer]').each(function(i) {
-						jQuery(this).focus(function () {
-							jQuery('#question'+(i+1)).css('background-color','#ecf71b');
+		jQuery(document).ready(
+			function() {
+				jQuery('input[id*=answer]').each(function(i) {
+					jQuery(this).focus(function () {
+						jQuery('#question'+(i+1)).css('background-color','#ecf71b');
 
-							// scroll to the position
-							var offset = jQuery('#question'+(i+1)).offset().top - jQuery('#scrollablePassage').offset().top;
-							if (offset < 0 || offset > 500) {
-								jQuery('#scrollablePassage').animate({scrollTop:  '+=' + offset + 'px'},{ queue: false });
-							}
-						});
-
-						jQuery(this).blur(function () {
-							jQuery('#question'+(i+1)).css('background-color','');
-						});
+						// scroll to the position
+						var offset = jQuery('#question'+(i+1)).offset().top - jQuery('#scrollablePassage').offset().top;
+						if (offset < 0 || offset > 500) {
+							jQuery('#scrollablePassage').animate({scrollTop:  '+=' + offset + 'px'},{ queue: false });
+						}
 					});
-			});
 
+					jQuery(this).blur(function () {
+						jQuery('#question'+(i+1)).css('background-color','');
+					});
+				});
+		});
 		//]]>
 		</script>
 		<style type="text/css">
@@ -61,21 +52,17 @@
 		<div class="w3-margin w3-padding-bottom">
 			<div class="w3-panel">
 				<h:form id="inputForm">
+					<div id="possibleAnswers" class="w3-accordion w3-border-blue w3-white w3-border w3-margin-bottom">
+						<button onclick="addOrRemoveW3Show('ans'); return false;" class="w3-btn-block w3-left-align w3-blue w3-medium">
+							<i class="fa fa-chevron-down" aria-hidden="true"></i> #{grammarMsg.possibleAnswers}
+						</button>
+						<div id="ans" class="w3-accordion-content w3-container w3-medium w3-show">
+							<ui:repeat var="option" varStatus="r" value="#{grammarPracticeController.practice.sortedPossibleQuestions}">
+								<span style="color: #333333; padding-right: 30px;">#{option}</span>
+							</ui:repeat>
+						</div>
+					</div>
 					<table style="width: 100%;" cellpadding="0" cellspacing="0">
-						<tr>
-							<td colspan="2" style="padding-bottom: 20px;">
-								<div id="possibleAnswers" class="w3-container">
-									<button onclick="addOrRemoveW3Show('ans'); return false;" class="w3-btn-block w3-left-align w3-medium w3-white">
-										<i class="fa fa-chevron-down" aria-hidden="true"></i> #{grammarMsg.possibleAnswers}
-									</button>
-									<div id="ans" class="w3-accordion-content w3-container w3-large w3-show">
-										<a4j:repeat var="option" rowKeyVar="r" value="#{grammarPracticeController.practice.sortedPossibleQuestions}">
-											<span style="color: #333333; padding-right: 30px;">#{option}</span>
-										</a4j:repeat>
-									</div>
-								</div>
-							</td>
-						</tr>
 						<tr>
 							<td style="padding-right: 5px;" valign="top" align="left">
 								<table style="background-color: #f5f5f5; table-layout:fixed; background-image: url('#{request.contextPath}/images/graphic/notebook.png'); background-repeat:repeat;">
@@ -92,15 +79,15 @@
 							</td>
 							<td valign="top">
 								<table>
-									<a4j:repeat var="answer" rowKeyVar="r" value="#{grammarPracticeController.inputAnswers}">
+									<ui:repeat var="answer" varStatus="r" value="#{grammarPracticeController.inputAnswers}">
 									<tr>
-										<td id="inputTD#{r+1}" class="w3-medium">
-											<h:inputText type="text" style="min-width: 120px; padding: 0px;" maxlength="15" id="answer#{r+1}" name="answer#{r+1}"
-														 a:placeholder="#{r+1}" styleClass="w3-input"
-														 value="#{grammarPracticeController.inputAnswers[r]}" autocomplete="off" />
+										<td id="inputTD#{r.index+1}" class="w3-medium">
+											<h:inputText type="text" style="min-width: 120px; padding: 0px;" maxlength="15" id="answer#{r.index+1}" name="answer#{r.index+1}"
+														 a:placeholder="#{r.index+1}" styleClass="w3-input"
+														 value="#{grammarPracticeController.inputAnswers[r.index]}" autocomplete="off" />
 										</td>
 									</tr>
-									</a4j:repeat>
+									</ui:repeat>
 								</table>
 							</td>
 						</tr>

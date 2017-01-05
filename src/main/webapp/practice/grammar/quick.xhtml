@@ -2,11 +2,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fmt="http://java.sun.com/jstl/fmt"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
   	xmlns:esl="http://www.funfunspell.com/jsf"
   	xmlns:comp="http://java.sun.com/jsf/composite/components/practice/grammar"
   	template="/template/short.xhtml">
@@ -14,14 +9,11 @@
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_grammar_quick_title}</ui:define>
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.practice_grammar_desc}" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script type="text/javascript">
 		//<![CDATA[
 		var defaultPassage = 'This is an example passage. You can start the exercise by clicking the button below or click the input box to put in any article here. Moreover, you can simply copy and paste any article you find in web or document into here.';
 		var pastePassage = '\n\n\n\n' + '#{grammarMsg.pastePassage}';
-				
-		jQuery.noConflict();
-		
+
 		jQuery(document).ready(function(){
 
 			console.log('ready 1');
@@ -77,11 +69,10 @@
 					<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
 
 					<label class="w3-label w3-text-teal">1. #{grammarMsg.inputPassage}</label>
-					<h:inputTextarea id="passage" required="true" rows="10" style="width: 99%; color: #333333; font-size: 14px;" value="#{grammarPracticeController.inputPassage}">
-						<t:validateRegExpr pattern="{0,2000}" message="#{grammarMsg.passageTooLong}" />
-						<rich:validator  />
+					<h:inputTextarea id="passage" required="true" rows="10" style="width: 99%; color: #333333; font-size: 14px;"
+									 value="#{grammarPracticeController.inputPassage}">
 					</h:inputTextarea>
-					<rich:message for="passage" styleClass="w3-text-red" />
+					<h:message for="passage" styleClass="w3-text-red" />
 					<hr />
 
 					<div id="chooseSection2">

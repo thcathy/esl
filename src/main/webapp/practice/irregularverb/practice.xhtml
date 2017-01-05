@@ -2,11 +2,7 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
+				xmlns:p="http://primefaces.org/ui"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
@@ -14,12 +10,8 @@
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_irregularverb_practice_title}</ui:define>
 	<ui:define name="head">
 		<meta name="keywords" content="#{htmlHeadMsg.practice_irregularverb_start_desc}" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-		<script type="text/javascript" src="${request.contextPath}/js/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript">
 		//<![CDATA[
-		jQuery.noConflict();
-
 		var answerEnterEvent = function(event) {				
 			var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
 	      	if (keycode == 13) { // keycode for enter key
@@ -58,18 +50,18 @@
 	<ui:define name="mainDiv">
 		<div class="w3-container w3-green">
 			<h3>
-				<a4j:outputPanel id="topHeader">
+				<h:panelGroup id="topHeader">
 					<h:outputFormat value="#{irregularVerbMsg.practiceQuestionTitle}">
 						<f:param value="#{irregularVerbPracticeController.totalQuestions}"/>
 					</h:outputFormat>
-				</a4j:outputPanel>
+				</h:panelGroup>
 				<span class="w3-right w3-hide-small">#{generalMsg.menuIrregularVerb}</span>
 			</h3>
 		</div>
 
 		<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
 
-			<a4j:outputPanel id="questionInfoPanel" rendered="#{not empty irregularVerbPracticeController.phoneticQ and not empty irregularVerbPracticeController.phoneticQ.activePronounceLink}">
+			<h:panelGroup id="questionInfoPanel" rendered="#{not empty irregularVerbPracticeController.phoneticQ and not empty irregularVerbPracticeController.phoneticQ.activePronounceLink}">
 				<div class="w3-row w3-center">
 					<div class="w3-half">
 						<audio id="pronounce" onloadeddata="this.play()" src="#{irregularVerbPracticeController.phoneticQ.activePronounceLink}" />
@@ -80,15 +72,14 @@
 						<a onclick="this.textContent='[#{irregularVerbPracticeController.phoneticQ.IPA}]'" class="w3-btn w3-medium w3-pink w3-round-xlarge" style="min-width: 200px;">#{phonPracticeMsg.practicePhonetic}</a>
 					</div>
 				</div>
-			</a4j:outputPanel>
+			</h:panelGroup>
 
-			<a4j:outputPanel id="msgPanel">
+			<h:panelGroup id="msgPanel">
 				<div class="w3-medium w3-panel w3-pale-green w3-border-green"><h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" /></div>
-			</a4j:outputPanel>
+			</h:panelGroup>
 
-			<a4j:outputPanel id="questionRegion">
+			<h:panelGroup id="questionRegion">
 				<h:form styleClass="inputform" id="inputForm" onsubmit="return submitRequest(this)">
-					<a4j:queue />
 					<div class="w3-row-padding">
 						<div class="w3-quarter">
 							<h:panelGroup styleClass="w3-text-black" rendered="#{!empty irregularVerbPracticeController.question.present}">
@@ -96,12 +87,14 @@
 											 value="#{irregularVerbPracticeController.question.present}" />
 							</h:panelGroup>
 							<h:panelGroup rendered="#{empty irregularVerbPracticeController.question.present}">
-								<h:inputText styleClass="w3-input" id="presentAnswer" autocomplete="off" value="#{irregularVerbPracticeController.input.present}" maxlength="30">
-									<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)?" message="#{irregularVerbMsg.practiceInvalidInput}"/>
+								<h:inputText styleClass="w3-input" id="presentAnswer" autocomplete="off"
+											 value="#{irregularVerbPracticeController.input.present}" maxlength="30"
+											 validatorMessage="#{irregularVerbMsg.practiceInvalidInput}">
+									<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
 								</h:inputText>
 							</h:panelGroup>
 							<label class="w3-label">#{irregularVerbMsg.present}</label>
-							<br/><h:message for="presentAnswer" errorClass="error" />
+							<br/><h:message for="presentAnswer" styleClass="w3-medium w3-text-red" />
 						</div>
 						<div class="w3-quarter">
 							<h:panelGroup rendered="#{!empty irregularVerbPracticeController.question.presentParticiple}">
@@ -109,12 +102,14 @@
 											 value="#{irregularVerbPracticeController.question.presentParticiple}" />
 							</h:panelGroup>
 							<h:panelGroup rendered="#{empty irregularVerbPracticeController.question.presentParticiple}">
-								<h:inputText styleClass="w3-input" id="presentParticipleAnswer" autocomplete="off" value="#{irregularVerbPracticeController.input.presentParticiple}" maxlength="30">
-									<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)?" message="#{irregularVerbMsg.practiceInvalidInput}"/>
+								<h:inputText styleClass="w3-input" id="presentParticipleAnswer" autocomplete="off"
+											 value="#{irregularVerbPracticeController.input.presentParticiple}" maxlength="30"
+												validatorMessage="#{irregularVerbMsg.practiceInvalidInput}">
+									<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
 								</h:inputText>
 							</h:panelGroup>
 							<label class="w3-label">#{irregularVerbMsg.presentParticiple}</label>
-							<br /><h:message for="presentParticipleAnswer" errorClass="error" />
+							<br /><h:message for="presentParticipleAnswer" styleClass="w3-medium w3-text-red" />
 						</div>
 						<div class="w3-quarter">
 							<h:panelGroup rendered="#{!empty irregularVerbPracticeController.question.past}">
@@ -122,12 +117,14 @@
 											 value="#{irregularVerbPracticeController.question.past}" />
 							</h:panelGroup>
 							<h:panelGroup rendered="#{empty irregularVerbPracticeController.question.past}">
-								<h:inputText styleClass="w3-input" id="pastAnswer" autocomplete="off" value="#{irregularVerbPracticeController.input.past}" maxlength="30">
-									<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)?" message="#{irregularVerbMsg.practiceInvalidInput}"/>
+								<h:inputText styleClass="w3-input" id="pastAnswer" autocomplete="off"
+											 value="#{irregularVerbPracticeController.input.past}" maxlength="30"
+												validatorMessage="#{irregularVerbMsg.practiceInvalidInput}">
+									<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
 								</h:inputText>
 							</h:panelGroup>
 							<label class="w3-label">#{irregularVerbMsg.past}</label>
-							<br /><h:message for="pastAnswer" errorClass="error" />
+							<br /><h:message for="pastAnswer" styleClass="w3-medium w3-text-red" />
 						</div>
 						<div class="w3-quarter">
 							<h:panelGroup rendered="#{irregularVerbPracticeController.withPastParticiple}">
@@ -136,69 +133,70 @@
 												 value="#{irregularVerbPracticeController.question.pastParticiple}" />
 								</h:panelGroup>
 								<h:panelGroup rendered="#{empty irregularVerbPracticeController.question.pastParticiple}">
-									<h:inputText styleClass="w3-input" id="pastParticipleAnswer" autocomplete="off" value="#{irregularVerbPracticeController.input.pastParticiple}" maxlength="30">
-										<t:validateRegExpr pattern="([a-zA-Z ]+[\-/. ]?)?" message="#{irregularVerbMsg.practiceInvalidInput}"/>
+									<h:inputText styleClass="w3-input" id="pastParticipleAnswer" autocomplete="off"
+												 value="#{irregularVerbPracticeController.input.pastParticiple}" maxlength="30"
+												 validatorMessage="#{irregularVerbMsg.practiceInvalidInput}">
+										<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
 									</h:inputText>
 
 								</h:panelGroup>
 								<label class="w3-label">#{irregularVerbMsg.pastParticiple}</label>
-								<br /><h:message for="pastParticipleAnswer" errorClass="error" />
+								<br /><h:message for="pastParticipleAnswer" styleClass="w3-medium w3-text-red" />
 							</h:panelGroup>
 						</div>
 					</div>
 
 					<div class="w3-align-right w3-padding-top">
-						<a4j:commandLink render="topHeader questionInfoPanel questionRegion historyRegion msgPanel"
+						<p:commandLink update="topHeader questionInfoPanel questionRegion historyRegion msgPanel"
 										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange"
 										 oncomplete="updateAfterSubmit()" id="eslSubmit"
 										 action="#{irregularVerbPracticeController.practice}">
-							#{irregularVerbMsg.practiceSubmit}</a4j:commandLink>
-						<a4j:status>
+							<i class="fa fa-check" aria-hidden="true"></i> #{irregularVerbMsg.practiceSubmit}</p:commandLink>
+						<p:ajaxStatus style="display: inline-block;">
 							<f:facet name="start">
 								<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
 							</f:facet>
-						</a4j:status>
+						</p:ajaxStatus>
 						<input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{irregularVerbPracticeController.fullMark}" />
 						<input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{irregularVerbPracticeController.mark}" />
 						<input type="hidden" name="hiddenSearchText" id="hiddenSearchText" value="#{irregularVerbPracticeController.answer.present}" />
 					</div>
 				</h:form>
-			</a4j:outputPanel>
+			</h:panelGroup>
 
 			<div class="w3-medium w3-panel w3-pale-green w3-border-green"></div>
 
 			<esl:scoreBar2 startMark="#{irregularVerbPracticeController.mark}" maxMark="#{irregularVerbPracticeController.fullMark}" />
 
-			<a4j:outputPanel id="historyRegion">
-
-					<div class="w3-responsive">
-						<!-- Histories -->
-						<table class="w3-table-all w3-medium w3-margin-top">
-							<thead>
-							<tr class="w3-theme">
-								<td></td>
-								<td>#{irregularVerbMsg.present}</td>
-								<td>#{irregularVerbMsg.presentParticiple}</td>
-								<td>#{irregularVerbMsg.past}</td>
-								<h:panelGroup rendered="#{irregularVerbPracticeController.withPastParticiple}"><td>#{irregularVerbMsg.pastParticiple}</td></h:panelGroup>
+			<h:panelGroup id="historyRegion">
+				<div class="w3-responsive">
+					<!-- Histories -->
+					<table class="w3-table-all w3-medium w3-margin-top">
+						<thead>
+						<tr class="w3-theme">
+							<td></td>
+							<td>#{irregularVerbMsg.present}</td>
+							<td>#{irregularVerbMsg.presentParticiple}</td>
+							<td>#{irregularVerbMsg.past}</td>
+							<h:panelGroup rendered="#{irregularVerbPracticeController.withPastParticiple}"><td>#{irregularVerbMsg.pastParticiple}</td></h:panelGroup>
+						</tr>
+						</thead>
+						<ui:repeat var="history" varStatus="r" value="#{irregularVerbPracticeController.histories}">
+						<tr>
+								<td>#{irregularVerbPracticeController.totalQuestions - r.index - 1}</td>
+								<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{history.present.word}" target="_blank"><u><esl:ivpHistoryUnit word="#{history.present.word}" type="#{history.present.type}" /></u></a></td>
+								<td><esl:ivpHistoryUnit word="#{history.presentParticiple.word}" type="#{history.presentParticiple.type}" /></td>
+								<td><esl:ivpHistoryUnit word="#{history.past.word}" type="#{history.past.type}" /></td>
+								<h:panelGroup rendered="#{irregularVerbPracticeController.withPastParticiple}"><td><esl:ivpHistoryUnit word="#{history.pastParticiple.word}" type="#{history.pastParticiple.type}" /></td></h:panelGroup>
 							</tr>
-							</thead>
-							<a4j:repeat var="history" rowKeyVar="r" value="#{irregularVerbPracticeController.histories}">
-							<tr>
-									<td>#{irregularVerbPracticeController.totalQuestions - r - 1}</td>
-									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{history.present.word}" target="_blank"><u><esl:ivpHistoryUnit word="#{history.present.word}" type="#{history.present.type}" /></u></a></td>
-									<td><esl:ivpHistoryUnit word="#{history.presentParticiple.word}" type="#{history.presentParticiple.type}" /></td>
-									<td><esl:ivpHistoryUnit word="#{history.past.word}" type="#{history.past.type}" /></td>
-									<h:panelGroup rendered="#{irregularVerbPracticeController.withPastParticiple}"><td><esl:ivpHistoryUnit word="#{history.pastParticiple.word}" type="#{history.pastParticiple.type}" /></td></h:panelGroup>
-								</tr>
-							</a4j:repeat>
-						</table>
-					</div>
-					<div class="w3-container w3-light-grey w3-border w3-small">
-						<p>* #{irregularVerbMsg.dictionaryLink}</p>
-					</div>
+						</ui:repeat>
+					</table>
+				</div>
+				<div class="w3-container w3-light-grey w3-border w3-small">
+					<p>* #{irregularVerbMsg.dictionaryLink}</p>
+				</div>
 
-			</a4j:outputPanel>
+			</h:panelGroup>
 		</div>
 
 	</ui:define>
