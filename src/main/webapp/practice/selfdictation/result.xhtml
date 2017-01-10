@@ -2,11 +2,6 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
@@ -32,7 +27,7 @@
 
 				<div class="w3-row w3-center w3-margin w3-medium">
 					<h:commandLink styleClass="w3-btn w3-green" onclick="showSpinner()" action="/practice/selfdictation/input" value="#{selfDictationMsg.resultRetryMessage}" />
-					<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:28px"></i></span>
+					<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:24px"></i></span>
 				</div>
 
 				<esl:scoreBar2 startMark="#{selfDictationController.practice.mark}" maxMark="#{selfDictationController.totalQuestions}" />
@@ -51,18 +46,18 @@
 							<tfoot>
 								<tr><td colspan="5">#{selfDictationMsg.practiceMark}: #{selfDictationController.practice.mark}  / #{selfDictationController.practice.totalQuestions}</td></tr>
 							</tfoot>
-							<t:dataList var="i" rowIndexVar="index" value="#{selfDictationController.practice.answers}" >
+							<ui:repeat var="i" varStatus="r" value="#{selfDictationController.practice.answers}" >
 								<tr>
-									<td><strong>Q<h:outputText value="#{selfDictationController.practice.currentQuestion-index}" /></strong></td>
-									<td>[<h:outputText escape="false" value="#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-index].IPA}" />]</td>
-									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-index].word}" target="_blank"><u><h:outputText value="#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-index].word}" /></u></a></td>
-									<td><h:outputText value="#{selfDictationController.practice.answers[selfDictationController.practice.currentQuestion-1-index]}" /></td>
+									<td><strong>Q<h:outputText value="#{selfDictationController.practice.currentQuestion-r.index}" /></strong></td>
+									<td>[<h:outputText escape="false" value="#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].IPA}" />]</td>
+									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].word}" target="_blank"><u><h:outputText value="#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].word}" /></u></a></td>
+									<td><h:outputText value="#{selfDictationController.practice.answers[selfDictationController.practice.currentQuestion-1-r.index]}" /></td>
 									<td>
-										<a4j:outputPanel rendered="#{selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-index]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-										<a4j:outputPanel rendered="#{!selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-index]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
+										<h:panelGroup rendered="#{selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-r.index]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+										<h:panelGroup rendered="#{!selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-r.index]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
 									</td>
 								</tr>
-							</t:dataList>
+							</ui:repeat>
 						</table>
 					</h:panelGroup>
 				</div>

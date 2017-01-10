@@ -2,11 +2,7 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
+				xmlns:p="http://primefaces.org/ui"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
@@ -62,16 +58,16 @@
 								<td>#{dictationMsg.allowPublicAccess}</td>
 								<td>:</td>
 								<td>
-									<a4j:outputPanel rendered="#{dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-									<a4j:outputPanel rendered="#{!dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
+									<h:panelGroup rendered="#{dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+									<h:panelGroup rendered="#{!dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
 								</td>
 							</tr>
 							<tr>
 								<td>#{dictationMsg.pwdProtect}</td>
 								<td>:</td>
 								<td>
-									<a4j:outputPanel rendered="#{not empty dictationManageController.selectedDictation.password}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></a4j:outputPanel>
-									<a4j:outputPanel rendered="#{empty dictationManageController.selectedDictation.password}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></a4j:outputPanel>
+									<h:panelGroup rendered="#{not empty dictationManageController.selectedDictation.password}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+									<h:panelGroup rendered="#{empty dictationManageController.selectedDictation.password}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
 								</td>
 							</tr>
 							<tr>
@@ -103,13 +99,13 @@
 
 						<div class="">
 							<p><b>#{dictationMsg.vocab}:</b></p>
-							<a4j:repeat var="i" rowKeyVar="r" value="#{dictationManageController.selectedDictation.vocabs}">
+							<ui:repeat var="i" varStatus="r" value="#{dictationManageController.selectedDictation.vocabs}">
 								<span class="w3-tag w3-round-large w3-green" style="margin: 2px!important;">#{i.word}</span>&#160;
-							</a4j:repeat>
+							</ui:repeat>
 						</div>
 
 						<div class="w3-right w3-margin-top">
-							<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:36px"></i></span>
+							<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:26px"></i></span>
 
 							<h:commandLink action="#{dictationEditController.launchEdit}"
 										   styleClass="w3-btn w3-blue w3-margin-left">
@@ -135,11 +131,11 @@
 							<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.vocabStat}
 						</button>
 						<div id="vocabStat" class="w3-accordion-content w3-container w3-medium">
-							<a4j:repeat var="i" rowKeyVar="r" value="#{dictationManageController.selectedDictation.vocabs}">
+							<ui:repeat var="i" varStatus="r" value="#{dictationManageController.selectedDictation.vocabs}">
 								<span style="width: 150px; display: inline-block;" class="w3-small">
 									#{i.word} (<span class="w3-text-blue">#{i.totalCorrect}</span> / <span class="w3-text-red">#{i.totalWrong}</span>)
 								</span>
-							</a4j:repeat>
+							</ui:repeat>
 						</div>
 					</div>
 					<div class="w3-container w3-padding-0 w3-margin-top">
@@ -147,20 +143,17 @@
 							<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.participants}
 						</button>
 						<div id="practicers" class="w3-accordion-content w3-container w3-medium w3-padding-0">
-							<rich:dataTable value="#{dictationManageController.dictationHistories}" var="h"
-											style="width: 100%"
+							<p:dataTable value="#{dictationManageController.dictationHistories}" var="h"
+											style="width: 100%; line-height: 1;"
 											columnHeaderCellClass="w3-medium"
 											cellClass="w3-medium"
-											rows="15" reRender="ds">
-								<rich:column sortBy="#{h.practicerName}"><f:facet name="header">#{dictationMsg.name}</f:facet>#{h.practicerName}</rich:column>
-								<rich:column sortBy="#{h.practicerSchool}"><f:facet name="header">#{dictationMsg.school}</f:facet>#{h.practicerSchool}</rich:column>
-								<rich:column sortBy="#{h.practicerAgeGroup.display}"><f:facet name="header">#{dictationMsg.age}</f:facet>#{h.practicerAgeGroup.display}</rich:column>
-								<rich:column sortBy="#{h.mark}"><f:facet name="header">#{dictationMsg.mark}</f:facet>#{h.mark}</rich:column>
-								<rich:column sortBy="#{h.createdDate}"><f:facet name="header">#{dictationMsg.date}</f:facet><h:outputText value="#{h.createdDate}"><f:convertDateTime pattern="dd/MM hh:mm" /></h:outputText></rich:column>
-								<f:facet name="footer">
-									<rich:dataScroller id="ds"></rich:dataScroller>
-								</f:facet>
-							</rich:dataTable>
+											rows="15" paginator="true">
+								<p:column sortBy="#{h.practicerName}"><f:facet name="header">#{dictationMsg.name}</f:facet>#{h.practicerName}</p:column>
+								<p:column sortBy="#{h.practicerSchool}"><f:facet name="header">#{dictationMsg.school}</f:facet>#{h.practicerSchool}</p:column>
+								<p:column sortBy="#{h.practicerAgeGroup.display}"><f:facet name="header">#{dictationMsg.age}</f:facet>#{h.practicerAgeGroup.display}</p:column>
+								<p:column sortBy="#{h.mark}"><f:facet name="header">#{dictationMsg.mark}</f:facet>#{h.mark}</p:column>
+								<p:column sortBy="#{h.createdDate}"><f:facet name="header">#{dictationMsg.date}</f:facet><h:outputText value="#{h.createdDate}"><f:convertDateTime pattern="dd/MM hh:mm" /></h:outputText></p:column>
+							</p:dataTable>
 						</div>
 					</div>
 				</div>

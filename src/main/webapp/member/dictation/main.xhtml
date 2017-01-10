@@ -2,11 +2,7 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
+				xmlns:p="http://primefaces.org/ui"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
@@ -31,17 +27,18 @@
 				<h:messages errorClass="w3-panel w3-text-red w3-large" infoClass="w3-panel w3-text-blue w3-large" globalOnly="true" />
 
 				<div class="w3-container w3-padding-0 w3-margin-top">
-					<button onclick="addOrRemoveW3Show('createdDictation')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium">
+					<button onclick="addOrRemoveW3Show('createdDictation')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium w3-border">
 						<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.createdDictation}
 					</button>
 					<div id="createdDictation" class="w3-accordion-content w3-container w3-medium w3-padding-0 w3-show">
 						<h:form style="padding:0px; margin:0px;">
-							<rich:dataTable value="#{dictationManageController.selfCreated}" var="d"
-											style="width: 100%"
+							<p:dataTable value="#{dictationManageController.selfCreated}" var="d"
+											style="width: 100%; line-height: 1;"
 											columnHeaderCellClass="w3-medium"
 											cellClass="w3-medium"
-											rows="15" reRender="ds">
-								<rich:column>
+											rows="15"
+											paginator="true">
+								<p:column>
 									<h:commandLink action="#{dictationEditController.launchEdit}" styleClass="w3-padding-0" style="display: inline-block;">
 										<f:setPropertyActionListener target="#{dictationEditController.editDictation}" value="#{d}" />
 										<img src="#{request.contextPath}/images/graphic/edit.gif" border="0" alt="#{dictationMsg.edit}" />
@@ -54,51 +51,48 @@
 										<f:setPropertyActionListener target="#{dictationPracticeController.dictation}" value="#{d}" />
 										<img src="#{request.contextPath}/images/graphic/practice.gif" border="0" alt="#{dictationMsg.practice}"/>
 									</h:commandLink>
-								</rich:column>
-								<rich:column sortBy="#{d.id}"><f:facet name="header">#{dictationMsg.id}</f:facet>
+								</p:column>
+								<p:column sortBy="#{d.id}"><f:facet name="header">#{dictationMsg.id}</f:facet>
 									<h:outputText value="#{d.id}"/>
-								</rich:column>
-								<rich:column sortBy="#{d.title}"><f:facet name="header">#{dictationMsg.title}</f:facet>
+								</p:column>
+								<p:column sortBy="#{d.title}"><f:facet name="header">#{dictationMsg.title}</f:facet>
 									<h:outputText value="#{d.shortTitle}"/>
-								</rich:column>
-								<rich:column sortBy="#{d.suitableAge}"><f:facet name="header">#{dictationMsg.forAge}</f:facet>
+								</p:column>
+								<p:column sortBy="#{d.suitableAge}"><f:facet name="header">#{dictationMsg.forAge}</f:facet>
 									<h:outputText value="#{d.suitableAge}"/>
-								</rich:column>
-								<rich:column sortBy="#{d.vocabsSize}"><f:facet name="header">#{dictationMsg.words}</f:facet>
+								</p:column>
+								<p:column sortBy="#{d.vocabsSize}"><f:facet name="header">#{dictationMsg.words}</f:facet>
 									<h:outputText value="#{d.vocabsSize}"/>
-								</rich:column>
-								<rich:column sortBy="#{d.totalRecommended}"><f:facet name="header"><img src="#{request.contextPath}/images/icon/silk/recommend.gif" alt="#{dictationMsg.recommendation}" /></f:facet>
+								</p:column>
+								<p:column sortBy="#{d.totalRecommended}"><f:facet name="header"><img src="#{request.contextPath}/images/icon/silk/recommend.gif" alt="#{dictationMsg.recommendation}" /></f:facet>
 									#{d.totalRecommended}
-								</rich:column>
-								<rich:column sortBy="#{d.totalAttempt}"><f:facet name="header">#{dictationMsg.attempts}</f:facet>
+								</p:column>
+								<p:column sortBy="#{d.totalAttempt}"><f:facet name="header">#{dictationMsg.attempts}</f:facet>
 									<h:outputText value="#{d.totalAttempt}"/>
-								</rich:column>
-								<rich:column sortBy="#{d.publicAccess}"><f:facet name="header">#{dictationMsg.publicStr}</f:facet>
+								</p:column>
+								<p:column sortBy="#{d.publicAccess}"><f:facet name="header">#{dictationMsg.publicStr}</f:facet>
 									<h:graphicImage rendered="#{d.publicAccess}" value="#{context.requestPath}/images/graphic/right.gif" />
-								</rich:column>
-								<rich:column><f:facet name="header" width="10px">#{dictationMsg.lastModifyDate}</f:facet>
+								</p:column>
+								<p:column><f:facet name="header" width="10px">#{dictationMsg.lastModifyDate}</f:facet>
 									<h:outputText value="#{d.lastModifyDate}"><f:convertDateTime pattern="dd/MM" /></h:outputText>
-								</rich:column>
-								<f:facet name="footer">
-									<rich:dataScroller id="ds"></rich:dataScroller>
-								</f:facet>
-							</rich:dataTable>
+								</p:column>
+							</p:dataTable>
 						</h:form>
 					</div>
 				</div>
 
 				<div class="w3-container w3-padding-0 w3-margin-top">
-					<button onclick="addOrRemoveW3Show('lastPracticed')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium">
+					<button onclick="addOrRemoveW3Show('lastPracticed')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium w3-border">
 						<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.lastPracticedDictation}
 					</button>
 					<div id="lastPracticed" class="w3-accordion-content w3-container w3-medium w3-padding-0 w3-show">
 						<h:form style="padding:0px; margin:0px;">
-							<rich:dataTable value="#{dictationManageController.lastPracticed}" var="dh"
-											style="width: 100%"
+							<p:dataTable value="#{dictationManageController.lastPracticed}" var="dh"
+											style="width: 100%; line-height: 1;"
 											columnHeaderCellClass="w3-medium"
 											cellClass="w3-medium"
-											rows="15" reRender="dhs">
-								<rich:column>
+											rows="15" paginator="true">
+								<p:column>
 									<h:commandLink action="#{dictationManageController.launchDictation}" styleClass="w3-padding-0" style="display: inline-block;">
 										<f:setPropertyActionListener target="#{dictationManageController.selectedDictation}" value="#{dh.dictation}" />
 										<img src="#{request.contextPath}/images/graphic/view.gif" border="0" alt="#{dictationMsg.view}"/>
@@ -107,35 +101,32 @@
 										<f:setPropertyActionListener target="#{dictationPracticeController.dictation}" value="#{dh.dictation}" />
 										<img src="#{request.contextPath}/images/graphic/practice.gif" border="0" alt="#{dictationMsg.practice}"/>
 									</h:commandLink>
-								</rich:column>
-								<rich:column sortBy="#{dh.dictation.id}"><f:facet name="header">#{dictationMsg.id}</f:facet>
+								</p:column>
+								<p:column sortBy="#{dh.dictation.id}"><f:facet name="header">#{dictationMsg.id}</f:facet>
 									<h:outputText value="#{dh.dictation.id}"/>
-								</rich:column>
-								<rich:column sortBy="#{dh.dictation.title}"><f:facet name="header">#{dictationMsg.title}</f:facet>
+								</p:column>
+								<p:column sortBy="#{dh.dictation.title}"><f:facet name="header">#{dictationMsg.title}</f:facet>
 									<h:outputText value="#{dh.dictation.shortTitle}"/>
-								</rich:column>
-								<rich:column sortBy="#{dh.dictation.suitableAge}"><f:facet name="header">#{dictationMsg.forAge}</f:facet>
+								</p:column>
+								<p:column sortBy="#{dh.dictation.suitableAge}"><f:facet name="header">#{dictationMsg.forAge}</f:facet>
 									<h:outputText value="#{dh.dictation.suitableAge}"/>
-								</rich:column>
-								<rich:column sortBy="#{dh.dictation.vocabsSize}"><f:facet name="header">#{dictationMsg.words}</f:facet>
+								</p:column>
+								<p:column sortBy="#{dh.dictation.vocabsSize}"><f:facet name="header">#{dictationMsg.words}</f:facet>
 									<h:outputText value="#{dh.dictation.vocabsSize}"/>
-								</rich:column>
-								<rich:column sortBy="#{dh.dictation.totalRecommended}"><f:facet name="header"><img src="#{request.contextPath}/images/icon/silk/recommend.gif" alt="#{dictationMsg.recommendation}" /></f:facet>
+								</p:column>
+								<p:column sortBy="#{dh.dictation.totalRecommended}"><f:facet name="header"><img src="#{request.contextPath}/images/icon/silk/recommend.gif" alt="#{dictationMsg.recommendation}" /></f:facet>
 									#{dh.dictation.totalRecommended}
-								</rich:column>
-								<rich:column sortBy="#{dh.totalAttempt}"><f:facet name="header">#{dictationMsg.attempts}</f:facet>
+								</p:column>
+								<p:column sortBy="#{dh.totalAttempt}"><f:facet name="header">#{dictationMsg.attempts}</f:facet>
 									<h:outputText value="#{dh.totalAttempt}"/>
-								</rich:column>
-								<rich:column><f:facet name="header">#{dictationMsg.lastResult}</f:facet>
+								</p:column>
+								<p:column><f:facet name="header">#{dictationMsg.lastResult}</f:facet>
 									#{dh.lastMark}/#{dh.lastFullMark}
-								</rich:column>
-								<rich:column sortBy="#{dh.lastPracticeDate}"><f:facet name="header">#{dictationMsg.lastPracticeDate}</f:facet>
+								</p:column>
+								<p:column sortBy="#{dh.lastPracticeDate}"><f:facet name="header">#{dictationMsg.lastPracticeDate}</f:facet>
 									<h:outputText value="#{dh.lastPracticeDate}"><f:convertDateTime pattern="dd/MM hh:mm" /></h:outputText>
-								</rich:column>
-								<f:facet name="footer">
-									<rich:dataScroller id="dhs"></rich:dataScroller>
-								</f:facet>
-							</rich:dataTable>
+								</p:column>
+							</p:dataTable>
 						</h:form>
 					</div>
 				</div>

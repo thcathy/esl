@@ -2,11 +2,6 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
@@ -81,9 +76,9 @@
 					</div>
 					<div class="w3-half">
 						<div class="w3-margin-bottom">#{dictationMsg.vocab}:</div>
-						<a4j:repeat var="i" rowKeyVar="r" value="#{dictationEditController.editDictation.vocabs}">
+						<ui:repeat var="i" varStatus="r" value="#{dictationEditController.editDictation.vocabs}">
 							<span class="w3-tag w3-round-large w3-green" style="margin: 2px!important;">#{i.word}</span>&#160;
-						</a4j:repeat>
+						</ui:repeat>
 					</div>
 				</div>
 			</div>

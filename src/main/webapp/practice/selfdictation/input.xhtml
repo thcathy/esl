@@ -2,11 +2,6 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
@@ -44,13 +39,11 @@
                         #{generalMsg.example}: "apple", "bus stop", "ice-cream"
                     </p>
 					<div class="w3-row-padding">
-						<a4j:repeat var="vocab" rowKeyVar="r" value="#{selfDictationController.inputVocab}">
+						<ui:repeat var="vocab" varStatus="r" value="#{selfDictationController.inputVocab}">
 							<div class="w3-quarter">
-								<!--#{r+1}<h:outputText rendered="#{r lt 9}" escape="false" value="&amp;nbsp&#59;&amp;nbsp&#59;"/>-->
-								<input placeholder="#{r+1}" class="w3-input" type="text" id="vocab#{r+1}" name="vocab#{r+1}" value="#{vocab}" />
-								<!--<h:outputText escape="false" value="&lt;br /&gt;" rendered="#{(r+1)%2 == 0}"/>-->
+								<input placeholder="#{r.index+1}" class="w3-input" type="text" id="vocab#{r.index+1}" name="vocab#{r.index+1}" value="#{vocab}" />
 							</div>
-						</a4j:repeat>
+						</ui:repeat>
 
 					</div>
 					<div class="w3-padding-left w3-margin-top">

@@ -2,12 +2,6 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jstl/core"
-				xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-				xmlns:fmt="http://java.sun.com/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				template="/template/short.xhtml">
 
@@ -86,15 +80,15 @@
 									<tr>
 										<td>#{generalMsg.youAnswered}:</td>
 									</tr>
-									<a4j:repeat var="answer" rowKeyVar="r" value="#{grammarPracticeController.inputAnswers}">
+									<ui:repeat var="answer" varStatus="r" value="#{grammarPracticeController.inputAnswers}">
 										<tr>
-											<td id="inputTD#{r+1}" class="inputAnswer">#{r+1}.&#160;
-												<h:panelGroup rendered="#{grammarPracticeController.results[r]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
-												<h:panelGroup rendered="#{!grammarPracticeController.results[r]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
+											<td id="inputTD#{r.index+1}" class="inputAnswer">#{r.index+1}.&#160;
+												<h:panelGroup rendered="#{grammarPracticeController.results[r.index]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+												<h:panelGroup rendered="#{!grammarPracticeController.results[r.index]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
 												&#160;#{answer}
 											</td>
 										</tr>
-									</a4j:repeat>
+									</ui:repeat>
 								</table>
 							</td>
 						</tr>

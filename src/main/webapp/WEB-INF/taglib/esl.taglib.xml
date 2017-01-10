@@ -3,40 +3,20 @@
 <facelet-taglib>
 	<namespace>http://www.funfunspell.com/jsf</namespace>
 	<tag>
-		<tag-name>topResult</tag-name>
-		<source>component/topresult.xhtml</source>
-	</tag>
-	<tag>
 		<tag-name>topResult2</tag-name>
 		<source>component/topresult2.xhtml</source>
-	</tag>
-	<tag>
-		<tag-name>scoreBar</tag-name>
-		<source>component/scorebar.xhtml</source>
 	</tag>
 	<tag>
 		<tag-name>scoreBar2</tag-name>
 		<source>component/scorebar2.xhtml</source>
 	</tag>
 	<tag>
-		<tag-name>dictationNav</tag-name>
-		<source>component/dictationnav.xhtml</source>
-	</tag>
-	<tag>
 		<tag-name>dictationNav2</tag-name>
 		<source>component/dictationnav2.xhtml</source>
 	</tag>
 	<tag>
-		<tag-name>oneDictationSummary</tag-name>
-		<source>component/dictationsummary.xhtml</source>
-	</tag>
-	<tag>
 		<tag-name>oneDictationSummary2</tag-name>
 		<source>component/dictationsummary2.xhtml</source>
-	</tag>
-	<tag>
-		<tag-name>memberDictationHistory</tag-name>
-		<source>component/memberdictationhistory.xhtml</source>
 	</tag>
 	<tag>
 		<tag-name>memberDictationHistory2</tag-name>
@@ -69,21 +49,5 @@
 	<tag>
 		<tag-name>dictationStatistics</tag-name>
 		<source>component/dictation/dictationstatistics.xhtml</source>
-	</tag>
-	<tag>
-		<tag-name>ratingStar</tag-name>
-		<source>component/ratingstar.xhtml</source>
-	</tag>
-	<tag>
-		<tag-name>phonicsButton</tag-name>
-		<source>component/practice/phonicsbutton.xhtml</source>
-	</tag>
-	<tag>
-		<tag-name>ivpInput</tag-name>
-		<source>component/practice/irregular_verb_input.xhtml</source>
-	</tag>
-	<tag>
-		<tag-name>ivpHistoryUnit</tag-name>
-		<source>component/practice/ivp_history_unit.xhtml</source>
 	</tag>
 </facelet-taglib>

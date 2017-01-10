@@ -2,11 +2,7 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:t="http://myfaces.apache.org/tomahawk"
-				xmlns:c="http://java.sun.com/jsp/jstl/core"
-				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-				xmlns:a4j="http://richfaces.org/a4j"
-				xmlns:rich="http://richfaces.org/rich"
+				xmlns:p="http://primefaces.org/ui"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
@@ -28,12 +24,13 @@
 				<h:messages styleClass="w3-large" tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
 
 				<h:form style="padding:0px; margin:0px;" styleClass="w3-margin-top">
-					<rich:dataTable value="#{searchDictationController.results}" var="d"
-									style="width: 100%"
+					<p:dataTable value="#{searchDictationController.results}" var="d"
+									style="width: 100%; line-height: 1;"
 									columnHeaderCellClass="w3-medium"
 									cellClass="w3-medium"
-									rows="15" reRender="ds">
-						<rich:column>
+									rows="15"
+								 	paginator="true">
+						<p:column>
 							<h:commandLink action="#{dictationEditController.launchEdit}" style="text-decoration: none;">
 								<f:setPropertyActionListener target="#{dictationEditController.editDictation}" value="#{d}" />
 								<img src="#{request.contextPath}/images/graphic/edit.gif" border="0" alt="#{dictationMsg.edit}" />
@@ -46,35 +43,32 @@
 								<f:setPropertyActionListener target="#{dictationPracticeController.dictation}" value="#{d}" />
 								<img src="#{request.contextPath}/images/graphic/practice.gif" border="0" alt="#{dictationMsg.practice}"/>
 							</h:commandLink>
-						</rich:column>
-						<rich:column sortBy="#{d.id}"><f:facet name="header">#{dictationMsg.id}</f:facet>
+						</p:column>
+						<p:column sortBy="#{d.id}"><f:facet name="header">#{dictationMsg.id}</f:facet>
 							<h:outputText value="#{d.id}"/>
-						</rich:column>
-						<rich:column sortBy="#{d.title}"><f:facet name="header">#{dictationMsg.title}</f:facet>
+						</p:column>
+						<p:column sortBy="#{d.title}"><f:facet name="header">#{dictationMsg.title}</f:facet>
 							<h:outputText value="#{d.shortTitle}"/>
-						</rich:column>
-						<rich:column sortBy="#{d.suitableAge}"><f:facet name="header">#{dictationMsg.forAge}</f:facet>
+						</p:column>
+						<p:column sortBy="#{d.suitableAge}"><f:facet name="header">#{dictationMsg.forAge}</f:facet>
 							<h:outputText value="#{d.suitableAge}"/>
-						</rich:column>
-						<rich:column sortBy="#{d.vocabsSize}"><f:facet name="header">#{dictationMsg.words}</f:facet>
+						</p:column>
+						<p:column sortBy="#{d.vocabsSize}"><f:facet name="header">#{dictationMsg.words}</f:facet>
 							<h:outputText value="#{d.vocabsSize}"/>
-						</rich:column>
-						<rich:column sortBy="#{d.totalRecommended}"><f:facet name="header"><i class="fa fa-thumbs-o-up"></i></f:facet>
+						</p:column>
+						<p:column sortBy="#{d.totalRecommended}"><f:facet name="header"><i class="fa fa-thumbs-o-up"></i></f:facet>
 							#{d.totalRecommended}
-						</rich:column>
-						<rich:column sortBy="#{d.totalAttempt}"><f:facet name="header">#{dictationMsg.attempts}</f:facet>
+						</p:column>
+						<p:column sortBy="#{d.totalAttempt}"><f:facet name="header">#{dictationMsg.attempts}</f:facet>
 							<h:outputText value="#{d.totalAttempt}"/>
-						</rich:column>
-						<rich:column sortBy="#{d.publicAccess}"><f:facet name="header">#{dictationMsg.publicStr}</f:facet>
+						</p:column>
+						<p:column sortBy="#{d.publicAccess}"><f:facet name="header">#{dictationMsg.publicStr}</f:facet>
 							<h:panelGroup rendered="#{d.publicAccess}"><i class="fa fa-check" aria-hidden="true"></i></h:panelGroup>
-						</rich:column>
-						<rich:column><f:facet name="header">#{dictationMsg.lastModifyDate}</f:facet>
+						</p:column>
+						<p:column><f:facet name="header">#{dictationMsg.lastModifyDate}</f:facet>
 							<h:outputText value="#{d.lastModifyDate}"><f:convertDateTime pattern="dd/MM" /></h:outputText>
-						</rich:column>
-						<f:facet name="footer">
-							<rich:dataScroller id="ds"></rich:dataScroller>
-						</f:facet>
-					</rich:dataTable>
+						</p:column>
+					</p:dataTable>
 				</h:form>
 			</div>
 		</div>

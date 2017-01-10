@@ -20,4 +20,5 @@ function changeImg() {
 
     jQuery('#vocabImage').attr("src", picPaths[imageCount]);
     jQuery('#inputForm\\:answer').focus();
+    jQuery('#practiceDiv\\:inputForm\\:answer').focus();
 }

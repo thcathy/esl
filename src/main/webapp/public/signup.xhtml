@@ -51,10 +51,6 @@
 								<h:inputText a:type="date" value="#{profileController.newMember.birthday}" styleClass="w3-input" style="width: 30%; min-width: 319px;">
 									<f:convertDateTime pattern="yyyy-MM-dd" />
 								</h:inputText>
-							<!--	<rich:calendar id="birthday" value="#{profileController.newMember.birthday}"
-												   popup="true" locale="#{userSession.localeString}"
-												   datePattern="dd/MM/yyyy" inputClass="w3-input" jointPoint="bottom-left" direction="bottom-right"
-												   showApplyButton="false" inputStyle="width: 30%"/>-->
 							</p>
 							<p>
 								<h:outputLabel styleClass="w3-label" value="#{authMsg.signupFormPhoneNumberLabel}" for="phoneNumber" /> <h:message for="phoneNumber" errorClass="w3-red" />

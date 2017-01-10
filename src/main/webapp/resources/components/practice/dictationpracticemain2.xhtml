@@ -1,12 +1,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"	
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:util="http://java.sun.com/jsf/composite/components/util"
-	xmlns:composite="http://java.sun.com/jsf/composite">
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:esl="http://www.funfunspell.com/jsf"
+	  xmlns:util="http://java.sun.com/jsf/composite/components/util"
+	  xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+	  xmlns:composite="http://java.sun.com/jsf/composite">
 
 <composite:interface>
 	<composite:attribute name="controllerBean" />
@@ -14,68 +14,66 @@
 </composite:interface>
 
 <composite:implementation>
+	<h:form id="inputForm">
+		<div class="w3-row">
+			<div class="w3-half">
+				<div class="w3-margin-right w3-margin-bottom w3-card-2">
+					<util:vocabimage2 picPaths="#{cc.attrs.controllerBean.practice.currentQuestionObject.picsFullPathsInString}" />
 
-	<a4j:outputPanel id="questionRegion">
-		<h:form styleClass="practiceForm" id="inputForm">
-			<a4j:queue />
-			<div class="w3-row">
-				<div class="w3-half">
-					<div class="w3-margin-right w3-margin-bottom w3-card-2">
-						<util:vocabimage2 picPaths="#{cc.attrs.controllerBean.practice.currentQuestionObject.picsFullPathsInString}" />
+					<div class="w3-row w3-padding-top w3-padding-bottom w3-center w3-border-top">
+						<div class="w3-col l6 m12">
+							<h:panelGroup rendered="#{!cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
+								<audio id="pronounce" onloadeddata="this.play()" src="#{cc.attrs.controllerBean.practice.currentQuestionObject.activePronounceLink}" />
+								<a onclick="document.getElementById('pronounce').play(); jQuery('#practiceDiv\\:inputForm\\:answer').focus();" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
+									<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
+								<a onclick="responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}'); jQuery('#practiceDiv\\:inputForm\\:answer').focus();" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
+									<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
+								<script type="text/javascript">
+									//<![CDATA[
+									responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}');
+									jQuery('#practiceDiv\\:inputForm\\:answer').focus();
 
-						<div class="w3-row w3-padding-top w3-padding-bottom w3-center w3-border-top">
-							<div class="w3-col l6 m12">
-								<h:panelGroup rendered="#{!cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
-									<audio id="pronounce" onloadeddata="this.play()" src="#{cc.attrs.controllerBean.practice.currentQuestionObject.activePronounceLink}" />
-									<a onclick="document.getElementById('pronounce').play(); jQuery('#practiceDiv\\:inputForm\\:answer').focus();" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
-										<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
-								</h:panelGroup>
-								<h:panelGroup rendered="#{cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
-									<a onclick="responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}'); jQuery('#practiceDiv\\:inputForm\\:answer').focus();" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
-										<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
-									<script type="text/javascript">
-										//<![CDATA[
+									responsiveVoice.AddEventListener('OnReady', function() {
+										console.log('ResponsiveVoice OnReady');
 										responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}');
-
-										responsiveVoice.AddEventListener('OnReady', function() {
-											console.log('ResponsiveVoice OnReady');
-											responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}');
-										});
-										//]]>
-									</script>
-								</h:panelGroup>
-							</div>
-							<div class="w3-col l6 m12">
-								<a onclick="this.textContent='[#{cc.attrs.controllerBean.practice.currentQuestionObject.IPA}]'" class="w3-btn w3-medium w3-pink w3-round-xlarge" style="min-width: 200px;">#{phonPracticeMsg.practicePhonetic}</a>
-							</div>
+										jQuery('#practiceDiv\\:inputForm\\:answer').focus();
+									});
+									//]]>
+								</script>
+							</h:panelGroup>
+						</div>
+						<div class="w3-col l6 m12">
+							<a onclick="this.textContent='[#{cc.attrs.controllerBean.practice.currentQuestionObject.IPA}]'" class="w3-btn w3-medium w3-pink w3-round-xlarge" style="min-width: 200px;">#{phonPracticeMsg.practicePhonetic}</a>
 						</div>
 					</div>
 				</div>
-				<div class="w3-half w3-margin-bottom">
-					<div class="w3-card-4 w3-container">
-						<h:outputLabel styleClass="w3-label w3-text-deep-orange" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
-						<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-margin-bottom" value="#{cc.attrs.controllerBean.answer}" maxlength="30" />
-						<h:message for="answer" errorClass="w3-red" />
+			</div>
+			<div class="w3-half w3-margin-bottom">
+				<div class="w3-card-4 w3-container">
+					<h:outputLabel styleClass="w3-label w3-text-deep-orange" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
+					<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-margin-bottom" value="#{cc.attrs.controllerBean.answer}" maxlength="30" />
+					<h:message for="answer" errorClass="w3-red" />
 
-						<a4j:commandLink render="topHeader questionRegion historyRegion msgPanel" oncomplete="updateAfterSubmit()" id="eslSubmit"
-										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange"
-										 action="#{cc.attrs.controllerBean.submitAnswer}">
-							#{selfDictationMsg.practiceInputAnsBtn}
-						</a4j:commandLink>
+					<p:commandLink update="topHeader @form historyRegion msgPanel" oncomplete="updateAfterSubmit()" id="eslSubmit"
+									 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange"
+									 action="#{cc.attrs.controllerBean.submitAnswer}">
+						#{selfDictationMsg.practiceInputAnsBtn}
+					</p:commandLink>
 
-						<a4j:status>
-							<f:facet name="start">
-								<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
-							</f:facet>
-						</a4j:status>
-						<input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{cc.attrs.controllerBean.practice.totalQuestions}" />
-						<input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{cc.attrs.controllerBean.practice.mark}" />
-						<input type="hidden" name="hiddenPicPaths" id="hiddenPicPaths" value="#{cc.attrs.controllerBean.practice.currentQuestionObject.picsFullPathsInString}" />
-					</div>
+					<p:ajaxStatus style="display: inline-block;">
+						<f:facet name="start">
+							<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
+						</f:facet>
+					</p:ajaxStatus>
+					<input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{cc.attrs.controllerBean.practice.totalQuestions}" />
+					<input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{cc.attrs.controllerBean.practice.mark}" />
 				</div>
 			</div>
-		</h:form>
-	</a4j:outputPanel>
+		</div>
+	</h:form>
+
 
 </composite:implementation>
 </html>

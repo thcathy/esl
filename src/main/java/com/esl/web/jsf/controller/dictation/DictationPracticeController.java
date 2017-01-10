@@ -100,30 +100,6 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 			return null;
 		}
 	}
-	//
-	//	public String openDictation() {
-	//		final String logPrefix = "openDictation: ";
-	//		logger.info(logPrefix + "START");
-	//
-	//		FacesContext facesContext = FacesContext.getCurrentInstance();
-	//		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, facesContext.getViewRoot().getLocale());
-	//
-	//		dictation = dictationDAO.load(Dictation.class, selectedDictationId);
-	//		if (dictation == null) {
-	//			logger.info(logPrefix + "dictation [" + selectedDictationId + "] not found");
-	//
-	//			errorPage.setTitle(bundle.getString("dictationNotFoundTitle"));
-	//			errorPage.setDescription(bundle.getString("dictationNotFoundDesc"));
-	//			return errorView;
-	//		} else {
-	//			String str =  authDictation();
-	//			if (str == null) {
-	//				errorPage.setTitle(bundle.getString("notAllowOpen"));
-	//				return errorView;
-	//			}
-	//			else return str;
-	//		}
-	//	}
 
 	public String launchStart() {
 		final String logPrefix = "launchStart: ";

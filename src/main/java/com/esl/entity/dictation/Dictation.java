@@ -1,29 +1,15 @@
 package com.esl.entity.dictation;
 
+import com.esl.model.Member;
+import com.esl.model.group.MemberGroup;
+import com.esl.web.model.PasswordRequire;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.esl.model.Member;
-import com.esl.model.group.MemberGroup;
-import com.esl.web.model.PasswordRequire;
 
 @Entity
 @Table(name = "dictation")
@@ -170,13 +156,13 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 		}
 		return ags;
 	}
-	public void setSuitableAgeGroups(List<Integer> suitableAgeGroups) {
+	public void setSuitableAgeGroups(List<String> suitableAgeGroups) {
 		if (suitableAgeGroups != null && suitableAgeGroups.size() > 0) {
-			suitableMinAge = AgeGroup.values()[suitableAgeGroups.get(0)].minAge;
-			suitableMaxAge = AgeGroup.values()[suitableAgeGroups.get(0)].maxAge;
+			suitableMinAge = AgeGroup.values()[Integer.parseInt(suitableAgeGroups.get(0))].minAge;
+			suitableMaxAge = AgeGroup.values()[Integer.parseInt(suitableAgeGroups.get(0))].maxAge;
 		}
-		for (Integer i : suitableAgeGroups) {
-			AgeGroup a = AgeGroup.values()[i];
+		for (String i : suitableAgeGroups) {
+			AgeGroup a = AgeGroup.values()[Integer.parseInt(i)];
 			if (a == AgeGroup.AgeAny) {
 				suitableMinAge = suitableMaxAge = -1;
 				return;
@@ -280,16 +266,4 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 		return  sb.toString();
 	}
 
-	public static void main(String[] args) {
-		Dictation d = new Dictation();
-		List<Integer> l = new ArrayList<Integer>();
-		l.add(AgeGroup.Age13to15.ordinal());
-		l.add(AgeGroup.Age16to18.ordinal());
-		d.setSuitableAgeGroups(l);
-
-		System.out.println(d.getSuitableMinAge());
-		System.out.println(d.getSuitableMaxAge());
-
-
-	}
 }
