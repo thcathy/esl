@@ -15,12 +15,12 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.SpringBootTest;
 
 import com.esl.dao.dictation.IDictationDAO;
 import com.esl.entity.dictation.Dictation;
 import com.esl.model.Member;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:test-dao.xml"})
 @Transactional
 @SpringBootTest
