@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.*;
 
 import com.esl.dao.dictation.IDictationDAO;
 import com.esl.entity.dictation.Dictation;
@@ -24,6 +25,7 @@ import com.esl.model.Member;
 @ContextConfiguration(locations={"classpath:test-dao.xml"})
 @Transactional
 @SpringBootTest
+@Ignore
 public class DictationDaoTest {
 	Logger log = LoggerFactory.getLogger(DictationDaoTest.class);
 	Dictation dic1, dic2;
