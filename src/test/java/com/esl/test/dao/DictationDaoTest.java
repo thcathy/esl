@@ -23,6 +23,7 @@ import com.esl.model.Member;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:test-dao.xml"})
 @Transactional
+@SpringBootTest
 public class DictationDaoTest {
 	Logger log = LoggerFactory.getLogger(DictationDaoTest.class);
 	Dictation dic1, dic2;
