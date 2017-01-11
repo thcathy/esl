@@ -27,10 +27,6 @@
 		<source>component/ratedictation.xhtml</source>
 	</tag>
 	<tag>
-		<tag-name>memberNav</tag-name>
-		<source>component/nav/membernav.xhtml</source>
-	</tag>
-	<tag>
 		<tag-name>memberNav2</tag-name>
 		<source>component/nav/membernav2.xhtml</source>
 	</tag>
