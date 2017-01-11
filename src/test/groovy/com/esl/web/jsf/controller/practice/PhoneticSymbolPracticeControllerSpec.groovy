@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
-@ContextConfiguration(locations = "/com/esl/ESL-context.xml")
+//@ContextConfiguration(locations = "/com/esl/ESL-context.xml")
 @SpringBootTest
 public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
     @Autowired PhoneticSymbolPracticeController phoneticSymbolPracticeController
