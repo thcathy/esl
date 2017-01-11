@@ -16,9 +16,9 @@ import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/com/esl/ESL-context.xml"})
-@Transactional
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations={"classpath:/com/esl/ESL-context.xml"})
+//@Transactional
 @Ignore
 public class GradeDaoTest {
 	Logger log = LoggerFactory.getLogger(GradeDaoTest.class);
