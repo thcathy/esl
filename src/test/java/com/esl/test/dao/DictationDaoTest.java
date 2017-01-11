@@ -22,9 +22,9 @@ import com.esl.dao.dictation.IDictationDAO;
 import com.esl.entity.dictation.Dictation;
 import com.esl.model.Member;
 
-@ContextConfiguration(locations={"classpath:test-dao.xml"})
-@Transactional
-@SpringBootTest
+//@ContextConfiguration(locations={"classpath:test-dao.xml"})
+//@Transactional
+//@SpringBootTest
 @Ignore
 public class DictationDaoTest {
 	Logger log = LoggerFactory.getLogger(DictationDaoTest.class);
