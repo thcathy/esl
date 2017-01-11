@@ -8,13 +8,14 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.*;
 
 import javax.annotation.Resource;
 
 @ContextConfiguration(locations={"classpath:/com/esl/ESL-context.xml"})
 @SpringBootTest
 public class PhoneticSymbolPracticeServiceIntTest {
-    @Resource(name="phoneticPracticeService") private IPhoneticPracticeService service;
+    @Autowired private IPhoneticPracticeService service;
 
     @Test
     public void generatePractice_allQuestionsUseVocabImage() {
