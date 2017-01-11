@@ -9,7 +9,7 @@ import spock.lang.Specification
 import javax.faces.component.UIViewRoot
 import javax.faces.context.FacesContext
 
-//@ContextConfiguration(locations = "/com/esl/ESL-context.xml")
+@ContextConfiguration(locations = "/com/esl/ESL-context.xml")
 @SpringBootTest
 class SelfDictationSpec extends Specification {
     @Autowired
