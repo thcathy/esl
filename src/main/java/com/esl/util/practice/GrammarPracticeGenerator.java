@@ -1,13 +1,13 @@
 package com.esl.util.practice;
 
 import com.esl.entity.practice.GrammarPractice;
-import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.HtmlUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +46,7 @@ public class GrammarPracticeGenerator {
 		// return all positions if input pos size small than max
 		if (questions.size() < maxQuestions) return questionPositions;
 
-		RandomUtils r = new RandomUtils();
+		Random r = new Random();
 		while (questionPositions.size() > maxQuestions) {
 			questionPositions.remove(r.nextInt(questionPositions.size()));
 		}
