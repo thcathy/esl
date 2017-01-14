@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:panelGroup rendered="#{type=='Question'}">
+        <span class="w3-text-black">#{word}</span>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{type=='Correct'}">
+        <span class="w3-text-green">#{word} <i class="fa fa-check"></i></span>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{type=='Wrong'}">
+        <span class="w3-text-red">#{word} <i class="fa fa-times"></i></span>
+    </h:panelGroup>
+</ui:composition>

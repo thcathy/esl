@@ -1,9 +1,9 @@
 package com.esl.service.rest;
 
 import com.esl.entity.rest.WebItem;
-import com.google.common.base.Strings;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
+import org.ocpsoft.common.util.Strings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

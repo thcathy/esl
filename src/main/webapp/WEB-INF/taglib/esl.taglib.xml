@@ -46,4 +46,12 @@
 		<tag-name>dictationStatistics</tag-name>
 		<source>component/dictation/dictationstatistics.xhtml</source>
 	</tag>
+	<tag>
+		<tag-name>phonicsButton</tag-name>
+		<source>component/practice/phonicsbutton.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>ivpHistoryUnit</tag-name>
+		<source>component/practice/ivp_history_unit.xhtml</source>
+	</tag>
 </facelet-taglib>

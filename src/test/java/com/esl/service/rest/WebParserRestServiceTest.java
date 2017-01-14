@@ -21,8 +21,8 @@ public class WebParserRestServiceTest {
     @BeforeClass
     public static void setup() {
         String host = System.getenv("APISERVER_HOST");
-        if (com.google.common.base.Strings.isNullOrEmpty(host)) host = System.getProperty("APISERVER_HOST");
-        if (com.google.common.base.Strings.isNullOrEmpty(host)) host = "funfunspell.com:8091";
+        if (org.ocpsoft.common.util.Strings.isNullOrEmpty(host)) host = System.getProperty("APISERVER_HOST");
+        if (Strings.isNullOrEmpty(host)) host = "funfunspell.com:8091";
         service = new WebParserRestService(host);
     }
 
