@@ -2,11 +2,11 @@ package com.esl.util;
 
 import com.esl.entity.rest.WebItem;
 import com.esl.service.rest.WebParserRestService;
-import com.google.common.base.Strings;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.io.IOUtils;
+import org.ocpsoft.common.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
