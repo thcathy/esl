@@ -1,6 +1,7 @@
 package com.esl.web.jsf.controller.practice
 
 import com.esl.BaseSpec
+import com.esl.ESLApplication
 import com.esl.dao.IGradeDAO
 import com.esl.dao.IMemberDAO
 import com.esl.dao.IMemberWordDAO
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
-@ContextConfiguration(locations = "/com/esl/ESL-context.xml")
+@ContextConfiguration(classes=ESLApplication.class)
 @SpringBootTest
 public class PhoneticPracticeG2ControllerSpec extends BaseSpec {
     @Autowired PhoneticPracticeG2Controller phoneticPracticeG2Controller
