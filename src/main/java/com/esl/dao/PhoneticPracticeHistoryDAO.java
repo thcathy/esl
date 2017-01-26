@@ -32,7 +32,7 @@ public class PhoneticPracticeHistoryDAO extends ESLDao<PhoneticPracticeHistory> 
 		if (member == null) return null;
 
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery(GET_MOST_FREQUENT_GRADE).addScalar("grade_id",Hibernate.LONG).addScalar("x",Hibernate.INTEGER);
+		Query query = session.createSQLQuery(GET_MOST_FREQUENT_GRADE).addScalar("grade_id").addScalar("x");
 		query.setParameter("memberId", member.getId());
 		List results = query.list();
 		if (results.size() < 1) {

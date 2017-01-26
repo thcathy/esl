@@ -84,7 +84,8 @@ public class MemberWordDAO extends ESLDao<MemberWord> implements IMemberWordDAO 
 	}
 
 	public void transit(MemberWord word) {
-		sessionFactory.getCurrentSession().delete(word);
+		MemberWord attachedWord = getMemberWordById(word.getId());
+		sessionFactory.getCurrentSession().delete(attachedWord);
 		logger.info("transit: memberWord[" + word + "] is deleted");
 	}
 

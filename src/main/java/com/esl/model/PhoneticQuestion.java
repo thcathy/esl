@@ -7,10 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.*;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Table(name = "phonetic_question")
 public class PhoneticQuestion implements Serializable {
 	private static Logger logger = LoggerFactory.getLogger(PhoneticQuestion.class);
 
@@ -20,20 +25,46 @@ public class PhoneticQuestion implements Serializable {
 	public static boolean USE_SECEONDARY_PRONOUNCE_LINK = false;
 
 	@Autowired
+	@Transient
 	public WebParserRestService parserRestService;
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "PHONETICQUESTION_ID", nullable = false)
 	private Long id = null;
+
+	@Column(name = "IPA")
 	private String IPA;
+
+	@Column(name = "PRONOUNCED_LINK")
 	private String pronouncedLink;
+
+	@Column(name = "PRONOUNCED_LINK_BACKUP")
 	private String pronouncedLinkBackup;
+
+	@Column(name = "WORD")
 	private String word;
+
+	@Column(name = "PIC_FILE_NAME")
 	private String picFileName;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="grade_phoneticquestion",
+			joinColumns=@JoinColumn(name="PHONETICQUESTION_ID"),
+			inverseJoinColumns=@JoinColumn(name="GRADE_ID"))
 	private List<Grade> grades = new ArrayList<Grade>();
+
+	@Column(name = "CREATED_DATE")
 	private Date createdDate = new Date();
 
 	// not persist in DB
+	@Transient
 	private boolean IPAUnavailable = false;
+
+	@Transient
 	private String[] phonics;
+
+	@Transient
 	private String[] picsFullPaths;
 
 	// ********************** Constructors ********************** //

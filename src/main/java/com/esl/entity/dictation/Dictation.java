@@ -96,8 +96,9 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 	@OneToMany(mappedBy="dictation", cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private List<Vocab> vocabs;
 
-	@ManyToMany()
-	@JoinTable(name="dictation_membergroup", joinColumns=@JoinColumn(name="DICTATION_ID"), inverseJoinColumns=@JoinColumn(name="MEMBERGROUP_ID"))
+	//@ManyToMany()
+	//@JoinTable(name="dictation_membergroup", joinColumns=@JoinColumn(name="DICTATION_ID"), inverseJoinColumns=@JoinColumn(name="MEMBERGROUP_ID"))
+	@Transient
 	private List<MemberGroup> accessibleGroups;
 
 	@Temporal(TemporalType.TIMESTAMP)

@@ -9,7 +9,7 @@ import java.util.Date;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "VOCAB_IMAGE")
+@Table(name = "vocab_image")
 public class VocabImage implements Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

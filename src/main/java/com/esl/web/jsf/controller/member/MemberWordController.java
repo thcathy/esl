@@ -1,23 +1,23 @@
 package com.esl.web.jsf.controller.member;
 
-import java.text.MessageFormat;
-import java.util.*;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
+import com.esl.dao.IMemberWordDAO;
+import com.esl.model.Member;
+import com.esl.model.MemberWord;
+import com.esl.model.MemberWord.Ordering;
+import com.esl.model.PhoneticQuestion;
+import com.esl.service.memberword.IMemberWordManageService;
+import com.esl.service.memberword.MemberWordManageService;
+import com.esl.web.jsf.controller.ESLController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.esl.dao.IMemberWordDAO;
-import com.esl.model.*;
-import com.esl.model.MemberWord.Ordering;
-import com.esl.service.memberword.IMemberWordManageService;
-import com.esl.service.memberword.MemberWordManageService;
-import com.esl.web.jsf.controller.ESLController;
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import java.text.MessageFormat;
+import java.util.*;
 
 @Controller
 @Scope("session")

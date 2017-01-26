@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
@@ -34,6 +35,7 @@ import java.util.ResourceBundle;
 
 @SuppressWarnings("serial")
 @Controller
+@Transactional
 @Scope("session")
 public class DictationPracticeController extends UserCreatedPracticeController<Dictation> {
 	public static int SCOREBAR_FULLLENGTH = 500;
@@ -107,9 +109,18 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 
 		if (dictation == null) return errorView;
 		dictationDAO.attachSession(dictation);
-		if (userSession.getMember() != null) memberDictationHistory = memberDictationHistoryDAO.loadByDictationMember(userSession.getMember(), dictation);
+		loadMemberDictationHistory();
 
 		return startView;
+	}
+
+	private void loadMemberDictationHistory() {
+		if (userSession.getMember() != null)
+			memberDictationHistory = memberDictationHistoryDAO.loadByDictationMember(userSession.getMember(), dictation);
+
+		if (memberDictationHistory != null) {
+			logger.info("Preload vocab histories: size {}", memberDictationHistory.getVocabHistories().size());
+		}
 	}
 
 	public String start() {

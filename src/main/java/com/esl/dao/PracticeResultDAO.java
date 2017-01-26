@@ -1,19 +1,25 @@
 package com.esl.dao;
 
-import java.util.List;
-import java.util.TreeSet;
-
-import org.hibernate.*;
+import com.esl.exception.IllegalParameterException;
+import com.esl.model.Grade;
+import com.esl.model.Member;
+import com.esl.model.PracticeResult;
+import com.esl.model.TopResult;
+import com.esl.model.TopResult.OrderType;
+import com.esl.model.practice.PhoneticSymbols.Level;
+import org.hibernate.Hibernate;
+import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.type.IntegerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.exception.IllegalParameterException;
-import com.esl.model.*;
-import com.esl.model.TopResult.OrderType;
-import com.esl.model.practice.PhoneticSymbols.Level;
+import java.util.List;
+import java.util.TreeSet;
 
 @Transactional
 @Repository("practiceResultDAO")
@@ -400,7 +406,7 @@ public class PracticeResultDAO extends ESLDao<PracticeResult> implements IPracti
 
 		// Call to DB
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery(queryStr).addScalar("counter",Hibernate.INTEGER);
+		Query query = session.createSQLQuery(queryStr).addScalar("counter", IntegerType.INSTANCE);
 		query.setParameter("practice_result_id", pr.getId());
 		query.setParameter("practice_type", pr.getPracticeType());
 		query.setParameter("mark", pr.getMark());

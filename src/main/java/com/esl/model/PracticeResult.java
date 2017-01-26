@@ -1,25 +1,53 @@
 package com.esl.model;
 
+import javax.persistence.*;
 import java.util.Comparator;
 import java.util.Date;
 
+@Entity
+@Table(name = "practice_result")
 public class PracticeResult {
 	// practice types
 	final static public String PHONETICPRACTICE = "PHONETICPRACTICE";
 	final static public String PHONETICSYMBOLPRACTICE = "PHONETICSYMBOLPRACTICE";
 	final static public String COMPREHENSIONPRACTICE = "COMPREHENSIONPRACTICE";
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PRACTICE_RESULT_ID")
 	private Long id = null;
+
+	@Column(name = "MARK")
 	private int mark = 0;
+
+	@Column(name = "FULL_MARK")
 	private int fullMark = 0;
+
+	@Column(name = "RATE")
 	private double rate = 0.0;
+
+	@Column(name = "TOTAL_PRACTICES")
 	private int totalPractices = 0;
+
+	@Column(name = "PRACTICE_TYPE")
 	private String practiceType;
+
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
+
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@JoinColumn(name = "GRADE_ID")
 	private Grade grade;
+
+	@Column(name = "LEVEL")
 	private String level;
-	private String levelTitle;
+
+	@Column(name = "CREATED_DATE")
 	private Date createdDate = new Date();
+
+	@Transient
+	private String levelTitle;
 
 	// ********************** Constructors ********************** //
 	public PracticeResult() {}

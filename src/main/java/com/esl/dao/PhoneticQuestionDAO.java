@@ -1,20 +1,19 @@
 package com.esl.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.Hibernate;
+import com.esl.model.Grade;
+import com.esl.model.PhoneticQuestion;
+import com.esl.util.practice.PhoneticQuestionUtil;
+import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.type.LongType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.model.Grade;
-import com.esl.model.PhoneticQuestion;
-import com.esl.util.practice.PhoneticQuestionUtil;
-import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Repository("phoneticQuestionDAO")
@@ -50,7 +49,7 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 
 		// Get Questions ID
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery(queryString).addScalar("id",Hibernate.LONG);
+		Query query = session.createSQLQuery(queryString).addScalar("id", LongType.INSTANCE);
 		query.setParameter("gradeId", grade.getId());
 		query.setMaxResults(total);
 		logger.info("getRandomQuestionsByGrade: queryString[" + queryString + "]");
@@ -67,8 +66,7 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 		// Generate the questions List
 		if (results.size() < total) total = results.size();
 		for (int i=0; i < total; i++) {
-			PhoneticQuestion question = new PhoneticQuestion();
-			question = (PhoneticQuestion)sessionFactory.getCurrentSession().get(PhoneticQuestion.class, results.get(i));
+			PhoneticQuestion question = sessionFactory.getCurrentSession().get(PhoneticQuestion.class, results.get(i));
 			if (question != null) {
 				FindIPAAndPronoun finder = pqUtil.new FindIPAAndPronoun(questions, question, null, null);
 				Thread newThread = new Thread(finder);

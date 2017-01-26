@@ -1,25 +1,25 @@
 package com.esl.service.practice;
 
-import java.io.File;
-import java.util.*;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletContext;
-
+import com.esl.dao.dictation.*;
+import com.esl.entity.dictation.*;
+import com.esl.entity.dictation.Dictation.AgeGroup;
+import com.esl.exception.IllegalParameterException;
+import com.esl.model.Member;
+import com.esl.model.PhoneticPractice;
+import com.esl.model.PhoneticQuestion;
+import com.esl.util.ValidationUtil;
+import com.esl.util.practice.PhoneticQuestionUtil;
+import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.dao.dictation.*;
-import com.esl.entity.dictation.*;
-import com.esl.entity.dictation.Dictation.AgeGroup;
-import com.esl.exception.IllegalParameterException;
-import com.esl.model.*;
-import com.esl.util.*;
-import com.esl.util.practice.PhoneticQuestionUtil;
-import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
+import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.util.*;
 
 @Transactional
 @Service("selfDictationService")
@@ -179,10 +179,10 @@ public class SelfDictationService implements ISelfDictationService {
 
 		// update dictation
 		logger.info(logPrefix + "update dictation [" + dictation.getId() + "]");
-		dictationDAO.refresh(dictation);
+//		dictationDAO.refresh(dictation);
 		dictation.setTotalAttempt(dictation.getTotalAttempt() + 1);
 		dictation.setLastPracticeDate(new Date());
-		dictationDAO.persist(dictation);
+		dictationDAO.merge(dictation);
 		logger.info(logPrefix + "updated value total attempt[" + dictation.getTotalAttempt() + "], last practice date[" + dictation.getLastPracticeDate() + "]");
 
 		// gen word-vocab lookup map
@@ -191,7 +191,7 @@ public class SelfDictationService implements ISelfDictationService {
 
 		for (int i=0; i < practice.getTotalQuestions(); i++) {
 			Vocab v = wordVocabMap.get(practice.getQuestions().get(i).getWord());
-			vocabDAO.refresh(v);
+//			vocabDAO.refresh(v);
 			logger.debug(logPrefix + v);
 
 			if ((Boolean)practice.getCorrects().get(i)) {
@@ -200,7 +200,7 @@ public class SelfDictationService implements ISelfDictationService {
 				v.setTotalWrong(v.getTotalWrong() + 1);
 			}
 			logger.debug(logPrefix + "updated vocab value correct[" + v.getTotalCorrect() + "], wrong[" + v.getTotalWrong() +"]");
-			vocabDAO.persist(v);
+			vocabDAO.merge(v);
 		}
 
 

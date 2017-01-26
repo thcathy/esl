@@ -26,6 +26,7 @@
 
 	<logger name="org.apache" level="info" />
 	<logger name="org.springframework" level="info" />
+	<logger name="org.reflections" level="INFO"/>
 	<logger name="org.hibernate" level="INFO"/>
 	
 	<root level="info">

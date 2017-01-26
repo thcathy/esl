@@ -1,21 +1,22 @@
 package com.esl.dao.group;
 
-import java.util.Collections;
-import java.util.List;
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.hibernate.*;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.esl.dao.PracticeResultDAO;
 import com.esl.exception.DBException;
 import com.esl.exception.IllegalParameterException;
-import com.esl.model.*;
+import com.esl.model.Grade;
+import com.esl.model.PracticeResult;
+import com.esl.model.TopResult;
 import com.esl.model.group.MemberGroup;
 import com.esl.model.group.MemberGroupPracticeResult;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
+import java.util.List;
 
 @Transactional
 @Repository("groupPracticeResultDAO")
@@ -145,7 +146,7 @@ public class GroupPracticeResultDAO extends PracticeResultDAO implements IGroupP
 
 		// Call to DB
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery(queryStr).addScalar("counter",Hibernate.INTEGER);
+		Query query = session.createSQLQuery(queryStr).addScalar("counter");
 		query.setParameter("group_id", result.getGroup().getId());
 		query.setParameter("practice_type", result.getPracticeType());
 		query.setParameter("mark", result.getMark());

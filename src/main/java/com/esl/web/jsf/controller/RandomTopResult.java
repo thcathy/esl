@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.NumberFormat;
@@ -51,6 +52,7 @@ public class RandomTopResult extends ESLController {
 	public String getExistType() {return  (existType == null) ? "" : existType.toString(); }
 
 	// ============== Getter Functions ================//
+	@Transactional
 	public String getNewRandomTopResult() {
 		final String logPrefix = "getNewRandomTopResult:";
 		existType =  TopType.values()[new Random().nextInt(TopType.values().length)];

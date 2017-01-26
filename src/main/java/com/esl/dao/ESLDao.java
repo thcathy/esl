@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.esl.entity.IAuditable;
@@ -20,8 +21,7 @@ import com.esl.entity.IAuditable;
 public abstract class ESLDao<T> implements IESLDao<T> {
 	protected Class<?> entityClass;
 
-	@Resource(name="sessionFactory") protected SessionFactory sessionFactory;
-	protected EntityManager em;
+	@Autowired protected SessionFactory sessionFactory;
 
 	public ESLDao() {
 		Class<?> clazz = getClass();

@@ -115,7 +115,7 @@ public class DictationDAO extends ESLDao<Dictation> implements IDictationDAO {
 
 		// construct query string
 		StringBuilder querySB = new StringBuilder();
-		querySB.append("SELECT DISTINCT d FROM Dictation d LEFT JOIN d.accessibleGroups AS g WHERE 1=1");
+		querySB.append("SELECT DISTINCT d FROM Dictation d WHERE 1=1");
 		querySB.append(getSearchDictationWhereClause(searchCriteria));
 		querySB.append(" ORDER BY d.lastModifyDate DESC, d.rating DESC, d.totalRated DESC");
 		logger.info(logPrefix + "queryStr[" + querySB.toString() + "]");
@@ -133,12 +133,12 @@ public class DictationDAO extends ESLDao<Dictation> implements IDictationDAO {
 
 		// construct query string
 		StringBuilder querySB = new StringBuilder();
-		querySB.append("SELECT DISTINCT d FROM Dictation d LEFT JOIN d.accessibleGroups AS g WHERE (d.password IS NULL OR d.password = '')");
+		querySB.append("SELECT DISTINCT d FROM Dictation d WHERE (d.password IS NULL OR d.password = '')");
 		if (member == null) {
 			querySB.append(" AND d.isPublicAccess = TRUE");
 		} else {
 			querySB.append(" AND (d.isPublicAccess = TRUE OR d.creator = :creator");
-			if (member.getGroups() != null && member.getGroups().size() > 0) querySB.append(" OR g in (:groups)");
+			//if (member.getGroups() != null && member.getGroups().size() > 0) querySB.append(" OR g in (:groups)");
 			querySB.append(")");
 		}
 		querySB.append(" ORDER BY RAND()");
@@ -147,7 +147,7 @@ public class DictationDAO extends ESLDao<Dictation> implements IDictationDAO {
 		Query query = sessionFactory.getCurrentSession().createQuery(querySB.toString());
 		if (member != null) {
 			query.setParameter("creator", member);
-			if (member.getGroups() != null && member.getGroups().size() > 0) query.setParameterList("groups", member.getGroups());
+		//	if (member.getGroups() != null && member.getGroups().size() > 0) query.setParameterList("groups", member.getGroups());
 		}
 		query.setMaxResults(1);
 		return (Dictation)query.uniqueResult();
@@ -277,7 +277,7 @@ public class DictationDAO extends ESLDao<Dictation> implements IDictationDAO {
 				clause.append(" AND d.isPublicAccess = TRUE");
 			} else {
 				clause.append(" AND (d.isPublicAccess = TRUE OR d.creator = :" + Accessible + "0");
-				if (((Member)searchCriteria.get(Accessible)).getGroups().size() > 0) clause.append(" OR g in (:" + Accessible + "1)");
+				//if (((Member)searchCriteria.get(Accessible)).getGroups().size() > 0) clause.append(" OR g in (:" + Accessible + "1)");
 				clause.append(")");
 			}
 		}
@@ -313,7 +313,7 @@ public class DictationDAO extends ESLDao<Dictation> implements IDictationDAO {
 		if (searchCriteria.containsKey(Accessible) && searchCriteria.get(Accessible) != null) {
 			Member m = (Member) searchCriteria.get(Accessible);
 			query.setParameter(Accessible + "0", m);
-			if (((Member)searchCriteria.get(Accessible)).getGroups().size() > 0) query.setParameterList(Accessible + "1", m.getGroups());
+	//		if (((Member)searchCriteria.get(Accessible)).getGroups().size() > 0) query.setParameterList(Accessible + "1", m.getGroups());
 		}
 		if (searchCriteria.containsKey(MinDate)) query.setParameter(MinDate.toString(), searchCriteria.get(MinDate));
 		if (searchCriteria.containsKey(MaxDate)) query.setParameter(MaxDate.toString(), searchCriteria.get(MaxDate));
