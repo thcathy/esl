@@ -34,6 +34,11 @@
 		console.log("updateAfterSubmit");
 		animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
 		jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
+		if (isTouchDevice()) {
+			$('html, body').animate({
+				scrollTop: ($('#topHeader').offset().top)
+			},300);
+		}
 		setFocus(jQuery('#inputForm\\:answer'));
 		showImage();
 	}
@@ -129,7 +134,7 @@
 								</tr>
 								</thead>
 								<tfoot><tr>
-									<td colspan="6"><div style="text-align: right; font-weight: bolder" ><h:outputText value="#{phonPracticeMsg.practiceMark}" />: ${phoneticPracticeController.practice.mark}  / ${phoneticPracticeController.practice.currentQuestion}</div></td>
+									<td colspan="6"><div style="font-weight: bolder" >#{phonPracticeMsg.practiceMark}: ${phoneticPracticeController.practice.mark}  / ${phoneticPracticeController.practice.currentQuestion}</div></td>
 								</tr></tfoot>
 
 								<ui:repeat var="i" varStatus="r" value="#{phoneticPracticeController.practice.answers}">
