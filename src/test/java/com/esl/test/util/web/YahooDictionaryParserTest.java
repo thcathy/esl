@@ -1,13 +1,15 @@
 package com.esl.test.util.web;
 
+import com.esl.util.web.DictionaryParser;
+import com.esl.util.web.YahooDictionaryParser;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
-import com.esl.util.web.DictionaryParser;
-import com.esl.util.web.YahooDictionaryParser;
-
+// Need to revamp the yahoo dictation parser before using it
+@Ignore
 public class YahooDictionaryParserTest {
 
 	@Test
