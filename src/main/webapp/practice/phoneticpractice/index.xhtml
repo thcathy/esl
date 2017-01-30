@@ -28,11 +28,11 @@
                 </h:selectOneMenu>
             </p>
 
-            <h:commandLink styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom" onclick="showSpinner()" action="#{phoneticPracticeController.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG1}</h:commandLink>
+            <h:commandLink styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-large" onclick="showSpinner()" action="#{phoneticPracticeController.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG1}</h:commandLink>
             <h:panelGroup rendered="#{authenticationController.authenticated}">
-                <h:commandLink styleClass="w3-btn w3-green w3-margin-bottom" onclick="showSpinner()" action="#{phoneticPracticeG2Controller.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG2}</h:commandLink>
+                <h:commandLink styleClass="w3-btn w3-green w3-margin-bottom w3-large" onclick="showSpinner();" action="#{phoneticPracticeG2Controller.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG2}</h:commandLink>
             </h:panelGroup>
-            <span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
+            <span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:36px"></i></span>
         </h:form>
 
         <div class="w3-container w3-leftbar w3-light-grey w3-margin">

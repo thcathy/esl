@@ -31,6 +31,13 @@
 		  	
 		  	function updateAfterSubmit() {
 				animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
+
+                if (isTouchDevice()) {
+                    $('html, body').animate({
+                        scrollTop: ($('#topHeader').offset().top)
+                    },300);
+                }
+
                 showImage();
 			}
 
@@ -55,14 +62,14 @@
             </h3>
         </div>
 
-        <div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
+        <div class="w3-xlarge w3-padding-bottom w3-text-teal">
             <h:panelGroup id="questionRegion">
                 <h:form id="inputForm">
                     <audio id="pronounce" onloadeddata="this.play()" src="#{phoneticSymbolPracticeController.question.activePronounceLink}" />
 
-                    <div class="w3-row">
+                    <div class="w3-row-padding w3-margin-top w3-margin-bottom">
                         <div class="w3-half">
-                            <div class="w3-margin-right w3-margin-bottom w3-card-2">
+                            <div class="w3-border">
                                 <util:vocabimage2 picPaths="#{phoneticSymbolPracticeController.question.picsFullPathsInString}" />
 
                                 <div class="w3-row w3-padding-top w3-padding-bottom w3-center w3-border-top">
@@ -70,14 +77,14 @@
                                         #{phoneticSymbolPracticeController.question.word}
                                     </div>
                                     <div class="w3-col l6 m12">
-                                        <a href="#" onclick="document.getElementById('pronounce').play();" class="w3-btn w3-medium w3-green w3-round-xlarge">
+                                        <a href="javascript:void(0);" onclick="document.getElementById('pronounce').play();" class="w3-btn w3-medium w3-green w3-round-xlarge">
                                             <i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="w3-half w3-margin-bottom">
-                            <div class="w3-card-4 w3-container w3-text-deep-orange">
+                        <div class="w3-half">
+                            <div class="w3-container w3-text-deep-orange">
                                 <!-- Select Phonics -->
                                 <table class="phonicsTable" cellspacing="2">
                                     <tr>
@@ -144,23 +151,23 @@
                                 </table>
 
                                 <div class="w3-text-deep-orange">
-                                    <p>
+                                    <p id="phonicsInput">
                                         #{phonSymPracticeMsg.practiceSelectPhonics}:[<span id="phonicsInputSpan"></span>]
                                         <span class="w3-right-align w3-medium w3-text-blue">
-                                            <a href="#" onclick="clearPhonics();" class="w3-hover-blue" style="text-decoration: none;"><i class="fa fa-times" aria-hidden="true"></i>#{phonSymPracticeMsg.practiceClear}</a>
+                                            <a href="javascript:void(0);" onclick="clearPhonics();" class="w3-hover-blue" style="text-decoration: none;"><i class="fa fa-times" aria-hidden="true"></i>#{phonSymPracticeMsg.practiceClear}</a>
                                         </span>
                                         <h:inputHidden id="inputPhonics" value="#{phoneticSymbolPracticeController.answer}" />
                                     </p>
 
                                     <p:commandLink update="topHeader questionRegion historyRegion msgPanel"
                                                      oncomplete="updateAfterSubmit()" id="eslSubmit"
-                                                     styleClass="w3-btn w3-deep-orange w3-margin-right w3-margin-bottom"
+                                                     styleClass="w3-btn w3-deep-orange w3-margin-right w3-margin-bottom w3-large"
                                                      action="#{phoneticSymbolPracticeController.submitAnswer}">
                                         #{phonPracticeMsg.practiceSubmit}
                                     </p:commandLink>
                                     <p:ajaxStatus style="display: inline-block;">
                                         <f:facet name="start">
-                                            <span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
+                                            <span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:36px;"></i></span>
                                         </f:facet>
                                     </p:ajaxStatus>
                                     <input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{phoneticSymbolPracticeController.totalFullMark}" />
@@ -170,55 +177,57 @@
                                     </span>
                                 </div>
 
-
-
                             </div>
                         </div>
                     </div>
                 </h:form>
             </h:panelGroup>
 
-            <esl:scoreBar2 startMark="#{phoneticSymbolPracticeController.totalMark}" maxMark="#{phoneticSymbolPracticeController.totalFullMark}" />
-
             <h:panelGroup id="msgPanel">
-                <div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
-                    <h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
+                <div class="w3-medium w3-panel w3-pale-green">
+                    <h:messages tooltip="false" styleClass="w3-ul" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
                 </div>
             </h:panelGroup>
 
-            <h:panelGroup id="historyRegion">
-                <h:panelGroup rendered="#{phoneticSymbolPracticeController.totalFullMark > 1}">
-                    <div class="w3-responsive">
-                        <!-- Histories -->
-                        <table class="w3-table-all w3-medium w3-margin-top">
-                            <thead>
-                            <tr class="w3-theme">
-                                <td></td>
-                                <td>#{phonSymPracticeMsg.practiceWord}</td>
-                                <td>#{phonSymPracticeMsg.practicePhonetic}</td>
-                                <td>#{phonSymPracticeMsg.practiceAnswer}</td>
-                                <td></td>
-                            </tr>
-                            </thead>
-                            <ui:repeat var="i" varStatus="r" value="#{phoneticSymbolPracticeController.history}" >
-                                <tr>
-                                    <td>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-r.index-1}" /></td>
-                                    <td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[r.index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[r.index].question.word}" /></u></a></td>
-                                    <td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[r.index].question.IPA}" />]</td>
-                                    <td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[r.index].answer}]</td>
-                                    <td>
-                                        <h:panelGroup rendered="#{phoneticSymbolPracticeController.history[r.index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
-                                        <h:panelGroup rendered="#{!phoneticSymbolPracticeController.history[r.index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
-                                    </td>
+            <div class="w3-container">
+                <esl:scoreBar2 startMark="#{phoneticSymbolPracticeController.totalMark}" maxMark="#{phoneticSymbolPracticeController.totalFullMark}" />
+            </div>
+
+            <div class="w3-container">
+                <h:panelGroup id="historyRegion">
+                    <h:panelGroup rendered="#{phoneticSymbolPracticeController.totalFullMark > 1}">
+                        <div class="w3-responsive">
+                            <!-- Histories -->
+                            <table class="w3-table-all w3-medium w3-margin-top">
+                                <thead>
+                                <tr class="w3-theme">
+                                    <td></td>
+                                    <td>#{phonSymPracticeMsg.practiceWord}</td>
+                                    <td>#{phonSymPracticeMsg.practicePhonetic}</td>
+                                    <td>#{phonSymPracticeMsg.practiceAnswer}</td>
+                                    <td></td>
                                 </tr>
-                            </ui:repeat>
-                        </table>
-                    </div>
-                    <div class="w3-container w3-light-grey w3-border w3-small">
-                        <p>* #{phonPracticeMsg.practiceWordExplanation}</p>
-                    </div>
+                                </thead>
+                                <ui:repeat var="i" varStatus="r" value="#{phoneticSymbolPracticeController.history}" >
+                                    <tr>
+                                        <td>Q<h:outputText value="#{phoneticSymbolPracticeController.totalFullMark-r.index-1}" /></td>
+                                        <td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{phoneticSymbolPracticeController.history[r.index].question.word}" target="_blank"><u><h:outputText value="#{phoneticSymbolPracticeController.history[r.index].question.word}" /></u></a></td>
+                                        <td>[<h:outputText escape="false" value="#{phoneticSymbolPracticeController.history[r.index].question.IPA}" />]</td>
+                                        <td style="letter-spacing: 0px;">[#{phoneticSymbolPracticeController.history[r.index].answer}]</td>
+                                        <td>
+                                            <h:panelGroup rendered="#{phoneticSymbolPracticeController.history[r.index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+                                            <h:panelGroup rendered="#{!phoneticSymbolPracticeController.history[r.index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
+                                        </td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+                        </div>
+                        <div class="w3-container w3-light-grey w3-border w3-small">
+                            <p>* #{phonPracticeMsg.practiceWordExplanation}</p>
+                        </div>
+                    </h:panelGroup>
                 </h:panelGroup>
-            </h:panelGroup>
+            </div>
         </div>
 
     </ui:define>
