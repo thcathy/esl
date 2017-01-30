@@ -16,17 +16,16 @@
 			<h2>#{generalMsg.menuIrregularVerb}</h2>
 		</div>
 
-		<div class="w3-margin w3-xlarge w3-padding-bottom">
-			<h:form class="w3-container">
+		<div class="w3-xlarge w3-padding-bottom">
+			<h:form class="w3-container w3-padding-top">
 				#{irregularVerbMsg.practiceOption}:
 				<h:selectBooleanCheckbox styleClass="w3-check" value="#{irregularVerbPracticeController.withPastParticiple}" />
 				<label class="w3-validate w3-large">#{irregularVerbMsg.includePastParticiple}</label><br />
 
-				<p>
-					<h:commandLink styleClass="w3-btn w3-green" onclick="showSpinner();" action="#{irregularVerbPracticeController.start}">
+
+					<h:commandLink styleClass="w3-btn w3-green w3-large" onclick="showSpinner();" action="#{irregularVerbPracticeController.start}">
 						#{irregularVerbMsg.start}</h:commandLink>
 					<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:32px"></i></span>
-				</p>
 
 			</h:form>
 

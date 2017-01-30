@@ -25,7 +25,7 @@
 			if (jQuery('#inputForm\\:presentParticipleAnswer')) {jQuery('#inputForm\\:presentParticipleAnswer').keydown(answerEnterEvent);}
 			if (jQuery('#inputForm\\:pastAnswer')) {jQuery('#inputForm\\:pastAnswer').keydown(answerEnterEvent);}
 			if (jQuery('#inputForm\\:pastParticipleAnswer')) {jQuery('#inputForm\\:pastParticipleAnswer').keydown(answerEnterEvent);}
-			
+
 			setFocus();
 		}
 		
@@ -34,13 +34,20 @@
 		function updateAfterSubmit() {
 			animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
 			formSetupFunction();
+			if (isTouchDevice()) {
+				$('html, body').animate({
+					scrollTop: ($('#topHeader').offset().top)
+				},300);
+			}
 		}
 		
 		function setFocus() {
-			if (jQuery('#inputForm\\:presentAnswer').length != 0) {
-				jQuery('#inputForm\\:presentAnswer').focus();
-			} else {
-				jQuery('#inputForm\\:presentParticipleAnswer').focus();
+			if (!isTouchDevice()) {
+					if (jQuery('#inputForm\\:presentAnswer').length != 0) {
+					jQuery('#inputForm\\:presentAnswer').focus();
+				} else {
+					jQuery('#inputForm\\:presentParticipleAnswer').focus();
+				}
 			}
 		}
 		//]]>
@@ -54,6 +61,7 @@
 					<h:outputFormat value="#{irregularVerbMsg.practiceQuestionTitle}">
 						<f:param value="#{irregularVerbPracticeController.totalQuestions}"/>
 					</h:outputFormat>
+					: #{dictationMsg.mark}&#160;#{irregularVerbPracticeController.mark}
 				</h:panelGroup>
 				<span class="w3-right w3-hide-small">#{generalMsg.menuIrregularVerb}</span>
 			</h3>
@@ -148,13 +156,13 @@
 
 					<div class="w3-align-right w3-padding-top">
 						<p:commandLink update="topHeader questionInfoPanel questionRegion historyRegion msgPanel"
-										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange"
+										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange w3-large"
 										 oncomplete="updateAfterSubmit()" id="eslSubmit"
 										 action="#{irregularVerbPracticeController.practice}">
 							<i class="fa fa-check" aria-hidden="true"></i> #{irregularVerbMsg.practiceSubmit}</p:commandLink>
 						<p:ajaxStatus style="display: inline-block;">
 							<f:facet name="start">
-								<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
+								<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:36px"></i></span>
 							</f:facet>
 						</p:ajaxStatus>
 						<input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{irregularVerbPracticeController.fullMark}" />
