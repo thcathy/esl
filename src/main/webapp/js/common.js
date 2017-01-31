@@ -46,6 +46,16 @@ function openW3Tab(evt, tabId) {
     evt.currentTarget.firstElementChild.className += " w3-border-green";
 }
 
+function isTouchDevice() {
+    return 'ontouchstart' in window;
+}
+
+function setFocus(element) {
+    if (!isTouchDevice()) {
+        element.focus();
+    }
+}
+
 function MM_preloadImages() { //v3.0
   var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
     var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)

@@ -19,6 +19,6 @@ function changeImg() {
     if (imageCount >= picPaths.length) imageCount = 0;
 
     jQuery('#vocabImage').attr("src", picPaths[imageCount]);
-    jQuery('#inputForm\\:answer').focus();
-    jQuery('#practiceDiv\\:inputForm\\:answer').focus();
+    setFocus(jQuery('#inputForm\\:answer'));
+    setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));
 }

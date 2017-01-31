@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-// Need to redo the yahoo parser before use it again
+// Need to revamp the yahoo dictation parser before using it
 @Ignore
 public class YahooDictionaryParserTest {
 
