@@ -320,8 +320,8 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 		PracticeResult favourPracticeResult = practiceResultDAO.getFavourPracticeResultByMember(member, PracticeResult.PHONETICPRACTICE);
 
 		summary.setOverallPracticeResult(practiceResultDAO.getPracticeResult(member, null, PracticeResult.PHONETICPRACTICE));
-		summary.setFavourGrade(favourPracticeResult.getGrade());
-		summary.setExistingGrade(existingPracticeResult.getGrade());
+		summary.setFavourGrade(favourPracticeResult == null ? null : favourPracticeResult.getGrade());
+		summary.setExistingGrade(existingPracticeResult == null ? null : existingPracticeResult.getGrade());
 		summary.setExistingScoreRank(practiceResultDAO.getPosition(OrderType.Score, existingPracticeResult));
 		summary.setExistingRateRank(practiceResultDAO.getPosition(OrderType.Rate, existingPracticeResult));
 		return summary;

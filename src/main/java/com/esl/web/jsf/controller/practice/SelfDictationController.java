@@ -1,21 +1,5 @@
 package com.esl.web.jsf.controller.practice;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.model.PhoneticPractice;
 import com.esl.model.PhoneticQuestion;
 import com.esl.service.practice.IPhoneticPracticeService;
@@ -24,6 +8,20 @@ import com.esl.service.practice.PhoneticPracticeService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.util.LanguageUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Controller
 @Scope("session")

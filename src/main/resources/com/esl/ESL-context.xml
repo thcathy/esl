@@ -14,13 +14,13 @@
 
 	<aop:aspectj-autoproxy/>
 	<context:annotation-config/>
-	
+
 	<task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
 	<task:executor id="myExecutor" pool-size="5"/>
 	<task:scheduler id="myScheduler" pool-size="10"/>
-	
-	<context:component-scan base-package="com.esl" />
-	<context:property-placeholder location="classpath:com/esl/esl-config.properties"/>
+
+	<context:component-scan base-package="com.esl, com.auth0.web" />
+	<context:property-placeholder location="classpath:auth0.properties"/>
 	
 	<import resource="classpath:com/esl/service/xml/import-service.xml" />
 		

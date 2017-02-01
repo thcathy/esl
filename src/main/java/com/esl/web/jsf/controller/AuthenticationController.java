@@ -55,7 +55,11 @@ public class AuthenticationController extends ESLController {
 	public String getInputPassword() {return inputPassword;	}
 	public void setInputPassword(String inputPassword) {this.inputPassword = inputPassword;	}
 
-	public boolean isAuthenticated() {return authenticated;	}
+	public boolean isAuthenticated() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+												.getExternalContext().getSession(false);
+		return session.getAttribute("MEMBER") != null;
+	}
 	public void setAuthenticated(boolean authenticated) {	this.authenticated = authenticated;	}
 
 	public boolean isSaveSession() {return saveSession;}

@@ -14,9 +14,9 @@
   <logger name="org.springframework" level="INFO"/>
   <logger name="org.hibernate" level="INFO"/>
   <logger name="org.reflections" level="INFO"/>
-  <logger name="com.esl" level="INFO" />
+  <logger name="com.esl" level="debug" />
 
-  <root level="INFO">
+  <root level="debug">
     <appender-ref ref="async" />
   </root>
 </configuration>

@@ -25,23 +25,19 @@
 	</properties>
 
 	<build>
-		<plugins>		
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<warName>ESL</warName>
-					<webResources>
-						<resource>
-							<directory>prodconfig</directory>
-						</resource>
-						<resource>
-							<directory>src/main/resources/messages</directory>
-							<targetPath>WEB-INF/classes/messages</targetPath>
-							<filtering>true</filtering>
-						</resource>
-					</webResources>
+					<finalName>esl</finalName>
+					<mainClass>com.esl.ESLApplication</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -99,6 +95,12 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>6.0.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>auth0-spring-mvc</artifactId>
+			<version>1.2.0</version>
 		</dependency>
 
 		<!-- Test scope dependency -->

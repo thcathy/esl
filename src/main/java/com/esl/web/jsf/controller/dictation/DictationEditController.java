@@ -1,22 +1,5 @@
 package com.esl.web.jsf.controller.dictation;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.dictation.IDictationDAO;
 import com.esl.entity.dictation.Dictation;
@@ -25,6 +8,21 @@ import com.esl.model.group.MemberGroup;
 import com.esl.service.dictation.IDictationManageService;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.util.SelectItemUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @Scope("session")

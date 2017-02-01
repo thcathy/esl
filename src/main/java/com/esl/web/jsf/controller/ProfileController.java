@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ResourceBundle;
 

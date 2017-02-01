@@ -175,7 +175,7 @@ public class SelfDictationService implements ISelfDictationService {
 	public MemberDictationHistory updateMemberDictationHistory(Dictation dictation, Member member, PhoneticPractice practice) {
 		final String logPrefix = "updateDictationHistory: ";
 		logger.info(logPrefix + "START");
-		if (dictation == null || practice == null) throw new IllegalParameterException(new String[]{"dictation","practice"}, new Object[]{dictation, practice});
+		if (dictation == null || practice == null) throw new IllegalParameterException(new String[]{"dictation", "practice"}, new Object[]{dictation, practice});
 
 		// update dictation
 		logger.info(logPrefix + "update dictation [" + dictation.getId() + "]");
@@ -249,7 +249,7 @@ public class SelfDictationService implements ISelfDictationService {
 	public DictationHistory createDictationHistory(Dictation dictation, Member member, PhoneticPractice practice) {
 		final String logPrefix = "createDictationHistory: ";
 		logger.info(logPrefix + "START");
-		if (dictation == null || practice == null) throw new IllegalParameterException(new String[]{"dictation","practice"}, new Object[]{dictation, practice});
+		if (dictation == null || practice == null) throw new IllegalParameterException(new String[]{"dictation", "practice"}, new Object[]{dictation, practice});
 
 		// create a new dictation history
 		DictationHistory history = new DictationHistory();

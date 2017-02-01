@@ -1,24 +1,16 @@
 package com.esl.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import com.esl.model.group.MemberGroup;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.esl.model.group.MemberGroup;
+import java.io.Serializable;
+import java.util.*;
 
 public class Member implements Serializable {
 	private Long id;
-	
-	@Pattern(regexp="[a-zA-Z0-9]*",message="{alphaNumericOnly}" )
-	@Size(min=6, max=12, message="{incorrectSize}")
+
 	private String userId;
 	
 	private Name name = new Name();

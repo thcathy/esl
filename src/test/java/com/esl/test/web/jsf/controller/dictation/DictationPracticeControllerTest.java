@@ -41,7 +41,7 @@ public class DictationPracticeControllerTest extends EasyMockSupport {
 	public void testRecommendDictationFailWithoutDictation() {
 		DictationPracticeController c = new DictationPracticeController();
 		String target = c.recommendDictation();
-		assertEquals("Dictation is null should return error view","/error", target);
+		assertEquals("Dictation is null should return error view", "/error", target);
 		assertEquals("Recommended flag remain false", false, c.isRecommended());
 	}
 }

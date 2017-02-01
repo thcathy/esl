@@ -8,7 +8,6 @@ import com.esl.web.model.practice.IrregularVerbPracticeHistory;
 import com.esl.web.model.practice.IrregularVerbPracticeHistoryUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -44,7 +43,6 @@ public class IrregularVerbPracticeController extends BaseWithScoreBarController 
 	private List<IrregularVerbPracticeHistory> histories;
 	private boolean withPastParticiple = true;
 	private int markPerQuestion = MARK_PER_QUESTION_WITH_PP;
-	@Value("${Practice.ShowPopUp.Count}") private int showPopUpSignUpCount;
 
 	// ============== Constructor ================//
 	public IrregularVerbPracticeController() {
@@ -84,10 +82,6 @@ public class IrregularVerbPracticeController extends BaseWithScoreBarController 
 
 	public int getTotalQuestions() {
 		return fullMark / markPerQuestion + 1;
-	}
-
-	public boolean isShowSignUpPopUp() {
-		return userSession.getMember() == null && showPopUpSignUpCount < (fullMark / markPerQuestion);
 	}
 
 	//	============== Supporting Function ================//
@@ -200,7 +194,6 @@ public class IrregularVerbPracticeController extends BaseWithScoreBarController 
 	//	 ============== Setter / Getter ================//
 	public void setIrregularVerbDAO(IIrregularVerbDAO irregularVerbDAO) {this.irregularVerbDAO = irregularVerbDAO;}
 	public void setIrregularVerbPracticeService(IIrregularVerbPracticeService irregularVerbPracticeService) {this.irregularVerbPracticeService = irregularVerbPracticeService;}
-	public void setShowSignUpPopUpCount(int count) { this.showPopUpSignUpCount = count;}
 
 	public PhoneticQuestion getPhoneticQ() {return phoneticQ;}
 	public void setPhoneticQ(PhoneticQuestion phoneticQ) {this.phoneticQ = phoneticQ;}

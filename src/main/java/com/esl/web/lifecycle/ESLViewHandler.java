@@ -3,6 +3,7 @@ package com.esl.web.lifecycle;
 import com.esl.web.jsf.controller.LanguageController;
 import com.esl.web.model.UserSession;
 import com.sun.faces.application.view.MultiViewHandler;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExternalContext;
@@ -11,8 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ESLViewHandler extends MultiViewHandler {
-	private static org.slf4j.Logger logger = LoggerFactory.getLogger(ESLViewHandler.class);
-
+	private static Logger logger = LoggerFactory.getLogger(ESLViewHandler.class);
 
 	@Override
 	public Locale calculateLocale(FacesContext context)
@@ -53,6 +53,7 @@ public class ESLViewHandler extends MultiViewHandler {
 		// Set locale into session bean
 		u.setLocale(locale);
 
+		logger.debug("Calculated locale: {}", locale);
 		return locale;
 	}
 }

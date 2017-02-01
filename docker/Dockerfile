@@ -1,10 +1,5 @@
-FROM tomcat:8.5-alpine
+FROM java:8-alpine
 MAINTAINER thcathy@gmail.com
 
-RUN rm -rf $CATALINA_HOME/webapps/* && \
-  mkdir $CATALINA_HOME/webapps/ROOT
-
-ADD target/ESL.war $CATALINA_HOME/webapps/
-ADD docker/index.html $CATALINA_HOME/webapps/ROOT
-
-CMD ["catalina.sh", "run"]
+ADD target/esl.jar /app.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar","-Xmx1024m -XX:+UseConcMarkSweepGC"]

@@ -58,8 +58,6 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	private TopResult scoreRanking;
 	private TopResult rateRanking;
 
-	private int showPopUpSignUpCount;
-
 	// Supporting classes
 	@Resource private IGradeDAO gradeDAO;
 	@Resource private IPhoneticSymbolPracticeService phoneticSymbolPracticeService;
@@ -69,9 +67,6 @@ public class PhoneticSymbolPracticeController extends ESLController {
 
 	@Value("${PhoneticPracticeG2.MaxHistory}")
 	public void setMaxHistory(int max) {this.MAX_HISTORY = max; }
-
-	@Value("${Practice.ShowPopUp.Count}")
-	public void setShowSignUpPopUpCount(int count) { this.showPopUpSignUpCount = count;}
 
 	// ============== Constructor ================//
 	public PhoneticSymbolPracticeController() {
@@ -198,10 +193,6 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	}
 
 	public List<SelectItem> getLevels() { return SelectItemUtil.getPhoneticSymobolPracticeLevels(); }
-
-	public boolean isShowSignUpPopUp() {
-		return userSession.getMember() == null && showPopUpSignUpCount < totalFullMark;
-	}
 
 	// ============== Supporting Functions ================//
 	private void clearController() {

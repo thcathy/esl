@@ -1,11 +1,7 @@
 package com.esl.model.practice;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-
-import com.esl.entity.News;
-import com.esl.model.Grade;
 
 public class PhoneticSymbol implements Comparable<PhoneticSymbol> {
 	public final static String PHONIC_SEPARATOR = ",";

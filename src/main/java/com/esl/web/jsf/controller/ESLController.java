@@ -1,13 +1,12 @@
 package com.esl.web.jsf.controller;
 
-import java.io.Serializable;
-import java.util.Locale;
+import com.esl.web.model.ErrorPage;
+import com.esl.web.model.UserSession;
 
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
-
-import com.esl.web.model.ErrorPage;
-import com.esl.web.model.UserSession;
+import java.io.Serializable;
+import java.util.Locale;
 
 /*
  * Root Controller containing variable across all controllers

@@ -1,15 +1,13 @@
 package com.esl.web.model;
 
-import java.io.Serializable;
-import java.util.Locale;
-
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
+import com.esl.model.Member;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.esl.model.Member;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import java.io.Serializable;
+import java.util.Locale;
 
 @Controller
 @Scope("session")
@@ -23,7 +21,11 @@ public class UserSession implements Serializable {
 
 	public UserSession() {}
 
-	public Member getMember() {return member;}
+	public Member getMember() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+		return (Member) session.getAttribute("MEMBER");
+	}
 	public void setMember(Member member) {this.member = member;}
 
 	public Locale getLocale() {return locale;}
@@ -40,6 +42,14 @@ public class UserSession implements Serializable {
 		return (locale==null) ? FacesContext.getCurrentInstance().getViewRoot().getLocale().toString() : locale.toString();
 	}
 
+	public String getAuth0Locale() {
+		if (locale != null) {
+			if (locale.toString().contains("zh"))
+				return "zh-tw";
+		}
+		return "en";
+	}
+
 	public String stopShowGoogleImage() {
 		showGoogleImage = false;
 		return "";
@@ -49,21 +59,5 @@ public class UserSession implements Serializable {
 		showGoogleImage = true;
 		return "";
 	}
-
-	public boolean isXyz() {
-		if (useIE9 == null) {
-			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-			String s = request.getHeader("user-agent");
-			System.out.println(s);
-			if (s!= null && s.indexOf("MSIE 9.0") > -1) {
-				useIE9 = Boolean.TRUE;
-			} else {
-				useIE9 = Boolean.FALSE;
-			}
-		}
-		System.out.println(useIE9);
-		return useIE9.booleanValue();
-	}
-	public void setXyz(boolean xyz) {}
 
 }

@@ -1,24 +1,24 @@
 package com.esl.web.jsf.controller.dictation;
 
-import java.text.MessageFormat;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
+import com.esl.dao.dictation.IDictationDAO;
+import com.esl.entity.dictation.Dictation;
+import com.esl.entity.dictation.DictationHistory;
+import com.esl.entity.dictation.MemberDictationHistory;
+import com.esl.model.Member;
+import com.esl.service.dictation.IDictationManageService;
+import com.esl.web.jsf.controller.ESLController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.esl.dao.dictation.IDictationDAO;
-import com.esl.entity.dictation.*;
-import com.esl.model.Member;
-import com.esl.service.dictation.IDictationManageService;
-import com.esl.web.jsf.controller.ESLController;
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.ResourceBundle;
 
 @Controller
 @Scope("session")

@@ -1,21 +1,21 @@
 package com.esl.dao;
 
-import java.util.List;
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.esl.model.Member;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.model.Member;
+import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Repository("memberDAO")
 public class MemberDAO extends ESLDao<Member> implements IMemberDAO {
 	private static final String GET_MEMBER_BY_USERID = "from Member m where m.userId = :userId";
+	private static final String GET_MEMBER_BY_EMAIL = "from Member m where m.emailAddress = :emailAddress";
 	
 	private final Logger logger = LoggerFactory.getLogger(MemberDAO.class);
 
@@ -33,6 +33,14 @@ public class MemberDAO extends ESLDao<Member> implements IMemberDAO {
 			logger.info("Do not find any member of userid:" + userId);
 			return null;
 		}
+	}
+
+	public Optional<Member> getMemberByEmail(String email) {
+		List result = sessionFactory.getCurrentSession().createQuery(GET_MEMBER_BY_EMAIL).setParameter("emailAddress", email).list();
+		if (result.size() > 0)
+			return Optional.of((Member) result.get(0));
+		else
+			return Optional.empty();
 	}
 
 	public void makePersistent(Member member) throws HibernateException {

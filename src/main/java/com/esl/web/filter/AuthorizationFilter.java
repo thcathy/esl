@@ -9,7 +9,7 @@ public class AuthorizationFilter implements Filter {
 	
 	public void doFilter(ServletRequest request, ServletResponse response,FilterChain chain) throws ServletException, IOException {
 		if (request.getAttribute("admin") == null)
-			request.getRequestDispatcher("/jsp/restricted.jsp").forward(request, response);
+			request.getRequestDispatcher("/static/WEB-INF/jsp/restricted.jsp").forward(request, response);
 		
 		chain.doFilter(request, response);
 	}

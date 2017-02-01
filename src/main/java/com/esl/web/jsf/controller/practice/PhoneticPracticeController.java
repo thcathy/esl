@@ -1,27 +1,29 @@
 package com.esl.web.jsf.controller.practice;
 
-import java.util.*;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
-import com.esl.dao.*;
+import com.esl.dao.IGradeDAO;
+import com.esl.dao.IMemberDAO;
+import com.esl.dao.IPracticeResultDAO;
 import com.esl.model.*;
-import com.esl.service.practice.*;
+import com.esl.service.practice.IPhoneticPracticeService;
+import com.esl.service.practice.ITopResultService;
+import com.esl.service.practice.PhoneticPracticeService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.AuthenticationController;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.jsf.controller.member.MemberWordController;
 import com.esl.web.model.UserSession;
 import com.esl.web.util.LanguageUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import java.util.*;
 
 @Controller
 @Scope("session")
@@ -153,7 +155,7 @@ public class PhoneticPracticeController extends ESLController {
 
 		// General Error
 		logger.info("start: SYSTEM_ERROR");
-		return "error";
+		return "/error";
 	}
 
 	public String submitAnswer() {

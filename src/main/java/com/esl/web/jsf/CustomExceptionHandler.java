@@ -2,6 +2,7 @@ package com.esl.web.jsf;
 
 import javax.faces.FacesException;
 import javax.faces.application.NavigationHandler;
+import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
@@ -40,7 +41,10 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
                 //requestMap.put("error-message", throwable.getMessage());
                 //requestMap.put("error-stack", throwable.getStackTrace());
-                nav.handleNavigation(context, null, "/error/systemerror");
+                String errorView = "/error/systemerror";
+                if (throwable instanceof ViewExpiredException) errorView = "/error/viewexpirederror";
+
+                nav.handleNavigation(context, null, "errorView");
                 context.renderResponse();
             } finally {
                 queue.remove();
