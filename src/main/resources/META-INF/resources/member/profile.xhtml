@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+				template="/template/long.xhtml">
+
+	<ui:define name="subTitle">#{htmlHeadMsg.member_profile_title}</ui:define>
+	<ui:define name="head"><meta name="keywords" content="#{htmlHeadMsg.member_profile_desc}" /></ui:define>
+
+	<ui:define name="mainDiv">
+		<div class="w3-content w3-padding-12">
+			<div class="w3-card-4 w3-white">
+				<div class="w3-container w3-green">
+					<h3>#{memberSumMsg.navProfile}</h3>
+				</div>
+
+				<div class="w3-margin w3-padding-bottom">
+					<esl:memberNav2 current="PROFILE" />
+
+					<h:messages errorClass="w3-panel w3-text-red w3-large" infoClass="w3-panel w3-text-blue w3-large" globalOnly="true" />
+
+					<div class="w3-row">
+						<h:form id="profileForm">
+							<div class="w3-container w3-border w3-margin-top w3-margin-bottom">
+								<h:outputLabel value="#{authMsg.signupFormFirstNameLabel}" for="firstName" styleClass="w3-label" />&#160;<h:message for="firstName" errorClass="w3-text-red" />
+								<h:inputText id="firstName"	value="#{profileController.member.name.firstName}" maxlength="100" styleClass="w3-input w3-margin-bottom" />
+
+								<h:outputLabel value="#{authMsg.signupFormLastNameLabel}" for="lastName" styleClass="w3-label" />&#160;<h:message for="lastName" errorClass="w3-text-red" />
+								<h:inputText id="lastName" value="#{profileController.member.name.lastName}" maxlength="100" styleClass="w3-input w3-margin-bottom" />
+
+								<h:outputLabel value="#{authMsg.signupFormBirthdayLabel}" for="birthday" styleClass="w3-label" />
+								<h:inputText id="birthday" a:type="date" value="#{profileController.member.birthday}" styleClass="w3-input w3-margin-bottom" style="width: 30%; min-width: 319px;">
+									<f:convertDateTime pattern="yyyy-MM-dd" />
+								</h:inputText>
+
+								<h:outputLabel value="#{authMsg.signupFormAddressLabel}" for="address" styleClass="w3-label" />&#160;<h:message for="address" errorClass="w3-text-red" />
+								<h:inputText id="address" value="#{profileController.member.address}" styleClass="w3-input w3-margin-bottom" />
+
+								<h:outputLabel value="#{authMsg.signupFormPhoneNumberLabel}" for="phoneNumber" styleClass="w3-label" />&#160;<h:message for="phoneNumber" errorClass="w3-text-red" />
+								<h:inputText id="phoneNumber" value="#{profileController.member.phoneNumber}" styleClass="w3-input w3-margin-bottom" />
+
+								<h:outputLabel value="#{authMsg.signupFormEmailLabel}" for="email" styleClass="w3-label" /><h:message for="email" errorClass="w3-text-red" />
+								<h:inputText id="email"	value="#{profileController.member.emailAddress}" required="true" styleClass="w3-input" disabled="true" />
+
+								<div class="w3-right">
+									<h:commandLink styleClass="w3-btn w3-theme w3-margin" action="#{profileController.updateProfile}" value="#{authMsg.profileFormChgProfile}" />
+								</div>
+							</div>
+						</h:form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+	</ui:define>
+</ui:composition>

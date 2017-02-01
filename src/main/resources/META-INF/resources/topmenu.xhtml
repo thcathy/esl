@@ -42,7 +42,7 @@
 					</li>
 					<li class="w3-right">
 						<h:panelGroup rendered="#{userSession.member == null}">
-							<a href="#" onclick="document.getElementById('loginDiv').style.display='block'"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
+							<a href="/login"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{userSession.member != null}">
 							<h:commandLink action="#{authenticationController.logout}"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
@@ -53,7 +53,7 @@
 					<ul class="w3-navbar w3-right-align w3-large w3-theme-l1">
 						<li>
 							<h:panelGroup rendered="#{userSession.member == null}">
-								<a href="#" onclick="document.getElementById('loginDiv').style.display='block'"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
+								<a href="/login"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
 							</h:panelGroup>
 							<h:panelGroup rendered="#{userSession.member != null}">
 								<h:commandLink action="#{authenticationController.logout}"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
@@ -82,31 +82,4 @@
 			</div>
 		</h:form>
 	</nav>
-	<div id="loginDiv" class="w3-modal">
-		<div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
-			<h:form>
-				<div class="w3-center w3-theme-l1 w3-padding"><br />
-					<span onclick="document.getElementById('loginDiv').style.display='none'" class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright" title="Close Modal"><i class="fa fa-times" aria-hidden="true"></i></span>
-					<img src="#{languageController.imagesPath}/logo.png" alt="Logo" />
-				</div>
-
-				<div class="w3-section w3-padding">
-					<label>#{generalMsg.userId}</label>
-					<h:inputText styleClass="w3-input w3-margin-bottom" id="inputUserId" maxlength="20" value="#{authenticationController.inputUserId}"	/>
-					<br /><h:message for="inputUserId" styleClass="w3-leftbar w3-border-red" />
-
-					<label>#{generalMsg.password}</label>
-					<h:inputSecret id="inputPassword" styleClass="w3-input" maxlength="20" value="#{authenticationController.inputPassword}" />
-					<br /><h:message for="inputPassword" styleClass="w3-leftbar w3-border-red" />
-
-					<h:commandLink styleClass="w3-btn-block w3-theme w3-section w3-padding" action="#{authenticationController.login}">#{generalMsg.login}</h:commandLink>
-					<h:selectBooleanCheckbox styleClass="w3-check w3-margin-top" value="#{authenticationController.saveSession}" />#{generalMsg.rememberMe}
-				</div>
-
-				<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-					<h:commandLink styleClass="w3-btn w3-green" action="#{profileController.startSignUp}">#{authMsg.signupTitle}</h:commandLink>
-				</div>
-			</h:form>
-		</div>
-	</div>
 </ui:composition>

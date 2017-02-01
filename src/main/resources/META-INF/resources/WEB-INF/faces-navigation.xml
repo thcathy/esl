@@ -119,39 +119,39 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>practice/phoneticpracticeG2/practice</from-outcome>
-			<to-view-id>/practice/phoneticpracticeG2/practice.xhtml</to-view-id>
+			<to-view-id>/practice/phoneticpracticeG2/practice.xhtml/phoneticpracticeG2/practice.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<display-name>Phonetic Practices - Result</display-name>
-		<from-view-id>/practice/phoneticpractice/practice.xhtml</from-view-id>
+		<from-view-id>/practice/phoneticpractice/practice.xhtml/phoneticpractice/practice.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>practice/phoneticpractice/result</from-outcome>
-			<to-view-id>/practice/phoneticpractice/result.xhtml</to-view-id>
+			<to-view-id>/practice/phoneticpractice/result.xhtml/phoneticpractice/result.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<display-name>Phonetic Practices - Back to practice</display-name>
-		<from-view-id>/practice/phoneticpractice/result.xhtml</from-view-id>
+		<from-view-id>/practice/phoneticpractice/result.xhtml/phoneticpractice/result.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>practice/phoneticpractice/practice</from-outcome>
-			<to-view-id>/practice/phoneticpractice/practice.xhtml</to-view-id>
+			<to-view-id>/practice/phoneticpractice/practice.xhtml/phoneticpractice/practice.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<display-name>Phonetic Practices G2 - Result</display-name>
-		<from-view-id>/practice/phoneticpracticeG2/practice.xhtml</from-view-id>
+		<from-view-id>/practice/phoneticpracticeG2/practice.xhtml/phoneticpracticeG2/practice.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>practice/phoneticpracticeG2/result</from-outcome>
-			<to-view-id>/practice/phoneticpracticeG2/result.xhtml</to-view-id>
+			<to-view-id>/practice/phoneticpracticeG2/result.xhtml/phoneticpracticeG2/result.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<display-name>Phonetic Practices G2 - Back to practice</display-name>
-		<from-view-id>/practice/phoneticpracticeG2/result.xhtml</from-view-id>
+		<from-view-id>/practice/phoneticpracticeG2/result.xhtml/phoneticpracticeG2/result.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>practice/phoneticpracticeG2/practice</from-outcome>
-			<to-view-id>/practice/phoneticpracticeG2/practice.xhtml</to-view-id>
+			<to-view-id>/practice/phoneticpracticeG2/practice.xhtml/phoneticpracticeG2/practice.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
@@ -160,32 +160,32 @@
 		<from-view-id>*</from-view-id>
 		<navigation-case>			
 			<from-outcome>practice/selfdictation/input</from-outcome>
-			<to-view-id>/practice/selfdictation/input.xhtml</to-view-id>
+			<to-view-id>/practice/selfdictation/input.xhtml/selfdictation/input.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>/practice/selfdictation/input.xhtml</from-view-id>
+		<from-view-id>/practice/selfdictation/input.xhtml/selfdictation/input.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>practice/selfdictation/practice</from-outcome>
-			<to-view-id>/practice/selfdictation/practice.xhtml</to-view-id>
+			<to-view-id>/practice/selfdictation/practice.xhtml/selfdictation/practice.xhtml</to-view-id>
 		</navigation-case>		
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>/practice/selfdictation/practice.xhtml</from-view-id>
+		<from-view-id>/practice/selfdictation/practice.xhtml/selfdictation/practice.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>practice/selfdictation/result</from-outcome>
-			<to-view-id>/practice/selfdictation/result.xhtml</to-view-id>
+			<to-view-id>/practice/selfdictation/result.xhtml/selfdictation/result.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>practice/selfdictation/practice</from-outcome>
-			<to-view-id>/practice/selfdictation/practice.xhtml</to-view-id>
+			<to-view-id>/practice/selfdictation/practice.xhtml/selfdictation/practice.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>/practice/selfdictation/result.xhtml</from-view-id>
+		<from-view-id>/practice/selfdictation/result.xhtml/selfdictation/result.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>practice/selfdictation/practice</from-outcome>
-			<to-view-id>/practice/selfdictation/practice.xhtml</to-view-id>
+			<to-view-id>/practice/selfdictation/practice.xhtml/selfdictation/practice.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
@@ -194,14 +194,14 @@
 		<from-view-id>*</from-view-id>
 		<navigation-case>			
 			<from-outcome>practice/irregularverb/start</from-outcome>
-			<to-view-id>/practice/irregularverb/start.xhtml</to-view-id>
+			<to-view-id>/practice/irregularverb/start.xhtml/irregularverb/start.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>/practice/irregularverb/start.xhtml</from-view-id>
+		<from-view-id>/practice/irregularverb/start.xhtml/irregularverb/start.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>practice/irregularverb/practice</from-outcome>
-			<to-view-id>/practice/irregularverb/practice.xhtml</to-view-id>
+			<to-view-id>/practice/irregularverb/practice.xhtml/irregularverb/practice.xhtml</to-view-id>
 		</navigation-case>		
 	</navigation-rule>
 
