@@ -22,11 +22,23 @@ public class UserSession implements Serializable {
 	public UserSession() {}
 
 	public Member getMember() {
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(false);
-		return (Member) session.getAttribute("MEMBER");
+		try {
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+					.getExternalContext().getSession(false);
+			return (Member) session.getAttribute("MEMBER");
+		} catch (Exception e) {
+			return this.member;
+		}
 	}
-	public void setMember(Member member) {this.member = member;}
+	public void setMember(Member member) {
+		try {
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+					.getExternalContext().getSession(false);
+			session.setAttribute("MEMBER", member);
+		} catch (Exception e) {
+			this.member = member;
+		}
+	}
 
 	public Locale getLocale() {return locale;}
 	public void setLocale(Locale locale) {this.locale = locale;}
