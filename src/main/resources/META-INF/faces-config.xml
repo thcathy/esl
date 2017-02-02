@@ -15,6 +15,7 @@
 	<application>    	
  		<view-handler>com.esl.web.lifecycle.ESLViewHandler</view-handler>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>
 
 		<locale-config>
 			<default-locale>en</default-locale>
