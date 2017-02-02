@@ -5,6 +5,7 @@ import com.auth0.SessionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,9 @@ public class LoginController {
         this.appConfig = appConfig;
     }
 
+    @Value("${esl.host}")
+    public String host;
+
     @RequestMapping(value="/login", method = RequestMethod.GET)
     protected String login(@RequestParam(value="signup", defaultValue = "false") boolean isSignup, final Map<String, Object> model, final HttpServletRequest req) {
         logger.debug("Performing login");
@@ -36,6 +40,7 @@ public class LoginController {
         model.put("loginCallback", appConfig.getLoginCallback());
         model.put("state", SessionUtils.getState(req));
         model.put("allowLogin", !isSignup);
+        model.put("host", host);
         return "login";
     }
 

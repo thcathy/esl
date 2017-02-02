@@ -22,8 +22,7 @@
 	<context:component-scan base-package="com.esl, com.auth0.web" />
 	
 	<import resource="classpath:com/esl/service/xml/import-service.xml" />
-		
-<!--    <import resource="classpath:com/esl/ESL-datasource.xml" />-->
+
     <!--<import resource="classpath:com/esl/ESL-data.xml" />-->
     <import resource="classpath:com/esl/esl-management.xml" />
     

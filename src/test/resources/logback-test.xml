@@ -10,10 +10,10 @@
     <appender-ref ref="STDOUT" />
   </appender>
   
-  <logger name="org.apache" level="INFO"/>
-  <logger name="org.springframework" level="INFO"/>
-  <logger name="org.hibernate" level="INFO"/>
-  <logger name="org.reflections" level="INFO"/>
+  <logger name="org.apache" level="debug"/>
+  <logger name="org.springframework" level="debug"/>
+  <logger name="org.hibernate" level="debug"/>
+  <logger name="org.reflections" level="debug"/>
   <logger name="com.esl" level="debug" />
 
   <root level="debug">
