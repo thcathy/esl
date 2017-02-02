@@ -11,9 +11,9 @@
   </appender>
   
   <logger name="org.apache" level="info"/>
-  <logger name="org.springframework" level="debug"/>
-  <logger name="org.hibernate" level="debug"/>
-  <logger name="org.reflections" level="debug"/>
+  <logger name="org.springframework" level="info"/>
+  <logger name="org.hibernate" level="info"/>
+  <logger name="org.reflections" level="info"/>
   <logger name="com.esl" level="debug" />
 
   <root level="debug">
