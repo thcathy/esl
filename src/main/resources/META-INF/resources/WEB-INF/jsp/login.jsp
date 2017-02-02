@@ -38,7 +38,7 @@
             allowLogin: ${allowLogin},
             closable: false,
             auth: {
-                redirectUrl: 'http://${host}/callback',
+                redirectUrl: '${fn:replace(pageContext.request.requestURL, pageContext.request.requestURI, '')}/callback',
                 responseType: 'code',
                 params: {
                     state: '${state}',
