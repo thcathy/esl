@@ -20,7 +20,6 @@
 	<task:scheduler id="myScheduler" pool-size="10"/>
 
 	<context:component-scan base-package="com.esl, com.auth0.web" />
-	<context:property-placeholder location="classpath:auth0.properties"/>
 	
 	<import resource="classpath:com/esl/service/xml/import-service.xml" />
 		

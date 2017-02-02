@@ -28,6 +28,11 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources/messages</directory>
+				<targetPath>messages</targetPath>
 				<filtering>true</filtering>
 			</resource>
 		</resources>
