@@ -10,7 +10,7 @@
     <appender-ref ref="STDOUT" />
   </appender>
   
-  <logger name="org.apache" level="debug"/>
+  <logger name="org.apache" level="info"/>
   <logger name="org.springframework" level="debug"/>
   <logger name="org.hibernate" level="debug"/>
   <logger name="org.reflections" level="debug"/>

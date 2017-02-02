@@ -34,6 +34,7 @@ public class CallbackController extends Auth0CallbackHandler {
     protected void callback(final HttpServletRequest req, final HttpServletResponse res) throws ServletException, IOException {
         super.handle(req, res);
         Auth0User user  = SessionUtils.getAuth0User(req);
+        logger.info("Auth0User callback: [{}]", user);
         req.getSession().setAttribute("MEMBER", retrieveOrCreateMember(user));
     }
 
