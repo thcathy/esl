@@ -9,8 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
 import java.util.EnumSet;
 
 @SpringBootApplication
@@ -27,6 +29,10 @@ public class ESLApplication {
         return rwFilter;
     }
 
+    @Bean
+    public Filter shallowETagHeaderFilter() {
+        return new ShallowEtagHeaderFilter();
+    }
 
     @Bean
     public HibernateJpaSessionFactoryBean sessionFactory() {
