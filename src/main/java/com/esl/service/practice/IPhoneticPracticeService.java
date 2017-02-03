@@ -52,6 +52,4 @@ public interface IPhoneticPracticeService {
 	 */
 	public MemberPracticeScoreCard updateScoreCard(Member member, Date today, boolean isCorrect, PhoneticQuestion question);
 
-	public void enrichVocabImageForQuestions(List<PhoneticQuestion> questions);
-	public void enrichVocabImageForQuestion(PhoneticQuestion questions);
 }

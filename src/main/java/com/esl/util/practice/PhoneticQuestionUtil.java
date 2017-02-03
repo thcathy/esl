@@ -43,16 +43,12 @@ public class PhoneticQuestionUtil {
 	public class FindIPAAndPronoun implements Runnable {
 		List<PhoneticQuestion> questions;
 		PhoneticQuestion question;
-		String rootPath;
-		String contextPath;
 
 		public FindIPAAndPronoun(List<PhoneticQuestion> questions,
 				PhoneticQuestion question, String rootPath, String contextPath) {
 			super();
 			this.questions = questions;
 			this.question = question;
-			this.rootPath = rootPath;
-			this.contextPath = contextPath;
 		}
 
 		public void run() {

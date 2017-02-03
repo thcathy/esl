@@ -94,7 +94,7 @@ public class SelfDictationController extends ESLController {
 		// retrieve vocabs
 		inputVocab = getInputVocab((HttpServletRequest)facesContext.getExternalContext().getRequest());
 
-		practice = selfDictationService.generatePractice(null, inputVocab, (ServletContext) facesContext.getExternalContext().getContext());
+		practice = selfDictationService.generatePractice(null, inputVocab);
 
 		if (practice == null || practice.getQuestions().size() <= 0)
 		{

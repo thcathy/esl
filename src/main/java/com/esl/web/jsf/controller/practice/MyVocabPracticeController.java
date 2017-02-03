@@ -4,6 +4,7 @@ import com.esl.dao.IMemberWordDAO;
 import com.esl.model.MemberWord;
 import com.esl.model.PhoneticQuestion;
 import com.esl.service.practice.IPhoneticPracticeService;
+import com.esl.service.practice.PhoneticQuestionService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.member.MemberWordController;
 import com.esl.web.model.practice.PhoneticQuestionHistory;
@@ -40,6 +41,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 	@Resource private IMemberWordDAO memberWordDAO;
 	@Resource private MemberWordController memberWordController;
 	@Resource private IPhoneticPracticeService phoneticPracticeService;
+	@Resource private PhoneticQuestionService phoneticQuestionService;
 
 	// ============== Constructor ================//
 	public MyVocabPracticeController() {
@@ -160,7 +162,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 		}
 		memberWord = memberWords.get(0);
 		phoneticPracticeService.findIPAAndPronoun(memberWord.getWord());
-		phoneticPracticeService.enrichVocabImageForQuestion(memberWord.getWord());
+		phoneticQuestionService.enrichVocabImageForQuestion(memberWord.getWord());
 
 		practicedWord.add(memberWord);
 		logger.info("getRandomQuestion: a random memberWord: word[" + memberWord.getWord() + "]");

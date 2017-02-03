@@ -8,6 +8,7 @@ import com.esl.exception.ESLSystemException;
 import com.esl.model.*;
 import com.esl.service.practice.IPhoneticPracticeService;
 import com.esl.service.practice.ITopResultService;
+import com.esl.service.practice.PhoneticQuestionService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.jsf.controller.member.MemberWordController;
@@ -57,6 +58,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
 	@Resource private PhoneticPracticeController phoneticPracticeController;
 	@Resource private MemberWordController memberWordController;
+	@Resource private PhoneticQuestionService phoneticQuestionService;
 
 	// ============== Constructor ================//
 	public PhoneticPracticeG2Controller() {
@@ -303,7 +305,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 		}
 
 		question = questions.get(0);
-		phoneticPracticeService.enrichVocabImageForQuestion(question);
+		phoneticQuestionService.enrichVocabImageForQuestion(question);
 		logger.info("getRandomQuestion: a random question: word[" + question.getWord() + "]");
 
 		// add full mark in practice result

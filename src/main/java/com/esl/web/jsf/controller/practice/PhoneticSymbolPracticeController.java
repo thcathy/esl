@@ -8,6 +8,7 @@ import com.esl.model.*;
 import com.esl.model.practice.PhoneticSymbols;
 import com.esl.service.practice.IPhoneticSymbolPracticeService;
 import com.esl.service.practice.ITopResultService;
+import com.esl.service.practice.PhoneticQuestionService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.model.practice.PhoneticQuestionHistory;
@@ -64,6 +65,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	@Resource private IPracticeResultDAO practiceResultDAO;
 	@Resource private ITopResultService topResultService;
 	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
+	@Resource private PhoneticQuestionService phoneticQuestionService;
 
 	@Value("${PhoneticPracticeG2.MaxHistory}")
 	public void setMaxHistory(int max) {this.MAX_HISTORY = max; }
@@ -214,7 +216,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		logger.info("getRandomQuestion: a random question: word[" + question.getWord() + "]");
 
 		phoneticSymbolPracticeService.findIPAAndPronoun(question);
-		phoneticSymbolPracticeService.enrichVocabImageForQuestion(question);
+		phoneticQuestionService.enrichVocabImageForQuestion(question);
 
 		// get list of phonics
 		Set<String> phonics = phoneticSymbolPracticeService.getPhonicsListByLevel(selectedLevel, question.getIPA());

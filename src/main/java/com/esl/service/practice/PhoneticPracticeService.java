@@ -2,7 +2,6 @@ package com.esl.service.practice;
 
 import com.esl.dao.*;
 import com.esl.dao.practice.IMemberPracticeScoreCardDAO;
-import com.esl.entity.VocabImage;
 import com.esl.entity.practice.MemberPracticeScoreCard;
 import com.esl.enumeration.ESLPracticeType;
 import com.esl.exception.IllegalParameterException;
@@ -20,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.sql.Date;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service("phoneticPracticeService")
 @Transactional
@@ -35,6 +33,7 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 	@Resource protected IPracticeResultDAO practiceResultDAO = null;
 	@Resource protected IMemberPracticeScoreCardDAO scoreCardDAO;
 	@Resource protected IVocabImageDAO vocabImageDAO;
+	@Resource protected PhoneticQuestionService phoneticQuestionService;
 
 	public List<Grade> getUserAvailableGrades(String userId) {
 		List<Grade> grades = getAllGrades();
@@ -69,7 +68,7 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 			return null;
 		}
 
-		enrichVocabImageForQuestions(questions);
+		phoneticQuestionService.enrichVocabImageForQuestions(questions);
 
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setMember(member);
@@ -77,21 +76,6 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 		practice.setQuestions(questions);
 
 		return practice;
-	}
-
-	@Override
-	public void enrichVocabImageForQuestions(List<PhoneticQuestion> questions) {
-		questions.forEach(this::enrichVocabImageForQuestion);
-	}
-
-	@Override
-	public void enrichVocabImageForQuestion(PhoneticQuestion question) {
-		List<String> images = vocabImageDAO.listByWord(question.getWord()).stream()
-				.map(VocabImage::getBase64Image)
-				.collect(Collectors.toList());
-		Collections.shuffle(images);
-
-		question.setPicsFullPaths(images.toArray(new String[1]));
 	}
 
 	// Check Answer

@@ -29,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -132,7 +131,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);
 
 		dictationDAO.attachSession(dictation);
-		practice = selfDictationService.generatePractice(dictation.getVocabs(), (ServletContext) facesContext.getExternalContext().getContext());
+		practice = selfDictationService.generatePractice(dictation.getVocabs());
 
 		if (practice == null || practice.getQuestions().size() <= 0) {
 			logger.info(logPrefix + "no question generated");

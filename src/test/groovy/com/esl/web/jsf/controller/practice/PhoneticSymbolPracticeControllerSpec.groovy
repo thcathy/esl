@@ -45,8 +45,8 @@ public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
 
         then:
         assert view == "/practice/phoneticsymbolpractice/practice"
-        images.contains("data:image")
-        !images.contains("http://")
-        !images.contains("https://")
+        assert images.contains("data:image")
+        assert !images.contains("http://")
+        assert !images.contains("https://")
     }
 }

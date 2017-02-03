@@ -1,5 +1,6 @@
 package com.esl.service.practice;
 
+import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.dao.dictation.*;
 import com.esl.entity.dictation.*;
 import com.esl.entity.dictation.Dictation.AgeGroup;
@@ -34,6 +35,8 @@ public class SelfDictationService implements ISelfDictationService {
 	@Resource private IMemberDictationHistoryDAO memberDictationHistoryDAO;
 	@Resource private IVocabHistoryDAO vocabHistoryDAO;
 	@Resource private IDictationHistoryDAO dictationHistoryDAO;
+	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
+	@Resource private PhoneticQuestionService phoneticQuestionService;
 
 	// ============== Constructor ================//
 	public SelfDictationService() {}
@@ -42,7 +45,7 @@ public class SelfDictationService implements ISelfDictationService {
 
 	// Retrieve vocabularies and return practice for self dictation
 	@Transactional(readOnly=true)
-	public PhoneticPractice generatePractice(Member member, List<String> inputVocabularies, ServletContext context) {
+	public PhoneticPractice generatePractice(Member member, List<String> inputVocabularies) {
 		if (inputVocabularies == null || inputVocabularies.size() < 1) {
 			logger.info("generatePractice: inputVocabularies: No input");
 			return null;
@@ -62,7 +65,7 @@ public class SelfDictationService implements ISelfDictationService {
 				question.setWord(vocab.trim());
 
 				// Create Thread to get IPA or Generate pronounce
-				FindIPAAndPronoun finder = pqUtil.new FindIPAAndPronoun(questions, question, context.getRealPath("/"), context.getContextPath());
+				FindIPAAndPronoun finder = pqUtil.new FindIPAAndPronoun(questions, question, null, null);
 				Thread newThread = new Thread(finder);
 				logger.info("generatePractice: a new Thread created: Thread ID" + newThread.getId());
 				newThread.start();
@@ -70,23 +73,7 @@ public class SelfDictationService implements ISelfDictationService {
 			}
 		}
 
-		while (threads.size() > 0) {
-			logger.info("generatePractice: waiting threads: threads.size:" + threads.size() + ", questions.size:" + questions.size());
-			try {
-				synchronized (this) {
-					for (int i = 0; i < threads.size(); i++) {
-						logger.info("generatePractice: Check a thread is completed: Thread ID:" + threads.get(i).getId() + " isAlive: " + threads.get(i).isAlive());
-						if (!threads.get(i).isAlive()) {
-							logger.info("generatePractice: a thread completed: Thread ID:" + threads.get(i).getId());
-							threads.remove(i);
-						}
-					}
-					Thread.sleep(500);	// 0.5 sec
-				}
-			} catch (InterruptedException e) {
-				logger.warn("generatePractice: " + e);
-			}
-		}
+		waitThreadsCompleted(threads);
 
 		if (questions.size() < 1) {
 			logger.info("generatePractice: no question");
@@ -94,19 +81,35 @@ public class SelfDictationService implements ISelfDictationService {
 		}
 
 		// Generate practice
+		PhoneticPractice practice = createPhoneticPracticeObject(member, questions);
+		logger.info("generatePractice: final question.size:" + questions.size());
+		return practice;
+	}
+
+	private PhoneticPractice createPhoneticPracticeObject(Member member, List<PhoneticQuestion> questions) {
+		phoneticQuestionService.enrichVocabImageForQuestions(questions);
 		Collections.shuffle(questions);
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setMember(member);
 		practice.setQuestions(questions);
 		practice.setTotalQuestions(questions.size());
-		logger.info("generatePractice: final question.size:" + questions.size());
 		return practice;
 	}
 
-	public PhoneticPractice generatePractice(List<Vocab> vocabs, ServletContext context) {
+	private void waitThreadsCompleted(List<Thread> threads) {
+		threads.forEach(t->{
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				logger.warn("Exception when waiting FindIPAAndPronoun completed: " + e);
+			}
+		});
+	}
+
+	public PhoneticPractice generatePractice(List<Vocab> vocabs) {
 		final String logPrefix = "generatePractice: ";
 		logger.info(logPrefix + "START");
-		if (vocabs == null || context == null) throw new IllegalParameterException(new String[]{"vocabs","context"}, new Object[]{vocabs, context});
+		if (vocabs == null) throw new IllegalParameterException(new String[]{"vocabs"}, new Object[]{vocabs});
 
 		List<PhoneticQuestion> questions = new ArrayList<PhoneticQuestion>();
 		List<Thread> threads = new ArrayList<Thread>();
@@ -116,47 +119,37 @@ public class SelfDictationService implements ISelfDictationService {
 		for (Vocab vocab : vocabs) {
 			logger.info(logPrefix + "vocab [" + vocab.getWord() + "]");
 
-			PhoneticQuestion question = new PhoneticQuestion();
-			question.setWord(vocab.getWord().trim());
+			PhoneticQuestion question = findOrCreatePhoneticQuestion(vocab.getWord().trim().toLowerCase());
 
 			// Create Thread to get IPA or Generate pronounce
-			FindIPAAndPronoun finder = pqUtil.new FindIPAAndPronoun(questions, question, context.getRealPath("/"), context.getContextPath());
+			FindIPAAndPronoun finder = pqUtil.new FindIPAAndPronoun(questions, question, null, null);
 			Thread newThread = new Thread(finder);
 			logger.info("generatePractice: a new Thread created: Thread ID" + newThread.getId());
 			newThread.start();
 			threads.add(newThread);
 		}
 
-		while (threads.size() > 0) {
-			logger.info(logPrefix + "waiting threads: threads.size:" + threads.size() + ", questions.size:" + questions.size());
-			try {
-				synchronized (this) {
-					for (int i = 0; i < threads.size(); i++) {
-						logger.info(logPrefix + "Check a thread is completed: Thread ID:" + threads.get(i).getId() + " isAlive: " + threads.get(i).isAlive());
-						if (!threads.get(i).isAlive()) {
-							logger.info(logPrefix + "a thread completed: Thread ID:" + threads.get(i).getId());
-							threads.remove(i);
-						}
-					}
-					Thread.sleep(500);	// 0.5 sec
-				}
-			} catch (InterruptedException e) {
-				logger.warn(logPrefix + e);
-			}
-		}
+		waitThreadsCompleted(threads);
 
 		if (questions.size() < 1) {
 			logger.info(logPrefix + "no question");
 			return null;
 		}
 
-		// Generate practice
-		Collections.shuffle(questions);
-		PhoneticPractice practice = new PhoneticPractice();
-		practice.setQuestions(questions);
-		practice.setTotalQuestions(questions.size());
+		PhoneticPractice practice = createPhoneticPracticeObject(null, questions);
 		logger.info(logPrefix + "final question.size:" + questions.size());
 		return practice;
+	}
+
+	private PhoneticQuestion findOrCreatePhoneticQuestion(String word) {
+		PhoneticQuestion question = phoneticQuestionDAO.getPhoneticQuestionByWord(word);
+		if (question != null) {
+			return question;
+		} else {
+			question = new PhoneticQuestion();
+			question.setWord(word);
+			return question;
+		}
 	}
 
 	public void completedPractice(List<PhoneticQuestion> questions, ServletContext context) {

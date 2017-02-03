@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -93,5 +94,22 @@ public class PhoneticQuestionService {
                                 .toArray(new String[0]);
         log.debug("get {} images for {} ", images.size(), question.getWord());
         return true;
+    }
+
+    @Transactional(readOnly = true)
+    public void enrichVocabImageForQuestions(List<PhoneticQuestion> questions) {
+        questions.forEach(this::enrichVocabImageForQuestion);
+    }
+
+    @Transactional(readOnly = true)
+    public void enrichVocabImageForQuestion(PhoneticQuestion question) {
+        List<String> images = vocabImageDao.listByWord(question.getWord()).stream()
+                .map(VocabImage::getBase64Image)
+                .collect(Collectors.toList());
+
+        if (images.size() > 0) {
+            Collections.shuffle(images);
+            question.setPicsFullPaths(images.toArray(new String[images.size()]));
+        }
     }
 }
