@@ -1,4 +1,5 @@
 /target
+/log
 .settings
 .project
 Thumbs.db
