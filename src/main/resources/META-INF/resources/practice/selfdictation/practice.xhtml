@@ -25,7 +25,7 @@
 		$(window).load(function(){
 			console.log("when window load");
 			jQuery('#practiceDiv\\:inputForm\\:answer').keydown(answerEnterEvent);
-			jQuery('#practiceDiv\\:inputForm\\:answer').focus();
+			setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));
 			showImage();
 		});
 		
@@ -34,7 +34,13 @@
 			animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
 			showImage();
 			jQuery('#practiceDiv\\:inputForm\\:answer').keydown(answerEnterEvent);
-			jQuery('#practiceDiv\\:inputForm\\:answer').focus();
+			setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));
+
+			if (isTouchDevice()) {
+				$('html, body').animate({
+					scrollTop: ($('#topHeader').offset().top)
+				},300);
+			}
 		}
 		//]]>
 		</script>	
@@ -54,53 +60,59 @@
 			</h3>
 		</div>
 
-		<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
+		<div class="w3-xlarge w3-padding-bottom w3-text-teal">
 			<practice:dictationpracticemain2 id="practiceDiv" controllerBean="#{selfDictationController}" />
 
-			<esl:scoreBar2 startMark="#{selfDictationController.practice.mark}" maxMark="#{selfDictationController.practice.totalQuestions}" />
+			<div class="w3-container">
+				<esl:scoreBar2 startMark="#{selfDictationController.practice.mark}" maxMark="#{selfDictationController.practice.totalQuestions}" />
+			</div>
 
-			<h:panelGroup id="msgPanel">
-				<div class="w3-medium w3-panel w3-pale-green w3-leftbar w3-border-green">
-					<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
-				</div>
-			</h:panelGroup>
-
-			<h:panelGroup id="historyRegion">
-				<h:panelGroup rendered="#{selfDictationController.practice.currentQuestion > 0}">
-					<div class="w3-responsive">
-						<!-- Histories -->
-						<table class="w3-table-all w3-medium w3-margin-top">
-							<thead>
-							<tr class="w3-theme">
-								<td></td>
-								<td><h:outputText value="#{selfDictationMsg.practicePhonetic}" /></td>
-								<td><h:outputText value="#{selfDictationMsg.practiceWord}" /></td>
-								<td><h:outputText value="#{selfDictationMsg.practiceAnswer}" /></td>
-								<td></td>
-							</tr>
-							</thead>
-							<tfoot>
-								<tr><td colspan="5"><h:outputText value="#{selfDictationMsg.practiceMark}" />: ${selfDictationController.practice.mark}  / ${selfDictationController.practice.currentQuestion}</td></tr>
-							</tfoot>
-							<ui:repeat var="i" varStatus="r" value="#{selfDictationController.practice.answers}" >
-								<tr>
-									<td>Q<h:outputText value="#{selfDictationController.practice.currentQuestion-r.index}" /></td>
-									<td>[<h:outputText escape="false" value="#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].IPA}" />]</td>
-									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].word}" target="_blank"><u><h:outputText value="#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].word}" /></u></a></td>
-									<td><h:outputText value="#{selfDictationController.practice.answers[selfDictationController.practice.currentQuestion-1-r.index]}" /></td>
-									<td>
-										<h:panelGroup rendered="#{selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-r.index]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
-										<h:panelGroup rendered="#{!selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-r.index]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
-									</td>
-								</tr>
-							</ui:repeat>
-						</table>
-					</div>
-					<div class="w3-container w3-light-grey w3-border w3-small">
-						<p>* #{selfDictationMsg.practiceWordExplanation}</p>
+			<div class="w3-container">
+				<h:panelGroup id="msgPanel">
+					<div class="w3-medium w3-panel w3-pale-green">
+						<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
 					</div>
 				</h:panelGroup>
-			</h:panelGroup>
+			</div>
+
+			<div class="w3-container">
+				<h:panelGroup id="historyRegion">
+					<h:panelGroup rendered="#{selfDictationController.practice.currentQuestion > 0}">
+						<div class="w3-responsive">
+							<!-- Histories -->
+							<table class="w3-table-all w3-medium w3-margin-top">
+								<thead>
+								<tr class="w3-theme">
+									<td></td>
+									<td><h:outputText value="#{selfDictationMsg.practicePhonetic}" /></td>
+									<td><h:outputText value="#{selfDictationMsg.practiceWord}" /></td>
+									<td><h:outputText value="#{selfDictationMsg.practiceAnswer}" /></td>
+									<td></td>
+								</tr>
+								</thead>
+								<tfoot>
+									<tr><td colspan="5"><h:outputText value="#{selfDictationMsg.practiceMark}" />: ${selfDictationController.practice.mark}  / ${selfDictationController.practice.currentQuestion}</td></tr>
+								</tfoot>
+								<ui:repeat var="i" varStatus="r" value="#{selfDictationController.practice.answers}" >
+									<tr>
+										<td>Q<h:outputText value="#{selfDictationController.practice.currentQuestion-r.index}" /></td>
+										<td>[<h:outputText escape="false" value="#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].IPA}" />]</td>
+										<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].word}" target="_blank"><u><h:outputText value="#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].word}" /></u></a></td>
+										<td><h:outputText value="#{selfDictationController.practice.answers[selfDictationController.practice.currentQuestion-1-r.index]}" /></td>
+										<td>
+											<h:panelGroup rendered="#{selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-r.index]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+											<h:panelGroup rendered="#{!selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-r.index]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
+										</td>
+									</tr>
+								</ui:repeat>
+							</table>
+						</div>
+						<div class="w3-container w3-light-grey w3-border w3-small">
+							<p>* #{selfDictationMsg.practiceWordExplanation}</p>
+						</div>
+					</h:panelGroup>
+				</h:panelGroup>
+			</div>
 		</div>
 	</ui:define>
 
