@@ -159,11 +159,16 @@ public class AuthenticationController extends ESLController {
 	public String logout() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Locale locale = facesContext.getViewRoot().getLocale();
-		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-		logger.info("logout: UserId:" + userSession.getMember());
-		userSession.getMember().setLoginedSessionId(null);
-		memberDAO.persist(userSession.getMember());
-		session.invalidate();
+
+		try {
+			HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+			logger.info("logout: UserId:" + userSession.getMember());
+			userSession.getMember().setLoginedSessionId(null);
+			memberDAO.persist(userSession.getMember());
+			session.invalidate();
+		} catch (Exception e) {
+			logger.warn("Cannot invalidate session", e);
+		}
 
 		// Set Locale of the previous session
 		facesContext.getViewRoot().setLocale(locale);

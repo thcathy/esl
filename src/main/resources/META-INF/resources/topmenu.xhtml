@@ -50,7 +50,7 @@
 							<a href="/login"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{userSession.member != null}">
-							<h:commandLink action="#{authenticationController.logout}"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
+							<h:commandLink action="#{authenticationController.logout}" onclick="clickAndDisable(this)"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
 						</h:panelGroup>
 					</li>
 				</ul>
@@ -77,7 +77,7 @@
 								<a href="/login"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
 							</h:panelGroup>
 							<h:panelGroup rendered="#{userSession.member != null}">
-								<h:commandLink action="#{authenticationController.logout}"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
+								<h:commandLink action="#{authenticationController.logout}" onclick="clickAndDisable(this)"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
 							</h:panelGroup>
 						</li>
 						<li class="w3-theme-d1">
