@@ -27,7 +27,7 @@ public class LoginController {
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
     protected String login(@RequestParam(value="signup", defaultValue = "false") boolean isSignup, final Map<String, Object> model, final HttpServletRequest req) {
-        logger.debug("Performing login");
+        logger.info("Open login page");
         detectError(model);
         // add a Nonce value to session storage
         NonceUtils.addNonceToStorage(req);
