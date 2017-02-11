@@ -33,7 +33,7 @@ public class WebParserRestService {
 
     public CompletableFuture<WebItem[]> searchGoogleImage(String query) {
         return CompletableFuture.supplyAsync(() ->
-                restTemplate.getForObject(host + "rest/search/image/" + query, WebItem[].class));
+                restTemplate.getForObject(host + "rest/search/image/" + query, WebItem[].class), executorService);
     }
 
     public CompletableFuture<Optional<DictionaryResult>> queryDictionary(String query) {
@@ -43,7 +43,7 @@ public class WebParserRestService {
             } catch (HttpClientErrorException ex)   {
                 return Optional.empty();
             }
-        });
+        }, executorService);
     }
 
 }
