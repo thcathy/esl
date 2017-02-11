@@ -27,7 +27,7 @@
 						<div class="w3-half">
 							<esl:oneDictationSummary2 dictation="#{dictationPracticeController.dictation}" />
 							<div class="w3-margin-top">
-								<h:commandLink onclick="showSpinner()"
+								<h:commandLink onclick="showSpinner(); clickAndDisable(this);"
 											   styleClass="w3-btn w3-green w3-margin-bottom w3-xlarge"
 											   action="#{dictationPracticeController.start}">
 									<i class="fa fa-play"></i> #{dictationMsg.start}</h:commandLink>

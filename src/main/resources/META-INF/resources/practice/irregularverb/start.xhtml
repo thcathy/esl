@@ -22,7 +22,7 @@
 				<label class="w3-validate w3-large">#{irregularVerbMsg.includePastParticiple}</label><br />
 
 
-					<h:commandLink styleClass="w3-btn w3-green w3-large" onclick="showSpinner();" action="#{irregularVerbPracticeController.start}">
+					<h:commandLink styleClass="w3-btn w3-green w3-large" onclick="showSpinner(); clickAndDisable(this);" action="#{irregularVerbPracticeController.start}">
 						#{irregularVerbMsg.start}</h:commandLink>
 					<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:32px"></i></span>
 

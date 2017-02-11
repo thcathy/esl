@@ -58,7 +58,8 @@
 
 					<p:commandLink update="topHeader @form historyRegion msgPanel" oncomplete="updateAfterSubmit()" id="eslSubmit"
 									 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange w3-large"
-									 action="#{cc.attrs.controllerBean.submitAnswer}">
+									 action="#{cc.attrs.controllerBean.submitAnswer}"
+								     onclick="clickAndDisable(this);">
 						#{selfDictationMsg.practiceInputAnsBtn}
 					</p:commandLink>
 

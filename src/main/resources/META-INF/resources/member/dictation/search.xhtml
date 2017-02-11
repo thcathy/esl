@@ -38,7 +38,6 @@
 									</h:inputText>
 									<h:message for="keyword" errorClass="w3-text-red" />
 
-
 									<div class="w3-row">
 										<div class="w3-third">
 											<h:selectBooleanCheckbox styleClass="w3-check" value="#{searchDictationController.inputForm.searchTitle}" /><label class="w3-validate">#{dictationMsg.searchTitle}</label>
@@ -52,7 +51,10 @@
 									</div>
 								</div>
 								<div class="w3-quarter w3-right-align">
-									<h:commandLink styleClass="w3-btn w3-green" action="#{searchDictationController.search}"><i class="fa fa-search" aria-hidden="true"></i> #{dictationMsg.search}</h:commandLink>
+									<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:24px"></i>&#160;</span>
+									<h:commandLink styleClass="w3-btn w3-green" action="#{searchDictationController.search}"
+												   onclick="clickAndDisable(this); showSpinner();">
+										<i class="fa fa-search" aria-hidden="true"></i> #{dictationMsg.search}</h:commandLink>
 								</div>
 							</div>
 

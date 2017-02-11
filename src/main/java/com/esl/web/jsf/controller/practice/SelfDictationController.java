@@ -86,12 +86,10 @@ public class SelfDictationController extends ESLController {
 
 	// Generate the dictation
 	public String start() {
-		logger.debug("aaa1");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Locale locale = facesContext.getViewRoot().getLocale();
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);
 
-		logger.debug("aaa2");
 		// retrieve vocabs
 		inputVocab = getInputVocab((HttpServletRequest)facesContext.getExternalContext().getRequest());
 

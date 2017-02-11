@@ -21,6 +21,7 @@ import java.io.File;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -38,10 +39,12 @@ public class SelfDictationService implements ISelfDictationService {
 	@Resource private IDictationHistoryDAO dictationHistoryDAO;
 	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
 	@Resource private PhoneticQuestionService phoneticQuestionService;
-	@Resource private ExecutorService executorService;
+	private ExecutorService executorService;
 
 	// ============== Constructor ================//
-	public SelfDictationService() {}
+	public SelfDictationService() {
+		executorService = Executors.newFixedThreadPool(10);
+	}
 
 	// ============== Functions ================//
 

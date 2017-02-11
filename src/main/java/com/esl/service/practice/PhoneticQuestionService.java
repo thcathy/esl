@@ -43,7 +43,7 @@ public class PhoneticQuestionService {
         PhoneticQuestion question = new PhoneticQuestion();
         question.setWord(word);
 
-        CompletableFuture<WebItem[]> imagesResult = webService.searchGoogleImage(word);
+        CompletableFuture<WebItem[]> imagesResult = webService.searchGoogleImage(word + " clipart");
         CompletableFuture<Optional<DictionaryResult>> dictionaryResult = webService.queryDictionary(word);
 
         fillQuestionByDictionaryResult(question, dictionaryResult.join());

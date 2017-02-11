@@ -40,7 +40,7 @@
 					</h:selectOneMenu>
 				</p>
 
-				<h:commandLink styleClass="w3-btn w3-green w3-large" onclick="showSpinner();" action="#{phoneticSymbolPracticeController.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonSymPracticeMsg.inputStart}</h:commandLink>
+				<h:commandLink styleClass="w3-btn w3-green w3-large" onclick="showSpinner(); clickAndDisable(this);" action="#{phoneticSymbolPracticeController.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonSymPracticeMsg.inputStart}</h:commandLink>
 				<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:32px"></i></span>
 			</h:form>
 
