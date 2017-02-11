@@ -162,7 +162,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 		}
 		memberWord = memberWords.get(0);
 		phoneticPracticeService.findIPAAndPronoun(memberWord.getWord());
-		phoneticQuestionService.enrichVocabImageForQuestion(memberWord.getWord());
+		phoneticQuestionService.enrichVocabImageFromDB(memberWord.getWord());
 
 		practicedWord.add(memberWord);
 		logger.info("getRandomQuestion: a random memberWord: word[" + memberWord.getWord() + "]");

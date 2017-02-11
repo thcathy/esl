@@ -34,7 +34,6 @@ import java.util.ResourceBundle;
 
 @SuppressWarnings("serial")
 @Controller
-@Transactional
 @Scope("session")
 public class DictationPracticeController extends UserCreatedPracticeController<Dictation> {
 	public static int SCOREBAR_FULLLENGTH = 500;
@@ -79,6 +78,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 	}
 
 	//============== Functions ================//
+	@Transactional
 	public String authDictation() {
 		final String logPrefix = "authDictation: ";
 		logger.info(logPrefix + "START");
@@ -102,6 +102,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 		}
 	}
 
+	@Transactional
 	public String launchStart() {
 		final String logPrefix = "launchStart: ";
 		logger.info(logPrefix + "START");
@@ -122,6 +123,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 		}
 	}
 
+	@Transactional
 	public String start() {
 		final String logPrefix = "start: ";
 		logger.info(logPrefix + "START");
@@ -149,6 +151,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 		}
 	}
 
+	@Transactional
 	public String submitAnswer() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, facesContext.getViewRoot().getLocale());
@@ -158,7 +161,6 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 			logger.warn("submitAnswer: cannot find practice");
 			return JSFUtil.redirect(errorView);
 		}
-
 		String result = phoneticPracticeService.checkAnswer(practice, answer);
 		logger.info("submitAnswer: phoneticPracticeService.checkAnswer returned code: " + result);
 
@@ -180,10 +182,10 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 			return JSFUtil.redirect(finishDictation());
 		}
 
-		// Continue Practice
-		return null;
+		return null; // Continue Practice
 	}
 
+	@Transactional
 	public String submitDictationHistory() {
 		final String logPrefix = "submitDictationHistory: ";
 		logger.info(logPrefix + "START");
@@ -202,12 +204,14 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 			return null;
 		}
 
+		dictationHistory.setDictation(dictationDAO.merge(dictationHistory.getDictation()));
 		dictationHistoryDAO.persist(dictationHistory);
 		showHistoryInputForm = false;
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, bundle.getString("recordSaved"), null));
 		return null;
 	}
 
+	@Transactional
 	public String finishDictation() {
 		dictationDAO.attachSession(dictation);
 		memberDAO.attachSession(userSession.getMember());
@@ -234,6 +238,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 	/**
 	 * Used for Ajax call to add 1 recommendation to the dictation
 	 */
+	@Transactional
 	public String recommendDictation() {
 		final String logPrefix = "recommendDictation: ";
 		logger.info(logPrefix + "START");

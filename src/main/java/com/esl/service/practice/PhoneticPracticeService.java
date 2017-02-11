@@ -68,7 +68,7 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 			return null;
 		}
 
-		phoneticQuestionService.enrichVocabImageForQuestions(questions);
+		phoneticQuestionService.enrichVocabImageFromDB(questions);
 
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setMember(member);

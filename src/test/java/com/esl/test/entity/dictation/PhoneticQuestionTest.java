@@ -1,18 +1,11 @@
 package com.esl.test.entity.dictation;
 
 import com.esl.model.PhoneticQuestion;
-import com.esl.util.WebUtil;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.powermock.api.easymock.PowerMock.*;
 
-@RunWith(PowerMockRunner.class)
 public class PhoneticQuestionTest {
 
 	@Test
@@ -23,31 +16,6 @@ public class PhoneticQuestionTest {
 		String[] picsFullPaths = q.getPicsFullPaths();
 		assertEquals(1, picsFullPaths.length);
 		assertEquals("/ESL/images/graphic/word/file1.png",picsFullPaths[0]);
-	}
-
-	@Test @PrepareForTest(WebUtil.class)
-	public void queryWebOnceOnlyAfterFirstCall() {
-		mockStatic(WebUtil.class);
-		expect(WebUtil.searchImageUrls("abc")).andReturn(new String[] {"filepath1"}).once();
-		replay(WebUtil.class);
-
-		PhoneticQuestion q = new PhoneticQuestion("abc", "abc");
-		String[] picsFullPaths = q.getPicsFullPaths();
-
-		verify(WebUtil.class);
-
-		assertEquals(1, picsFullPaths.length);
-	}
-
-	@Test @PrepareForTest(WebUtil.class)
-	public void testGetPicsFullPathsString() {
-		mockStatic(WebUtil.class);
-		expect(WebUtil.searchImageUrls("abc")).andReturn(new String[] {"filepath1", "filepath2"}).once();
-		replay(WebUtil.class);
-		String expectedString = "filepath1^_^filepath2";
-
-		PhoneticQuestion q = new PhoneticQuestion("abc", "abc");
-		assertEquals(expectedString, q.getPicsFullPathsInString());
 	}
 	
 	@Test

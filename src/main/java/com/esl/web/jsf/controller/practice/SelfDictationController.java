@@ -10,6 +10,7 @@ import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.util.LanguageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -18,10 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @Controller
 @Scope("session")
@@ -46,6 +44,7 @@ public class SelfDictationController extends ESLController {
 	// Supporting classes
 	@Resource private ISelfDictationService selfDictationService;
 	@Resource private IPhoneticPracticeService phoneticPracticeService;
+	@Value("${SelfDictationService.MaxQuestions}") private int maxQuestions = 20;
 
 	// UI Component
 	//private HtmlCommandButton practiceCommand;
@@ -67,14 +66,14 @@ public class SelfDictationController extends ESLController {
 	public void setPractice(PhoneticPractice practice) {this.practice = practice;}
 
 	public String[] getInputVocab() {
-		while (inputVocab.size()<selfDictationService.getMaxQuestions()) {
+		while (inputVocab.size()<maxQuestions) {
 			inputVocab.add("");
 		}
 		return inputVocab.toArray(new String[]{});
 	}
 	public void setInputVocab(List<String> inputVocab) {	this.inputVocab = inputVocab;}
 
-	public int getTotalInput() {return selfDictationService.getMaxQuestions();	}
+	public int getTotalInput() {return maxQuestions;	}
 
 	public int getTotalQuestions() {return totalQuestions; }
 
@@ -87,10 +86,12 @@ public class SelfDictationController extends ESLController {
 
 	// Generate the dictation
 	public String start() {
+		logger.debug("aaa1");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Locale locale = facesContext.getViewRoot().getLocale();
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);
 
+		logger.debug("aaa2");
 		// retrieve vocabs
 		inputVocab = getInputVocab((HttpServletRequest)facesContext.getExternalContext().getRequest());
 
@@ -168,10 +169,11 @@ public class SelfDictationController extends ESLController {
 
 	// ============== Supporting Functions ================//
 	private List<String> getInputVocab(HttpServletRequest request) {
-		List<String> vocabs = new ArrayList<String>();
-		for (int i=0; i <= selfDictationService.getMaxQuestions(); i++) {
-			String str = request.getParameter("vocab" + i);
-			if (str != null && !"".equals(str)) vocabs.add(str);
+		Map<String, String[]> params = request.getParameterMap();
+		List<String> vocabs = new ArrayList<>();
+		for (int i=0; i <= maxQuestions; i++) {
+			String[] strArr = params.get("vocab" + i);
+			if (strArr != null && strArr.length > 0 &&  !"".equals(strArr[0])) vocabs.add(strArr[0]);
 		}
 		logger.info("getInputVocab: returned list size[" + vocabs.size() + "]");
 		return vocabs;

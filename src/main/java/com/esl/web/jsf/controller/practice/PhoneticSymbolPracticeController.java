@@ -216,7 +216,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		logger.info("getRandomQuestion: a random question: word[" + question.getWord() + "]");
 
 		phoneticSymbolPracticeService.findIPAAndPronoun(question);
-		phoneticQuestionService.enrichVocabImageForQuestion(question);
+		phoneticQuestionService.enrichVocabImageFromDB(question);
 
 		// get list of phonics
 		Set<String> phonics = phoneticSymbolPracticeService.getPhonicsListByLevel(selectedLevel, question.getIPA());

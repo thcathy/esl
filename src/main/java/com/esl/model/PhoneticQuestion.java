@@ -1,7 +1,6 @@
 package com.esl.model;
 
 import com.esl.service.rest.WebParserRestService;
-import com.esl.util.WebUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,8 +130,6 @@ public class PhoneticQuestion implements Serializable {
 
 		if (StringUtils.isNotBlank(picFileName)) {
 			picsFullPaths = new String[]{PIC_FILE_FOLDER_PATH + picFileName};
-		} else {
-			picsFullPaths = WebUtil.searchImageUrls(word);
 		}
 		return picsFullPaths;
 	}

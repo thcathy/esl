@@ -23,6 +23,24 @@ class SelfDictationServiceSpec extends Specification {
         }
     }
 
+    def "When generate practice for saved dictation, get image and dictionary from web if vocab is not found from DB"() {
+        when:
+        def practice = service.generatePractice([new Vocab("xxxyyyzzz"), new Vocab("jakarta")])
+        def xxxyyyzzz = practice.questions.find { it.word == "xxxyyyzzz" }
+        def jakarta = practice.questions.find { it.word == "jakarta" }
+
+        then:
+        assert practice.questions.size() == 2
+        assert xxxyyyzzz.isIPAUnavailable() == true
+        assert xxxyyyzzz.getIPA() == null
+        assert xxxyyyzzz.getPronouncedLink() == null
+        assert jakarta.isIPAUnavailable() == false
+        assert jakarta.getIPA() == "dʒəˈkɑːtə"
+        assert jakarta.getPronouncedLink() == "http://api.pearson.com/v2/dictionaries/assets/ldoce/gb_pron/p028-000006623.mp3"
+        assert jakarta.getPicsFullPaths().every {it.startsWith("http")}
+    }
+
+
     def "When generate practice for self dictation, should use local vocab images if vocab is found from database"() {
         when:
         def practice = service.generatePractice(null, ["boy", "fish"])
@@ -36,14 +54,27 @@ class SelfDictationServiceSpec extends Specification {
         }
     }
 
-    def "When generate practice for self dictation, get image from web if vocab is not found from database"() {
+    def "When generate practice for self dictation, get image from web if vocab is not found from DB"() {
         when:
-        def practice = service.generatePractice(null, ["xxxyyyzzz"])
+        def practice = service.generatePractice(null, ["xxxyyyzzz", "bus-stop", "jakarta"])
+        def xxxyyyzzz = practice.questions.find { it.word == "xxxyyyzzz" }
+        def busStop = practice.questions.find { it.word == "bus-stop" }
+        def jakarta = practice.questions.find { it.word == "jakarta" }
 
         then:
-        assert practice.questions.size() == 1
+        assert practice.questions.size() == 3
         practice.questions.each {
             assert it.picsFullPathsInString.contains("http://") || it.picsFullPathsInString.contains("https://")
         }
+        assert xxxyyyzzz.isIPAUnavailable() == true
+        assert xxxyyyzzz.getIPA() == null
+        assert xxxyyyzzz.getPronouncedLink() == null
+        assert busStop.isIPAUnavailable() == true
+        assert busStop.getIPA() == null
+        assert busStop.getPronouncedLink() == ""
+        assert jakarta.isIPAUnavailable() == false
+        assert jakarta.getIPA() == "dʒəˈkɑːtə"
+        assert jakarta.getPronouncedLink() == "http://api.pearson.com/v2/dictionaries/assets/ldoce/gb_pron/p028-000006623.mp3"
+        assert jakarta.getPicsFullPaths().every {it.startsWith("http")}
     }
 }

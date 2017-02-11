@@ -1,26 +1,26 @@
 package com.esl.service.practice;
 
+import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.dao.IVocabImageDAO;
 import com.esl.entity.VocabImage;
+import com.esl.entity.rest.DictionaryResult;
 import com.esl.entity.rest.WebItem;
 import com.esl.model.PhoneticQuestion;
 import com.esl.service.rest.WebParserRestService;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
 import org.apache.commons.codec.binary.StringUtils;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,7 +28,51 @@ public class PhoneticQuestionService {
     private static Logger log = LoggerFactory.getLogger(PhoneticQuestionService.class);
 
     @Resource private IVocabImageDAO vocabImageDao;
+    @Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
     @Resource private WebParserRestService webService;
+    @Resource private RestTemplate restTemplate;
+
+    public Optional<PhoneticQuestion> getQuestionFromDBWithImage(String word) {
+        Optional<PhoneticQuestion> question = Optional.ofNullable(phoneticQuestionDAO.getPhoneticQuestionByWord(word));
+        question.ifPresent(this::enrichVocabImageFromDB);
+        return question;
+    }
+
+    public PhoneticQuestion buildQuestion(String word) {
+        log.info("buildQuestion for word: {}", word);
+        PhoneticQuestion question = new PhoneticQuestion();
+        question.setWord(word);
+
+        CompletableFuture<WebItem[]> imagesResult = webService.searchGoogleImage(word);
+        CompletableFuture<Optional<DictionaryResult>> dictionaryResult = webService.queryDictionary(word);
+
+        fillQuestionByDictionaryResult(question, dictionaryResult.join());
+        setPicsFullPaths(question, imagesResult.join());
+
+        return question;
+    }
+
+    private void setPicsFullPaths(PhoneticQuestion question, WebItem[] items) {
+        List<String> images = Arrays.stream(items)
+                .map(i -> i.url)
+                .limit(5)
+                .collect(Collectors.toList());
+
+        question.setPicsFullPaths(images.toArray(new String[images.size()]));
+    }
+
+    private void fillQuestionByDictionaryResult(PhoneticQuestion question, Optional<DictionaryResult> r) {
+        if (!r.isPresent()) {
+            question.setIPAUnavailable(true);
+        } else {
+            DictionaryResult result = r.get();
+            if (org.apache.commons.lang3.StringUtils.isNotBlank(result.IPA))
+                question.setIPA(result.IPA);
+            else
+                question.setIPAUnavailable(true);
+            question.setPronouncedLink(result.pronunciationUrl);
+        }
+    }
 
     public void enrichIfNeeded(List<PhoneticQuestion> questions) {
         log.debug("enrich: {} questions", questions.size());
@@ -42,7 +86,7 @@ public class PhoneticQuestionService {
         log.debug("getAndStoreImagesFromWeb for {}", question.getWord());
 
         try {
-            WebItem[] items = webService.searchGoogleImage(question.getWord() + " clipart").get().getBody();
+            WebItem[] items = webService.searchGoogleImage(question.getWord() + " clipart").join();
             List<String> images = Arrays.stream(items)
                     .map(i -> i.url)
                     .filter(url -> !url.endsWith("svg"))
@@ -72,9 +116,7 @@ public class PhoneticQuestionService {
         log.debug("retrieveImageToString from url: {}", url);
         try {
             String extension = url.substring(url.lastIndexOf('.') + 1);
-            HttpResponse<InputStream> response = Unirest.get(url).asBinary();
-            log.debug("Response status code: {}", response.getStatus());
-            byte[] byteArray = IOUtils.toByteArray(response.getBody());
+            byte[] byteArray = restTemplate.getForObject(url, byte[].class);
             return Optional.of("data:image/" + extension + ";base64," + StringUtils.newStringUtf8(org.apache.commons.codec.binary.Base64.encodeBase64(byteArray, false)));
         } catch (Exception e) {
             log.error("Cannot retrieve image from url: {}", url, e);
@@ -97,12 +139,12 @@ public class PhoneticQuestionService {
     }
 
     @Transactional(readOnly = true)
-    public void enrichVocabImageForQuestions(List<PhoneticQuestion> questions) {
-        questions.forEach(this::enrichVocabImageForQuestion);
+    public void enrichVocabImageFromDB(List<PhoneticQuestion> questions) {
+        questions.forEach(this::enrichVocabImageFromDB);
     }
 
     @Transactional(readOnly = true)
-    public void enrichVocabImageForQuestion(PhoneticQuestion question) {
+    public void enrichVocabImageFromDB(PhoneticQuestion question) {
         List<String> images = vocabImageDao.listByWord(question.getWord()).stream()
                 .map(VocabImage::getBase64Image)
                 .collect(Collectors.toList());

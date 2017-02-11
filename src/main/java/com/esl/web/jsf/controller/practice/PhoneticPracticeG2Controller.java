@@ -305,7 +305,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 		}
 
 		question = questions.get(0);
-		phoneticQuestionService.enrichVocabImageForQuestion(question);
+		phoneticQuestionService.enrichVocabImageFromDB(question);
 		logger.info("getRandomQuestion: a random question: word[" + question.getWord() + "]");
 
 		// add full mark in practice result

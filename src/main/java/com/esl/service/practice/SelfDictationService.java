@@ -9,8 +9,6 @@ import com.esl.model.Member;
 import com.esl.model.PhoneticPractice;
 import com.esl.model.PhoneticQuestion;
 import com.esl.util.ValidationUtil;
-import com.esl.util.practice.PhoneticQuestionUtil;
-import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +19,9 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service("selfDictationService")
@@ -37,6 +38,7 @@ public class SelfDictationService implements ISelfDictationService {
 	@Resource private IDictationHistoryDAO dictationHistoryDAO;
 	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
 	@Resource private PhoneticQuestionService phoneticQuestionService;
+	@Resource private ExecutorService executorService;
 
 	// ============== Constructor ================//
 	public SelfDictationService() {}
@@ -51,29 +53,14 @@ public class SelfDictationService implements ISelfDictationService {
 			return null;
 		}
 
-		List<PhoneticQuestion> questions = new ArrayList<PhoneticQuestion>();
-		List<Thread> threads = new ArrayList<Thread>();
-		PhoneticQuestionUtil pqUtil = new PhoneticQuestionUtil();
+		List<CompletableFuture<PhoneticQuestion>> questionFutures = inputVocabularies.stream()
+				.filter(ValidationUtil::isValidWord)
+				.map(w -> CompletableFuture.supplyAsync(() -> createQuestion(w), executorService))
+				.collect(Collectors.toList());
 
-		// Retrieve vocab and generate questions
-		for (String vocab : inputVocabularies) {
-			logger.info("generatePractice: word: " + vocab);
-
-			if (ValidationUtil.isValidWord(vocab))
-			{
-				PhoneticQuestion question = new PhoneticQuestion();
-				question.setWord(vocab.trim());
-
-				// Create Thread to get IPA or Generate pronounce
-				FindIPAAndPronoun finder = pqUtil.new FindIPAAndPronoun(questions, question, null, null);
-				Thread newThread = new Thread(finder);
-				logger.info("generatePractice: a new Thread created: Thread ID" + newThread.getId());
-				newThread.start();
-				threads.add(newThread);
-			}
-		}
-
-		waitThreadsCompleted(threads);
+		List<PhoneticQuestion> questions = questionFutures.stream()
+						.map(CompletableFuture::join)
+						.collect(Collectors.toList());
 
 		if (questions.size() < 1) {
 			logger.info("generatePractice: no question");
@@ -86,8 +73,13 @@ public class SelfDictationService implements ISelfDictationService {
 		return practice;
 	}
 
+	private PhoneticQuestion createQuestion(String w) {
+		return phoneticQuestionService.getQuestionFromDBWithImage(w)
+				.orElseGet(() -> phoneticQuestionService.buildQuestion(w));
+	}
+
 	private PhoneticPractice createPhoneticPracticeObject(Member member, List<PhoneticQuestion> questions) {
-		phoneticQuestionService.enrichVocabImageForQuestions(questions);
+		phoneticQuestionService.enrichVocabImageFromDB(questions);
 		Collections.shuffle(questions);
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setMember(member);
@@ -111,25 +103,14 @@ public class SelfDictationService implements ISelfDictationService {
 		logger.info(logPrefix + "START");
 		if (vocabs == null) throw new IllegalParameterException(new String[]{"vocabs"}, new Object[]{vocabs});
 
-		List<PhoneticQuestion> questions = new ArrayList<PhoneticQuestion>();
-		List<Thread> threads = new ArrayList<Thread>();
-		PhoneticQuestionUtil pqUtil = new PhoneticQuestionUtil();
+		List<CompletableFuture<PhoneticQuestion>> questionFutures = vocabs.stream()
+				.map(Vocab::getWord)
+				.map(w -> CompletableFuture.supplyAsync(() -> createQuestion(w), executorService))
+				.collect(Collectors.toList());
 
-		// Retrieve vocab and generate questions
-		for (Vocab vocab : vocabs) {
-			logger.info(logPrefix + "vocab [" + vocab.getWord() + "]");
-
-			PhoneticQuestion question = findOrCreatePhoneticQuestion(vocab.getWord().trim().toLowerCase());
-
-			// Create Thread to get IPA or Generate pronounce
-			FindIPAAndPronoun finder = pqUtil.new FindIPAAndPronoun(questions, question, null, null);
-			Thread newThread = new Thread(finder);
-			logger.info("generatePractice: a new Thread created: Thread ID" + newThread.getId());
-			newThread.start();
-			threads.add(newThread);
-		}
-
-		waitThreadsCompleted(threads);
+		List<PhoneticQuestion> questions = questionFutures.stream()
+				.map(CompletableFuture::join)
+				.collect(Collectors.toList());
 
 		if (questions.size() < 1) {
 			logger.info(logPrefix + "no question");
