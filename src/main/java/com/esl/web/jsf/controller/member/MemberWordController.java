@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
@@ -52,7 +53,7 @@ public class MemberWordController extends ESLController {
 	private Map<PhoneticQuestion, Boolean> savedQuestion = null;
 
 	//============== Functions ================//
-
+	@Transactional
 	public String saveWord() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, facesContext.getViewRoot().getLocale());
@@ -85,6 +86,7 @@ public class MemberWordController extends ESLController {
 	/**
 	 * Open manage page
 	 */
+	@Transactional
 	public String launchManage() {
 		logger.info("launchManage: START");
 
@@ -97,6 +99,7 @@ public class MemberWordController extends ESLController {
 		return manageView;
 	}
 
+	@Transactional
 	public String showAll() {
 		logger.info("showAll: START");
 		filter = SHOW_ALL;
@@ -155,6 +158,7 @@ public class MemberWordController extends ESLController {
 		return null;
 	}
 
+	@Transactional
 	public String deleteAllMemberWords() {
 		logger.info("deleteAllMemberWords: START");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -172,6 +176,7 @@ public class MemberWordController extends ESLController {
 		return launchManage();
 	}
 
+	@Transactional
 	public String deleteSelectedMemberWords() {
 		logger.info("deleteSelectedMemberWords: START");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -200,6 +205,7 @@ public class MemberWordController extends ESLController {
 		return launchManage();
 	}
 
+	@Transactional
 	public String deleteLearntMemberWords() {
 		logger.info("deleteLearntMemberWords: START");
 		FacesContext facesContext = FacesContext.getCurrentInstance();

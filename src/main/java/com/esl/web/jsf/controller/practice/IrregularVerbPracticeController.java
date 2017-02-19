@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -61,11 +62,12 @@ public class IrregularVerbPracticeController extends BaseWithScoreBarController 
 		answer = null;
 		phoneticQ = null;
 		input = null;
-		histories = new ArrayList<IrregularVerbPracticeHistory>();
+		histories = new ArrayList<>();
 		setScoreBar(0,1);
 		return practice();
 	}
 
+	@Transactional
 	public String practice() {
 		final String logPrefix = "practice: ";
 		logger.info(logPrefix + "START");

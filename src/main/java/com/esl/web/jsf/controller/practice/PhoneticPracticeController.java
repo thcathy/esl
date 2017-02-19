@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
@@ -101,6 +102,7 @@ public class PhoneticPracticeController extends ESLController {
 	//	 ============== Getter Functions ================//
 
 	// Return grades available to the user
+	@Transactional
 	public List<SelectItem> getAvailableGrades() {
 		Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 		String userId = "";
@@ -134,6 +136,7 @@ public class PhoneticPracticeController extends ESLController {
 	}
 
 	// ============== Functions ================//
+	@Transactional
 	public String start() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Locale locale = facesContext.getViewRoot().getLocale();
@@ -158,6 +161,7 @@ public class PhoneticPracticeController extends ESLController {
 		return "/error";
 	}
 
+	@Transactional
 	public String submitAnswer() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		String locale = facesContext.getViewRoot().getLocale().toString();

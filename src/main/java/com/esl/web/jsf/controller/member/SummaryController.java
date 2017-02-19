@@ -1,16 +1,5 @@
 package com.esl.web.jsf.controller.member;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.model.SelectItem;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.dao.PracticeResultDAO;
 import com.esl.model.Member;
 import com.esl.model.PracticeResult;
@@ -28,6 +17,16 @@ import com.esl.web.model.practice.VocabPracticeSummary;
 import com.esl.web.util.ChartUtil;
 import com.esl.web.util.LanguageUtil;
 import com.esl.web.util.SelectItemUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
+import java.util.List;
 
 @Controller
 @Scope("session")
@@ -61,6 +60,7 @@ public class SummaryController extends ESLController {
 	 * Use for jsp, To refresh all UI string to new language
 	 */
 	@Override
+	@Transactional
 	public String getInitLanguage() {
 		logger.info("getInitLanguage: START");
 
@@ -126,6 +126,7 @@ public class SummaryController extends ESLController {
 	/**
 	 * Update Phonics Practice static for level change
 	 */
+	@Transactional
 	public void phonicsLevelChangeListener(AjaxBehaviorEvent event) {
 		logger.info("phonicsLevelChangeListener: START");
 		phonicsSummary = practiceResultService.getPracticeResultSummary(userSession.getMember(), PracticeResult.PHONETICSYMBOLPRACTICE, selectedLevel);

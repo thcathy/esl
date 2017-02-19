@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
@@ -85,6 +86,7 @@ public class SelfDictationController extends ESLController {
 	// ============== Functions ================//
 
 	// Generate the dictation
+	@Transactional
 	public String start() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Locale locale = facesContext.getViewRoot().getLocale();
@@ -112,6 +114,7 @@ public class SelfDictationController extends ESLController {
 		return inputView;
 	}
 
+	@Transactional
 	public String submitAnswer() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, facesContext.getViewRoot().getLocale());

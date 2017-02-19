@@ -1,18 +1,17 @@
 package com.esl.web.jsf.controller.dictation;
 
-import java.util.ResourceBundle;
-
-import javax.annotation.Resource;
-import javax.faces.context.FacesContext;
-
+import com.esl.dao.dictation.IDictationDAO;
+import com.esl.entity.dictation.Dictation;
+import com.esl.web.jsf.controller.ESLController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.esl.dao.dictation.IDictationDAO;
-import com.esl.entity.dictation.Dictation;
-import com.esl.web.jsf.controller.ESLController;
+import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
+import java.util.ResourceBundle;
 
 @Controller
 @Scope("request")
@@ -86,11 +85,11 @@ public class OpenDictationController extends ESLController {
 		}
 	}
 
+	@Transactional
 	public String randomDictation() {
 		final String logPrefix = "randomDictation: ";
 		logger.info(logPrefix + "START");
 
-		dictationDAO.attachSession(userSession.getMember());
 		Dictation dictation = dictationDAO.randomAccessibleDictation(userSession.getMember());
 		if (dictation == null) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();

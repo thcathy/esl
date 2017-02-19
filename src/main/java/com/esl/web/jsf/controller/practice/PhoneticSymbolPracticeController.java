@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
@@ -81,6 +82,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		return inputView;
 	}
 
+	@Transactional
 	public String start() {
 		logger.info("start: selectedGrade: " + selectedGrade);
 
@@ -114,6 +116,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		return practiceView;
 	}
 
+	@Transactional
 	public String submitAnswer() {
 		logger.info("submitAnswer: START");
 
@@ -146,6 +149,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	}
 
 	// process when completing the practice
+	@Transactional
 	public String completePractice() {
 		logger.info("completePractice: START");
 

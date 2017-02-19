@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
@@ -55,6 +56,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 
 	// ============== Functions ================//
 	@Override
+	@Transactional
 	public String start() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Locale locale = facesContext.getViewRoot().getLocale();
@@ -75,6 +77,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 	}
 
 	@Override
+	@Transactional
 	public String submitAnswer() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Locale locale = facesContext.getViewRoot().getLocale();
@@ -125,6 +128,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 
 	// process when completing the practice
 	@Override
+	@Transactional
 	public String completePractice() {
 		logger.info("completePractice: START");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
