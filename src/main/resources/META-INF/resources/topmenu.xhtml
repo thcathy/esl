@@ -18,12 +18,12 @@
 						<h:link rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
 						<h:link rendered="#{userSession.member != null}" outcome="/member/dictation/main">#{generalMsg.dictation}</h:link>
 					</li>
-					<li class="w3-hide-medium w3-hide-small"><h:link outcome="/practice/irregularverb/start?locale=#{languageController.locale}">#{generalMsg.irregularVerb}</h:link></li>
+					<li class="w3-hide-medium w3-hide-small"><h:link outcome="/practice/irregularverb/start">#{generalMsg.irregularVerb}</h:link></li>
 					<li class="w3-hide-medium w3-hide-small"><h:link outcome="/practice/grammar/quick">#{generalMsg.grammar}</h:link></li>
 					<li class="w3-hide-medium w3-hide-small w3-dropdown-hover">
 						<a href="#">#{generalMsg.more} <i class="fa fa-caret-down"/></a>
 						<div class="w3-dropdown-content w3-card-4 w3-theme-l1">
-							<h:link outcome="/public/about?locale=#{languageController.locale}">#{generalMsg.menuAboutUs}</h:link>
+							<h:link outcome="/public/about">#{generalMsg.menuAboutUs}</h:link>
 							<a target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a>
 						</div>
 					</li>
@@ -68,9 +68,9 @@
 							<h:link rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
 							<h:link rendered="#{userSession.member != null}" outcome="/member/dictation/main">#{generalMsg.dictation}</h:link>
 						</li>
-						<li><h:link outcome="/practice/irregularverb/start?locale=#{languageController.locale}">#{generalMsg.irregularVerb}</h:link></li>
+						<li><h:link outcome="/practice/irregularverb/start">#{generalMsg.irregularVerb}</h:link></li>
 						<li><h:link outcome="/practice/grammar/quick">#{generalMsg.grammar}</h:link></li>
-						<li><h:link outcome="/public/about?locale=#{languageController.locale}">#{generalMsg.menuAboutUs}</h:link></li>
+						<li><h:link outcome="/public/about">#{generalMsg.menuAboutUs}</h:link></li>
 						<li><a target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a></li>
 						<li class="w3-theme-d1">
 							<h:panelGroup rendered="#{userSession.member == null}">

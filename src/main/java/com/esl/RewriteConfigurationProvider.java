@@ -39,6 +39,12 @@ public class RewriteConfigurationProvider extends HttpConfigurationProvider
                 .perform(Forward.to("/practice/phoneticsymbolpractice/input.jsf"))
 
                 .addRule(
+                        Join.path("/dictation/random").to("/dictation/random.jsf")
+                ).perform(PhaseOperation.enqueue(
+                        Invoke.binding(El.retrievalMethod("openDictationController.randomDictation"))).after(PhaseId.RESTORE_VIEW)
+                )
+
+                .addRule(
                         Join.path("/manage/vocabimage/{fromid}").to("/manage/vocabimage.jsf")
                 ).perform(PhaseOperation.enqueue(
                         Invoke.binding(El.retrievalMethod("vocabImageController.listImage"))

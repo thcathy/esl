@@ -16,16 +16,16 @@
 				<span class="w3-large">#{dictationMsg.navCreate}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navCreateDesc}</span></h:commandLink>
 		</li>
 		<li style="width:20%" id="#{current=='INSTANT'?'current':''}">
-			<h:commandLink styleClass="#{current=='INSTANT'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0" action="/practice/selfdictation/input">
-				<span class="w3-large">#{dictationMsg.navInstant}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navInstantDesc}</span></h:commandLink>
+			<h:link styleClass="#{current=='INSTANT'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0" outcome="/practice/selfdictation/input">
+				<span class="w3-large">#{dictationMsg.navInstant}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navInstantDesc}</span></h:link>
 		</li>
 		<li style="width:20%" id="#{current=='FIND'?'current':''}">
-			<h:commandLink styleClass="#{current=='FIND'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0" action="/member/dictation/search">
-				<span class="w3-large">#{dictationMsg.navFind}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navFindDesc}</span></h:commandLink>
+			<h:link styleClass="#{current=='FIND'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0" outcome="/member/dictation/search">
+				<span class="w3-large">#{dictationMsg.navFind}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navFindDesc}</span></h:link>
 		</li>
 		<li style="width:20%" >
-			<h:commandLink styleClass="w3-hover-deep-orange w3-padding-0" action="#{openDictationController.randomDictation}">
-				<span class="w3-large">#{dictationMsg.navRandom}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navRandomDesc}</span></h:commandLink>
+			<a href="/dictation/random" class="w3-hover-deep-orange w3-padding-0">
+				<span class="w3-large">#{dictationMsg.navRandom}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navRandomDesc}</span></a>
 		</li>
 	</ul>
 	</h:form>
