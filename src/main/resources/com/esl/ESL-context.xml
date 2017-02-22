@@ -21,7 +21,7 @@
 	<!--<import resource="classpath:com/esl/service/xml/import-service.xml" />-->
 
     <!--<import resource="classpath:com/esl/ESL-data.xml" />-->
-    <import resource="classpath:com/esl/esl-management.xml" />
+    <!--<import resource="classpath:com/esl/esl-management.xml" />-->
     
     <import resource="classpath:/com/esl/service/xml/MailTemplates.xml" />
 	<import resource="classpath:/com/esl/model/xml/PhoneticSymbolsBean.xml" />
