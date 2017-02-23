@@ -24,7 +24,7 @@
 			<div class="w3-panel">
 				<esl:dictationNav2 current="SHOWALL" />
 
-				<h:messages errorClass="w3-panel w3-text-red w3-large" infoClass="w3-panel w3-text-blue w3-large" globalOnly="true" />
+				<h:messages errorClass="w3-text-red w3-large" infoClass="w3-text-blue w3-large" globalOnly="true" />
 
 				<div class="w3-container w3-padding-0 w3-margin-top">
 					<button onclick="addOrRemoveW3Show('createdDictation')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium w3-border">
@@ -41,15 +41,15 @@
 								<p:column>
 									<h:commandLink action="#{dictationEditController.launchEdit}" styleClass="w3-padding-0" style="display: inline-block;">
 										<f:setPropertyActionListener target="#{dictationEditController.editDictation}" value="#{d}" />
-										<img src="#{request.contextPath}/images/graphic/edit.gif" border="0" alt="#{dictationMsg.edit}" />
+										<img src="#{applicationController.staticHost}/images/graphic/edit.gif" border="0" alt="#{dictationMsg.edit}" />
 									</h:commandLink>
 									<h:commandLink action="#{dictationManageController.launchDictation}" styleClass="w3-padding-0" style="display: inline-block;">
 										<f:setPropertyActionListener target="#{dictationManageController.selectedDictation}" value="#{d}" />
-										<img src="#{request.contextPath}/images/graphic/view.gif" border="0" alt="#{dictationMsg.view}"/>
+										<img src="#{applicationController.staticHost}/images/graphic/view.gif" border="0" alt="#{dictationMsg.view}"/>
 									</h:commandLink>
 									<h:commandLink action="#{dictationPracticeController.authDictation}" styleClass="w3-padding-0" style="display: inline-block;">
 										<f:setPropertyActionListener target="#{dictationPracticeController.dictation}" value="#{d}" />
-										<img src="#{request.contextPath}/images/graphic/practice.gif" border="0" alt="#{dictationMsg.practice}"/>
+										<img src="#{applicationController.staticHost}/images/graphic/practice.gif" border="0" alt="#{dictationMsg.practice}"/>
 									</h:commandLink>
 								</p:column>
 								<p:column sortBy="#{d.id}"><f:facet name="header">#{dictationMsg.id}</f:facet>
@@ -64,7 +64,7 @@
 								<p:column sortBy="#{d.vocabsSize}"><f:facet name="header">#{dictationMsg.words}</f:facet>
 									<h:outputText value="#{d.vocabsSize}"/>
 								</p:column>
-								<p:column sortBy="#{d.totalRecommended}"><f:facet name="header"><img src="#{request.contextPath}/images/icon/silk/recommend.gif" alt="#{dictationMsg.recommendation}" /></f:facet>
+								<p:column sortBy="#{d.totalRecommended}"><f:facet name="header"><img src="#{applicationController.staticHost}/images/icon/silk/recommend.gif" alt="#{dictationMsg.recommendation}" /></f:facet>
 									#{d.totalRecommended}
 								</p:column>
 								<p:column sortBy="#{d.totalAttempt}"><f:facet name="header">#{dictationMsg.attempts}</f:facet>
@@ -95,11 +95,11 @@
 								<p:column>
 									<h:commandLink action="#{dictationManageController.launchDictation}" styleClass="w3-padding-0" style="display: inline-block;">
 										<f:setPropertyActionListener target="#{dictationManageController.selectedDictation}" value="#{dh.dictation}" />
-										<img src="#{request.contextPath}/images/graphic/view.gif" border="0" alt="#{dictationMsg.view}"/>
+										<img src="#{applicationController.staticHost}/images/graphic/view.gif" border="0" alt="#{dictationMsg.view}"/>
 									</h:commandLink>
 									<h:commandLink action="#{dictationPracticeController.authDictation}" styleClass="w3-padding-0" style="display: inline-block;">
 										<f:setPropertyActionListener target="#{dictationPracticeController.dictation}" value="#{dh.dictation}" />
-										<img src="#{request.contextPath}/images/graphic/practice.gif" border="0" alt="#{dictationMsg.practice}"/>
+										<img src="#{applicationController.staticHost}/images/graphic/practice.gif" border="0" alt="#{dictationMsg.practice}"/>
 									</h:commandLink>
 								</p:column>
 								<p:column sortBy="#{dh.dictation.id}"><f:facet name="header">#{dictationMsg.id}</f:facet>
@@ -114,7 +114,7 @@
 								<p:column sortBy="#{dh.dictation.vocabsSize}"><f:facet name="header">#{dictationMsg.words}</f:facet>
 									<h:outputText value="#{dh.dictation.vocabsSize}"/>
 								</p:column>
-								<p:column sortBy="#{dh.dictation.totalRecommended}"><f:facet name="header"><img src="#{request.contextPath}/images/icon/silk/recommend.gif" alt="#{dictationMsg.recommendation}" /></f:facet>
+								<p:column sortBy="#{dh.dictation.totalRecommended}"><f:facet name="header"><img src="#{applicationController.staticHost}/images/icon/silk/recommend.gif" alt="#{dictationMsg.recommendation}" /></f:facet>
 									#{dh.dictation.totalRecommended}
 								</p:column>
 								<p:column sortBy="#{dh.totalAttempt}"><f:facet name="header">#{dictationMsg.attempts}</f:facet>

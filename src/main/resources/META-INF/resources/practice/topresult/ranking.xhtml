@@ -40,7 +40,6 @@
 								<h:selectOneMenu id="selectLevel" value="#{rankingController.selectedLevel}" styleClass="w3-select" >
 									<f:selectItems value="#{rankingController.levels}" />
 								</h:selectOneMenu>
-								<img src="#{request.contextPath}/images/spacer.gif" width="5" height="1" />
 							</h:panelGroup>
 							<h:commandLink render="rankingPanel" styleClass="w3-btn w3-theme" action="#{rankingController.a4jSubmit}">#{topResultMsg.rankingEnquiry}</h:commandLink>
 						</div>

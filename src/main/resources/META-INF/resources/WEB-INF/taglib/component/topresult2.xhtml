@@ -15,9 +15,9 @@
 			<tr>
 				<td>#{topResult.firstPosition + r.index}</td>
 				<td>#{i.member.name} [#{i.member.userId}]
-					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 1}" value="/images/icon/silk/award_star_gold_1.png" />
-					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 2}" value="/images/icon/silk/award_star_silver_1.png" />
-					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 3}" value="/images/icon/silk/award_star_bronze_1.png" />
+					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 1}" value="#{applicationController.staticHost}/images/icon/silk/award_star_gold_1.png" />
+					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 2}" value="#{applicationController.staticHost}/images/icon/silk/award_star_silver_1.png" />
+					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 3}" value="#{applicationController.staticHost}/images/icon/silk/award_star_bronze_1.png" />
 				</td>
 				<td>
 					<h:panelGroup rendered="#{topResult.orderType == 'Rate'}">
@@ -31,10 +31,10 @@
 			<tr class="w3-green">
 				<td>#{topResult.firstPosition + r.index}</td>
 				<td>#{i.member.name} [#{i.member.userId}]
-					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 1}" value="/images/icon/silk/award_star_gold_1.png" />
-					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 2}" value="/images/icon/silk/award_star_silver_1.png" />
-					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 3}" value="/images/icon/silk/award_star_bronze_1.png" />
-				</td>
+					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 1}" value="#{applicationController.staticHost}/images/icon/silk/award_star_gold_1.png" />
+					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 2}" value="#{applicationController.staticHost}/images/icon/silk/award_star_silver_1.png" />
+					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition + r.index == 3}" value="#{applicationController.staticHost}/images/icon/silk/award_star_bronze_1.png" />
+				</td>#{applicationController.staticHost}
 				<td>
 					<h:panelGroup rendered="#{topResult.orderType == 'Rate'}">
 					<h:outputText value="#{i.rate}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" type="percent"/></h:outputText>

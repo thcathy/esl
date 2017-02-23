@@ -9,8 +9,8 @@
 	<ui:include src="/htmlhead.xhtml"/>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" />
-	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue.css" />
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css" />
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css" />
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
 	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
@@ -19,7 +19,7 @@
 	<title><ui:insert name="subTitle" /></title>
   	<ui:insert name="head" />
 </h:head>
-<h:body style="background-image: url(#{request.contextPath}/images/main_bg.jpg);
+<h:body style="background-image: url(#{applicationController.staticHost}/images/main_bg.jpg);
 background-position: center 300px;
 	background-color: #46c6fc !important;
 	background-repeat: no-repeat;
@@ -36,7 +36,7 @@ background-position: center 300px;
 				<ui:insert name="mainDiv"></ui:insert>
 
 				<div class="w3-center w3-theme">
-					<img src="#{request.contextPath}/images/graphic/footer_1.png" alt="footer" style="width:100%" />
+					<img src="#{applicationController.staticHost}/images/graphic/footer_1.png" alt="footer" style="width:100%" />
 				</div>
 				<div class="w3-center">
 					<div class="w3-row w3-theme w3-padding">

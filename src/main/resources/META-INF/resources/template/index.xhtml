@@ -12,14 +12,14 @@
 	<ui:include src="/htmlhead.xhtml"/>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" />
-	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue.css" />
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css" />
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css" />
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
   	<title><ui:insert name="subTitle" /></title>
   	<ui:insert name="head" />
 </h:head>
-<h:body style="background-image: url(#{request.contextPath}/images/main_bg.jpg);
+<h:body style="background-image: url(#{applicationController.staticHost}/images/main_bg.jpg);
 	background-position: left 300px;
 	background-color: #46c6fc !important;
 	background-repeat: no-repeat;

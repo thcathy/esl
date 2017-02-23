@@ -31,15 +31,15 @@
 						<p:column>
 							<h:commandLink action="#{dictationEditController.launchEdit}" style="text-decoration: none;">
 								<f:setPropertyActionListener target="#{dictationEditController.editDictation}" value="#{d}" />
-								<img src="#{request.contextPath}/images/graphic/edit.gif" border="0" alt="#{dictationMsg.edit}" />
+								<img src="#{applicationController.staticHost}/images/graphic/edit.gif" border="0" alt="#{dictationMsg.edit}" />
 							</h:commandLink>
 							<h:commandLink action="#{dictationManageController.launchDictation}" style="text-decoration: none;">
 								<f:setPropertyActionListener target="#{dictationManageController.selectedDictation}" value="#{d}" />
-								<img src="#{request.contextPath}/images/graphic/view.gif" border="0" alt="#{dictationMsg.view}"/>
+								<img src="#{applicationController.staticHost}/images/graphic/view.gif" border="0" alt="#{dictationMsg.view}"/>
 							</h:commandLink>
 							<h:commandLink action="#{dictationPracticeController.authDictation}" style="text-decoration: none;">
 								<f:setPropertyActionListener target="#{dictationPracticeController.dictation}" value="#{d}" />
-								<img src="#{request.contextPath}/images/graphic/practice.gif" border="0" alt="#{dictationMsg.practice}"/>
+								<img src="#{applicationController.staticHost}/images/graphic/practice.gif" border="0" alt="#{dictationMsg.practice}"/>
 							</h:commandLink>
 						</p:column>
 						<p:column sortBy="#{d.id}"><f:facet name="header">#{dictationMsg.id}</f:facet>
