@@ -134,13 +134,19 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	/**
 	 * Use for jsp, To refresh all UI string to new language in result.jsp
 	 */
-	public String getInitResultLanguage() {
-		logger.info("getInitResultLanguage: START");
-		Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-		logger.info("getInitResultLanguage: Format obj for :" + locale);
+	public String init() {
+		try {
+			logger.info("getInitResultLanguage: START");
+			Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+			logger.info("getInitResultLanguage: Format obj for :" + locale);
 
-		LanguageUtil.formatGradeDescription(currentGrade, locale).getDescription();
-		if (userSession.getMember() != null) LanguageUtil.formatGradeDescription(userSession.getMember().getGrade(), locale);
+			LanguageUtil.formatGradeDescription(currentGrade, locale).getDescription();
+			if (userSession.getMember() != null)
+				LanguageUtil.formatGradeDescription(userSession.getMember().getGrade(), locale);
+		} catch (Exception e) {
+			logger.warn("cannot init phonetic practice G2 result page", e);
+			return indexView;
+		}
 		return "";
 	}
 
