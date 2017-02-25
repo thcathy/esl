@@ -6,9 +6,9 @@
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
 
-	<ui:define name="subTitle">#{htmlHeadMsg.public_error_title}</ui:define>
+	<ui:define name="subTitle">#{htmlHeadMsg.error_title}</ui:define>
 	<ui:define name="head">
-		<meta name="description" content="#{htmlHeadMsg.public_error_desc}" />
+		<meta name="description" content="#{htmlHeadMsg.error_desc}" />
 	</ui:define>
 
 	<ui:define name="mainDiv">
@@ -18,7 +18,10 @@
 
 		<div class="w3-margin w3-large w3-padding-bottom w3-center">
 			<p>#{errorPage.description}</p>
-			<p><a class="w3-btn w3-theme" target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a></p>
+			<p>
+				<a class="w3-btn w3-green" href="/index.jsf">#{generalMsg.backToMain}</a>
+				<a class="w3-btn w3-theme" target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a>
+			</p>
 		</div>
 
 	</ui:define>

@@ -6,11 +6,14 @@
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
 
+	<f:metadata>
+		<f:viewAction action="#{summaryController.init}" />
+	</f:metadata>
+
 	<ui:define name="subTitle">#{htmlHeadMsg.member_index_title}</ui:define>
 	<ui:define name="head"><meta name="description" content="#{htmlHeadMsg.member_index_desc}" /></ui:define>
 
 	<ui:define name="mainDiv">
-		<h:outputText value="#{summaryController.initLanguage}" />
 		<div class="w3-container w3-green">
 			<h3>
 				<i class="fa fa-leaf" aria-hidden="true"></i>&#160;<h:outputFormat value="#{memberSumMsg.indexWelcome}"><f:param value="#{userSession.member.name}" /></h:outputFormat>

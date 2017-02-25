@@ -1,9 +1,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
+
+	<f:metadata>
+		<f:viewAction action="#{memberWordController.initCheck}" />
+	</f:metadata>
 
 	<ui:define name="subTitle">#{htmlHeadMsg.member_vocab_manage_title}</ui:define>
 	<ui:define name="head"><meta name="description" content="#{htmlHeadMsg.member_vocab_manage_desc}" /></ui:define>

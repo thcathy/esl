@@ -10,7 +10,7 @@
 	
 	<f:metadata>
 		<f:viewParam name="id" value="#{openDictationController.selectedDictationId}"/>
-		<f:event type="preRenderView" listener="#{openDictationController.openDictationForView}"/>
+		<f:viewAction action="#{openDictationController.openDictationForView}" />
 	</f:metadata>
 	
 	<ui:define name="subTitle">#{htmlHeadMsg.member_dictation_dictation_title}</ui:define>

@@ -78,6 +78,13 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 	}
 
 	//============== Functions ================//
+	public String initCheck() {
+		if (dictation == null) {
+			return "/practice/selfdictation/input";
+		}
+		return "";
+	}
+
 	@Transactional
 	public String authDictation() {
 		final String logPrefix = "authDictation: ";

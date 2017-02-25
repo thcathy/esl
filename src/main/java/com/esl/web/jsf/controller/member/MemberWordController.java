@@ -53,6 +53,13 @@ public class MemberWordController extends ESLController {
 	private Map<PhoneticQuestion, Boolean> savedQuestion = null;
 
 	//============== Functions ================//
+	public String initCheck() {
+		if (userSession == null || userSession.getMember() == null) {
+			return indexView;
+		}
+		return "";
+	}
+
 	@Transactional
 	public String saveWord() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();

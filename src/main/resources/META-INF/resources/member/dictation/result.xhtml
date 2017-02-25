@@ -7,6 +7,10 @@
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
 
+    <f:metadata>
+        <f:viewAction action="#{dictationPracticeController.initCheck}" />
+    </f:metadata>
+
 	<ui:define name="subTitle">#{htmlHeadMsg.member_dictation_result_title}</ui:define>
 	<ui:define name="head">
 		<meta name="description" content="#{htmlHeadMsg.member_dictation_result_desc}" />

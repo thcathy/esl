@@ -55,6 +55,13 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 
 
 	// ============== Functions ================//
+	public String initCheck() {
+		if (userSession == null || userSession.getMember() == null) {
+			return indexView;
+		}
+		return "";
+	}
+
 	@Override
 	@Transactional
 	public String start() {

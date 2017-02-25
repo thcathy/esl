@@ -59,10 +59,13 @@ public class SummaryController extends ESLController {
 	/**
 	 * Use for jsp, To refresh all UI string to new language
 	 */
-	@Override
 	@Transactional
-	public String getInitLanguage() {
-		logger.info("getInitLanguage: START");
+	public String init() {
+		logger.info("init: START");
+
+		if (userSession == null || userSession.getMember() == null) {
+			return indexView;
+		}
 
 		// Get all required practice results and Top Result
 		vocabSummary = practiceResultService.getPracticeResultSummary(userSession.getMember(), PracticeResult.PHONETICPRACTICE, null);
