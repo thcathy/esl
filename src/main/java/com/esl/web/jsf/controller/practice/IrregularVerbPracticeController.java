@@ -27,6 +27,7 @@ public class IrregularVerbPracticeController extends BaseWithScoreBarController 
 
 	private static Logger logger = LoggerFactory.getLogger(IrregularVerbPracticeController.class);
 	private static final String bundleName = "messages.practice.IrregularVerbPractice";
+	private static final String startView = "/practice/irregularverb/start";
 	private static final String practiceView = "/practice/irregularverb/practice";
 	private static final String resultView = "/practice/irregularverb/result";
 
@@ -65,6 +66,13 @@ public class IrregularVerbPracticeController extends BaseWithScoreBarController 
 		histories = new ArrayList<>();
 		setScoreBar(0,1);
 		return practice();
+	}
+
+	public String initCheck() {
+		if (question == null) {
+			return startView;
+		}
+		return "";
 	}
 
 	@Transactional

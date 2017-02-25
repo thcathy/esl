@@ -7,6 +7,10 @@
 					xmlns:util="http://java.sun.com/jsf/composite/components/util"
 					template="/template/short.xhtml">
 
+<f:metadata>
+	<f:viewAction action="#{phoneticPracticeController.initCheck}" />
+</f:metadata>
+
 <ui:define name="subTitle">#{htmlHeadMsg.practice_phoneticpractice_practice_title}</ui:define>
 <ui:define name="head">
 	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />

@@ -6,7 +6,11 @@
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
 				template="/template/short.xhtml">
-	
+
+	<f:metadata>
+		<f:viewAction action="#{dictationEditController.initCheck}" />
+	</f:metadata>
+
 	<ui:define name="subTitle">#{htmlHeadMsg.member_dictation_edit2_title}</ui:define>
 	<ui:define name="head"><meta name="description" content="#{htmlHeadMsg.member_dictation_edit2_desc}" /></ui:define>
 

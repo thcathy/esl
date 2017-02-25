@@ -136,6 +136,13 @@ public class PhoneticPracticeController extends ESLController {
 	}
 
 	// ============== Functions ================//
+	public String initCheck() {
+		if (practice == null) {
+			return indexView;
+		}
+		return "";
+	}
+
 	@Transactional
 	public String start() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();

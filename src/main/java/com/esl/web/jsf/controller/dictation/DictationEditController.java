@@ -49,6 +49,13 @@ public class DictationEditController extends ESLController {
 
 	//============== Functions ================//
 
+	public String initCheck() {
+		if (userSession == null || userSession.getMember() == null) {
+			return launchCreate();
+		}
+		return "";
+	}
+
 	/**
 	 * Open create new dictation page
 	 */

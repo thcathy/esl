@@ -5,6 +5,10 @@
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				template="/template/short.xhtml">
 
+	<f:metadata>
+		<f:viewAction action="#{grammarPracticeController.initCheck}" />
+	</f:metadata>
+
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_grammar_practice_title}</ui:define>
 	<ui:define name="head">
 		<meta name="description" content="#{htmlHeadMsg.practice_grammar_desc}" />

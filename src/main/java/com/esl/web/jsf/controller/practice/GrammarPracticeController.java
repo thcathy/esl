@@ -54,6 +54,13 @@ public class GrammarPracticeController extends BaseWithScoreBarController {
 
 	//============== Functions ================//
 
+	public String initCheck() {
+		if (practice == null) {
+			return quickStartView;
+		}
+		return "";
+	}
+
 	public String quickStart() {
 		if (inputPassage.length() > 2000) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();

@@ -82,6 +82,13 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		return inputView;
 	}
 
+	public String initCheck() {
+		if (question == null)
+			return inputView;
+		else
+			return "";
+	}
+
 	@Transactional
 	public String start() {
 		logger.info("start: selectedGrade: " + selectedGrade);

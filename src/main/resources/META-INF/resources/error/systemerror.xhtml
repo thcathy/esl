@@ -6,9 +6,9 @@
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				template="/template/short.xhtml">
 
-	<ui:define name="subTitle">#{htmlHeadMsg.public_systemerror_title}</ui:define>
+	<ui:define name="subTitle">#{htmlHeadMsg.systemerror_title}</ui:define>
 	<ui:define name="head">
-		<meta name="description" content="#{htmlHeadMsg.public_systemerror_desc}" />
+		<meta name="description" content="#{htmlHeadMsg.systemerror_desc}" />
 	</ui:define>
 
 	<ui:define name="mainDiv">
@@ -19,6 +19,8 @@
 		<div class="w3-margin w3-large w3-padding-bottom w3-center">
 			<p>System encounter critial error that cannot recover.<br /> Please continue from our index page or contact us for any enquiry.</p>
 			<p>系統遇上不能收復的重大錯誤，請重新登入我們的主頁或聯絡我們。</p>
+			<a class="w3-btn w3-green" href="/index.jsf">#{generalMsg.backToMain}</a>
+			<a target="_blank" class="w3-btn w3-blue" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a>
 		</div>
 
 	</ui:define>
