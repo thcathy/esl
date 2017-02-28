@@ -31,10 +31,6 @@
 			<to-view-id>/member/profile.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>public/signup</from-outcome>
-			<to-view-id>/public/signup.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>public/about</from-outcome>
 			<to-view-id>/public/about.xhtml</to-view-id>
 		</navigation-case>
@@ -62,10 +58,6 @@
 			<from-outcome>public/message</from-outcome>
 			<to-view-id>/public/message.xhtml</to-view-id>
 		</navigation-case>
-		<navigation-case>			
-			<from-outcome>public/inputpassword</from-outcome>
-			<to-view-id>/public/inputpassword.xhtml</to-view-id>
-		</navigation-case>	
 	</navigation-rule>
 	
 	<!-- navigation-rules for Phonetic Symbol Practice  -->

@@ -86,7 +86,7 @@ public class AuthenticationController extends ESLController {
 		inputUserId = inputUserId.toLowerCase();
 		Member member = new Member();
 		member.setUserId(inputUserId);
-		member.setPIN(inputPassword);
+		//member.setPIN(inputPassword); to be hashed
 		member.setCreatedDate(null);
 
 		String result = membershipService.login(member);

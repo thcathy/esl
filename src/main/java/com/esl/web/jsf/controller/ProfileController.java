@@ -188,7 +188,7 @@ public class ProfileController extends ESLController {
 		}
 
 		// Perform Update
-		userSession.getMember().setPIN(newPIN);
+		//userSession.getMember().setPIN(newPIN); to be hashed
 		String result = membershipSvc.updateProfile(userSession.getMember());
 		logger.info("changePIN: membershipService.updateProfile return code: " + result);
 
