@@ -93,7 +93,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 		// Check practice have been create or not, if not created, call start
 		if (memberWord == null) {
 			logger.info("submitAnswer: cannot find question");
-			return JSFUtil.redirect(errorView);
+			return JSFUtil.redirectToJSF(errorView);
 		}
 
 		// Check answer
@@ -127,7 +127,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 			logger.info("completePractice: returned msg [" + resultString +  "]");
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, resultString, null));
 
-			return JSFUtil.redirect(manageView);
+			return JSFUtil.redirectToJSF(manageView);
 		}
 
 		return null;
@@ -150,7 +150,7 @@ public class MyVocabPracticeController extends PhoneticPracticeG2Controller {
 		clearController();
 
 		// go to member word manage page
-		return JSFUtil.redirect(memberWordController.launchManage());
+		return JSFUtil.redirectToJSF(memberWordController.launchManage());
 	}
 
 	// ============== Supporting Functions ================//

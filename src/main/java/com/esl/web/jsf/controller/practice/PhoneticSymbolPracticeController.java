@@ -130,7 +130,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		// Check practice have been create or not, if not created, call start
 		if (currentGrade == null) {
 			logger.info("submitAnswer: cannot find current grade");
-			return JSFUtil.redirect(start());
+			return JSFUtil.redirectToJSF(start());
 		}
 
 		boolean isCorrect = phoneticSymbolPracticeService.checkAnswer(question, answer);		// Check answer
@@ -170,7 +170,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		// reduce one mark for the undo question
 		totalFullMark--;
 
-		return JSFUtil.redirect(resultView);
+		return JSFUtil.redirectToJSF(resultView);
 	}
 
 	//	 ============== Getter Functions ================//

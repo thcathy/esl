@@ -23,11 +23,16 @@
 						<f:param value="#{selfDictationController.practice.mark}"/>
 						<f:param value="#{selfDictationController.practice.totalQuestions}"/>
 					</h:outputFormat>
+					<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:28px"></i></span>
 				</h3>
 
 				<div class="w3-row w3-center w3-margin w3-medium">
-					<h:commandLink styleClass="w3-btn w3-green" onclick="showSpinner()" action="/practice/selfdictation/input" value="#{selfDictationMsg.resultRetryMessage}" />
-					<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:24px"></i></span>
+					<div class="w3-half w3-padding-small">
+						<h:commandLink styleClass="w3-btn w3-green" onclick="showSpinner()" action="/practice/selfdictation/input" value="#{selfDictationMsg.resultRetryMessage}" />
+					</div>
+					<div class="w3-half w3-padding-small">
+						<h:commandLink styleClass="w3-btn w3-blue" onclick="showSpinner()" action="#{selfDictationController.createDictation}" value="#{selfDictationMsg.saveDictation}" />
+					</div>
 				</div>
 
 				<esl:scoreBar2 startMark="#{selfDictationController.practice.mark}" maxMark="#{selfDictationController.totalQuestions}" />

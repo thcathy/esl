@@ -5,8 +5,10 @@ import com.esl.dao.dictation.IDictationDAO;
 import com.esl.entity.dictation.Dictation;
 import com.esl.exception.BusinessValidationException;
 import com.esl.model.group.MemberGroup;
+import com.esl.service.JSFService;
 import com.esl.service.dictation.IDictationManageService;
 import com.esl.web.jsf.controller.ESLController;
+import com.esl.web.util.DictationUtil;
 import com.esl.web.util.SelectItemUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +40,7 @@ public class DictationEditController extends ESLController {
 	@Resource private IDictationManageService manageService;
 	@Resource private IMemberDAO memberDAO;
 	@Resource private IDictationDAO dictationDAO;
+	@Resource private JSFService jsfService;
 
 	//	 ============== UI display data ================//
 	private Dictation editDictation;
@@ -54,6 +58,18 @@ public class DictationEditController extends ESLController {
 			return launchCreate();
 		}
 		return "";
+	}
+
+	public String launchWithVocabs(List<String> inputVocab) throws IOException {
+		logger.info("create dictation with vocabs");
+
+		vocabs = DictationUtil.concatVocabs(inputVocab);
+		if (userSession.getMember() == null) {
+			logger.info("redirectToJSF to login page");
+			return jsfService.redirectTo("/login?redirect=/member/dictation/edit.jsf");
+		} else {
+			return launchCreate();
+		}
 	}
 
 	/**

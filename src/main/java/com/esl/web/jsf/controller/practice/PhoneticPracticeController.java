@@ -176,7 +176,7 @@ public class PhoneticPracticeController extends ESLController {
 		// Check practice have been create or not, if not created, call start
 		if (practice == null) {
 			logger.info("submitAnswer: cannot find practice");
-			return JSFUtil.redirect(start());
+			return JSFUtil.redirectToJSF(start());
 		}
 
 		PhoneticQuestion question = practice.getCurrentQuestionObject();
@@ -194,7 +194,7 @@ public class PhoneticPracticeController extends ESLController {
 		if (PhoneticPracticeService.INVALID_INPUT.equals(result))
 			return null;
 		else if (PhoneticPracticeService.SYSTEM_ERROR.equals(result))
-			return JSFUtil.redirect(errorView);
+			return JSFUtil.redirectToJSF(errorView);
 
 		// Logic flow for practice completed
 		if (practice.isFinish())
@@ -202,9 +202,9 @@ public class PhoneticPracticeController extends ESLController {
 			result = completedPractice();
 			logger.info("submitAnswer: completedPractice returned code: " + result);
 			if (PhoneticPracticeService.SAVE_HISTORY_COMPLETED.equals(result)) {
-				return JSFUtil.redirect(resultView);
+				return JSFUtil.redirectToJSF(resultView);
 			}
-			return JSFUtil.redirect(errorView);
+			return JSFUtil.redirectToJSF(errorView);
 		}
 
 		// Continue Practice

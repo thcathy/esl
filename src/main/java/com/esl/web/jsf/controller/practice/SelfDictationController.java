@@ -7,6 +7,7 @@ import com.esl.service.practice.ISelfDictationService;
 import com.esl.service.practice.PhoneticPracticeService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.ESLController;
+import com.esl.web.jsf.controller.dictation.DictationEditController;
 import com.esl.web.util.LanguageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -45,6 +47,7 @@ public class SelfDictationController extends ESLController {
 	// Supporting classes
 	@Resource private ISelfDictationService selfDictationService;
 	@Resource private IPhoneticPracticeService phoneticPracticeService;
+	@Resource private DictationEditController dictationEditController;
 	@Value("${SelfDictationService.MaxQuestions}") private int maxQuestions = 20;
 
 	// UI Component
@@ -122,7 +125,7 @@ public class SelfDictationController extends ESLController {
 		// Check practice have been create or not, if not created, call start
 		if (practice == null) {
 			logger.warn("submitAnswer: cannot find practice");
-			return JSFUtil.redirect(inputView);
+			return JSFUtil.redirectToJSF(inputView);
 		}
 
 		String result = phoneticPracticeService.checkAnswer(practice, answer);
@@ -136,7 +139,7 @@ public class SelfDictationController extends ESLController {
 		{
 			// Need to set errorPage title and description
 
-			return JSFUtil.redirect(errorView);
+			return JSFUtil.redirectToJSF(errorView);
 		}
 
 		// Logic flow for practice completed
@@ -145,11 +148,15 @@ public class SelfDictationController extends ESLController {
 			logger.info("submitAnswer: Finish Practice");
 			totalQuestions = practice.getTotalQuestions();
 			selfDictationService.completedPractice(practice.getQuestions(), (ServletContext) facesContext.getExternalContext().getContext());
-			return JSFUtil.redirect(resultView);
+			return JSFUtil.redirectToJSF(resultView);
 		}
 
 		// Continue Practice
 		return null;
+	}
+
+	public String createDictation() throws IOException {
+		return dictationEditController.launchWithVocabs(inputVocab);
 	}
 
 	public String retry() {

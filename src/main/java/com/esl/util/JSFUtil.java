@@ -1,14 +1,12 @@
 package com.esl.util;
 
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
 
 public class JSFUtil {
 	private static Logger logger = LoggerFactory.getLogger(JSFUtil.class);
@@ -16,7 +14,7 @@ public class JSFUtil {
 	/**
 	 * Redirect a request (no matter ajax or not) to new page
 	 */
-	public static String redirect(String link) {
+	public static String redirectToJSF(String link) {
         FacesContext ctx = FacesContext.getCurrentInstance();
 
         ExternalContext extContext = ctx.getExternalContext();

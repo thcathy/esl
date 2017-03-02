@@ -184,7 +184,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 		// Check practice have been create or not, if not created, call start
 		if (currentGrade == null) {
 			logger.info("submitAnswer: cannot find current grade");
-			return JSFUtil.redirect(start());
+			return JSFUtil.redirectToJSF(start());
 		}
 
 		// Check answer
@@ -227,7 +227,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 				logger.info("submitAnswer: Member[" + userSession.getMember().getUserId() + "] level up to grade[" + userSession.getMember().getGrade() + "]");
 			}
 			isLevelUp = true;
-			return JSFUtil.redirect(completePractice());
+			return JSFUtil.redirectToJSF(completePractice());
 		}
 
 		getRandomQuestion();
@@ -279,7 +279,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 			}
 			isLevelUp = true;
 		}
-		return JSFUtil.redirect(completePractice());
+		return JSFUtil.redirectToJSF(completePractice());
 	}
 
 	// process when completing the practice

@@ -166,7 +166,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 		// Check practice have been create or not, if not created, call start
 		if (practice == null) {
 			logger.warn("submitAnswer: cannot find practice");
-			return JSFUtil.redirect(errorView);
+			return JSFUtil.redirectToJSF(errorView);
 		}
 		String result = phoneticPracticeService.checkAnswer(practice, answer);
 		logger.info("submitAnswer: phoneticPracticeService.checkAnswer returned code: " + result);
@@ -180,13 +180,13 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 		answer = "";			// Clear answer field
 
 		if (PhoneticPracticeService.INVALID_INPUT.equals(result)) return null;
-		else if (PhoneticPracticeService.SYSTEM_ERROR.equals(result)) return JSFUtil.redirect(errorView);
+		else if (PhoneticPracticeService.SYSTEM_ERROR.equals(result)) return JSFUtil.redirectToJSF(errorView);
 
 		// Logic flow for practice completed
 		if (practice.isFinish())
 		{
 			logger.info("submitAnswer: Finish Practice");
-			return JSFUtil.redirect(finishDictation());
+			return JSFUtil.redirectToJSF(finishDictation());
 		}
 
 		return null; // Continue Practice

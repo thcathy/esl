@@ -26,7 +26,9 @@ public class LoginController {
     }
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
-    protected String login(@RequestParam(value="signup", defaultValue = "false") boolean isSignup, final Map<String, Object> model, final HttpServletRequest req) {
+    protected String login(@RequestParam(value="signup", defaultValue = "false") boolean isSignup,
+                           @RequestParam(value="redirect", defaultValue = "") String reDirectUrl,
+                           final Map<String, Object> model, final HttpServletRequest req) {
         logger.info("Open login page");
         detectError(model);
         // add a Nonce value to session storage
@@ -36,6 +38,7 @@ public class LoginController {
         model.put("loginCallback", appConfig.getLoginCallback());
         model.put("state", SessionUtils.getState(req));
         model.put("allowLogin", !isSignup);
+        model.put("reDirectUrl", reDirectUrl);
         return "login";
     }
 

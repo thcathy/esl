@@ -12,50 +12,50 @@
 	<f:metadata>
 		<f:viewAction action="#{dictationEditController.initCheck}" />
 	</f:metadata>
-	
+
 	<ui:define name="subTitle">#{htmlHeadMsg.member_dictation_edit_title}</ui:define>
 	<ui:define name="head">
 		<meta name="description" content="#{htmlHeadMsg.member_dictation_edit_desc}" />
 		<script type="text/javascript">
-		//<![CDATA[
-		var helpIndex = 1;	
-		
-		jQuery(document).ready(
-			function() {
-				jQuery('.helpDiv').hide();
-				jQuery('.helpNext').click(function() {
-					if (jQuery('#helpDiv' + (helpIndex + 1))) {
-						jQuery('#helpDiv' + helpIndex).slideUp();						
-						helpIndex = helpIndex + 1;
-						jQuery('#helpDiv' + helpIndex).slideDown();
-					}	
-				});
+			//<![CDATA[
+			var helpIndex = 1;
 
-				jQuery('#startGuide').click(function() {
-					jQuery('.helpDiv').hide();
-					helpIndex = 1 ;
-					jQuery('#helpDiv' + helpIndex).slideDown();
-				});
+			jQuery(document).ready(
+					function() {
+						jQuery('.helpDiv').hide();
+						jQuery('.helpNext').click(function() {
+							if (jQuery('#helpDiv' + (helpIndex + 1))) {
+								jQuery('#helpDiv' + helpIndex).slideUp();
+								helpIndex = helpIndex + 1;
+								jQuery('#helpDiv' + helpIndex).slideDown();
+							}
+						});
 
-				calculateTotalWords();
+						jQuery('#startGuide').click(function() {
+							jQuery('.helpDiv').hide();
+							helpIndex = 1 ;
+							jQuery('#helpDiv' + helpIndex).slideDown();
+						});
+
+						calculateTotalWords();
+					}
+			)
+
+			// update the total number of word inputted in textarea
+			function calculateTotalWords() {
+				var texts = jQuery('textarea#editDictation\\:vocabs').val();
+				var total = 0;
+				if (texts != '') {
+					total = texts.split('#{dictationEditController.separator}').length;
+				}
+				if (total > #{dictationEditController.maxVocabs}) {
+					jQuery('#totalWords').css('color','red');
+				} else {
+					jQuery('#totalWords').css('color','');
+				}
+				jQuery('#totalWords').html(total);
 			}
-		)
-		
-		// update the total number of word inputted in textarea
-		function calculateTotalWords() {			
-			var texts = jQuery('textarea#editDictation\\:vocabs').val();
-			var total = 0;			
-			if (texts != '') {
-				total = texts.split('#{dictationEditController.separator}').length;
-			}
-			if (total > #{dictationEditController.maxVocabs}) {
-				jQuery('#totalWords').css('color','red');
-			} else {
-				jQuery('#totalWords').css('color','');
-			}
-			jQuery('#totalWords').html(total);
-		}
-		//]]>
+			//]]>
 		</script>
 	</ui:define>
 
@@ -154,82 +154,4 @@
 		</div>
 	</ui:define>
 
-	<ui:define name="mainContent">
-		<!--<fieldset><legend class="formTitle">&nbsp;AUTHENTICATION&nbsp;</legend>
-			<table width="90%" class="formContent">
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.allowPublicAccess}&nbsp;<h:graphicImage id="allowPublicAccessTips" value="#{context.requestPath}/images/graphic/iconQuestionMark.gif" /><rich:tooltip value="#{dictationMsg.allowPublicAccessTips}" target="allowPublicAccessTips"/></td>
-					<td width="5" class="formTitle">:</td>
-					<td style="padding-top: 5px; vertical-align: top;">
-						<h:selectBooleanCheckbox value="#{dictationEditController.editDictation.publicAccess}" /></td>
-				</tr>
-				<tr>
-					<td class="formTitle">#{dictationMsg.pwdProtect}&nbsp;<h:graphicImage id="pwdProtectTips" value="#{context.requestPath}/images/graphic/iconQuestionMark.gif" /><rich:tooltip value="#{dictationMsg.pwdProtectTips}" target="pwdProtectTips"/></td>
-					<td class="formTitle">:</td>
-					<td style="padding-top: 5px; vertical-align: top;">
-						<h:selectBooleanCheckbox value="#{dictationEditController.requirePassword}" />#{dictationMsg.require}<br />
-						<h:inputSecret id="password" value="#{dictationEditController.password}" style="width: 30%" maxlength="20">
-							<t:validateRegExpr pattern="^(?:.{6,}|)$" message="#{dictationMsg.pwdInvalidInput}" />
-							<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{dictationMsg.pwdInvalidInput}" />
-						</h:inputSecret> (#{dictationMsg.atleast6char}) <br />
-						<h:message for="password" errorClass="w3-text-red" /></td>
-					</tr>
-					<tr>
-						<td class="formTitle">#{dictationMsg.pwdRetype}</td>
-						<td class="formTitle">:</td>
-						<td><h:inputSecret id="password2" value="#{dictationEditController.confirmedPassword}" style="width: 30%" maxlength="20">
-							<t:validateRegExpr pattern="^(?:.{6,}|)$" message="#{dictationMsg.pwdInvalidInput}" />
-							<t:validateRegExpr pattern="[^\s'&lt;&gt;&quot;]*" message="#{dictationMsg.pwdInvalidInput}" />
-						</h:inputSecret> <br />
-						<h:message for="password2" errorClass="w3-text-red" />
-						<div id="helpDiv5" class="helpDiv">
-							<table>
-								<tr><td><i class="fa fa-hand-o-up" aria-hidden="true"></i></td><td><h:outputText value="#{dictationMsg.passwordHelpDivContent}" escape="false" /></td></tr>
-								<tr><td colspan="2" align="right"><a id="helpNext2" class="helpNext">&gt; #{dictationMsg.nextStep}</a></td></tr>
-							</table>
-						</div>
-					</td>
-					</tr>
-			</table>
-		</fieldset>
-		<fieldset><legend class="formTitle">&nbsp;INFORMATION&nbsp;</legend>
-			<table width="90%" class="formContent">
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.createdDate}</td>
-					<td width="5" class="formTitle">:</td>
-					<td><h:outputText value="#{dictationEditController.editDictation.createdDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
-				</tr>
-				<tr>
-					<td width="120" class="formTitle">#{dictationMsg.lastModifyDate}</td>
-					<td width="5" class="formTitle">:</td>
-					<td><h:outputText value="#{dictationEditController.editDictation.lastModifyDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
-				</tr>
-			</table>
-		</fieldset>-->
-		<!--<fieldset><legend class="formTitle">&nbsp;VOCABULARY&nbsp;</legend>
-			<table width="90%" class="formContent">
-				<tr>
-					<td width="180" class="formTitle">#{dictationMsg.dictationOptions}&nbsp;<h:graphicImage id="dictationOptionsTips" value="#{context.requestPath}/images/graphic/iconQuestionMark.gif" /><rich:tooltip value="#{dictationMsg.dictationOptionsTips}" target="dictationOptionsTips"/></td>
-					<td width="5" class="formTitle">:</td>
-					<td style="padding-top: 5px; vertical-align: top;">
-						<h:selectBooleanCheckbox value="#{dictationEditController.editDictation.notAllowIPA}" />#{dictationMsg.neverShowIPA}
-						<img src="#{request.contextPath}/images/spacer.gif" width="10" height="1" />
-						<h:selectBooleanCheckbox value="#{dictationEditController.editDictation.notAllowRandomCharacters}" />#{dictationMsg.neverShowRandomChar}
-						<br />
-						<div id="helpDiv6" class="helpDiv">
-							<table>
-								<tr><td><i class="fa fa-hand-o-up" aria-hidden="true"></i></td><td><h:outputText value="#{dictationMsg.dictationOptionsHelpDivContent}" escape="false" /></td></tr>
-								<tr><td colspan="2" align="right"><a id="helpNext2" class="helpNext">&gt; #{dictationMsg.nextStep}</a></td></tr>
-							</table>
-						</div>
-					</td>
-				</tr>
-				<tr>
-
-				</tr>
-			</table>
-		</fieldset>
--->
-
-	</ui:define>
 </ui:composition>
