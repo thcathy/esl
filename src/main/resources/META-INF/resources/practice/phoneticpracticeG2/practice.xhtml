@@ -74,17 +74,23 @@
 						<div class="w3-half w3-margin-bottom">
 							<div class="w3-card-4 w3-container">
 								<h:outputLabel styleClass="w3-label w3-text-deep-orange" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
-								<h:inputText id="answer" styleClass="w3-input w3-margin-bottom" autocomplete="off" value="#{phoneticPracticeG2Controller.answer}" maxlength="30" />
-								<h:message for="answer" errorClass="w3-red" />
+								<h:inputText id="answer" styleClass="w3-input" autocomplete="off"
+											 value="#{phoneticPracticeG2Controller.answer}" maxlength="30"
+											 validatorMessage="#{phonPracticeMsg.practiceInvalidInput}">
+									<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
+								</h:inputText>
+								<h:message for="answer" styleClass="w3-medium w3-text-red" /><br />
 
 								<p:commandLink update="topHeader questionRegion historyRegion msgPanel" oncomplete="updateAfterSubmit()" id="eslSubmit"
-												 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-green"
-												 action="#{phoneticPracticeG2Controller.submitAnswer}">
+											   styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-green"
+											   action="#{phoneticPracticeG2Controller.submitAnswer}"
+											   onclick="clickAndDisable(this)">
 									<i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.practiceSubmit}
 								</p:commandLink>
 
 								<h:commandLink styleClass="w3-btn w3-green w3-medium w3-margin-bottom w3-red w3-right"
-												 action="#{phoneticPracticeG2Controller.submitAndEnd}">
+											   action="#{phoneticPracticeG2Controller.submitAndEnd}"
+											   onclick="clickAndDisable(this)">
 									<i class="fa fa-stop" aria-hidden="true"></i> #{phonPracticeMsg.practiceG2EndPractice}
 								</h:commandLink>
 

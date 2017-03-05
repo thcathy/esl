@@ -78,8 +78,12 @@
 						<div class="w3-half w3-margin-bottom">
 							<div class="w3-card-4 w3-container">
 								<h:outputLabel styleClass="w3-label w3-text-deep-orange" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
-								<h:inputText id="answer" styleClass="w3-input w3-margin-bottom" autocomplete="off" value="#{myVocabPracticeController.answer}" maxlength="30" />
-								<h:message for="answer" errorClass="w3-red" />
+								<h:inputText id="answer" styleClass="w3-input" autocomplete="off"
+											 value="#{myVocabPracticeController.answer}" maxlength="30"
+											 validatorMessage="#{phonPracticeMsg.practiceInvalidInput}">
+									<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
+								</h:inputText>
+								<h:message for="answer" styleClass="w3-medium w3-text-red" /><br />
 
 								<p:commandLink update="topHeader questionRegion historyRegion" oncomplete="updateAfterSubmit()" id="eslSubmit" action="#{myVocabPracticeController.submitAnswer}"
 												 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-green">
@@ -95,9 +99,12 @@
 								<input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{myVocabPracticeController.totalFullMark}" />
 								<input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{myVocabPracticeController.totalMark}" />
 								<span class="w3-right w3-medium">
-								<h:commandLink action="#{myVocabPracticeController.completePractice}" style="text-decoration: none;" styleClass="w3-hover-deep-orange">
-									<h:outputText value="#{memberWordMsg.practiceComplete}" /></h:commandLink>
-							</span>
+									<h:commandLink action="#{myVocabPracticeController.completePractice}"
+												   styleClass="w3-btn w3-green w3-medium w3-margin-bottom w3-red w3-right"
+												   onclick="clickAndDisable(this)">
+										<i class="fa fa-stop" aria-hidden="true"></i> #{memberWordMsg.practiceComplete}
+									</h:commandLink>
+								</span>
 							</div>
 						</div>
 					</div>

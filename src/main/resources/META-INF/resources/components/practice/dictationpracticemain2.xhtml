@@ -53,8 +53,12 @@
 			<div class="w3-half">
 				<div class="w3-container">
 					<h:outputLabel styleClass="w3-label w3-text-deep-orange" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
-					<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-margin-bottom" value="#{cc.attrs.controllerBean.answer}" maxlength="30" />
-					<h:message for="answer" errorClass="w3-red" />
+					<h:inputText autocomplete="off" id="answer" styleClass="w3-input"
+								 value="#{cc.attrs.controllerBean.answer}" maxlength="30"
+								 validatorMessage="#{phonPracticeMsg.practiceInvalidInput}">
+						<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
+					</h:inputText>
+					<h:message for="answer" styleClass="w3-medium w3-text-red" /><br />
 
 					<p:commandLink update="topHeader @form historyRegion msgPanel" oncomplete="updateAfterSubmit()" id="eslSubmit"
 									 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange w3-large"
