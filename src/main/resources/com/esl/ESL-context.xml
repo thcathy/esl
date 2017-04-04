@@ -12,9 +12,9 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
 		">
 
-	<task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+<!--	<task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
 	<task:executor id="myExecutor" pool-size="5"/>
-	<task:scheduler id="myScheduler" pool-size="10"/>
+	<task:scheduler id="myScheduler" pool-size="10"/>-->
 
 	<context:component-scan base-package="com.esl, com.auth0.web" />
 	
