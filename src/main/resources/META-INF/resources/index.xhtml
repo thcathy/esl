@@ -86,11 +86,7 @@
 	<div class="w3-row-padding">
 		<div class="w3-half">
 			<esl:dictationStatistics title="#{singleDictationStatController.statTitle}" dictations="#{singleDictationStatController.stat.dictations}" />
-		</div>
-	</div>
-
-	<div class="w3-row-padding w3-margin-top">
-		<div class="w3-half">
+			<p>&#160;</p>
 			<h:outputText value="#{randomTopResult.newRandomTopResult}" />
 			<h:panelGroup rendered="#{randomTopResult.existType eq 'Result'}">
 				<div class="w3-card-4">
@@ -107,7 +103,7 @@
 						</ul>
 					</div>
 
-					<div class="w3-container w3-theme w3-right-align"> </div>
+					<div class="w3-container w3-theme w3-right-align"></div>
 				</div>
 			</h:panelGroup>
 			<h:panelGroup rendered="#{randomTopResult.existType eq 'Medal'}">
@@ -128,6 +124,11 @@
 					<div class="w3-container w3-theme w3-right-align"> </div>
 				</div>
 			</h:panelGroup>
+		</div>
+		<div class="w3-quarter">&#160;</div>
+		<div class="w3-quarter w3-right-align">
+			<a href="https://play.google.com/store/apps/details?id=com.funfunspell&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+				<img style="max-width: 180px;" alt="#{generalMsg.playStoreAlt}" src="#{generalMsg.playStoreUrl}"/></a>
 		</div>
 	</div>
 
