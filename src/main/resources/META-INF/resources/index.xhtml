@@ -86,8 +86,9 @@
 	<div class="w3-row-padding">
 		<div class="w3-half">
 			<esl:dictationStatistics title="#{singleDictationStatController.statTitle}" dictations="#{singleDictationStatController.stat.dictations}" />
-			<p>&#160;</p>
+
 			<h:outputText value="#{randomTopResult.newRandomTopResult}" />
+			<div class="w3-margin-top">
 			<h:panelGroup rendered="#{randomTopResult.existType eq 'Result'}">
 				<div class="w3-card-4">
 					<div class="w3-container w3-theme"><h5><i class="fa fa-trophy"></i> #{generalMsg.menuRanking} - #{randomTopResult.randomTopResult.longTitle} #{randomTopResult.randomTopResult.gradeTitle}</h5></div>
@@ -124,6 +125,7 @@
 					<div class="w3-container w3-theme w3-right-align"> </div>
 				</div>
 			</h:panelGroup>
+			</div>
 		</div>
 		<div class="w3-quarter">&#160;</div>
 		<div class="w3-quarter w3-right-align">
