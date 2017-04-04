@@ -47,6 +47,12 @@ public class PhoneticQuestion implements Serializable {
 	@Column(name = "PIC_FILE_NAME")
 	private String picFileName;
 
+	@Column(name = "FREQUENCY")
+	private double frequency;
+
+	@Column(name = "RANK")
+	private int rank;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="grade_phoneticquestion",
 			joinColumns=@JoinColumn(name="PHONETICQUESTION_ID"),
@@ -105,7 +111,13 @@ public class PhoneticQuestion implements Serializable {
 
 	public String getPicFileName() {return picFileName;}
 	public void setPicFileName(String picFileName) {this.picFileName = picFileName;}
-	
+
+	public double getFrequency() {return frequency;}
+	public void setFrequency(double frequency) {this.frequency = frequency;	}
+
+	public int getRank() {return rank;}
+	public void setRank(int rank) {this.rank = rank;}
+
 	public String getActivePronounceLink() {
 		if (USE_SECEONDARY_PRONOUNCE_LINK && StringUtils.isNotBlank(pronouncedLinkBackup)) 
 			return pronouncedLinkBackup;

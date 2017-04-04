@@ -20,6 +20,7 @@ import java.util.List;
 public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPhoneticQuestionDAO {
 	private static final String GET_PHONETIC_QUESTION_BY_WORD = "from PhoneticQuestion phoneticQuestion where phoneticQuestion.word = :word";
 	private static final String GET_QUESTIONS_BY_GRADE = "SELECT pq.phoneticquestion_id id FROM phonetic_question pq, grade_phoneticquestion gpq WHERE pq.phoneticquestion_id = gpq.phoneticquestion_id AND gpq.grade_id = :gradeId LIMIT 0, :total";
+	private static final String GET_NOT_ENRICHED_QUESTIONS = "from PhoneticQuestion pq where pq.IPA is null or pq.pronouncedLink is null";
 	private final Logger logger = LoggerFactory.getLogger(PhoneticQuestionDAO.class);
 	
 	public PhoneticQuestionDAO() {}
@@ -40,6 +41,10 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 
 	public void makeTransient(PhoneticQuestion question) {
 		sessionFactory.getCurrentSession().delete(question);
+	}
+
+	public List<PhoneticQuestion> getNotEnrichedQuestions() {
+		return sessionFactory.getCurrentSession().createQuery(GET_NOT_ENRICHED_QUESTIONS).setMaxResults(300).list();
 	}
 
 	public List<PhoneticQuestion> getRandomQuestionsByGrade(Grade grade, int total, boolean isRandom) {

@@ -1,3 +1,4 @@
+/*
 package com.esl.batch;
 
 import com.esl.dao.IPhoneticQuestionDAO;
@@ -5,10 +6,12 @@ import com.esl.model.PhoneticQuestion;
 import com.esl.service.practice.PhoneticQuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 
+@EnableAutoConfiguration
 public class PhoneticQuestionEnrichmentBatch {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -39,4 +42,4 @@ public class PhoneticQuestionEnrichmentBatch {
 		
 		System.exit(0);
 	}
-}
+}*/
