@@ -92,7 +92,7 @@ public class PhoneticQuestionService {
                     .filter(url -> !url.endsWith("svg"))
                     .map(this::retrieveImageToString)
                     .filter(Optional::isPresent)
-                    .limit(5)
+                    .limit(10)
                     .map(Optional::get)
                     .map(imageStr -> persistImage(imageStr, question.getWord()))
                     .collect(Collectors.toList());
@@ -112,7 +112,7 @@ public class PhoneticQuestionService {
     }
 
 
-    private Optional<String> retrieveImageToString(String url) {
+    public Optional<String> retrieveImageToString(String url) {
         log.debug("retrieveImageToString from url: {}", url);
         try {
             String extension = url.substring(url.lastIndexOf('.') + 1);

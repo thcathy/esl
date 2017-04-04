@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -24,6 +27,7 @@ public class VocabImageController extends ESLController {
 	// ============== UI display data ================//
 	private List<VocabImage> images;
 	private int fromId;
+	private int imageId;
 
 	// ============== Setter / Getter ================//
 	public List<VocabImage> getImages() { return images; }
@@ -31,6 +35,9 @@ public class VocabImageController extends ESLController {
 
 	public int getFromId() { return fromId; }
 	public void setFromId(int fromId) {	this.fromId = fromId; }
+
+	public int getImageId() {return imageId;}
+	public void setImageId(int imageId) {this.imageId = imageId;}
 
 	// ============== Functions ================//
 	public String listImage() {
@@ -41,5 +48,18 @@ public class VocabImageController extends ESLController {
 
 		log.info("{} images retrieved", images.size());
 		return imagesView;
+	}
+
+	@Transactional
+	public String deleteImage() {
+		log.info("delete image id: {}", imageId);
+		vocabImageDao.delete(vocabImageDao.get(imageId));
+		addMessage("Deleted: " + imageId);
+		return null;
+	}
+
+	public void addMessage(String summary) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 }

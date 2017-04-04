@@ -3,12 +3,24 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
         xmlns:esl="http://www.funfunspell.com/jsf">
+<h:head>
+    <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+    <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+</h:head>
 
     <h:body>
+        <p:growl id="growl" life="2000" />
         <ui:repeat var="i" varStatus="r" value="#{vocabImageController.images}">
             <div style="float: left; padding: 4px;">
                 <p>#{i.id} - #{i.word} - #{i.createdDate}</p>
+                <h:form>
+                    <p:commandLink update="growl" action="#{vocabImageController.deleteImage}">
+                        <f:setPropertyActionListener target="#{vocabImageController.imageId}" value="#{i.id}" />
+                        delete
+                    </p:commandLink>
+                </h:form>
                 <img src="#{i.base64Image}"/>
             </div>
         </ui:repeat>
