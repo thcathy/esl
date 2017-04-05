@@ -5,6 +5,7 @@
 					xmlns:p="http://primefaces.org/ui"
 					xmlns:esl="http://www.funfunspell.com/jsf"
 					xmlns:util="http://java.sun.com/jsf/composite/components/util"
+					xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
 					template="/template/short.xhtml">
 
 <f:metadata>
@@ -86,17 +87,18 @@
 					</div>
 				</div>
 				<div class="w3-half">
-					<div class="w3-container">
-						<h:outputLabel styleClass="w3-label w3-text-deep-orange" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
-						<h:inputText id="answer" styleClass="w3-input"
+					<div class="">
+						<h:outputLabel styleClass="w3-label w3-text-teal" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
+						<h:inputText id="answer" styleClass="w3-input w3-border"
 									 autocomplete="off" value="#{phoneticPracticeController.answer}" maxlength="30"
 									 validatorMessage="#{phonPracticeMsg.practiceInvalidInput}">
 							<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
 						</h:inputText>
-						<h:message for="answer" styleClass="w3-medium w3-text-red" /><br />
+						<h:message for="answer" styleClass="w3-medium w3-text-red" />
+						<practice:onscreenkeyboard inputObjId="inputForm:answer" />
 
 						<p:commandLink oncomplete="updateAfterSubmit()" id="eslSubmit" update="topHeader questionRegion historyRegion msgPanel"
-										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange w3-large"
+										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-teal w3-large"
 										 action="#{phoneticPracticeController.submitAnswer}"
 									     onclick="clickAndDisable(this)">
 							<i class="fa fa-check" aria-hidden="true"></i> #{phonPracticeMsg.practiceSubmit}
