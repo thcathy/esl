@@ -88,7 +88,7 @@
 				</div>
 				<div class="w3-half">
 					<div class="">
-						<h:outputLabel styleClass="w3-label w3-text-teal" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
+						<h:outputLabel styleClass="w3-label w3-text-teal w3-left" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
 						<h:inputText id="answer" styleClass="w3-input w3-border"
 									 autocomplete="off" value="#{phoneticPracticeController.answer}" maxlength="30"
 									 validatorMessage="#{phonPracticeMsg.practiceInvalidInput}">
@@ -98,12 +98,12 @@
 						<practice:onscreenkeyboard inputObjId="inputForm:answer" />
 
 						<p:commandLink oncomplete="updateAfterSubmit()" id="eslSubmit" update="topHeader questionRegion historyRegion msgPanel"
-										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-teal w3-large"
+										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-teal w3-large w3-right"
 										 action="#{phoneticPracticeController.submitAnswer}"
 									     onclick="clickAndDisable(this)">
 							<i class="fa fa-check" aria-hidden="true"></i> #{phonPracticeMsg.practiceSubmit}
 						</p:commandLink>
-						<p:ajaxStatus style="display: inline-block;">
+						<p:ajaxStatus styleClass="w3-left">
 							<f:facet name="start">
 								<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:36px"></i></span>
 							</f:facet>
