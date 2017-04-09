@@ -50,6 +50,9 @@
             theme: {
                 logo: '${staticHost}/images/graphic/logo.png',
                 primaryColor: 'green'
+            },
+            languageDictionary: {
+                title: 'funfunspell.com'
             }
         };
 
