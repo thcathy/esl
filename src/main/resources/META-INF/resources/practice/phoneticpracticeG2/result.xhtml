@@ -58,10 +58,12 @@
 			<div class="w3-row w3-center w3-margin w3-medium">
 				<h:form>
 					<div class="w3-half w3-margin-bottom">
-						<h:link styleClass="w3-btn w3-green" outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">#{phonPracticeMsg.resultRetryPractice}</h:link>
+						<h:link styleClass="w3-btn w3-green" outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">
+							<i class="fa fa-list" aria-hidden="true"></i> #{phonPracticeMsg.resultRetryPractice}</h:link>
 					</div>
 					<div class="w3-half">
-						<h:commandLink styleClass="w3-btn w3-red" action="#{phoneticPracticeG2Controller.start}">#{phonPracticeMsg.resultRetrySameGradePractice}</h:commandLink>
+						<h:commandLink styleClass="w3-btn w3-red" action="#{phoneticPracticeG2Controller.start}">
+							<i class="fa fa-repeat" aria-hidden="true"></i> #{phonPracticeMsg.resultRetrySameGradePractice}</h:commandLink>
 					</div>
 				</h:form>
 			</div>

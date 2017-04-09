@@ -49,7 +49,7 @@
 								<h:outputText value="#{phonPracticeMsg.resultVisitorMessage}" />
 								<a href="/login?signup=true"><u><h:outputText value="#{phonPracticeMsg.resultSignupMessage}" /></u></a>
 							</p>
-							<a class="w3-btn w3-green w3-margin-bottom" href="/login?signup=true">#{authMsg.signupTitle}</a>
+							<a class="w3-btn w3-green w3-margin-bottom" href="/login?signup=true"><i class="fa fa-user-plus" aria-hidden="true"></i> #{authMsg.signupTitle}</a>
 						</div>
 					</h:form>
 				</h:panelGroup>
@@ -72,10 +72,12 @@
 				<div class="w3-row w3-center w3-margin w3-medium">
 					<h:form>
 						<div class="w3-half w3-margin-bottom">
-							<h:link styleClass="w3-btn w3-green" outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">#{phonPracticeMsg.resultRetryPractice}</h:link>
+							<h:link styleClass="w3-btn w3-green" outcome="/practice/phoneticpractice/index?locale=#{languageController.locale}">
+								<i class="fa fa-list" aria-hidden="true"></i> #{phonPracticeMsg.resultRetryPractice}</h:link>
 						</div>
 						<div class="w3-half">
-							<h:commandLink styleClass="w3-btn w3-red" action="#{phoneticPracticeController.start}">#{phonPracticeMsg.resultRetrySameGradePractice}</h:commandLink>
+							<h:commandLink styleClass="w3-btn w3-red" action="#{phoneticPracticeController.start}">
+								<i class="fa fa-repeat" aria-hidden="true"></i> #{phonPracticeMsg.resultRetrySameGradePractice}</h:commandLink>
 						</div>
 					</h:form>
 				</div>
