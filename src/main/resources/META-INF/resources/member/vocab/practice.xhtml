@@ -5,6 +5,7 @@
 				xmlns:p="http://primefaces.org/ui"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
 				template="/template/short.xhtml">
 
 	<f:metadata>
@@ -55,13 +56,13 @@
 			</h3>
 		</div>
 
-		<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
+		<div class="w3-xlarge w3-padding-bottom w3-text-teal">
 			<h:panelGroup id="questionRegion">
 				<h:form styleClass="practiceForm" id="inputForm">
 					<audio id="pronounce" onloadeddata="this.play()" src="#{myVocabPracticeController.memberWord.word.activePronounceLink}" />
-					<div class="w3-row">
+					<div class="w3-row-padding w3-margin-top w3-margin-bottom">
 						<div class="w3-half">
-							<div class="w3-margin-right w3-margin-bottom w3-card-2">
+							<div class="w3-border">
 								<util:vocabimage2 picPaths="#{myVocabPracticeController.memberWord.word.picsFullPathsInString}" />
 
 								<div class="w3-row w3-padding-top w3-padding-bottom w3-center w3-border-top">
@@ -75,24 +76,25 @@
 								</div>
 							</div>
 						</div>
-						<div class="w3-half w3-margin-bottom">
-							<div class="w3-card-4 w3-container">
-								<h:outputLabel styleClass="w3-label w3-text-deep-orange" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
-								<h:inputText id="answer" styleClass="w3-input" autocomplete="off"
+						<div class="w3-half">
+							<div>
+								<h:outputLabel styleClass="w3-label w3-text-teal" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
+								<h:inputText id="answer" styleClass="w3-input w3-border" autocomplete="off"
 											 value="#{myVocabPracticeController.answer}" maxlength="30"
 											 validatorMessage="#{phonPracticeMsg.practiceInvalidInput}">
-									<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
+									<f:validateRegex pattern="([a-zA-Z -]+)?" />
 								</h:inputText>
-								<h:message for="answer" styleClass="w3-medium w3-text-red" /><br />
+								<h:message for="answer" styleClass="w3-medium w3-text-red" />
+								<practice:onscreenkeyboard inputObjId="inputForm:answer" />
 
 								<p:commandLink update="topHeader questionRegion historyRegion" oncomplete="updateAfterSubmit()" id="eslSubmit" action="#{myVocabPracticeController.submitAnswer}"
-												 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-green">
+												 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-green w3-large">
 									<i class="fa fa-check" aria-hidden="true"></i> #{phonPracticeMsg.practiceSubmit}
 								</p:commandLink>
 
 								<p:ajaxStatus style="display: inline-block;">
 									<f:facet name="start">
-										<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:42px"></i></span>
+										<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:36px"></i></span>
 									</f:facet>
 								</p:ajaxStatus>
 
@@ -111,41 +113,45 @@
 				</h:form>
 			</h:panelGroup>
 
-			<esl:scoreBar2 startMark="#{myVocabPracticeController.totalMark}" maxMark="#{myVocabPracticeController.totalFullMark}" />
+			<div class="w3-container">
+				<esl:scoreBar2 startMark="#{myVocabPracticeController.totalMark}" maxMark="#{myVocabPracticeController.totalFullMark}" />
+			</div>
 
-			<h:panelGroup id="historyRegion">
-				<h:panelGroup rendered="#{myVocabPracticeController.totalFullMark > 1}">
-					<!-- Histories -->
-					<div class="w3-responsive">
-						<table class="w3-table-all w3-medium w3-margin-top">
-							<thead>
-							<tr class="w3-theme">
-								<td></td>
-								<td>#{phonPracticeMsg.practicePhonetic}</td>
-								<td>#{phonPracticeMsg.practiceWord}</td>
-								<td>#{phonPracticeMsg.practiceAnswer}</td>
-								<td></td>
-							</tr>
-							</thead>
-							<ui:repeat var="i" varStatus="r" value="#{myVocabPracticeController.history}">
-								<tr>
-									<td>Q#{myVocabPracticeController.totalFullMark-r.index-1}</td>
-									<td>[<h:outputText escape="false" value="#{myVocabPracticeController.history[r.index].question.IPA}" />]</td>
-									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{myVocabPracticeController.history[r.index].question.word}" target="_blank"><u>#{myVocabPracticeController.history[r.index].question.word}</u></a></td>
-									<td><h:outputText value="#{myVocabPracticeController.history[r.index].answer}" /></td>
-									<td>
-										<h:panelGroup rendered="#{myVocabPracticeController.history[r.index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
-										<h:panelGroup rendered="#{!myVocabPracticeController.history[r.index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
-									</td>
+			<div class="w3-container">
+				<h:panelGroup id="historyRegion">
+					<h:panelGroup rendered="#{myVocabPracticeController.totalFullMark > 1}">
+						<!-- Histories -->
+						<div class="w3-responsive">
+							<table class="w3-table-all w3-medium w3-margin-top">
+								<thead>
+								<tr class="w3-theme">
+									<td></td>
+									<td>#{phonPracticeMsg.practicePhonetic}</td>
+									<td>#{phonPracticeMsg.practiceWord}</td>
+									<td>#{phonPracticeMsg.practiceAnswer}</td>
+									<td></td>
 								</tr>
-							</ui:repeat>
-						</table>
-					</div>
-					<div class="w3-container w3-light-grey w3-border w3-small">
-						<p>* #{phonPracticeMsg.practiceWordExplanation}</p>
-					</div>
+								</thead>
+								<ui:repeat var="i" varStatus="r" value="#{myVocabPracticeController.history}">
+									<tr>
+										<td>Q#{myVocabPracticeController.totalFullMark-r.index-1}</td>
+										<td>[<h:outputText escape="false" value="#{myVocabPracticeController.history[r.index].question.IPA}" />]</td>
+										<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{myVocabPracticeController.history[r.index].question.word}" target="_blank"><u>#{myVocabPracticeController.history[r.index].question.word}</u></a></td>
+										<td><h:outputText value="#{myVocabPracticeController.history[r.index].answer}" /></td>
+										<td>
+											<h:panelGroup rendered="#{myVocabPracticeController.history[r.index].correct}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+											<h:panelGroup rendered="#{!myVocabPracticeController.history[r.index].correct}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
+										</td>
+									</tr>
+								</ui:repeat>
+							</table>
+						</div>
+						<div class="w3-container w3-light-grey w3-border w3-small">
+							<p>* #{phonPracticeMsg.practiceWordExplanation}</p>
+						</div>
+					</h:panelGroup>
 				</h:panelGroup>
-			</h:panelGroup>
+			</div>
 		</div>
 	</ui:define>
 

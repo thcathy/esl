@@ -57,51 +57,57 @@
 			</h3>
 		</div>
 
-		<div class="w3-margin w3-xlarge w3-padding-bottom w3-text-teal">
+		<div class="w3-xlarge w3-padding-bottom w3-text-teal">
 			<practice:dictationpracticemain2 id="practiceDiv" controllerBean="#{dictationPracticeController}" />
 
-			<esl:scoreBar2 startMark="#{dictationPracticeController.practice.mark}" maxMark="#{dictationPracticeController.practice.totalQuestions}" />
+			<div class="w3-container">
+				<esl:scoreBar2 startMark="#{dictationPracticeController.practice.mark}" maxMark="#{dictationPracticeController.practice.totalQuestions}" />
+			</div>
 
-			<h:panelGroup id="msgPanel">
-				<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
-			</h:panelGroup>
-
-			<h:panelGroup id="historyRegion">
-				<h:panelGroup rendered="#{dictationPracticeController.practice.currentQuestion > 0}">
-					<div class="w3-responsive">
-						<!-- Histories -->
-						<table class="w3-table-all w3-medium w3-margin-top">
-							<thead>
-							<tr class="w3-theme">
-								<td></td>
-								<td><h:outputText value="#{selfDictationMsg.practicePhonetic}" /></td>
-								<td><h:outputText value="#{selfDictationMsg.practiceWord}" /></td>
-								<td><h:outputText value="#{selfDictationMsg.practiceAnswer}" /></td>
-								<td></td>
-							</tr>
-							</thead>
-							<tfoot>
-								<tr><td colspan="5"><h:outputText value="#{selfDictationMsg.practiceMark}" />: ${dictationPracticeController.practice.mark}  / ${dictationPracticeController.practice.currentQuestion}</td></tr>
-							</tfoot>
-							<ui:repeat var="i" varStatus="r" value="#{dictationPracticeController.practice.answers}" >
-								<tr>
-									<td><strong>Q<h:outputText value="#{dictationPracticeController.practice.currentQuestion-r.index}" /></strong></td>
-									<td>[<h:outputText escape="false" value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-r.index].IPA}" />]</td>
-									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-r.index].word}" target="_blank"><u><h:outputText value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-r.index].word}" /></u></a></td>
-									<td><h:outputText value="#{dictationPracticeController.practice.answers[dictationPracticeController.practice.currentQuestion-1-r.index]}" /></td>
-									<td>
-										<h:panelGroup rendered="#{dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-r.index]}"><i class="fa fa-check w3-text-light-green"></i></h:panelGroup>
-										<h:panelGroup rendered="#{!dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-r.index]}"><i class="fa fa-times w3-text-red"></i></h:panelGroup>
-									</td>
-								</tr>
-							</ui:repeat>
-						</table>
-					</div>
-					<div class="w3-container w3-light-grey w3-border w3-small">
-						<p>* #{selfDictationMsg.practiceWordExplanation}</p>
-					</div>
+			<div class="w3-container">
+				<h:panelGroup id="msgPanel">
+					<h:messages tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
 				</h:panelGroup>
-			</h:panelGroup>
+			</div>
+
+			<div class="w3-container">
+				<h:panelGroup id="historyRegion">
+					<h:panelGroup rendered="#{dictationPracticeController.practice.currentQuestion > 0}">
+						<div class="w3-responsive">
+							<!-- Histories -->
+							<table class="w3-table-all w3-medium w3-margin-top">
+								<thead>
+								<tr class="w3-theme">
+									<td></td>
+									<td><h:outputText value="#{selfDictationMsg.practicePhonetic}" /></td>
+									<td><h:outputText value="#{selfDictationMsg.practiceWord}" /></td>
+									<td><h:outputText value="#{selfDictationMsg.practiceAnswer}" /></td>
+									<td></td>
+								</tr>
+								</thead>
+								<tfoot>
+									<tr><td colspan="5"><h:outputText value="#{selfDictationMsg.practiceMark}" />: ${dictationPracticeController.practice.mark}  / ${dictationPracticeController.practice.currentQuestion}</td></tr>
+								</tfoot>
+								<ui:repeat var="i" varStatus="r" value="#{dictationPracticeController.practice.answers}" >
+									<tr>
+										<td><strong>Q<h:outputText value="#{dictationPracticeController.practice.currentQuestion-r.index}" /></strong></td>
+										<td>[<h:outputText escape="false" value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-r.index].IPA}" />]</td>
+										<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-r.index].word}" target="_blank"><u><h:outputText value="#{dictationPracticeController.practice.questions[dictationPracticeController.practice.currentQuestion-1-r.index].word}" /></u></a></td>
+										<td><h:outputText value="#{dictationPracticeController.practice.answers[dictationPracticeController.practice.currentQuestion-1-r.index]}" /></td>
+										<td>
+											<h:panelGroup rendered="#{dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-r.index]}"><i class="fa fa-check w3-text-light-green"></i></h:panelGroup>
+											<h:panelGroup rendered="#{!dictationPracticeController.practice.corrects[dictationPracticeController.practice.currentQuestion-1-r.index]}"><i class="fa fa-times w3-text-red"></i></h:panelGroup>
+										</td>
+									</tr>
+								</ui:repeat>
+							</table>
+						</div>
+						<div class="w3-container w3-light-grey w3-border w3-small">
+							<p>* #{selfDictationMsg.practiceWordExplanation}</p>
+						</div>
+					</h:panelGroup>
+				</h:panelGroup>
+			</div>
 		</div>
 
 	</ui:define>

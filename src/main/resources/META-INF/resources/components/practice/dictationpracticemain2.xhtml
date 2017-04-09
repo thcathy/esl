@@ -51,17 +51,18 @@
 				</div>
 			</div>
 			<div class="w3-half">
-				<div class="w3-container">
-					<h:outputLabel styleClass="w3-label w3-text-deep-orange" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
-					<h:inputText autocomplete="off" id="answer" styleClass="w3-input"
+				<div>
+					<h:outputLabel styleClass="w3-label w3-text-teal" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
+					<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-border"
 								 value="#{cc.attrs.controllerBean.answer}" maxlength="30"
 								 validatorMessage="#{phonPracticeMsg.practiceInvalidInput}">
-						<f:validateRegex pattern="([a-zA-Z ]+[\-/. ]?)?" />
+						<f:validateRegex pattern="([a-zA-Z -]+)?" />
 					</h:inputText>
-					<h:message for="answer" styleClass="w3-medium w3-text-red" /><br />
+					<h:message for="answer" styleClass="w3-medium w3-text-red" />
+					<practice:onscreenkeyboard inputObjId="practiceDiv:inputForm:answer" />
 
 					<p:commandLink update="topHeader @form historyRegion msgPanel" oncomplete="updateAfterSubmit()" id="eslSubmit"
-									 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange w3-large"
+									 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-teal w3-large w3-right"
 									 action="#{cc.attrs.controllerBean.submitAnswer}"
 								     onclick="clickAndDisable(this);">
 						#{selfDictationMsg.practiceInputAnsBtn}

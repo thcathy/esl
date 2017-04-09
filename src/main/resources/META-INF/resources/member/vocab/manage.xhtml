@@ -22,7 +22,8 @@
 				<div class="w3-row w3-margin-top">
 					<div class="w3-twothird">#{memberWordMsg.manageTitle}</div>
 					<div class="w3-third">
-						<h:commandLink onclick="showSpinner();" action="#{myVocabPracticeController.start}" styleClass="w3-btn w3-theme">#{memberWordMsg.startPractice}</h:commandLink>
+						<h:commandLink onclick="showSpinner();" action="#{myVocabPracticeController.start}" styleClass="w3-btn w3-theme w3-right">
+							<i class="fa fa-play" aria-hidden="true"></i> #{memberWordMsg.startPractice}</h:commandLink>
 						<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:28px"></i></span>
 					</div>
 				</div>
