@@ -6,7 +6,7 @@
                 xmlns:composite="http://java.sun.com/jsf/composite">
 
     <composite:interface>
-        <composite:attribute name="inputObjId" />
+        <composite:attribute name="inputObjId"/>
     </composite:interface>
 
     <composite:implementation>
@@ -20,53 +20,77 @@
                 var inputObj = document.getElementById('#{cc.attrs.inputObjId}');
                 if (inputObj.value.length < 1) return;
 
-                inputObj.value =  inputObj.value.substring(0,inputObj.value.length-1);
+                inputObj.value = inputObj.value.substring(0, inputObj.value.length - 1);
             }
             //]]>
         </script>
         <div class="w3-center w3-margin-top w3-margin-bottom" style="line-height: 1.5">
             <div>
-                <practice:characterbutton character="q" />
-                <practice:characterbutton character="w" />
-                <practice:characterbutton character="e" />
-                <practice:characterbutton character="r" />
-                <practice:characterbutton character="t" />
-                <practice:characterbutton character="y" />
-                <practice:characterbutton character="u" />
-                <practice:characterbutton character="i" />
-                <practice:characterbutton character="o" />
-                <practice:characterbutton character="p" />
+                <practice:characterbutton character="q"/>
+                <practice:characterbutton character="w"/>
+                <practice:characterbutton character="e"/>
+                <practice:characterbutton character="r"/>
+                <practice:characterbutton character="t"/>
+                <practice:characterbutton character="y"/>
+                <practice:characterbutton character="u"/>
+                <practice:characterbutton character="i"/>
+                <practice:characterbutton character="o"/>
+                <practice:characterbutton character="p"/>
             </div>
 
             <div>
-                <practice:characterbutton character="a" />
-                <practice:characterbutton character="s" />
-                <practice:characterbutton character="d" />
-                <practice:characterbutton character="f" />
-                <practice:characterbutton character="g" />
-                <practice:characterbutton character="h" />
-                <practice:characterbutton character="j" />
-                <practice:characterbutton character="k" />
-                <practice:characterbutton character="l" />
+                <practice:characterbutton character="a"/>
+                <practice:characterbutton character="s"/>
+                <practice:characterbutton character="d"/>
+                <practice:characterbutton character="f"/>
+                <practice:characterbutton character="g"/>
+                <practice:characterbutton character="h"/>
+                <practice:characterbutton character="j"/>
+                <practice:characterbutton character="k"/>
+                <practice:characterbutton character="l"/>
             </div>
 
             <div>
-                <practice:characterbutton character="z" />
-                <practice:characterbutton character="x" />
-                <practice:characterbutton character="c" />
-                <practice:characterbutton character="v" />
-                <practice:characterbutton character="b" />
-                <practice:characterbutton character="n" />
-                <practice:characterbutton character="m" /><div
-                    onmouseover="this.style.backgroundColor='#FFEB99';"
-                    onmouseout="this.style.backgroundColor='#FFFFFF';"
-                    class="w3-text-teal"
-                    style="font-family: 'comic sans ms','Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif;
+                <practice:characterbutton character="z"/>
+                <practice:characterbutton character="x"/>
+                <practice:characterbutton character="c"/>
+                <practice:characterbutton character="v"/>
+                <practice:characterbutton character="b"/>
+                <practice:characterbutton character="n"/>
+                <practice:characterbutton character="m"/>
+            </div>
+
+            <div>
+                <div
+                        onmouseover="this.style.backgroundColor='#FFEB99';"
+                        onmouseout="this.style.backgroundColor='#FFFFFF';"
+                        class="w3-text-teal"
+                        style="font-family: 'comic sans ms','Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif;
+                                width: 10%; font-size: 20px; font-weight: bold; cursor: pointer; border: 1px solid #999999;
+                                margin-left: 2px;
+                                vertical-align: middle; text-align: center;
+                                display:inline-block"
+                        onclick="addCharacter('-')">-
+                </div><div
+                        onmouseover="this.style.backgroundColor='#FFEB99';"
+                        onmouseout="this.style.backgroundColor='#FFFFFF';"
+                        class="w3-text-teal"
+                        style="width: 20%; font-size: 20px; font-weight: bold; cursor: pointer; border: 1px solid #999999;
+                            margin-left: 2px;
+                            vertical-align: middle; text-align: center;
+                            display:inline-block"
+                        onclick="addCharacter(' ')">␣
+                </div><div
+                        onmouseover="this.style.backgroundColor='#FFEB99';"
+                        onmouseout="this.style.backgroundColor='#FFFFFF';"
+                        class="w3-text-teal"
+                        style="font-family: 'comic sans ms','Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif;
                      width: 10%; font-size: 20px; font-weight: bold; cursor: pointer; border: 1px solid #999999;
                      margin-left: 3px;
                      vertical-align: middle; text-align: center;
                      display:inline-block"
-                    onclick="backspace()"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+                        onclick="backspace()">⏎
+                </div>
             </div>
         </div>
     </composite:implementation>
