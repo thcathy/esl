@@ -23,8 +23,11 @@
         <h:form styleClass="w3-container" id="inputForm">
             <p>
                 <label class="w3-label" for="grade">#{phonPracticeMsg.inputSelectGrading}</label>
-                <h:selectOneMenu id="grade" value="#{phoneticPracticeController.selectedGrade}" styleClass="w3-select">
-                    <f:selectItems value="#{phoneticPracticeController.availableGrades }" />
+                <h:selectOneMenu id="grade" value="#{phoneticPracticeController.selectedDifficulty}" styleClass="w3-select">
+                    <f:selectItems value="#{phoneticPracticeController.allDifficulty}"
+                                   var="n"
+                                   itemValue="#{n}"
+                                   itemLabel="#{phonPracticeMsg[n]}" />
                 </h:selectOneMenu>
             </p>
 

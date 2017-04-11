@@ -3,6 +3,7 @@ package com.esl.web.jsf.controller.practice;
 import com.esl.dao.IGradeDAO;
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.IPracticeResultDAO;
+import com.esl.enumeration.VocabDifficulty;
 import com.esl.model.*;
 import com.esl.service.practice.IPhoneticPracticeService;
 import com.esl.service.practice.ITopResultService;
@@ -43,6 +44,8 @@ public class PhoneticPracticeController extends ESLController {
 	private TopResult rateRanking;
 	private PracticeResult currentGradeResult;
 	private boolean isLevelUp = false;
+	private List<VocabDifficulty> allDifficulty = Arrays.asList(VocabDifficulty.values());
+	private VocabDifficulty selectedDifficulty;
 
 	// Supporting classes
 	@Resource private IMemberDAO memberDAO;
@@ -98,6 +101,12 @@ public class PhoneticPracticeController extends ESLController {
 
 	public PracticeResult getCurrentGradeResult() {	return currentGradeResult;	}
 	public void setCurrentGradeResult(PracticeResult currentGradeResult) {	this.currentGradeResult = currentGradeResult;}
+
+	public List<VocabDifficulty> getAllDifficulty() { return allDifficulty; }
+	public void setAllDifficulty(List<VocabDifficulty> allDifficulty) { this.allDifficulty = allDifficulty;	}
+
+	public VocabDifficulty getSelectedDifficulty() { return selectedDifficulty; }
+	public void setSelectedDifficulty(VocabDifficulty selectedDifficulty) {	this.selectedDifficulty = selectedDifficulty; }
 
 	//	 ============== Getter Functions ================//
 
