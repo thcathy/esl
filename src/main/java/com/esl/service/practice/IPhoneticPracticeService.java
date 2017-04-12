@@ -1,6 +1,7 @@
 package com.esl.service.practice;
 
 import com.esl.entity.practice.MemberPracticeScoreCard;
+import com.esl.enumeration.VocabDifficulty;
 import com.esl.model.*;
 import com.esl.web.model.practice.VocabPracticeSummary;
 
@@ -30,6 +31,7 @@ public interface IPhoneticPracticeService {
 
 	public List getUserAvailableGrades(String userId);
 	public PhoneticPractice generatePractice(Member member, String gradeTitle);
+	public PhoneticPractice generatePractice(VocabDifficulty difficulty);
 	public String checkAnswer(PhoneticPractice practice, String answer);
 	public String saveHistory(PhoneticPractice practice);
 	public String checkLevelUp(Member member, PhoneticPractice practice, PracticeResult result);

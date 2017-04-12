@@ -4,6 +4,7 @@ import com.esl.dao.*;
 import com.esl.dao.practice.IMemberPracticeScoreCardDAO;
 import com.esl.entity.practice.MemberPracticeScoreCard;
 import com.esl.enumeration.ESLPracticeType;
+import com.esl.enumeration.VocabDifficulty;
 import com.esl.exception.IllegalParameterException;
 import com.esl.model.*;
 import com.esl.model.TopResult.OrderType;
@@ -73,6 +74,19 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setMember(member);
 		practice.setGrade(practiceGrade);
+		practice.setQuestions(questions);
+
+		return practice;
+	}
+
+	public PhoneticPractice generatePractice(VocabDifficulty difficulty) {
+		logger.info("generatePractice {} questions with difficulty {}", PhoneticPractice.MAX_QUESTIONS, difficulty);
+		List<PhoneticQuestion> questions = phoneticQuestionDAO.getRandomQuestionWithinRank(difficulty.getFromRank(), difficulty.getToRank(), PhoneticPractice.MAX_QUESTIONS);
+		logger.info("generatePractice: questions.size:" + questions.size());
+		phoneticQuestionService.enrichVocabImageFromDB(questions);
+
+		PhoneticPractice practice = new PhoneticPractice();
+		practice.setDifficulty(difficulty);
 		practice.setQuestions(questions);
 
 		return practice;

@@ -6,6 +6,7 @@ import com.esl.util.practice.PhoneticQuestionUtil;
 import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,17 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 
 	public List<PhoneticQuestion> getNotEnrichedQuestions() {
 		return sessionFactory.getCurrentSession().createQuery(GET_NOT_ENRICHED_QUESTIONS).setMaxResults(300).list();
+	}
+
+	public List<PhoneticQuestion> getRandomQuestionWithinRank(int fromRank, int toRank, int totalResult) {
+		String queryString = "FROM PhoneticQuestion pq WHERE pq.rank >= :fromRank and pq.rank <= :toRank ORDER BY RAND()";
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(queryString);
+		query.setParameter("fromRank", fromRank);
+		query.setParameter("toRank", toRank);
+		query.setMaxResults(totalResult);
+
+		return query.list();
 	}
 
 	public List<PhoneticQuestion> getRandomQuestionsByGrade(Grade grade, int total, boolean isRandom) {

@@ -165,7 +165,8 @@ public class PhoneticPracticeController extends ESLController {
 			return practiceView;
 		}
 		logger.info("start: selectedGrade: " + selectedGrade);
-		practice = phoneticPracticeService.generatePractice(userSession.getMember(), selectedGrade);
+		logger.info("start: selectedDifficulty: {}", selectedDifficulty);
+		practice = phoneticPracticeService.generatePractice(selectedDifficulty);
 
 		if (practice != null) {
 			memberWordController.setSavedQuestion(phoneticPracticeService.getUnSavedMap(practice));

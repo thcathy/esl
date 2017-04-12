@@ -1,12 +1,13 @@
 package com.esl.model;
 
+import com.esl.enumeration.VocabDifficulty;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 @Component
 public class PhoneticPractice implements Serializable {
@@ -16,6 +17,7 @@ public class PhoneticPractice implements Serializable {
 
 	private Member member;
 	private Grade grade;
+	private VocabDifficulty difficulty;
 	private List<PhoneticQuestion> questions = new ArrayList<>();
 	private ArrayList<String> answers = new ArrayList<>();
 	private ArrayList<Boolean> corrects = new ArrayList<>();
@@ -70,6 +72,9 @@ public class PhoneticPractice implements Serializable {
 
 	public int getTotalQuestions() { return totalQuestions; }
 	public void setTotalQuestions(int totalQuestions) { this.totalQuestions =totalQuestions; }
+
+	public VocabDifficulty getDifficulty() {return difficulty;}
+	public void setDifficulty(VocabDifficulty difficulty) {this.difficulty = difficulty;}
 
 	// ********************** Supporting Methods ********************** //
 	public boolean isFinish() {
