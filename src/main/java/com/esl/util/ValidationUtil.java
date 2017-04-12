@@ -69,7 +69,7 @@ public class ValidationUtil {
 			log.debug("isValidWord s is emply");
 			 return false;
 		}
-		else if (!s.matches("([a-zA-Z ]+[\\-/. ]?)+")) {
+		else if (!s.matches("([a-zA-Z \\-']+)?")) {
 			log.debug("isValidWord  not match [{}]",s);
 			return false;
 		}

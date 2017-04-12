@@ -2,6 +2,7 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	  xmlns:p="http://primefaces.org/ui"
 	  xmlns:esl="http://www.funfunspell.com/jsf"
 	  xmlns:util="http://java.sun.com/jsf/composite/components/util"
@@ -28,18 +29,12 @@
 									<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 							</h:panelGroup>
 							<h:panelGroup rendered="#{cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
-								<a onclick="responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}'); setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
+								<a onclick="responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.plainWord()}'); setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
 									<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 								<script type="text/javascript">
 									//<![CDATA[
-									responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}');
+									responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.plainWord()}');
 									setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));
-
-									//responsiveVoice.AddEventListener('OnReady', function() {
-									//	console.log('ResponsiveVoice OnReady');
-									//	responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.word}');
-									//	setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));
-									//});
 									//]]>
 								</script>
 							</h:panelGroup>
@@ -56,7 +51,7 @@
 					<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-border"
 								 value="#{cc.attrs.controllerBean.answer}" maxlength="30"
 								 validatorMessage="#{phonPracticeMsg.practiceInvalidInput}">
-						<f:validateRegex pattern="([a-zA-Z -]+)?" />
+						<f:validateRegex pattern="([a-zA-Z \-']+)?" />
 					</h:inputText>
 					<h:message for="answer" styleClass="w3-medium w3-text-red" />
 					<practice:onscreenkeyboard inputObjId="practiceDiv:inputForm:answer" />
