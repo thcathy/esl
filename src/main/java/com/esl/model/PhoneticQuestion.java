@@ -254,4 +254,8 @@ public class PhoneticQuestion implements Serializable {
 	public boolean enriched() {		
 		return StringUtils.isNotBlank(getIPA()) && StringUtils.isNotBlank(getPronouncedLink());
 	}
+
+	public String plainWord() {
+		return word.replaceAll("[^A-Za-z]+", "");
+	}
 }

@@ -78,7 +78,7 @@
 								<h:inputText id="answer" styleClass="w3-input w3-border" autocomplete="off"
 											 value="#{phoneticPracticeG2Controller.answer}" maxlength="30"
 											 validatorMessage="#{phonPracticeMsg.practiceInvalidInput}">
-									<f:validateRegex pattern="([a-zA-Z -]+)?" />
+									<f:validateRegex pattern="([a-zA-Z \-']+)?" />
 								</h:inputText>
 								<h:message for="answer" styleClass="w3-medium w3-text-red" />
 								<practice:onscreenkeyboard inputObjId="inputForm:answer" />
