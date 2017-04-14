@@ -3,7 +3,7 @@ package com.esl.web.jsf.controller.practice;
 import com.esl.dao.IGradeDAO;
 import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.dao.IPracticeResultDAO;
-import com.esl.exception.ESLSystemException;
+import com.esl.enumeration.VocabDifficulty;
 import com.esl.model.*;
 import com.esl.model.practice.PhoneticSymbols;
 import com.esl.service.practice.IPhoneticSymbolPracticeService;
@@ -43,6 +43,8 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	private List<SelectItem> levels;
 	private PhoneticSymbols.Level selectedLevel;
 	private String selectedGrade;
+	private List<VocabDifficulty> allDifficulty = Arrays.asList(VocabDifficulty.values());
+	private VocabDifficulty selectedDifficulty;
 
 	// for practice page
 	private String answer = "";
@@ -97,8 +99,10 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		clearController();
 
 		// get selected grade
-		currentGrade = gradeDAO.getGradeByTitle(selectedGrade);
-		if (currentGrade == null) return errorView;
+		if (selectedDifficulty == null) {
+			logger.error("selectedDifficulty is null");
+			return errorView;
+		}
 
 		// get practice result
 		if (userSession.getMember() != null) {
@@ -127,12 +131,6 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	public String submitAnswer() {
 		logger.info("submitAnswer: START");
 
-		// Check practice have been create or not, if not created, call start
-		if (currentGrade == null) {
-			logger.info("submitAnswer: cannot find current grade");
-			return JSFUtil.redirectToJSF(start());
-		}
-
 		boolean isCorrect = phoneticSymbolPracticeService.checkAnswer(question, answer);		// Check answer
 		PhoneticQuestionHistory h = prepareHistory(isCorrect);
 		history.add(0, h);
@@ -148,7 +146,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		totalMark += mark;
 		answer = "";			// Clear answer field
 
-		updatePracticeResult(isCorrect);
+		updatePracticeResultForMember(isCorrect);
 
 		getRandomQuestion();
 
@@ -218,37 +216,16 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	}
 
 	private void getRandomQuestion() {
-		List<PhoneticQuestion> questions = phoneticQuestionDAO.getRandomQuestionsByGrade(currentGrade, 1, true);
-		if (questions == null || questions.size() < 1) {
-			throw new ESLSystemException("getRandomQuestion: cannot get any question","getRandomQuestion: cannot get any question");
-		}
+		question = phoneticQuestionDAO.getRandomQuestionWithinRank(selectedDifficulty.getFromRank(), selectedDifficulty.getToRank(), 1).get(0);
+		logger.info("getRandomQuestion: a random question: word[{}]", question.getWord());
 
-		question = questions.get(0);
-		logger.info("getRandomQuestion: a random question: word[" + question.getWord() + "]");
-
-		phoneticSymbolPracticeService.findIPAAndPronoun(question);
 		phoneticQuestionService.enrichVocabImageFromDB(question);
-
-		// get list of phonics
 		Set<String> phonics = phoneticSymbolPracticeService.getPhonicsListByLevel(selectedLevel, question.getIPA());
 		selectionPhonics = new HashMap<>();
 		for (String p : phonics) {
 			selectionPhonics.put(p, Boolean.TRUE);
 		}
-		logger.info("start: selectionPhonics.size[" + selectionPhonics.size() + "]");
-
-		// add full mark in practice result
-		/*
-		currentGradeResult.setFullMark(currentGradeResult.getFullMark() + 1);
-		allGradeResult.setFullMark(allGradeResult.getFullMark() + 1);
-		practiceResultDAO.makePersistent(currentGradeResult);
-		practiceResultDAO.makePersistent(allGradeResult);
-		logger.info("getRandomQuestion: add full mark for practice result by 1");
-		 */
-
-		// set member word unsaved in controller map
-		//memberWordController.getSavedQuestion().put(question, false);
-
+		logger.info("start: selectionPhonics.size: {}", selectionPhonics.size());
 		totalFullMark++;
 	}
 
@@ -277,8 +254,8 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		return history;
 	}
 
-	private void updatePracticeResult(boolean isCorrect) {
-		logger.info("updatePracticeResult: START");
+	private void updatePracticeResultForMember(boolean isCorrect) {
+		logger.info("updatePracticeResultForMember: START");
 
 		if (!userSession.isLogined()) return;
 
@@ -330,6 +307,12 @@ public class PhoneticSymbolPracticeController extends ESLController {
 
 	public String getSelectedGrade() {	return selectedGrade;}
 	public void setSelectedGrade(String selectedGrade) {this.selectedGrade = selectedGrade;	}
+
+	public List<VocabDifficulty> getAllDifficulty() {return allDifficulty;}
+	public void setAllDifficulty(List<VocabDifficulty> allDifficulty) {	this.allDifficulty = allDifficulty; }
+
+	public VocabDifficulty getSelectedDifficulty() {return selectedDifficulty;}
+	public void setSelectedDifficulty(VocabDifficulty selectedDifficulty) {this.selectedDifficulty = selectedDifficulty;}
 
 	public Map<String, Boolean> getSelectionPhonics() {return selectionPhonics;	}
 	public void setSelectionPhonics( Map<String, Boolean> selectionPhonics) {this.selectionPhonics = selectionPhonics;}

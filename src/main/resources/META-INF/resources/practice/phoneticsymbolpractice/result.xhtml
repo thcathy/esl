@@ -14,7 +14,6 @@
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_phoneticsymbolpractice_result_title}</ui:define>	
 	<ui:define name="head">
 		<meta name="description" content="#{htmlHeadMsg.practice_phoneticsymbolpractice_result_desc}" />
-		<h:outputText value="#{phoneticSymbolPracticeController.initResultLanguage}" />
 	</ui:define>
 
 	<ui:define name="mainDiv">
@@ -30,7 +29,7 @@
 					<h:outputFormat value="#{phonSymPracticeMsg.resultTitle}">
 						<f:param value="#{phoneticSymbolPracticeController.totalMark}"/>
 						<f:param value="#{phoneticSymbolPracticeController.totalFullMark}"/>
-						<f:param value="#{phoneticSymbolPracticeController.currentGrade.description}"/>
+						<f:param value="#{phonPracticeMsg[phoneticSymbolPracticeController.selectedDifficulty]}"/>
 					</h:outputFormat>
 				</h3>
 				<h:panelGroup id="msgPanel">

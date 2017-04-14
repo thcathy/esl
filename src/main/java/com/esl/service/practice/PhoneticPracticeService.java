@@ -132,33 +132,6 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 		}
 		try
 		{
-			// Save Practice History
-			/*
-			PhoneticPracticeHistory history = new PhoneticPracticeHistory();
-			history.setMark(practice.getMark());
-			history.setFullMark(practice.getQuestions().size());
-			history.setGrade(grade);
-			history.setStartedTime(practice.getStartTime());
-			history.setCompletedTime(new Date());
-
-			for (int i=0; i<practice.getQuestions().size(); i++) {
-				PhoneticPracticeQuestionHistory questionHistory =
-					new PhoneticPracticeQuestionHistory(
-							Boolean.getBoolean(practice.getCorrects().get(i).toString()),
-							(PhoneticQuestion) practice.getQuestions().get(i),
-							history
-					);
-				logger.info("saveHistory: start make question History persistent: question[" + questionHistory + "]");
-				phoneticPracticeQuestionHistoryDAO.makePersistent(questionHistory);
-				history.addQuestionHistories(questionHistory);
-			}
-			logger.info("saveHistory: start make phonetic practice History persistent: question[" + history + "]");
-			phoneticPracticeHistoryDAO.makePersistent(history);
-			logger.info("saveHistory: start make member persistent: member:" + member);
-			memberDAO.makePersistent(member);
-			member.addPhoneticPractices(history);
-			 */
-
 			// Update Practice Result With Grade
 			PracticeResult resultWithGrade= practiceResultDAO.getPracticeResult(member, grade, PracticeResult.PHONETICPRACTICE);
 

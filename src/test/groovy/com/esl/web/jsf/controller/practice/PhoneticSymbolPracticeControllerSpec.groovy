@@ -5,6 +5,7 @@ import com.esl.dao.IGradeDAO
 import com.esl.dao.IMemberDAO
 import com.esl.dao.IMemberWordDAO
 import com.esl.dao.IPhoneticQuestionDAO
+import com.esl.enumeration.VocabDifficulty
 import com.esl.model.Member
 import com.esl.model.practice.PhoneticSymbols
 import com.esl.web.model.UserSession
@@ -14,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
-    @Autowired PhoneticSymbolPracticeController phoneticSymbolPracticeController
+    @Autowired PhoneticSymbolPracticeController controller
     @Autowired IMemberDAO memberDAO
     @Autowired IMemberWordDAO memberWordDAO
     @Autowired IPhoneticQuestionDAO phoneticQuestionDAO
@@ -28,8 +29,8 @@ public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
         session = new UserSession()
         session.setMember(tester)
 
-        phoneticSymbolPracticeController.userSession = session
-        phoneticSymbolPracticeController.selectedGrade = "K3"
+        controller.userSession = session
+        controller.selectedGrade = "K3"
         /*def phoneticPracticeController = Mock(PhoneticPracticeController)
         phoneticPracticeController.getSelectedGrade() >> "K3"
         phoneticSymbolPracticeController.phoneticPracticeController = phoneticPracticeController*/
@@ -39,14 +40,26 @@ public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
     @Test
     def "phonetic symbol practice use vocab images"() {
         when:
-        phoneticSymbolPracticeController.selectedLevel = PhoneticSymbols.Level.Rookie
-        String view = phoneticSymbolPracticeController.start()
-        String images = phoneticSymbolPracticeController.question.picsFullPathsInString
+        controller.selectedDifficulty = VocabDifficulty.Beginner
+        controller.selectedLevel = PhoneticSymbols.Level.Full
+        String view = controller.start()
+        String images = controller.question.picsFullPathsInString
 
         then:
-        assert view == "/practice/phoneticsymbolpractice/practice"
-        assert images.contains("data:image")
-        assert !images.contains("http://")
-        assert !images.contains("https://")
+        view == "/practice/phoneticsymbolpractice/practice"
+        controller.question != null
+        images.contains("data:image")
+        !images.contains("http://")
+        !images.contains("https://")
+    }
+
+    @Test
+    def "start without select difficulty return error view"() {
+        when:
+        controller.selectedDifficulty = null
+        String view = controller.start()
+
+        then:
+        view == "/error"
     }
 }
