@@ -10,6 +10,7 @@ import com.esl.service.rest.WebParserRestService;
 import org.apache.commons.codec.binary.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,9 @@ import java.util.stream.Collectors;
 public class PhoneticQuestionService {
     private static Logger log = LoggerFactory.getLogger(PhoneticQuestionService.class);
 
+    @Value("${NAImage.data}")
+    public String NAImage;
+
     @Resource private IVocabImageDAO vocabImageDao;
     @Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
     @Resource private WebParserRestService webService;
@@ -34,7 +38,7 @@ public class PhoneticQuestionService {
 
     public Optional<PhoneticQuestion> getQuestionFromDBWithImage(String word) {
         Optional<PhoneticQuestion> question = Optional.ofNullable(phoneticQuestionDAO.getPhoneticQuestionByWord(word));
-        question.ifPresent(this::enrichVocabImageFromDB);
+        question.ifPresent(this::enrichVocabImage);
         return question;
     }
 
@@ -139,12 +143,12 @@ public class PhoneticQuestionService {
     }
 
     @Transactional(readOnly = true)
-    public void enrichVocabImageFromDB(List<PhoneticQuestion> questions) {
-        questions.forEach(this::enrichVocabImageFromDB);
+    public void enrichVocabImage(List<PhoneticQuestion> questions) {
+        questions.forEach(this::enrichVocabImage);
     }
 
     @Transactional(readOnly = true)
-    public void enrichVocabImageFromDB(PhoneticQuestion question) {
+    public void enrichVocabImage(PhoneticQuestion question) {
         List<String> images = vocabImageDao.listByWord(question.getWord()).stream()
                 .map(VocabImage::getBase64Image)
                 .collect(Collectors.toList());
@@ -152,6 +156,8 @@ public class PhoneticQuestionService {
         if (images.size() > 0) {
             Collections.shuffle(images);
             question.setPicsFullPaths(images.toArray(new String[images.size()]));
+        } else {
+            question.setPicsFullPaths(new String[] {NAImage});
         }
     }
 }

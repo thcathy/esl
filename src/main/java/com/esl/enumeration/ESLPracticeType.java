@@ -1,5 +1,5 @@
 package com.esl.enumeration;
 
 public enum ESLPracticeType {
-	PhoneticPractice, VocabPractice, IrregularVerbPractice;
+	PhoneticPractice, PhoneticSymbolPractice, VocabPractice, IrregularVerbPractice;
 }

@@ -82,7 +82,7 @@ public class SelfDictationService implements ISelfDictationService {
 	}
 
 	private PhoneticPractice createPhoneticPracticeObject(Member member, List<PhoneticQuestion> questions) {
-		phoneticQuestionService.enrichVocabImageFromDB(questions);
+		phoneticQuestionService.enrichVocabImage(questions);
 		Collections.shuffle(questions);
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setMember(member);

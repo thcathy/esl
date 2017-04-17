@@ -69,7 +69,7 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 			return null;
 		}
 
-		phoneticQuestionService.enrichVocabImageFromDB(questions);
+		phoneticQuestionService.enrichVocabImage(questions);
 
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setMember(member);
@@ -81,9 +81,9 @@ public class PhoneticPracticeService implements IPhoneticPracticeService {
 
 	public PhoneticPractice generatePractice(VocabDifficulty difficulty) {
 		logger.info("generatePractice {} questions with difficulty {}", PhoneticPractice.MAX_QUESTIONS, difficulty);
-		List<PhoneticQuestion> questions = phoneticQuestionDAO.getRandomQuestionWithinRank(difficulty.getFromRank(), difficulty.getToRank(), PhoneticPractice.MAX_QUESTIONS);
+		List<PhoneticQuestion> questions = phoneticQuestionDAO.getRandomQuestionWithinRank(difficulty.rank, PhoneticPractice.MAX_QUESTIONS);
 		logger.info("generatePractice: questions.size:" + questions.size());
-		phoneticQuestionService.enrichVocabImageFromDB(questions);
+		phoneticQuestionService.enrichVocabImage(questions);
 
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setDifficulty(difficulty);

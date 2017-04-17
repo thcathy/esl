@@ -95,6 +95,11 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.22" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.22" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:4.3.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor:reactor-bus:2.0.8.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.goldmansachs:gs-collections:5.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.goldmansachs:gs-collections-api:5.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:2.0.8.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-mail:1.2.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:4.3.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.6.RELEASE" level="project" />

@@ -5,21 +5,31 @@ import com.esl.dao.IGradeDAO
 import com.esl.dao.IMemberDAO
 import com.esl.dao.IMemberWordDAO
 import com.esl.dao.IPhoneticQuestionDAO
+import com.esl.dao.repository.MemberScoreRepository
+import com.esl.dao.repository.QuestionHistoryRepository
+import com.esl.entity.practice.MemberScore
+import com.esl.entity.practice.QuestionHistory
+import com.esl.enumeration.ESLPracticeType
 import com.esl.enumeration.VocabDifficulty
 import com.esl.model.Member
+import com.esl.model.PhoneticQuestion
 import com.esl.model.practice.PhoneticSymbols
 import com.esl.web.model.UserSession
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest
+@ActiveProfiles("dev")
 public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
     @Autowired PhoneticSymbolPracticeController controller
     @Autowired IMemberDAO memberDAO
     @Autowired IMemberWordDAO memberWordDAO
     @Autowired IPhoneticQuestionDAO phoneticQuestionDAO
     @Autowired IGradeDAO gradeDAO
+    @Autowired QuestionHistoryRepository questionHistoryRepository
+    @Autowired MemberScoreRepository memberScoreRepository
 
     Member tester
     UserSession session
@@ -31,10 +41,6 @@ public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
 
         controller.userSession = session
         controller.selectedGrade = "K3"
-        /*def phoneticPracticeController = Mock(PhoneticPracticeController)
-        phoneticPracticeController.getSelectedGrade() >> "K3"
-        phoneticSymbolPracticeController.phoneticPracticeController = phoneticPracticeController*/
-
     }
 
     @Test
@@ -61,5 +67,76 @@ public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
 
         then:
         view == "/error"
+    }
+
+    @Test
+    def "start practice and submit answer will update history"() {
+        when: "start practice"
+        controller.selectedDifficulty = VocabDifficulty.Beginner
+        controller.selectedLevel = PhoneticSymbols.Level.Medium
+        controller.start()
+        PhoneticQuestion firstQuestion = controller.question
+
+        then: "submit wrong answer"
+        firstQuestion != null
+
+        when: "submit wrong answer"
+        controller.answer = "abc"
+        controller.submitAnswer()
+        sleep(100)
+        QuestionHistory history = questionHistoryRepository.findByMemberAndPracticeTypeAndWord(tester, ESLPracticeType.PhoneticSymbolPractice,firstQuestion.word).first()
+
+        then: "updated history"
+        history != null
+        println "First history: $history"
+
+        when: "submit correct answer on same question"
+        controller.question = firstQuestion
+        controller.answer = firstQuestion.getIPA()
+        controller.submitAnswer()
+        sleep(100)
+        QuestionHistory history2 = questionHistoryRepository.findByMemberAndPracticeTypeAndWord(tester, ESLPracticeType.PhoneticSymbolPractice,firstQuestion.word).first()
+        MemberScore allTimesScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get()
+        MemberScore latestScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get()
+
+        then: "updated history"
+        history2.totalAttempt == history.totalAttempt + 1
+        history2.totalCorrect == history.totalCorrect + 1
+        allTimesScore.score > 0
+        latestScore.score > 0
+
+        when: "submit correct answer again"
+        controller.answer = controller.question.getIPA()
+        controller.submitAnswer()
+        sleep(100)
+        MemberScore allTimesScore2 = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get()
+        MemberScore latestScore2 = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get()
+
+        then: "updated history"
+        allTimesScore2.score == allTimesScore.score + 1
+        latestScore2.score == latestScore.score + 1
+    }
+
+    @Test
+    def "question of #secondDifficulty must be a longer word then #firstDifficulty"(VocabDifficulty firstDifficulty, VocabDifficulty secondDifficulty) {
+        when: "start practice with different difficulty"
+        controller.selectedDifficulty = firstDifficulty
+        controller.selectedLevel = PhoneticSymbols.Level.Medium
+        controller.start()
+        PhoneticQuestion firstQuestion = controller.question
+        controller.selectedDifficulty = secondDifficulty
+        controller.selectedLevel = PhoneticSymbols.Level.Medium
+        controller.start()
+        PhoneticQuestion secondQuestion = controller.question
+
+        then: "second question lenght > first question length"
+        secondQuestion.word.length() > firstQuestion.word.length()
+
+        where:
+        firstDifficulty             | secondDifficulty
+        VocabDifficulty.Beginner    | VocabDifficulty.Easy
+        VocabDifficulty.Easy        | VocabDifficulty.Normal
+        VocabDifficulty.Normal      | VocabDifficulty.Hard
+        VocabDifficulty.Hard        | VocabDifficulty.VeryHard
     }
 }

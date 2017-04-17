@@ -4,9 +4,9 @@ import com.esl.model.Grade;
 import com.esl.model.PhoneticQuestion;
 import com.esl.util.practice.PhoneticQuestionUtil;
 import com.esl.util.practice.PhoneticQuestionUtil.FindIPAAndPronoun;
+import org.apache.commons.lang3.Range;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,12 +48,23 @@ public class PhoneticQuestionDAO extends ESLDao<PhoneticQuestion> implements IPh
 		return sessionFactory.getCurrentSession().createQuery(GET_NOT_ENRICHED_QUESTIONS).setMaxResults(300).list();
 	}
 
-	public List<PhoneticQuestion> getRandomQuestionWithinRank(int fromRank, int toRank, int totalResult) {
+	public List<PhoneticQuestion> getRandomQuestionWithinRank(Range<Integer> rank, int totalResult) {
 		String queryString = "FROM PhoneticQuestion pq WHERE pq.rank >= :fromRank and pq.rank <= :toRank ORDER BY RAND()";
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(queryString);
-		query.setParameter("fromRank", fromRank);
-		query.setParameter("toRank", toRank);
+		query.setParameter("fromRank", rank.getMinimum());
+		query.setParameter("toRank", rank.getMaximum());
+		query.setMaxResults(totalResult);
+
+		return query.list();
+	}
+
+	public List<PhoneticQuestion> getRandomQuestionWithinLength(Range<Integer> length, int totalResult) {
+		String queryString = "FROM PhoneticQuestion pq WHERE length(pq.word) >= :fromLength and length(pq.word) <= :toLength ORDER BY RAND()";
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(queryString);
+		query.setParameter("fromLength", length.getMinimum());
+		query.setParameter("toLength", length.getMaximum());
 		query.setMaxResults(totalResult);
 
 		return query.list();

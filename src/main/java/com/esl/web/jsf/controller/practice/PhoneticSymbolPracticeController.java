@@ -3,6 +3,8 @@ package com.esl.web.jsf.controller.practice;
 import com.esl.dao.IGradeDAO;
 import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.dao.IPracticeResultDAO;
+import com.esl.entity.event.UpdatePracticeHistoryEvent;
+import com.esl.enumeration.ESLPracticeType;
 import com.esl.enumeration.VocabDifficulty;
 import com.esl.model.*;
 import com.esl.model.practice.PhoneticSymbols;
@@ -16,10 +18,13 @@ import com.esl.web.util.LanguageUtil;
 import com.esl.web.util.SelectItemUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.bus.Event;
+import reactor.bus.EventBus;
 
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
@@ -36,8 +41,6 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	private String inputView = "/practice/phoneticsymbolpractice/input";
 	private String practiceView = "/practice/phoneticsymbolpractice/practice";
 	private String resultView = "/practice/phoneticsymbolpractice/result";
-
-	// UI Data
 
 	// for input page
 	private List<SelectItem> levels;
@@ -69,6 +72,7 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	@Resource private ITopResultService topResultService;
 	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
 	@Resource private PhoneticQuestionService phoneticQuestionService;
+	@Autowired EventBus eventBus;
 
 	@Value("${PhoneticPracticeG2.MaxHistory}")
 	public void setMaxHistory(int max) {this.MAX_HISTORY = max; }
@@ -94,36 +98,13 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	@Transactional
 	public String start() {
 		logger.info("start: selectedGrade: " + selectedGrade);
-
-		// clear all existing objects
-		clearController();
-
-		// get selected grade
 		if (selectedDifficulty == null) {
 			logger.error("selectedDifficulty is null");
 			return errorView;
 		}
 
-		// get practice result
-		if (userSession.getMember() != null) {
-			logger.info("start: Member[" + userSession.getMember().getUserId() + "] start practice");
-			currentGradeResult = practiceResultDAO.getPracticeResult(userSession.getMember(), currentGrade, PracticeResult.PHONETICSYMBOLPRACTICE, selectedLevel);
-			allGradeResult = practiceResultDAO.getPracticeResult(userSession.getMember(), null, PracticeResult.PHONETICSYMBOLPRACTICE, selectedLevel);
-			if (currentGradeResult == null) {
-				// create a new result if not exist
-				logger.warn("start: practice result not found, create a new phonetic symbol practice result.");
-				currentGradeResult = new PracticeResult(userSession.getMember(), currentGrade, PracticeResult.PHONETICSYMBOLPRACTICE, selectedLevel.toString());
-				practiceResultDAO.makePersistent(currentGradeResult);
-			}
-			if (allGradeResult == null) {
-				logger.warn("start: practice result not found, create a new phonetic symbol practice result.");
-				allGradeResult = new PracticeResult(userSession.getMember(), null, PracticeResult.PHONETICSYMBOLPRACTICE, selectedLevel.toString());
-				practiceResultDAO.makePersistent(allGradeResult);
-			}
-		}
-
-		getRandomQuestion();		// get a random question
-
+		clearController();
+		getRandomQuestion();
 		return practiceView;
 	}
 
@@ -131,26 +112,22 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	public String submitAnswer() {
 		logger.info("submitAnswer: START");
 
-		boolean isCorrect = phoneticSymbolPracticeService.checkAnswer(question, answer);		// Check answer
-		PhoneticQuestionHistory h = prepareHistory(isCorrect);
-		history.add(0, h);
-		if (history.size() > MAX_HISTORY) history.remove(history.size() - 1);		// remove too many history
+		boolean isCorrect = phoneticSymbolPracticeService.checkAnswer(question, answer);
+		updateHistory(isCorrect);
+		if (isCorrect) totalMark++;
 
-		int mark = 0;
-		if (isCorrect)  {
-			mark++;
-			if (userSession.getMember() != null)
-				phoneticSymbolPracticeService.updateScoreCard(userSession.getMember(),
-						new java.sql.Date((new Date()).getTime()), true, question, selectedLevel);
-		}
-		totalMark += mark;
-		answer = "";			// Clear answer field
-
-		updatePracticeResultForMember(isCorrect);
-
+		answer = "";
+		submitUpdatePracticeHistoryEvent(isCorrect);
 		getRandomQuestion();
 
 		return null;
+	}
+
+	private void updateHistory(boolean isCorrect) {
+		PhoneticQuestionHistory h = prepareHistory(isCorrect);
+		history.add(0, h);
+		if (history.size() > MAX_HISTORY)
+			history.remove(history.size() - 1);		// remove too many history
 	}
 
 	// process when completing the practice
@@ -216,10 +193,10 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	}
 
 	private void getRandomQuestion() {
-		question = phoneticQuestionDAO.getRandomQuestionWithinRank(selectedDifficulty.getFromRank(), selectedDifficulty.getToRank(), 1).get(0);
+		question = phoneticQuestionDAO.getRandomQuestionWithinLength(selectedDifficulty.length, 1).get(0);
 		logger.info("getRandomQuestion: a random question: word[{}]", question.getWord());
 
-		phoneticQuestionService.enrichVocabImageFromDB(question);
+		phoneticQuestionService.enrichVocabImage(question);
 		Set<String> phonics = phoneticSymbolPracticeService.getPhonicsListByLevel(selectedLevel, question.getIPA());
 		selectionPhonics = new HashMap<>();
 		for (String p : phonics) {
@@ -254,19 +231,16 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		return history;
 	}
 
-	private void updatePracticeResultForMember(boolean isCorrect) {
-		logger.info("updatePracticeResultForMember: START");
-
+	private void submitUpdatePracticeHistoryEvent(boolean isCorrect) {
 		if (!userSession.isLogined()) return;
 
-		int mark = 0;
-		if (isCorrect) mark += 1;
-		practiceResultDAO.makePersistent(currentGradeResult);
-		practiceResultDAO.makePersistent(allGradeResult);
-		currentGradeResult.addResult(mark, 1);
-		allGradeResult.addResult(mark, 1);
-		//practiceResultDAO.makePersistent(currentGradeResult);
-		//practiceResultDAO.makePersistent(allGradeResult);
+		eventBus.notify("addHistory",
+				Event.wrap(new UpdatePracticeHistoryEvent(userSession.getMember(),
+						ESLPracticeType.PhoneticSymbolPractice,
+						question,
+						isCorrect,
+						isCorrect ? selectedDifficulty.weight : 0))
+		);
 	}
 
 	//	 ============== Setter / Getter ================//
