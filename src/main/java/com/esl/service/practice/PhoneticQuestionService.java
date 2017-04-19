@@ -2,6 +2,7 @@ package com.esl.service.practice;
 
 import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.dao.IVocabImageDAO;
+import com.esl.dao.repository.PhoneticQuestionRepository;
 import com.esl.entity.VocabImage;
 import com.esl.entity.rest.DictionaryResult;
 import com.esl.entity.rest.WebItem;
@@ -28,6 +29,8 @@ import java.util.stream.Collectors;
 public class PhoneticQuestionService {
     private static Logger log = LoggerFactory.getLogger(PhoneticQuestionService.class);
 
+    private long totalQuestion;
+
     @Value("${NAImage.data}")
     public String NAImage;
 
@@ -35,6 +38,14 @@ public class PhoneticQuestionService {
     @Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
     @Resource private WebParserRestService webService;
     @Resource private RestTemplate restTemplate;
+    @Resource private PhoneticQuestionRepository phoneticQuestionRepository;
+
+    public long getTotalQuestion() {
+        if (totalQuestion == 0) {
+            totalQuestion = phoneticQuestionRepository.count();
+        }
+        return totalQuestion;
+    }
 
     public Optional<PhoneticQuestion> getQuestionFromDBWithImage(String word) {
         Optional<PhoneticQuestion> question = Optional.ofNullable(phoneticQuestionDAO.getPhoneticQuestionByWord(word));

@@ -27,7 +27,8 @@
                     <f:selectItems value="#{phoneticPracticeController.allDifficulty}"
                                    var="n"
                                    itemValue="#{n}"
-                                   itemLabel="#{phonPracticeMsg[n]}" />
+                                   itemLabel="#{phonPracticeMsg[n]}"
+                                   itemDisabled="#{userSession.getMember()==null and n.disableForVisitor()}" />
                 </h:selectOneMenu>
             </p>
 

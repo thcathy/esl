@@ -19,4 +19,8 @@ public enum VocabDifficulty {
 		this.weight = weight;
 	}
 
+	public boolean disableForVisitor() {
+		return !this.equals(Beginner);
+	}
+
 }

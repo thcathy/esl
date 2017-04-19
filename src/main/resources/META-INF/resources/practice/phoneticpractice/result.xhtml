@@ -30,7 +30,7 @@
 					<h:outputFormat value="#{phonPracticeMsg.resultTitle}">
 						<f:param value="#{phoneticPracticeController.practice.mark}"/>
 						<f:param value="#{phoneticPracticeController.practice.totalQuestions}"/>
-						<f:param value="#{phonPracticeMsg[phoneticSymbolPracticeController.selectedDifficulty]}"/>
+						<f:param value="#{phonPracticeMsg[phoneticPracticeController.selectedDifficulty]}"/>
 					</h:outputFormat>
 					<p:ajaxStatus style="display: inline-block;">
 						<f:facet name="start">

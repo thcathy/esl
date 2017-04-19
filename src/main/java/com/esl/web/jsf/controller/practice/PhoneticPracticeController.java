@@ -8,6 +8,7 @@ import com.esl.model.*;
 import com.esl.service.practice.IPhoneticPracticeService;
 import com.esl.service.practice.ITopResultService;
 import com.esl.service.practice.PhoneticPracticeService;
+import com.esl.service.practice.PhoneticQuestionService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.AuthenticationController;
 import com.esl.web.jsf.controller.ESLController;
@@ -16,13 +17,14 @@ import com.esl.web.model.UserSession;
 import com.esl.web.util.LanguageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.bus.EventBus;
 
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.util.*;
@@ -57,9 +59,8 @@ public class PhoneticPracticeController extends ESLController {
 	private PhoneticPractice practice;
 	@Resource private AuthenticationController authenticationController = null;
 	@Resource private MemberWordController memberWordController = null;
-
-	// UI Component
-	private HtmlCommandButton practiceCommand;
+	@Autowired EventBus eventBus;
+	@Autowired PhoneticQuestionService phoneticQuestionService;
 
 	// ============== Constructor ================//
 	public PhoneticPracticeController() {}
@@ -80,9 +81,6 @@ public class PhoneticPracticeController extends ESLController {
 
 	public String getSelectedGrade() {	return selectedGrade;}
 	public void setSelectedGrade(String selectedGrade) {this.selectedGrade = selectedGrade;	}
-
-	public HtmlCommandButton getPracticeCommand() {	return practiceCommand;	}
-	public void setPracticeCommand(HtmlCommandButton practiceCommand) {	this.practiceCommand = practiceCommand;	}
 
 	public String getAnswer() {	return answer;	}
 	public void setAnswer(String answer) {this.answer = answer;}
@@ -180,9 +178,6 @@ public class PhoneticPracticeController extends ESLController {
 
 	@Transactional
 	public String submitAnswer() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		String locale = facesContext.getViewRoot().getLocale().toString();
-
 		// Check practice have been create or not, if not created, call start
 		if (practice == null) {
 			logger.info("submitAnswer: cannot find practice");
@@ -192,12 +187,8 @@ public class PhoneticPracticeController extends ESLController {
 		PhoneticQuestion question = practice.getCurrentQuestionObject();
 		String result = phoneticPracticeService.checkAnswer(practice, answer);
 		logger.info("submitAnswer: phoneticPracticeService.checkAnswer returned code: " + result);
-		// update score bar
-		if (IPhoneticPracticeService.CORRECT_ANSWER.equals(result)) {
-			// update socre card
-			if (userSession.getMember() != null)
-				phoneticPracticeService.updateScoreCard(userSession.getMember(), new java.sql.Date((new Date()).getTime()), true, question);
-		}
+
+		submitUpdateHistoryEventIfNeeded(result);
 
 		answer = "";			// Clear answer field
 
@@ -219,6 +210,19 @@ public class PhoneticPracticeController extends ESLController {
 
 		// Continue Practice
 		return null;
+	}
+
+	public long getTotalQuestion() {
+		return phoneticQuestionService.getTotalQuestion();
+	}
+
+	private void submitUpdateHistoryEventIfNeeded(String result) {
+		if (IPhoneticPracticeService.CORRECT_ANSWER.equals(result)
+				&& userSession.getMember() != null) {
+
+			if (userSession.getMember() != null)
+				phoneticPracticeService.updateScoreCard(userSession.getMember(), new java.sql.Date((new Date()).getTime()), true, null);
+		}
 	}
 
 	// ============== Supporting Functions ================//

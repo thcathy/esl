@@ -3,9 +3,17 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-	<h6>如未登入:</h6>
 	<ul class="w3-medium">
-		<li>只能選擇最低級別</li>
-		<li>如想選擇更多的級別，請申請免費的 FunFunSpell 帳戶並登入。</li>
+		<li>學習 <span class="w3-tag w3-round w3-grey">#{phoneticPracticeController.totalQuestion}</span> 個最常用英文生字</li>
+		<li>提供真人發聲及圖案幫助學習</li>
 	</ul>
+	<h:panelGroup rendered="#{userSession.member == null}">
+		<h6><a href="/login?signup=true" class="w3-hover-grey">登入 funfunspell</a>, 你可以:</h6>
+		<ul class="w3-medium">
+			<li>選擇全部難度</li>
+			<li>記下生字 於將來複習</li>
+			<li>知道學到什麼生字</li>
+			<li>得到星星 登上排行榜</li>
+		</ul>
+	</h:panelGroup>
 </ui:composition>

@@ -4,9 +4,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-	<h6>To visitor:</h6>
 	<ul class="w3-medium">
-		<li>Only the first level is available to visitor.</li>
-		<li>To practice more grades, please sign up FREE FunFunSpell account and login</li>
+		<li>Learn <span class="w3-tag w3-round w3-grey">#{phoneticPracticeController.totalQuestion}</span> most frequently used English vocabularies</li>
+		<li>Help learning with pronunication and image</li>
 	</ul>
+	<h:panelGroup rendered="#{userSession.member == null}">
+		<h6><a href="/login?signup=true" class="w3-hover-grey">Login to funfunspell</a>, you can:</h6>
+		<ul class="w3-medium">
+			<li>Select all difficulty</li>
+			<li>Save vocabulary to exercise later</li>
+			<li>Know what you learn</li>
+			<li>Earn stars and compete with everyone</li>
+		</ul>
+	</h:panelGroup>
+
 </ui:composition>
