@@ -23,7 +23,7 @@ public class UpdatePracticeHistoryEvent {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("userId", member.getUserId())
+                .append("userId", member!=null?member.getUserId():"null")
                 .append("type", type)
                 .append("question", question)
                 .append("isCorrect", isCorrect)

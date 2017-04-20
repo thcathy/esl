@@ -3,6 +3,8 @@ package com.esl.web.jsf.controller.practice;
 import com.esl.dao.IGradeDAO;
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.IPracticeResultDAO;
+import com.esl.entity.event.UpdatePracticeHistoryEvent;
+import com.esl.enumeration.ESLPracticeType;
 import com.esl.enumeration.VocabDifficulty;
 import com.esl.model.*;
 import com.esl.service.practice.IPhoneticPracticeService;
@@ -21,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.bus.Event;
 import reactor.bus.EventBus;
 
 import javax.annotation.Resource;
@@ -188,7 +191,7 @@ public class PhoneticPracticeController extends ESLController {
 		String result = phoneticPracticeService.checkAnswer(practice, answer);
 		logger.info("submitAnswer: phoneticPracticeService.checkAnswer returned code: " + result);
 
-		submitUpdateHistoryEventIfNeeded(result);
+		submitUpdateHistoryEventIfNeeded(result, question);
 
 		answer = "";			// Clear answer field
 
@@ -216,13 +219,16 @@ public class PhoneticPracticeController extends ESLController {
 		return phoneticQuestionService.getTotalQuestion();
 	}
 
-	private void submitUpdateHistoryEventIfNeeded(String result) {
-		if (IPhoneticPracticeService.CORRECT_ANSWER.equals(result)
-				&& userSession.getMember() != null) {
+	private void submitUpdateHistoryEventIfNeeded(String result, PhoneticQuestion question) {
+		if (userSession.getMember() == null) return;
 
-			if (userSession.getMember() != null)
-				phoneticPracticeService.updateScoreCard(userSession.getMember(), new java.sql.Date((new Date()).getTime()), true, null);
-		}
+		eventBus.notify("addHistory",
+				Event.wrap(new UpdatePracticeHistoryEvent(userSession.getMember(),
+						ESLPracticeType.PhoneticPractice,
+						question,
+						IPhoneticPracticeService.CORRECT_ANSWER.equals(result),
+						IPhoneticPracticeService.CORRECT_ANSWER.equals(result) ? selectedDifficulty.weight : 0))
+		);
 	}
 
 	// ============== Supporting Functions ================//
