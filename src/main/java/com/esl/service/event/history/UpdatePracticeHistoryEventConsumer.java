@@ -43,7 +43,9 @@ public class UpdatePracticeHistoryEventConsumer implements Consumer<Event<Update
         MemberScore score = findOrCreateMemberScore(payload, yearMonth);
         score.setLastUpdatedDate(new Date());
         score.addScore(payload.score);
+
         memberScoreRepository.save(score);
+        log.info("Updated member score: {}", score);
     }
 
     private MemberScore findOrCreateMemberScore(UpdatePracticeHistoryEvent payload, int yearMonth) {
@@ -60,7 +62,9 @@ public class UpdatePracticeHistoryEventConsumer implements Consumer<Event<Update
         questionHistory.setTotalAttempt(questionHistory.getTotalAttempt() + 1);
         if (payload.isCorrect)
             questionHistory.setTotalCorrect(questionHistory.getTotalCorrect() + 1);
+
         questionHistoryRepository.save(questionHistory);
+        log.info("Updated history: {}", questionHistory);
     }
 
     private QuestionHistory findOrCreateQuestionHistory(UpdatePracticeHistoryEvent payload) {
