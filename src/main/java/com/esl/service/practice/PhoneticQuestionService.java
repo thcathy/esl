@@ -89,14 +89,6 @@ public class PhoneticQuestionService {
         }
     }
 
-    public void enrichIfNeeded(List<PhoneticQuestion> questions) {
-        log.debug("enrich: {} questions", questions.size());
-
-        questions.stream()
-                .filter(q -> !getVocabImagesFromDB(q))
-                .forEach(this::getAndStoreImagesFromWeb);
-    }
-
     private PhoneticQuestion getAndStoreImagesFromWeb(PhoneticQuestion question) {
         log.debug("getAndStoreImagesFromWeb for {}", question.getWord());
 
