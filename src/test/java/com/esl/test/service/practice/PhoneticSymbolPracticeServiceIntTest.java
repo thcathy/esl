@@ -1,5 +1,6 @@
 package com.esl.test.service.practice;
 
+import com.esl.ESLApplication;
 import com.esl.model.PhoneticPractice;
 import com.esl.model.PhoneticQuestion;
 import com.esl.service.practice.IPhoneticPracticeService;
@@ -8,9 +9,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
+@ContextConfiguration(classes=ESLApplication.class)
 @SpringBootTest
 public class PhoneticSymbolPracticeServiceIntTest {
     @Qualifier("phoneticPracticeService")
