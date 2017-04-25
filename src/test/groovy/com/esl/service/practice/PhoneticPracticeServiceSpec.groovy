@@ -1,14 +1,17 @@
 package com.esl.service.practice
 
+import com.esl.ESLApplication
 import com.esl.enumeration.VocabDifficulty
 import com.esl.model.PhoneticPractice
 import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
 @SpringBootTest
+@ContextConfiguration(classes=ESLApplication.class)
 class PhoneticPracticeServiceSpec extends Specification {
     @Autowired
     @Qualifier("phoneticPracticeService")

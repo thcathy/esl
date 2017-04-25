@@ -1,11 +1,14 @@
 package com.esl.service.practice
 
+import com.esl.ESLApplication
 import com.esl.entity.dictation.Vocab
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
 @SpringBootTest
+@ContextConfiguration(classes=ESLApplication.class)
 class SelfDictationServiceSpec extends Specification {
     @Autowired
     SelfDictationService service

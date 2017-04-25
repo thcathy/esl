@@ -1,6 +1,7 @@
 package com.esl.web.jsf.controller.practice
 
 import com.esl.BaseSpec
+import com.esl.ESLApplication
 import com.esl.dao.IGradeDAO
 import com.esl.dao.IMemberDAO
 import com.esl.dao.IMemberWordDAO
@@ -19,8 +20,10 @@ import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.ContextConfiguration
 
 @SpringBootTest
+@ContextConfiguration(classes=ESLApplication.class)
 @ActiveProfiles("dev")
 public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
     @Autowired PhoneticSymbolPracticeController controller
