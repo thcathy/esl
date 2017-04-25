@@ -74,7 +74,7 @@ class SelfDictationServiceSpec extends Specification {
         assert xxxyyyzzz.getPronouncedLink() == null
         assert busStop.isIPAUnavailable() == true
         assert busStop.getIPA() == null
-        assert busStop.getPronouncedLink() == ""
+        assert busStop.getPronouncedLink() ==null
         assert jakarta.isIPAUnavailable() == false
         assert jakarta.getIPA() == "dʒəˈkɑːtə"
         assert jakarta.getPronouncedLink() == "http://api.pearson.com/v2/dictionaries/assets/ldoce/gb_pron/p028-000006623.mp3"

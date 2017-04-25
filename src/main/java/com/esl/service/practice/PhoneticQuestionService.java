@@ -53,8 +53,8 @@ public class PhoneticQuestionService {
         return question;
     }
 
-    public PhoneticQuestion buildQuestion(String word) {
-        log.info("buildQuestion for word: {}", word);
+    public PhoneticQuestion buildQuestionByWebAPI(String word) {
+        log.info("buildQuestionByWebAPI for word: {}", word);
         PhoneticQuestion question = new PhoneticQuestion();
         question.setWord(word);
 
@@ -72,6 +72,8 @@ public class PhoneticQuestionService {
                 .map(i -> i.url)
                 .limit(5)
                 .collect(Collectors.toList());
+
+        log.debug("images: {}", images);
 
         question.setPicsFullPaths(images.toArray(new String[images.size()]));
     }

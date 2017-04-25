@@ -78,11 +78,10 @@ public class SelfDictationService implements ISelfDictationService {
 
 	private PhoneticQuestion createQuestion(String w) {
 		return phoneticQuestionService.getQuestionFromDBWithImage(w)
-				.orElseGet(() -> phoneticQuestionService.buildQuestion(w));
+				.orElseGet(() -> phoneticQuestionService.buildQuestionByWebAPI(w));
 	}
 
 	private PhoneticPractice createPhoneticPracticeObject(Member member, List<PhoneticQuestion> questions) {
-		phoneticQuestionService.enrichVocabImage(questions);
 		Collections.shuffle(questions);
 		PhoneticPractice practice = new PhoneticPractice();
 		practice.setMember(member);
