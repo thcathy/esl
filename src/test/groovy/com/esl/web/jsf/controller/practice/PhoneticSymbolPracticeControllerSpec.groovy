@@ -124,6 +124,7 @@ public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
         controller.question = controller.question
         controller.answer = controller.question.getIPA()
         controller.submitAnswer()
+        await().until { memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get().lastUpdatedDate > allTimesScore.lastUpdatedDate }
         await().until { memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get().lastUpdatedDate > latestScore.lastUpdatedDate }
         MemberScore allTimesScore2 = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get()
         MemberScore latestScore2 = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get()
