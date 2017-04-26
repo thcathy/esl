@@ -239,8 +239,14 @@ public class PhoneticSymbolPracticeController extends ESLController {
 						ESLPracticeType.PhoneticSymbolPractice,
 						question,
 						isCorrect,
-						isCorrect ? selectedDifficulty.weight : 0))
+						memberScoreGot(isCorrect)))
 		);
+	}
+
+	private int memberScoreGot(boolean isCorrect) {
+		if (!isCorrect) return 0;
+
+		return (int) Math.ceil((selectedDifficulty.weight + selectedLevel.weight * 2.0)/3);
 	}
 
 	//	 ============== Setter / Getter ================//

@@ -149,6 +149,12 @@
 			<version>1.6.1</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility-groovy</artifactId>
+			<version>3.0.0-rc1</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>

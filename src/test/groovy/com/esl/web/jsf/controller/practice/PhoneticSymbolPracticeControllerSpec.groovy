@@ -22,6 +22,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 
+import static org.awaitility.Awaitility.await
+
 @SpringBootTest
 @ContextConfiguration(classes=ESLApplication.class)
 @ActiveProfiles("dev")
@@ -107,17 +109,51 @@ public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
         history2.totalCorrect == history.totalCorrect + 1
         allTimesScore.score > 0
         latestScore.score > 0
+    }
 
-        when: "submit correct answer again"
+    @Test
+    def "MemberScore update correct when answer correctly"(VocabDifficulty difficulty, PhoneticSymbols.Level level, int expectedScore) {
+        println "Test with difficulty $difficulty and Level $level"
+
+        when: "start practice and answer one question"
+        MemberScore allTimesScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get()
+        MemberScore latestScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get()
+        controller.selectedDifficulty = difficulty
+        controller.selectedLevel = level
+        controller.start()
+        controller.question = controller.question
         controller.answer = controller.question.getIPA()
         controller.submitAnswer()
-        sleep(100)
+        await().until { memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get().lastUpdatedDate > latestScore.lastUpdatedDate }
         MemberScore allTimesScore2 = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get()
         MemberScore latestScore2 = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get()
 
         then: "updated history"
-        allTimesScore2.score == allTimesScore.score + 1
-        latestScore2.score == latestScore.score + 1
+        allTimesScore2.score == allTimesScore.score + expectedScore
+        latestScore2.score == latestScore.score + expectedScore
+
+        where:
+        difficulty                  | level                         | expectedScore
+        VocabDifficulty.Beginner    | PhoneticSymbols.Level.Rookie  | 1
+        VocabDifficulty.Easy        | PhoneticSymbols.Level.Rookie  | 2
+        VocabDifficulty.Normal      | PhoneticSymbols.Level.Rookie  | 2
+        VocabDifficulty.Hard        | PhoneticSymbols.Level.Rookie  | 3
+        VocabDifficulty.VeryHard    | PhoneticSymbols.Level.Rookie  | 4
+        VocabDifficulty.Beginner    | PhoneticSymbols.Level.Low     | 3
+        VocabDifficulty.Easy        | PhoneticSymbols.Level.Low     | 3
+        VocabDifficulty.Normal      | PhoneticSymbols.Level.Low     | 4
+        VocabDifficulty.Hard        | PhoneticSymbols.Level.Low     | 5
+        VocabDifficulty.VeryHard    | PhoneticSymbols.Level.Low     | 6
+        VocabDifficulty.Beginner    | PhoneticSymbols.Level.Medium  | 5
+        VocabDifficulty.Easy        | PhoneticSymbols.Level.Medium  | 5
+        VocabDifficulty.Normal      | PhoneticSymbols.Level.Medium  | 6
+        VocabDifficulty.Hard        | PhoneticSymbols.Level.Medium  | 7
+        VocabDifficulty.VeryHard    | PhoneticSymbols.Level.Medium  | 8
+        VocabDifficulty.Beginner    | PhoneticSymbols.Level.Full    | 7
+        VocabDifficulty.Easy        | PhoneticSymbols.Level.Full    | 8
+        VocabDifficulty.Normal      | PhoneticSymbols.Level.Full    | 8
+        VocabDifficulty.Hard        | PhoneticSymbols.Level.Full    | 9
+        VocabDifficulty.VeryHard    | PhoneticSymbols.Level.Full    | 10
     }
 
     @Test

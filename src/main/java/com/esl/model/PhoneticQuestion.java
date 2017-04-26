@@ -243,7 +243,7 @@ public class PhoneticQuestion implements Serializable {
 	}
 
 	public boolean ipaEqual(String input) {
-		return IPA.replaceAll("ˋ", "").equals(input);
+		return IPA.replaceAll("ˋ", "").equals(input.replaceAll("ˋ", ""));
 	}
 	
 	public boolean wordEqual(String input) { 

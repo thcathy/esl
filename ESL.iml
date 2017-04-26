@@ -163,6 +163,8 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-reflect:1.6.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-api-easymock:1.6.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-api-support:1.6.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.awaitility:awaitility-groovy:3.0.0-rc1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.awaitility:awaitility:3.0.0-rc1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-all:2.4.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.spockframework:spock-core:1.1-groovy-2.4-rc-3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.spockframework:spock-spring:1.1-groovy-2.4-rc-3" level="project" />
