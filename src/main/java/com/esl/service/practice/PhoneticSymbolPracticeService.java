@@ -2,6 +2,7 @@ package com.esl.service.practice;
 
 import com.esl.entity.practice.MemberPracticeScoreCard;
 import com.esl.enumeration.ESLPracticeType;
+import com.esl.enumeration.VocabDifficulty;
 import com.esl.exception.IllegalParameterException;
 import com.esl.model.Member;
 import com.esl.model.PhoneticQuestion;
@@ -123,5 +124,9 @@ public class PhoneticSymbolPracticeService extends PhoneticPracticeService imple
 		}
 		logger.info("getPhonics: return symbols[" + symbols + "]");
 		return symbols;
+	}
+
+	public int calculateScore(VocabDifficulty difficulty, Level level) {
+		return (int) Math.ceil((difficulty.weight + level.weight * 2.0)/3);
 	}
 }

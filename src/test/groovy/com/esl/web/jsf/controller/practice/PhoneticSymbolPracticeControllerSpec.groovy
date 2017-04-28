@@ -8,9 +8,6 @@ import com.esl.dao.IMemberWordDAO
 import com.esl.dao.IPhoneticQuestionDAO
 import com.esl.dao.repository.MemberScoreRepository
 import com.esl.dao.repository.QuestionHistoryRepository
-import com.esl.entity.practice.MemberScore
-import com.esl.entity.practice.QuestionHistory
-import com.esl.enumeration.ESLPracticeType
 import com.esl.enumeration.VocabDifficulty
 import com.esl.model.Member
 import com.esl.model.PhoneticQuestion
@@ -19,10 +16,12 @@ import com.esl.web.model.UserSession
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.context.annotation.Bean
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
-
-import static org.awaitility.Awaitility.await
+import reactor.bus.EventBus
+import spock.mock.DetachedMockFactory
 
 @SpringBootTest
 @ContextConfiguration(classes=ESLApplication.class)
@@ -35,6 +34,17 @@ public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
     @Autowired IGradeDAO gradeDAO
     @Autowired QuestionHistoryRepository questionHistoryRepository
     @Autowired MemberScoreRepository memberScoreRepository
+    @Autowired EventBus eventBus
+
+    @TestConfiguration
+    static class MockConfig {
+        def detachedMockFactory = new DetachedMockFactory()
+
+        @Bean
+        EventBus eventBus() {
+            return detachedMockFactory.Mock(EventBus)
+        }
+    }
 
     Member tester
     UserSession session
@@ -88,73 +98,12 @@ public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
         when: "submit wrong answer"
         controller.answer = "abc"
         controller.submitAnswer()
-        sleep(100)
-        QuestionHistory history = questionHistoryRepository.findByMemberAndPracticeTypeAndWord(tester, ESLPracticeType.PhoneticSymbolPractice,firstQuestion.word).first()
-
-        then: "updated history"
-        history != null
-        println "First history: $history"
-
-        when: "submit correct answer on same question"
         controller.question = firstQuestion
         controller.answer = firstQuestion.getIPA()
         controller.submitAnswer()
-        sleep(100)
-        QuestionHistory history2 = questionHistoryRepository.findByMemberAndPracticeTypeAndWord(tester, ESLPracticeType.PhoneticSymbolPractice,firstQuestion.word).first()
-        MemberScore allTimesScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get()
-        MemberScore latestScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get()
 
         then: "updated history"
-        history2.totalAttempt == history.totalAttempt + 1
-        history2.totalCorrect == history.totalCorrect + 1
-        allTimesScore.score > 0
-        latestScore.score > 0
-    }
-
-    @Test
-    def "MemberScore update correct when answer correctly"(VocabDifficulty difficulty, PhoneticSymbols.Level level, int expectedScore) {
-        println "Test with difficulty $difficulty and Level $level"
-
-        when: "start practice and answer one question"
-        MemberScore allTimesScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get()
-        MemberScore latestScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get()
-        controller.selectedDifficulty = difficulty
-        controller.selectedLevel = level
-        controller.start()
-        controller.question = controller.question
-        controller.answer = controller.question.getIPA()
-        controller.submitAnswer()
-        await().until { memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get().lastUpdatedDate > allTimesScore.lastUpdatedDate }
-        await().until { memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get().lastUpdatedDate > latestScore.lastUpdatedDate }
-        MemberScore allTimesScore2 = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.allTimesMonth()).get()
-        MemberScore latestScore2 = memberScoreRepository.findByMemberAndScoreYearMonth(tester, MemberScore.thisMonth()).get()
-
-        then: "updated history"
-        allTimesScore2.score == allTimesScore.score + expectedScore
-        latestScore2.score == latestScore.score + expectedScore
-
-        where:
-        difficulty                  | level                         | expectedScore
-        VocabDifficulty.Beginner    | PhoneticSymbols.Level.Rookie  | 1
-        VocabDifficulty.Easy        | PhoneticSymbols.Level.Rookie  | 2
-        VocabDifficulty.Normal      | PhoneticSymbols.Level.Rookie  | 2
-        VocabDifficulty.Hard        | PhoneticSymbols.Level.Rookie  | 3
-        VocabDifficulty.VeryHard    | PhoneticSymbols.Level.Rookie  | 4
-        VocabDifficulty.Beginner    | PhoneticSymbols.Level.Low     | 3
-        VocabDifficulty.Easy        | PhoneticSymbols.Level.Low     | 3
-        VocabDifficulty.Normal      | PhoneticSymbols.Level.Low     | 4
-        VocabDifficulty.Hard        | PhoneticSymbols.Level.Low     | 5
-        VocabDifficulty.VeryHard    | PhoneticSymbols.Level.Low     | 6
-        VocabDifficulty.Beginner    | PhoneticSymbols.Level.Medium  | 5
-        VocabDifficulty.Easy        | PhoneticSymbols.Level.Medium  | 5
-        VocabDifficulty.Normal      | PhoneticSymbols.Level.Medium  | 6
-        VocabDifficulty.Hard        | PhoneticSymbols.Level.Medium  | 7
-        VocabDifficulty.VeryHard    | PhoneticSymbols.Level.Medium  | 8
-        VocabDifficulty.Beginner    | PhoneticSymbols.Level.Full    | 7
-        VocabDifficulty.Easy        | PhoneticSymbols.Level.Full    | 8
-        VocabDifficulty.Normal      | PhoneticSymbols.Level.Full    | 8
-        VocabDifficulty.Hard        | PhoneticSymbols.Level.Full    | 9
-        VocabDifficulty.VeryHard    | PhoneticSymbols.Level.Full    | 10
+        2 * eventBus.notify(*_)
     }
 
     @Test
