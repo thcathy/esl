@@ -164,9 +164,10 @@
                                     </p>
 
                                     <p:commandLink update="topHeader questionRegion historyRegion msgPanel"
-                                                     oncomplete="updateAfterSubmit()" id="eslSubmit"
-                                                     styleClass="w3-btn w3-deep-orange w3-margin-right w3-margin-bottom w3-large"
-                                                     action="#{phoneticSymbolPracticeController.submitAnswer}">
+                                                   oncomplete="updateAfterSubmit()" id="eslSubmit"
+                                                   styleClass="w3-btn w3-deep-orange w3-margin-right w3-margin-bottom w3-large"
+                                                   action="#{phoneticSymbolPracticeController.submitAnswer}"
+                                                   onclick="clickAndDisable(this)">
                                         <i class="fa fa-check" aria-hidden="true"></i> #{phonPracticeMsg.practiceSubmit}
                                     </p:commandLink>
                                     <p:ajaxStatus style="display: inline-block;">
@@ -177,7 +178,10 @@
                                     <input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{phoneticSymbolPracticeController.totalFullMark}" />
                                     <input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{phoneticSymbolPracticeController.totalMark}" />
                                     <span class="w3-right w3-medium">
-                                        <h:commandLink action="#{phoneticSymbolPracticeController.completePractice}" style="text-decoration: none;" styleClass="w3-hover-deep-orange"><h:outputText value="#{phonSymPracticeMsg.practiceComplete}" /></h:commandLink>
+                                        <h:commandLink action="#{phoneticSymbolPracticeController.completePractice}"
+                                                       style="text-decoration: none;" styleClass="w3-hover-deep-orange"
+                                                       onclick="clickAndDisable(this)">
+                                            <h:outputText value="#{phonSymPracticeMsg.practiceComplete}" /></h:commandLink>
                                     </span>
                                 </div>
 
