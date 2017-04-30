@@ -6,6 +6,7 @@ import com.esl.dao.IGradeDAO
 import com.esl.dao.IMemberDAO
 import com.esl.dao.IMemberWordDAO
 import com.esl.dao.IPhoneticQuestionDAO
+import com.esl.enumeration.VocabDifficulty
 import com.esl.model.Member
 import com.esl.web.model.UserSession
 import org.junit.Test
@@ -33,7 +34,7 @@ public class PhoneticPracticeG2ControllerSpec extends BaseSpec {
         phoneticPracticeG2Controller.userSession = session
 
         def phoneticPracticeController = Mock(PhoneticPracticeController)
-        phoneticPracticeController.getSelectedGrade() >> "K3"
+        phoneticPracticeController.selectedDifficulty >> VocabDifficulty.Normal
         phoneticPracticeG2Controller.phoneticPracticeController = phoneticPracticeController
     }
 
