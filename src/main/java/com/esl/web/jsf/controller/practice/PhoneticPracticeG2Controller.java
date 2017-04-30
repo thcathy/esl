@@ -4,8 +4,12 @@ import com.esl.dao.IGradeDAO;
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.IPhoneticQuestionDAO;
 import com.esl.dao.IPracticeResultDAO;
+import com.esl.enumeration.VocabDifficulty;
 import com.esl.exception.ESLSystemException;
-import com.esl.model.*;
+import com.esl.model.Grade;
+import com.esl.model.PhoneticQuestion;
+import com.esl.model.PracticeResult;
+import com.esl.model.TopResult;
 import com.esl.service.practice.IPhoneticPracticeService;
 import com.esl.service.practice.ITopResultService;
 import com.esl.service.practice.PhoneticQuestionService;
@@ -13,7 +17,6 @@ import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.jsf.controller.member.MemberWordController;
 import com.esl.web.model.practice.PhoneticQuestionHistory;
-import com.esl.web.util.LanguageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +24,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import javax.faces.context.FacesContext;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @Scope("session")
@@ -48,6 +52,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	private List<PhoneticQuestionHistory> history;
 	private int totalMark;
 	private int totalFullMark;
+	private VocabDifficulty selectedDifficulty;
 
 	// Supporting classes
 	@Resource private IGradeDAO gradeDAO;
@@ -112,6 +117,9 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	public boolean isTopLevel() {return topLevel;}
 	public void setTopLevel(boolean topLevel) {this.topLevel = topLevel;}
 
+	public VocabDifficulty getSelectedDifficulty() {return selectedDifficulty;}
+	public void setSelectedDifficulty(VocabDifficulty selectedDifficulty) {	this.selectedDifficulty = selectedDifficulty;}
+
 	public void setScoreBarCurrentMark(int foo) {}
 	public int getScoreBarCurrentMark() {
 		if (topLevel) {
@@ -135,16 +143,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	 * Use for jsp, To refresh all UI string to new language in result.jsp
 	 */
 	public String init() {
-		try {
-			logger.info("getInitResultLanguage: START");
-			Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-			logger.info("getInitResultLanguage: Format obj for :" + locale);
-
-			LanguageUtil.formatGradeDescription(currentGrade, locale).getDescription();
-			if (userSession.getMember() != null)
-				LanguageUtil.formatGradeDescription(userSession.getMember().getGrade(), locale);
-		} catch (Exception e) {
-			logger.warn("cannot init phonetic practice G2 result page", e);
+		if (question == null) {
 			return indexView;
 		}
 		return "";
@@ -152,25 +151,24 @@ public class PhoneticPracticeG2Controller extends ESLController {
 
 	// ============== Functions ================//
 	public String start() {
-		logger.info("start: selectedGrade: " + phoneticPracticeController.getSelectedGrade());
+		this.selectedDifficulty = phoneticPracticeController.getSelectedDifficulty();
+		logger.info("start: selectedGrade: {}", selectedDifficulty);
 
 		// clear all existing objects
 		clearController();
 
-		// get selected grade
-		currentGrade = gradeDAO.getGradeByTitle(phoneticPracticeController.getSelectedGrade());
-		if (currentGrade == null) return errorView;
+		if (selectedDifficulty == null) return errorView;
 
 		// get practice result
-		currentGradeResult = practiceResultDAO.getPracticeResult(userSession.getMember(), currentGrade, PracticeResult.PHONETICPRACTICE);
-		allGradeResult = practiceResultDAO.getPracticeResult(userSession.getMember(), null, PracticeResult.PHONETICPRACTICE);
-		if (currentGradeResult == null) {
-			// create a new result if not exist
-			logger.warn("start: practice result not found, create a new one.");
-			currentGradeResult = new PracticeResult(userSession.getMember(), currentGrade, PracticeResult.PHONETICPRACTICE);
-			practiceResultDAO.makePersistent(currentGradeResult);
-		}
-		topLevel = currentGrade.isNotTopGrade() && currentGrade.equals(userSession.getMember().getGrade());
+		//currentGradeResult = practiceResultDAO.getPracticeResult(userSession.getMember(), currentGrade, PracticeResult.PHONETICPRACTICE);
+		//allGradeResult = practiceResultDAO.getPracticeResult(userSession.getMember(), null, PracticeResult.PHONETICPRACTICE);
+//		if (currentGradeResult == null) {
+//			// create a new result if not exist
+//			logger.warn("start: practice result not found, create a new one.");
+//			currentGradeResult = new PracticeResult(userSession.getMember(), currentGrade, PracticeResult.PHONETICPRACTICE);
+//			practiceResultDAO.makePersistent(currentGradeResult);
+//		}
+//		topLevel = currentGrade.isNotTopGrade() && currentGrade.equals(userSession.getMember().getGrade());
 
 		// get a random question
 		getRandomQuestion();
@@ -179,14 +177,6 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	}
 
 	public String submitAnswer() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-
-		// Check practice have been create or not, if not created, call start
-		if (currentGrade == null) {
-			logger.info("submitAnswer: cannot find current grade");
-			return JSFUtil.redirectToJSF(start());
-		}
-
 		// Check answer
 		logger.info("submitAnswer: word[" + question.getWord() + "], answer[" + answer + "]");
 		int mark = 0;
@@ -204,31 +194,28 @@ public class PhoneticPracticeG2Controller extends ESLController {
 		if (history.size() > MAX_HISTORY) history.remove(history.size() - 1);		// remove too many history
 
 		// update practice result
-		logger.info("submitAnswer: update practice result");
-		currentGradeResult.setMark(currentGradeResult.getMark() + mark);
-		allGradeResult.setMark(allGradeResult.getMark() + mark);
-		practiceResultDAO.makePersistent(currentGradeResult);
-		practiceResultDAO.makePersistent(allGradeResult);
+		//logger.info("submitAnswer: update practice result");
+		//currentGradeResult.setMark(currentGradeResult.getMark() + mark);
+		//allGradeResult.setMark(allGradeResult.getMark() + mark);
+		//practiceResultDAO.makePersistent(currentGradeResult);
+		//practiceResultDAO.makePersistent(allGradeResult);
 
 		// update scoreCard
-		if (userSession.getMember() != null && mark > 0) {
-			phoneticPracticeService.updateScoreCard(userSession.getMember(), new java.sql.Date((new Date()).getTime()), true, question);
-		}
 
 		// Check isLevelup
-		if (topLevel && currentGrade.equals(userSession.getMember().getGrade()) && currentGradeResult.getMark() >= currentGrade.getPhoneticPracticeLvUpRequire()) {
-			Grade upperGrade = gradeDAO.getGradeByLevel(currentGrade.getLevel() + 1);
-			userSession.setMember(memberDAO.getMemberById(userSession.getMember().getId()));
-			logger.info("submitAnswer: LEVEL_UP: new grade:" + upperGrade);
-			if (upperGrade != null) {
-				userSession.getMember().setGrade(upperGrade);
-				memberDAO.makePersistent(userSession.getMember());
-				isLevelUp = true;
-				logger.info("submitAnswer: Member[" + userSession.getMember().getUserId() + "] level up to grade[" + userSession.getMember().getGrade() + "]");
-			}
-			isLevelUp = true;
-			return JSFUtil.redirectToJSF(completePractice());
-		}
+//		if (topLevel && currentGrade.equals(userSession.getMember().getGrade()) && currentGradeResult.getMark() >= currentGrade.getPhoneticPracticeLvUpRequire()) {
+//			Grade upperGrade = gradeDAO.getGradeByLevel(currentGrade.getLevel() + 1);
+//			userSession.setMember(memberDAO.getMemberById(userSession.getMember().getId()));
+//			logger.info("submitAnswer: LEVEL_UP: new grade:" + upperGrade);
+//			if (upperGrade != null) {
+//				userSession.getMember().setGrade(upperGrade);
+//				memberDAO.makePersistent(userSession.getMember());
+//				isLevelUp = true;
+//				logger.info("submitAnswer: Member[" + userSession.getMember().getUserId() + "] level up to grade[" + userSession.getMember().getGrade() + "]");
+//			}
+//			isLevelUp = true;
+//			return JSFUtil.redirectToJSF(completePractice());
+//		}
 
 		getRandomQuestion();
 
@@ -237,8 +224,6 @@ public class PhoneticPracticeG2Controller extends ESLController {
 
 
 	public String submitAndEnd() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-
 		// Check answer
 		logger.info("submitAnswer: word[" + question.getWord() + "], answer[" + answer + "]");
 		int mark = 0;
@@ -255,30 +240,30 @@ public class PhoneticPracticeG2Controller extends ESLController {
 		if (history.size() > MAX_HISTORY) history.remove(history.size() - 1);		// remove too many history
 
 		// update practice result
-		logger.info("submitAnswer: update practice result");
-		currentGradeResult.setMark(currentGradeResult.getMark() + mark);
-		allGradeResult.setMark(allGradeResult.getMark() + mark);
-		practiceResultDAO.makePersistent(currentGradeResult);
-		practiceResultDAO.makePersistent(allGradeResult);
+		//logger.info("submitAnswer: update practice result");
+		//currentGradeResult.setMark(currentGradeResult.getMark() + mark);
+		//allGradeResult.setMark(allGradeResult.getMark() + mark);
+		//practiceResultDAO.makePersistent(currentGradeResult);
+		//practiceResultDAO.makePersistent(allGradeResult);
 
 		// update scoreCard
-		if (userSession.getMember() != null && mark > 0) {
-			phoneticPracticeService.updateScoreCard(userSession.getMember(), new java.sql.Date((new Date()).getTime()), true, question);
-		}
+		//if (userSession.getMember() != null && mark > 0) {
+		//	phoneticPracticeService.updateScoreCard(userSession.getMember(), new java.sql.Date((new Date()).getTime()), true, question);
+		//}
 
 		// Check isLevelup
-		if (topLevel && currentGrade.equals(userSession.getMember().getGrade()) && currentGradeResult.getMark() >= currentGrade.getPhoneticPracticeLvUpRequire()) {
-			Grade upperGrade = gradeDAO.getGradeByLevel(currentGrade.getLevel() + 1);
-			userSession.setMember(memberDAO.getMemberById(userSession.getMember().getId()));
-			logger.info("submitAnswer: LEVEL_UP: new grade:" + upperGrade);
-			if (upperGrade != null) {
-				userSession.getMember().setGrade(upperGrade);
-				memberDAO.makePersistent(userSession.getMember());
-				isLevelUp = true;
-				logger.info("submitAnswer: Member[" + userSession.getMember().getUserId() + "] level up to grade[" + userSession.getMember().getGrade() + "]");
-			}
-			isLevelUp = true;
-		}
+		//if (topLevel && currentGrade.equals(userSession.getMember().getGrade()) && currentGradeResult.getMark() >= currentGrade.getPhoneticPracticeLvUpRequire()) {
+		//	Grade upperGrade = gradeDAO.getGradeByLevel(currentGrade.getLevel() + 1);
+		//	userSession.setMember(memberDAO.getMemberById(userSession.getMember().getId()));
+		//	logger.info("submitAnswer: LEVEL_UP: new grade:" + upperGrade);
+		//	if (upperGrade != null) {
+		//		userSession.getMember().setGrade(upperGrade);
+		//		memberDAO.makePersistent(userSession.getMember());
+		//		isLevelUp = true;
+		//		logger.info("submitAnswer: Member[" + userSession.getMember().getUserId() + "] level up to grade[" + userSession.getMember().getGrade() + "]");
+		//	}
+		//	isLevelUp = true;
+		//}
 		return JSFUtil.redirectToJSF(completePractice());
 	}
 
@@ -286,10 +271,10 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	public String completePractice() {
 		logger.info("completePractice: START");
 
-		Member member = userSession.getMember();
+//		Member member = userSession.getMember();
 		// retrieve ranking of the practiced grade
-		scoreRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Score, PracticeResult.PHONETICPRACTICE, member, currentGrade);
-		rateRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Rate, PracticeResult.PHONETICPRACTICE, member, currentGrade);
+		//scoreRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Score, PracticeResult.PHONETICPRACTICE, member, currentGrade);
+		//rateRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Rate, PracticeResult.PHONETICPRACTICE, member, currentGrade);
 
 		return resultView;
 	}
@@ -305,7 +290,7 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	}
 
 	public void getRandomQuestion() {
-		List<PhoneticQuestion> questions = phoneticQuestionDAO.getRandomQuestionsByGrade(currentGrade, 1, true);
+		List<PhoneticQuestion> questions = phoneticQuestionDAO.getRandomQuestionWithinRank(selectedDifficulty.rank, 1);
 		if (questions == null || questions.size() < 1) {
 			throw new ESLSystemException("getRandomQuestion: cannot get any question","getRandomQuestion: cannot get any question");
 		}
@@ -315,11 +300,11 @@ public class PhoneticPracticeG2Controller extends ESLController {
 		logger.info("getRandomQuestion: a random question: word[" + question.getWord() + "]");
 
 		// add full mark in practice result
-		currentGradeResult.setFullMark(currentGradeResult.getFullMark() + 1);
-		allGradeResult.setFullMark(allGradeResult.getFullMark() + 1);
-		practiceResultDAO.makePersistent(currentGradeResult);
-		practiceResultDAO.makePersistent(allGradeResult);
-		logger.info("getRandomQuestion: add full mark for practice result by 1");
+		//currentGradeResult.setFullMark(currentGradeResult.getFullMark() + 1);
+		//allGradeResult.setFullMark(allGradeResult.getFullMark() + 1);
+		//practiceResultDAO.makePersistent(currentGradeResult);
+		//practiceResultDAO.makePersistent(allGradeResult);
+		//logger.info("getRandomQuestion: add full mark for practice result by 1");
 
 		// set member word unsaved in controller map
 		memberWordController.getSavedQuestion().put(question, false);

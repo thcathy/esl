@@ -30,7 +30,7 @@
 				<h:outputFormat value="#{phonPracticeMsg.resultTitle}">
 					<f:param value="#{phoneticPracticeG2Controller.totalMark}"/>
 					<f:param value="#{phoneticPracticeG2Controller.totalFullMark}"/>
-					<f:param value="#{phoneticPracticeG2Controller.currentGrade.description}"/>
+					<f:param value="#{phonPracticeMsg[phoneticPracticeG2Controller.selectedDifficulty]}"/>
 				</h:outputFormat>
 				<p:ajaxStatus style="display: inline-block;">
 					<f:facet name="start">
@@ -118,14 +118,14 @@
 			</h:panelGroup>
 
 
-			<div class="w3-row w3-center w3-medium w3-border w3-margin-top">
+			<!--<div class="w3-row w3-center w3-medium w3-border w3-margin-top">
 				<div class="w3-half w3-panel">
 					<esl:topResult2 title="#{memberSumMsg.summaryScoreRanking}" topResult="#{phoneticPracticeG2Controller.scoreRanking}" />
 				</div>
 				<div class="w3-half w3-panel">
 					<esl:topResult2 title="#{memberSumMsg.summaryRatingRanking}" topResult="#{phoneticPracticeG2Controller.rateRanking}" />
 				</div>
-			</div>
+			</div>-->
 
 		</div>
 
