@@ -8,33 +8,39 @@ import com.esl.web.model.UserSession
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.context.annotation.Bean
 import org.springframework.test.context.ContextConfiguration
+import reactor.bus.EventBus
 import spock.lang.Specification
-
-import static org.mockito.BDDMockito.given
-import static org.mockito.Matchers.any
+import spock.mock.DetachedMockFactory
 
 @ContextConfiguration(classes=ESLApplication.class)
 @SpringBootTest
 public class SelfDictationControllerSpec extends Specification {
-    @Autowired public DictationEditController dictationEditController
-    @Autowired public SelfDictationController selfDictationController
-    @Autowired public IMemberDAO memberDAO
-    @Autowired public UserSession session
+    @Autowired DictationEditController dictationEditController
+    @Autowired SelfDictationController selfDictationController
+    @Autowired IMemberDAO memberDAO
+    @Autowired UserSession session
+    @Autowired JSFService jsfService
 
-    @MockBean private JSFService jsfService;
+    @TestConfiguration
+    static class MockConfig {
+        def detachedMockFactory = new DetachedMockFactory()
+
+        @Bean EventBus eventBus() { return detachedMockFactory.Mock(EventBus) }
+        @Bean JSFService jsfService() { return detachedMockFactory.Mock(JSFService) }
+    }
 
     @Test
     def "create dictation from self dictation without login, will redirect to login page with callback url"() {
-        given(jsfService.redirectTo(any())).willReturn(null);
-
         when:
         session.member = null
         selfDictationController.inputVocab = ["apple", "banana", "cat"]
         def result = selfDictationController.createDictation()
 
         then:
+        1 * jsfService.redirectTo(_)
         dictationEditController.vocabs == "apple,banana,cat"
         result == null
     }
