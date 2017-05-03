@@ -148,6 +148,7 @@ public class SummaryController extends ESLController {
 		}
 
 		logger.info("index: returned view:" + memberIndexView);
+		init();
 		return memberIndexView;
 	}
 
