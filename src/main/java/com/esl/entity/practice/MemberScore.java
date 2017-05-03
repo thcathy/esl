@@ -6,6 +6,7 @@ import com.esl.model.Member;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -74,6 +75,13 @@ public class MemberScore implements Serializable, IAuditable {
 
 	public static int allTimesMonth() {
 		return Integer.MAX_VALUE;
+	}
+
+	public static int lastSixMonth() {
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.MONTH, -6);
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMM");
+		return Integer.parseInt(dateformat.format(c.getTime()));
 	}
 
 	@Override

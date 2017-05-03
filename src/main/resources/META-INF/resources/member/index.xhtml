@@ -16,7 +16,7 @@
 	<ui:define name="mainDiv">
 		<div class="w3-container w3-green">
 			<h3>
-				<i class="fa fa-leaf" aria-hidden="true"></i>&#160;<h:outputFormat value="#{memberSumMsg.indexWelcome}"><f:param value="#{userSession.member.name}" /></h:outputFormat>
+				<i class="fa fa-leaf" aria-hidden="true"></i>&#160;<h:outputFormat value="#{memberSumMsg.indexWelcome}"><f:param value="#{userSession.member.name == null ? '' : userSession.member.name}" /></h:outputFormat>
 			</h3>
 		</div>
 

@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface QuestionHistoryRepository extends PagingAndSortingRepository<QuestionHistory, String> {
     List<QuestionHistory> findByMemberAndPracticeTypeAndWord(Member member, ESLPracticeType practiceType, String word);
+    List<QuestionHistory> findByMember(Member member);
 }

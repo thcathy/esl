@@ -1,6 +1,9 @@
 package com.esl.web.jsf.controller.member;
 
 import com.esl.dao.PracticeResultDAO;
+import com.esl.dao.repository.MemberScoreRepository;
+import com.esl.dao.repository.QuestionHistoryRepository;
+import com.esl.entity.practice.MemberScore;
 import com.esl.model.Member;
 import com.esl.model.PracticeResult;
 import com.esl.model.practice.PhoneticSymbols;
@@ -19,6 +22,7 @@ import com.esl.web.util.LanguageUtil;
 import com.esl.web.util.SelectItemUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 @Scope("session")
@@ -42,6 +48,9 @@ public class SummaryController extends ESLController {
 	@Resource(name="phoneticSymbolPracticeService") private IPhoneticSymbolPracticeService phoneticPracticeService;
 	@Resource private IDictationStatService dictationStatService;
 
+	@Autowired QuestionHistoryRepository questionHistoryRepository;
+	@Autowired MemberScoreRepository memberScoreRepository;
+
 	// UI display data
 	//private List<PracticeResultSummary> allSummary;
 	private PracticeResultSummary vocabSummary;
@@ -52,6 +61,9 @@ public class SummaryController extends ESLController {
 
 	//private int summaryIndex;
 	private PhoneticSymbols.Level selectedLevel = Level.Full;
+
+	private MemberScore allTimesScore;
+	private List<MemberScore> monthlyScore;
 
 
 	//	 ================= Function Getter =================== //
@@ -67,6 +79,9 @@ public class SummaryController extends ESLController {
 			return indexView;
 		}
 
+		CompletableFuture<List<MemberScore>> scoresFuture = memberScoreRepository.findByMemberAndScoreYearMonthGreaterThanEqual(userSession.getMember(), MemberScore.lastSixMonth());
+		scoresFuture.thenAccept(this::fillMemberScores);
+
 		// Get all required practice results and Top Result
 		vocabSummary = practiceResultService.getPracticeResultSummary(userSession.getMember(), PracticeResult.PHONETICPRACTICE, null);
 		phonicsSummary = practiceResultService.getPracticeResultSummary(userSession.getMember(), PracticeResult.PHONETICSYMBOLPRACTICE, selectedLevel);
@@ -74,33 +89,41 @@ public class SummaryController extends ESLController {
 		phonPracticeSummary = phoneticPracticeService.getPhoneticPracticeSummary(userSession.getMember());
 		dictationSummary = dictationStatService.getDictationSummary(userSession.getMember());
 
-		LanguageUtil.formatGradeDescription(userSession.getMember().getGrade(), getLocale());
-		LanguageUtil.formatGradeDescription(vocabPracticeSummary.getExistingGrade(), getLocale());
-		LanguageUtil.formatGradeDescription(vocabPracticeSummary.getFavourGrade(), getLocale());
-		if (vocabPracticeSummary.getOverallPracticeResult()!=null) LanguageUtil.formatGradeDescription(vocabPracticeSummary.getOverallPracticeResult().getGrade(), getLocale());
-		if (phonPracticeSummary.getFavourPracticeResult()!=null) LanguageUtil.formatGradeDescription(phonPracticeSummary.getFavourPracticeResult().getGrade(), getLocale());
-		if (phonPracticeSummary.getOverallPracticeResult()!=null) LanguageUtil.formatGradeDescription(phonPracticeSummary.getOverallPracticeResult().getGrade(), getLocale());
-		if (phonPracticeSummary.getFavourPracticeResult()!=null) {
-			String favourPracticeResultLevel = phonPracticeSummary.getFavourPracticeResult().getLevel();
-			if (favourPracticeResultLevel!= null && !"".equals(favourPracticeResultLevel))	phonPracticeSummary.getFavourPracticeResult().setLevelTitle(LanguageUtil.getLevelTitle(Level.valueOf(favourPracticeResultLevel), getLocale()));
-		}
-		if (phonPracticeSummary.getOverallPracticeResult()!=null) {
-			String overallPracticeResultLevel = phonPracticeSummary.getOverallPracticeResult().getLevel();
-			if (overallPracticeResultLevel!=null && !"".equals(overallPracticeResultLevel)) phonPracticeSummary.getOverallPracticeResult().setLevelTitle(LanguageUtil.getLevelTitle(Level.valueOf(overallPracticeResultLevel),getLocale()));
-		}
+//		LanguageUtil.formatGradeDescription(userSession.getMember().getGrade(), getLocale());
+//		LanguageUtil.formatGradeDescription(vocabPracticeSummary.getExistingGrade(), getLocale());
+//		LanguageUtil.formatGradeDescription(vocabPracticeSummary.getFavourGrade(), getLocale());
+//		if (vocabPracticeSummary.getOverallPracticeResult()!=null) LanguageUtil.formatGradeDescription(vocabPracticeSummary.getOverallPracticeResult().getGrade(), getLocale());
+//		if (phonPracticeSummary.getFavourPracticeResult()!=null) LanguageUtil.formatGradeDescription(phonPracticeSummary.getFavourPracticeResult().getGrade(), getLocale());
+//		if (phonPracticeSummary.getOverallPracticeResult()!=null) LanguageUtil.formatGradeDescription(phonPracticeSummary.getOverallPracticeResult().getGrade(), getLocale());
+//		if (phonPracticeSummary.getFavourPracticeResult()!=null) {
+//			String favourPracticeResultLevel = phonPracticeSummary.getFavourPracticeResult().getLevel();
+//			if (favourPracticeResultLevel!= null && !"".equals(favourPracticeResultLevel))	phonPracticeSummary.getFavourPracticeResult().setLevelTitle(LanguageUtil.getLevelTitle(Level.valueOf(favourPracticeResultLevel), getLocale()));
+//		}
+//		if (phonPracticeSummary.getOverallPracticeResult()!=null) {
+//			String overallPracticeResultLevel = phonPracticeSummary.getOverallPracticeResult().getLevel();
+//			if (overallPracticeResultLevel!=null && !"".equals(overallPracticeResultLevel)) phonPracticeSummary.getOverallPracticeResult().setLevelTitle(LanguageUtil.getLevelTitle(Level.valueOf(overallPracticeResultLevel),getLocale()));
+//		}
 
 		// format chart
-		ChartUtil.setPracticeSummaryCharts(vocabSummary, getLocale());
-		ChartUtil.setPracticeSummaryCharts(phonicsSummary, getLocale());
+//		ChartUtil.setPracticeSummaryCharts(vocabSummary, getLocale());
+//		ChartUtil.setPracticeSummaryCharts(phonicsSummary, getLocale());
 
 		// format TopResult
-		LanguageUtil.formatTopResult(vocabSummary.getRateRanking(), getLocale());
-		LanguageUtil.formatTopResult(vocabSummary.getScoreRanking(), getLocale());
-		LanguageUtil.formatTopResult(phonicsSummary.getRateRanking(), getLocale());
-		LanguageUtil.formatTopResult(phonicsSummary.getScoreRanking(), getLocale());
+//		LanguageUtil.formatTopResult(vocabSummary.getRateRanking(), getLocale());
+//		LanguageUtil.formatTopResult(vocabSummary.getScoreRanking(), getLocale());
+//		LanguageUtil.formatTopResult(phonicsSummary.getRateRanking(), getLocale());
+//		LanguageUtil.formatTopResult(phonicsSummary.getScoreRanking(), getLocale());
 
-		logger.info("getInitLanguage: END");
+		logger.info("init: END");
 		return "";
+	}
+
+	private void fillMemberScores(List<MemberScore> memberScores) {
+		memberScores.sort(Comparator.comparingInt(MemberScore::getScoreYearMonth).reversed());
+		if (memberScores.size() > 1) {
+			allTimesScore = memberScores.get(0);
+			monthlyScore = memberScores.subList(1, memberScores.size());
+		}
 	}
 
 	public List<SelectItem> getLevels() { return SelectItemUtil.getPhoneticSymobolPracticeLevels(); }
@@ -167,6 +190,12 @@ public class SummaryController extends ESLController {
 
 	public DictationSummary getDictationSummary() {return dictationSummary;}
 	public void setDictationSummary(DictationSummary dictationSummary) {this.dictationSummary = dictationSummary;}
+
+	public MemberScore getAllTimesScore() {	return allTimesScore;}
+	public void setAllTimesScore(MemberScore allTimesScore) {this.allTimesScore = allTimesScore;}
+
+	public List<MemberScore> getMonthlyScore() {return monthlyScore;}
+	public void setMonthlyScore(List<MemberScore> monthlyScore) {this.monthlyScore = monthlyScore;	}
 
 	public int getMinFullMark() {return PracticeResultDAO.MIN_FULL_MARK; }
 

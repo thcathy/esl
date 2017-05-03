@@ -1,5 +1,6 @@
 package com.esl.service;
 
+import com.esl.util.JSFUtil;
 import org.springframework.stereotype.Service;
 
 import javax.faces.context.ExternalContext;
@@ -13,5 +14,9 @@ public class JSFService {
         ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
         extContext.redirect(url);
         return null;
+    }
+
+    public String redirectToJSF(String link) {
+        return JSFUtil.redirectToJSF(link);
     }
 }
