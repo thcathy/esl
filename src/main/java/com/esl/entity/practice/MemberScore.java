@@ -5,6 +5,7 @@ import com.esl.model.Member;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,6 +66,10 @@ public class MemberScore implements Serializable, IAuditable {
 	public java.util.Date getLastUpdatedDate() {return lastUpdatedDate;}
 	public void setLastUpdatedDate(java.util.Date lastUpdatedDate) {this.lastUpdatedDate = lastUpdatedDate;}
 
+	public Date getYearMonthAsDate() throws ParseException {
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMM");
+		return dateformat.parse(String.valueOf(scoreYearMonth));
+	}
 
 	// ********************** Common Methods ********************** //
 

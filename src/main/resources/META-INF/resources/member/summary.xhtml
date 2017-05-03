@@ -8,18 +8,43 @@
 <!-- All phonetic Practice result -->
 <h:form id="mainForm">
 	<div class="w3-row w3-margin-bottom w3-large">
-		<a href="javascript:void(0)" onclick="openW3Tab(event, 'vocabSummaryTab');">
-			<div class="w3-third w3-tablink w3-bottombar w3-border-green w3-hover-light-grey w3-padding">#{summaryController.vocabSummary.scoreRanking.practiceTitle}</div>
-		</a>
-		<a href="javascript:void(0)" onclick="openW3Tab(event, 'phonicsSummaryTab');">
-			<div class="w3-third w3-tablink w3-bottombar w3-hover-light-grey w3-padding">#{summaryController.phonicsSummary.scoreRanking.practiceTitle}</div>
+		<a href="javascript:void(0)" onclick="openW3Tab(event, 'scoreSummaryTab');">
+			<div class="w3-half w3-tablink w3-bottombar w3-border-green w3-hover-light-grey w3-padding">#{memberSumMsg.myStars}</div>
 		</a>
 		<a href="javascript:void(0)" onclick="openW3Tab(event, 'dictationSummaryTab');">
-			<div class="w3-third w3-tablink w3-bottombar w3-hover-light-grey w3-padding">#{generalMsg.dictation}</div>
+			<div class="w3-half w3-tablink w3-bottombar w3-hover-light-grey w3-padding">#{generalMsg.dictation}</div>
 		</a>
 	</div>
 
-	<div id="vocabSummaryTab" class="w3-container w3-tab w3-padding-0">
+	<div id="scoreSummaryTab" class="w3-container w3-tab w3-padding-0">
+		<div class="w3-row w3-margin-bottom">
+
+				<table class="w3-table w3-bordered">
+					<tr>
+						<th>#{memberSumMsg.allTimes}</th>
+						<th><i class="fa fa-star" aria-hidden="true"></i> #{summaryController.allTimesScore==null ? 0 : summaryController.allTimesScore.score}</th>
+					</tr>
+					<ui:repeat value="#{summaryController.monthlyScore}" var="s">
+						<tr>
+							<td><h:outputText value="#{s.yearMonthAsDate}"><f:convertDateTime pattern="MMM yyyy" timeZone="Asia/Hong_Kong" /></h:outputText></td>
+							<td><i class="fa fa-star" aria-hidden="true"></i> #{s.score}</td>
+						</tr>
+					</ui:repeat>
+				</table>
+
+			<!--<div class="w3-half w3-center">
+				<h:panelGroup rendered="#{summaryController.vocabSummary.overallPracticeResult.fullMark > 0}">
+					&lt;!&ndash; Google Charts &ndash;&gt;
+					<img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=88CCCC&amp;chs=350x100&amp;#{summaryController.vocabSummary.scoreChartRS}" />
+					<br /><span>#{memberSumMsg.PhoneticPracticeChartMarks}</span>
+					<br /><img src="http://chart.apis.google.com/chart?cht=p3&amp;chco=EEAA88&amp;chs=350x100&amp;#{summaryController.vocabSummary.countChartRS}" />
+					<br /><span>#{memberSumMsg.PhoneticPracticeChartTotalPracties}</span>
+				</h:panelGroup>
+			</div>-->
+		</div>
+	</div>
+
+	<div id="vocabSummaryTab" class="w3-container w3-padding-0" style="display:none;">
 		<div class="w3-row w3-margin-bottom">
 			<div class="w3-half">
 				<table class="w3-table-all w3-margin-bottom">
@@ -84,7 +109,7 @@
 		</div>
 	</div>
 
-	<div id="phonicsSummaryTab" class="w3-container w3-tab w3-padding-0" style="display:none;">
+	<div id="phonicsSummaryTab" class="w3-container w3-padding-0" style="display:none;">
 		<h:form id="summary">
 			<div class="w3-row w3-margin-bottom">
 				<div class="w3-half">

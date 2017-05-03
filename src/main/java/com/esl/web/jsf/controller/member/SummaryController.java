@@ -119,6 +119,8 @@ public class SummaryController extends ESLController {
 	}
 
 	private void fillMemberScores(List<MemberScore> memberScores) {
+		logger.info("{} MemberScore found", memberScores.size());
+
 		memberScores.sort(Comparator.comparingInt(MemberScore::getScoreYearMonth).reversed());
 		if (memberScores.size() > 1) {
 			allTimesScore = memberScores.get(0);
