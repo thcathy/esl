@@ -8,3 +8,4 @@ Thumbs.db
 # IntelliJ
 .idea
 .iml
+*.iml
