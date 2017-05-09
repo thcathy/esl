@@ -4,9 +4,11 @@ import com.esl.dao.IGradeDAO;
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.IPracticeResultDAO;
 import com.esl.entity.event.UpdatePracticeHistoryEvent;
+import com.esl.entity.practice.MemberScoreRanking;
 import com.esl.enumeration.ESLPracticeType;
 import com.esl.enumeration.VocabDifficulty;
 import com.esl.model.*;
+import com.esl.service.history.RankingService;
 import com.esl.service.practice.IPhoneticPracticeService;
 import com.esl.service.practice.ITopResultService;
 import com.esl.service.practice.PhoneticPracticeService;
@@ -52,6 +54,7 @@ public class PhoneticPracticeController extends ESLController {
 	private boolean isLevelUp = false;
 	private List<VocabDifficulty> allDifficulty = Arrays.asList(VocabDifficulty.values());
 	private VocabDifficulty selectedDifficulty;
+	private MemberScoreRanking memberScoreRanking;
 
 	// Supporting classes
 	@Resource private IMemberDAO memberDAO;
@@ -65,6 +68,7 @@ public class PhoneticPracticeController extends ESLController {
 	@Resource private MemberWordController memberWordController = null;
 	@Autowired EventBus eventBus;
 	@Autowired PhoneticQuestionService phoneticQuestionService;
+	@Autowired RankingService rankingService;
 
 	// ============== Constructor ================//
 	public PhoneticPracticeController() {}
@@ -113,6 +117,8 @@ public class PhoneticPracticeController extends ESLController {
 	public int getStarEarned() {
 		return selectedDifficulty.weight * practice.getMark();
 	}
+
+	public MemberScoreRanking getMemberScoreRanking() { return memberScoreRanking; }
 
 	// ============== Functions ================//
 	public String initCheck() {
