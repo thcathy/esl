@@ -3,7 +3,6 @@ package com.esl.web.jsf.controller.member
 import com.esl.BaseSpec
 import com.esl.ESLApplication
 import com.esl.dao.IGradeDAO
-import com.esl.dao.IMemberDAO
 import com.esl.dao.IMemberWordDAO
 import com.esl.dao.IPhoneticQuestionDAO
 import com.esl.entity.practice.MemberScore
@@ -20,7 +19,6 @@ import reactor.bus.EventBus
 @SpringBootTest
 public class SummaryControllerSpec extends BaseSpec {
     @Autowired SummaryController controller
-    @Autowired IMemberDAO memberDAO
     @Autowired IMemberWordDAO memberWordDAO
     @Autowired IPhoneticQuestionDAO phoneticQuestionDAO
     @Autowired IGradeDAO gradeDAO

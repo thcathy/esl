@@ -3,7 +3,6 @@ package com.esl.web.jsf.controller.practice
 import com.esl.BaseSpec
 import com.esl.ESLApplication
 import com.esl.dao.IGradeDAO
-import com.esl.dao.IMemberDAO
 import com.esl.dao.IMemberWordDAO
 import com.esl.dao.IPhoneticQuestionDAO
 import com.esl.dao.repository.MemberScoreRepository
@@ -28,7 +27,6 @@ import spock.mock.DetachedMockFactory
 @ActiveProfiles("dev")
 public class PhoneticSymbolPracticeControllerSpec extends BaseSpec {
     @Autowired PhoneticSymbolPracticeController controller
-    @Autowired IMemberDAO memberDAO
     @Autowired IMemberWordDAO memberWordDAO
     @Autowired IPhoneticQuestionDAO phoneticQuestionDAO
     @Autowired IGradeDAO gradeDAO

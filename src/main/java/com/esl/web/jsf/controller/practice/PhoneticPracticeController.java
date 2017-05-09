@@ -16,7 +16,6 @@ import com.esl.web.jsf.controller.AuthenticationController;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.jsf.controller.member.MemberWordController;
 import com.esl.web.model.UserSession;
-import com.esl.web.util.LanguageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,10 @@ import reactor.bus.EventBus;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Controller
 @Scope("session")
@@ -109,40 +110,8 @@ public class PhoneticPracticeController extends ESLController {
 	public VocabDifficulty getSelectedDifficulty() { return selectedDifficulty; }
 	public void setSelectedDifficulty(VocabDifficulty selectedDifficulty) {	this.selectedDifficulty = selectedDifficulty; }
 
-	//	 ============== Getter Functions ================//
-
-	// Return grades available to the user
-	@Transactional
-	public List<SelectItem> getAvailableGrades() {
-		Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-		String userId = "";
-
-		if (authenticationController.isAuthenticated()) userId = userSession.getMember().getUserId();
-		List<Grade> allGrades = gradeDAO.getAll();
-		List<Grade> availableGrades = phoneticPracticeService.getUserAvailableGrades(userId);
-		List<SelectItem> items = new ArrayList<SelectItem>(allGrades.size());
-
-		for (Grade grade : allGrades) {
-			LanguageUtil.formatGradeDescription(grade, locale);
-			SelectItem item = new SelectItem(grade.getTitle(), grade.getDescription());
-			if (!availableGrades.contains(grade)) item.setDisabled(true);
-			items.add(item);
-		}
-		logger.info("getAvailableGrades: returned items size: " + items.size());
-		return items;
-	}
-
-	/**
-	 * Use for jsp, To refresh all UI string to new language in result.jsp
-	 */
-	public String getInitResultLanguage() {
-		logger.info("getInitResultLanguage: START");
-		Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-		logger.info("getInitResultLanguage: Format obj for :" + locale);
-
-		LanguageUtil.formatGradeDescription(practice.getGrade(), locale).getDescription();
-		if (userSession.getMember() != null) LanguageUtil.formatGradeDescription(userSession.getMember().getGrade(), locale);
-		return "";
+	public int getStarEarned() {
+		return selectedDifficulty.weight * practice.getMark();
 	}
 
 	// ============== Functions ================//

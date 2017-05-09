@@ -17,4 +17,10 @@ public interface MemberScoreRepository extends PagingAndSortingRepository<Member
 
     @Async
     CompletableFuture<List<MemberScore>> findByMemberAndScoreYearMonthGreaterThanEqual(Member member, int greaterEqualScoreYearMonth);
+
+    @Async
+    CompletableFuture<List<MemberScore>> findTop5ByScoreYearMonthAndScoreGreaterThanEqual(int scoreYearMonth, int minScore);
+
+    @Async
+    CompletableFuture<List<MemberScore>> findTop5ByScoreYearMonthAndScoreLessThanEqual(int scoreYearMonth, int minScore);
 }

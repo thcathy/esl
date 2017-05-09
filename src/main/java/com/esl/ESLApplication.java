@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
@@ -24,6 +25,7 @@ import java.util.concurrent.Executors;
 @ImportResource("classpath:com/esl/ESL-context.xml")
 @PropertySource("classpath:auth0.properties")
 @EnableScheduling
+@EnableAsync
 public class ESLApplication {
 
     @Bean

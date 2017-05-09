@@ -3,7 +3,6 @@ package com.esl.web.jsf.controller.practice
 import com.esl.BaseSpec
 import com.esl.ESLApplication
 import com.esl.dao.IGradeDAO
-import com.esl.dao.IMemberDAO
 import com.esl.dao.IMemberWordDAO
 import com.esl.dao.IPhoneticQuestionDAO
 import com.esl.entity.event.UpdatePracticeHistoryEvent
@@ -29,7 +28,6 @@ public class PhoneticPracticeG2ControllerSpec extends BaseSpec {
     @Autowired
     @Qualifier("phoneticPracticeG2Controller")
     PhoneticPracticeG2Controller controller
-    @Autowired IMemberDAO memberDAO
     @Autowired IMemberWordDAO memberWordDAO
     @Autowired IPhoneticQuestionDAO phoneticQuestionDAO
     @Autowired IGradeDAO gradeDAO
