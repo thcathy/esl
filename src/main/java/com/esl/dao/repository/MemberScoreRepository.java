@@ -1,15 +1,16 @@
 package com.esl.dao.repository;
 
 
-import com.esl.entity.practice.MemberScore;
-import com.esl.model.Member;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
+import com.esl.entity.practice.MemberScore;
+import com.esl.model.Member;
 
 @Repository
 public interface MemberScoreRepository extends PagingAndSortingRepository<MemberScore, String> {
@@ -23,4 +24,7 @@ public interface MemberScoreRepository extends PagingAndSortingRepository<Member
 
     @Async
     CompletableFuture<List<MemberScore>> findTop5ByScoreYearMonthAndScoreLessThanEqual(int scoreYearMonth, int minScore);
+
+    @Async
+    CompletableFuture<Long> countByScoreYearMonthAndScoreGreaterThan(int scoreYearMonth, int score);
 }

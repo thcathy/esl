@@ -1,13 +1,35 @@
 package com.esl.web.jsf.controller.practice;
 
-import com.esl.dao.IGradeDAO;
+import reactor.bus.Event;
+import reactor.bus.EventBus;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.IPracticeResultDAO;
 import com.esl.entity.event.UpdatePracticeHistoryEvent;
+import com.esl.entity.practice.MemberScore;
 import com.esl.entity.practice.MemberScoreRanking;
 import com.esl.enumeration.ESLPracticeType;
 import com.esl.enumeration.VocabDifficulty;
-import com.esl.model.*;
+import com.esl.model.Member;
+import com.esl.model.PhoneticPractice;
+import com.esl.model.PhoneticQuestion;
 import com.esl.service.history.RankingService;
 import com.esl.service.practice.IPhoneticPracticeService;
 import com.esl.service.practice.ITopResultService;
@@ -18,22 +40,8 @@ import com.esl.web.jsf.controller.AuthenticationController;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.jsf.controller.member.MemberWordController;
 import com.esl.web.model.UserSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import reactor.bus.Event;
-import reactor.bus.EventBus;
 
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import static com.esl.service.practice.IPhoneticPracticeService.SAVE_HISTORY_COMPLETED;
 
 @Controller
 @Scope("session")
@@ -46,22 +54,24 @@ public class PhoneticPracticeController extends ESLController {
 	private String resultView = viewPrefix + "result";
 
 	// UI Data
-	private String selectedGrade = "";
+	//private String selectedGrade = "";
 	private String answer = "";
-	private TopResult scoreRanking;
-	private TopResult rateRanking;
-	private PracticeResult currentGradeResult;
+	//private TopResult scoreRanking;
+	//private TopResult rateRanking;
+	//private PracticeResult currentGradeResult;
 	private boolean isLevelUp = false;
 	private List<VocabDifficulty> allDifficulty = Arrays.asList(VocabDifficulty.values());
 	private VocabDifficulty selectedDifficulty;
-	private MemberScoreRanking memberScoreRanking;
+	private MemberScoreRanking thisMonthRanking;
+	private MemberScoreRanking allTimesRanking;
+
 
 	// Supporting classes
 	@Resource private IMemberDAO memberDAO;
 	@Resource private IPhoneticPracticeService phoneticPracticeService;
 	@Resource private IPracticeResultDAO practiceResultDAO;
 	@Resource private ITopResultService topResultService;
-	@Resource private IGradeDAO gradeDAO;
+	//@Resource private IGradeDAO gradeDAO;
 
 	private PhoneticPractice practice;
 	@Resource private AuthenticationController authenticationController = null;
@@ -80,15 +90,15 @@ public class PhoneticPracticeController extends ESLController {
 	public void setPracticeResultDAO(IPracticeResultDAO practiceResultDAO) {this.practiceResultDAO = practiceResultDAO;	}
 	public void setTopResultService(ITopResultService topResultService) {this.topResultService = topResultService; }
 	public void setMemberWordController(MemberWordController memberWordController) {this.memberWordController = memberWordController; }
-	public void setGradeDAO(IGradeDAO gradeDAO) {this.gradeDAO = gradeDAO;}
+	//public void setGradeDAO(IGradeDAO gradeDAO) {this.gradeDAO = gradeDAO;}
 
 	@Override
 	public UserSession getUserSession() {return userSession;}
 	@Override
 	public void setUserSession(UserSession userSession) {this.userSession = userSession;}
 
-	public String getSelectedGrade() {	return selectedGrade;}
-	public void setSelectedGrade(String selectedGrade) {this.selectedGrade = selectedGrade;	}
+	//public String getSelectedGrade() {	return selectedGrade;}
+	//public void setSelectedGrade(String selectedGrade) {this.selectedGrade = selectedGrade;	}
 
 	public String getAnswer() {	return answer;	}
 	public void setAnswer(String answer) {this.answer = answer;}
@@ -99,14 +109,14 @@ public class PhoneticPracticeController extends ESLController {
 	public PhoneticPractice getPractice() {	return practice;}
 	public void setPractice(PhoneticPractice practice) {this.practice = practice;}
 
-	public TopResult getRateRanking() {	return rateRanking;}
-	public void setRateRanking(TopResult rateRanking) {	this.rateRanking = rateRanking;	}
+	//public TopResult getRateRanking() {	return rateRanking;}
+	//public void setRateRanking(TopResult rateRanking) {	this.rateRanking = rateRanking;	}
 
-	public TopResult getScoreRanking() {return scoreRanking;}
-	public void setScoreRanking(TopResult scoreRanking) {this.scoreRanking = scoreRanking;	}
+	//public TopResult getScoreRanking() {return scoreRanking;}
+	//public void setScoreRanking(TopResult scoreRanking) {this.scoreRanking = scoreRanking;	}
 
-	public PracticeResult getCurrentGradeResult() {	return currentGradeResult;	}
-	public void setCurrentGradeResult(PracticeResult currentGradeResult) {	this.currentGradeResult = currentGradeResult;}
+	//public PracticeResult getCurrentGradeResult() {	return currentGradeResult;	}
+	//public void setCurrentGradeResult(PracticeResult currentGradeResult) {	this.currentGradeResult = currentGradeResult;}
 
 	public List<VocabDifficulty> getAllDifficulty() { return allDifficulty; }
 	public void setAllDifficulty(List<VocabDifficulty> allDifficulty) { this.allDifficulty = allDifficulty;	}
@@ -118,7 +128,9 @@ public class PhoneticPracticeController extends ESLController {
 		return selectedDifficulty.weight * practice.getMark();
 	}
 
-	public MemberScoreRanking getMemberScoreRanking() { return memberScoreRanking; }
+	public MemberScoreRanking getThisMonthRanking() {return thisMonthRanking;}
+
+	public MemberScoreRanking getAllTimesRanking() {return allTimesRanking;}
 
 	// ============== Functions ================//
 	public String initCheck() {
@@ -140,7 +152,7 @@ public class PhoneticPracticeController extends ESLController {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, bundle.getString("practiceCompleteLastPractice"), null));
 			return practiceView;
 		}
-		logger.info("start: selectedGrade: " + selectedGrade);
+	//	logger.info("start: selectedGrade: " + selectedGrade);
 		logger.info("start: selectedDifficulty: {}", selectedDifficulty);
 		practice = phoneticPracticeService.generatePractice(selectedDifficulty);
 
@@ -180,7 +192,7 @@ public class PhoneticPracticeController extends ESLController {
 		{
 			result = completedPractice();
 			logger.info("submitAnswer: completedPractice returned code: " + result);
-			if (PhoneticPracticeService.SAVE_HISTORY_COMPLETED.equals(result)) {
+			if (SAVE_HISTORY_COMPLETED.equals(result)) {
 				return JSFUtil.redirectToJSF(resultView);
 			}
 			return JSFUtil.redirectToJSF(errorView);
@@ -211,26 +223,31 @@ public class PhoneticPracticeController extends ESLController {
 	// process when completing the practice
 	private String completedPractice() {
 		Member member = userSession.getMember();
-		String result = phoneticPracticeService.saveHistory(practice);
-		Grade grade = practice.getGrade();
+		//String result = phoneticPracticeService.saveHistory(practice);
+		//Grade grade = practice.getGrade();
 
 		if (member != null) {
+			CompletableFuture<MemberScoreRanking> thisMonth = rankingService.myScoreRanking(member, MemberScore.thisMonth());
+			CompletableFuture<MemberScoreRanking> allTimes = rankingService.myScoreRanking(member, MemberScore.allTimesMonth());
+			thisMonthRanking = thisMonth.join();
+			allTimesRanking = allTimes.join();
+
 			// retrieve ranking of the practiced grade
-			scoreRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Score, PracticeResult.PHONETICPRACTICE, member, grade);
-			rateRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Rate, PracticeResult.PHONETICPRACTICE, member, grade);
+			//scoreRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Score, PracticeResult.PHONETICPRACTICE, member, grade);
+			//rateRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Rate, PracticeResult.PHONETICPRACTICE, member, grade);
 
 			// Check Level Up
-			currentGradeResult = practiceResultDAO.getPracticeResult(member, grade, PracticeResult.PHONETICPRACTICE);
-			String checkLevelUp = phoneticPracticeService.checkLevelUp(member, practice, currentGradeResult);
-			logger.info("completedPractice: phoneticPracticeService.checkLevelUp returned code: " + checkLevelUp);
+			//currentGradeResult = practiceResultDAO.getPracticeResult(member, grade, PracticeResult.PHONETICPRACTICE);
+			//String checkLevelUp = phoneticPracticeService.checkLevelUp(member, practice, currentGradeResult);
+			//logger.info("completedPractice: phoneticPracticeService.checkLevelUp returned code: " + checkLevelUp);
 
-			if (PhoneticPracticeService.LEVEL_UP.equals(checkLevelUp))
-				isLevelUp = true;
-			else
-				isLevelUp = false;
+			//if (PhoneticPracticeService.LEVEL_UP.equals(checkLevelUp))
+			//	isLevelUp = true;
+			//else
+			//	isLevelUp = false;
 		}
 
-		return result;
+		return SAVE_HISTORY_COMPLETED;
 	}
 
 }
