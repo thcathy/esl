@@ -34,7 +34,7 @@ public class CollectionUtil {
             log.info("lower list is less than {}", minSize);
             subResults.addAll(lowerList);
 
-            int index = size - subResults.size();
+            int index = size - subResults.size() - 1;
             if (index > higherSize) index = higherSize;
             log.info("get highList index {}", index);
             subResults.add(base);
@@ -43,7 +43,7 @@ public class CollectionUtil {
         // higher is less than minreq
         else if (higherSize < minSize) {
             log.info("higher list is less than {}", minSize);
-            int index = size - subResults.size();
+            int index = size - subResults.size() - 1;
             if (index > lowerSize) index = lowerSize;
             log.info("get lowerList index {}", index);
             subResults.addAll(lowerList.subList(0, index));
@@ -54,6 +54,7 @@ public class CollectionUtil {
         else {
             log.info("both list >= {}", minSize);
             subResults.addAll(lowerList.subList(0, minSize));
+            subResults.add(base);
             subResults.addAll(higherList.subList(0, minSize));
         }
 

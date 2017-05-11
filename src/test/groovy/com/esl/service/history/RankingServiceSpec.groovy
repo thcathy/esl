@@ -8,6 +8,7 @@ import com.esl.entity.practice.MemberScoreRanking
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
+import spock.lang.Unroll
 
 import java.util.concurrent.CompletableFuture
 
@@ -36,17 +37,20 @@ class RankingServiceSpec extends BaseSpec {
     }
 
     // this test have data dependency on member score setup between Jan 2016 to Jul 2016
+    @Unroll
     def "MemberScoreRanking for tester on [#scoreYearMonth] should have size [#expSize], first pos [#expFirstPos], base pos [#expBasePosition]"(
             int scoreYearMonth, int expSize, long expFirstPos, int expBasePosition) {
-        MemberScore testerScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, scoreYearMonth)
+        MemberScore testerScore = memberScoreRepository.findByMemberAndScoreYearMonth(tester, scoreYearMonth).get()
 
         when: "create ranking"
         MemberScoreRanking ranking = service.myScoreRanking(testerScore).join()
+        ranking.scores.each {println it}
 
         then:
         ranking.scores.size() == expSize
         ranking.firstPosition == expFirstPos
-        ranking.scores.indexOf(testerScore) == expBasePosition
+        ranking.scores.indexOf(testerScore) + 1 == expBasePosition
+        verifyRankingOrder(ranking)
 
         where:
         scoreYearMonth | expSize | expFirstPos | expBasePosition
@@ -54,9 +58,18 @@ class RankingServiceSpec extends BaseSpec {
         201602         | 2       | 1           | 2
         201603         | 3       | 1           | 2
         201604         | 3       | 1           | 1
-        201605         | 5       | 2           | 3
-        201606         | 5       | 4           | 3
-        201607         | 5       | 6           | 1
+        201605         | 5       | 1           | 3
+        201606         | 5       | 2           | 3
+        201607         | 5       | 2           | 5
     }
 
+    void verifyRankingOrder(MemberScoreRanking memberScoreRanking) {
+        for (int i=1; i < memberScoreRanking.scores.size(); i++) {
+            assert (memberScoreRanking.scores[i-1].score > memberScoreRanking.scores[i].score
+            || (
+                    memberScoreRanking.scores[i-1].score == memberScoreRanking.scores[i].score
+                            && memberScoreRanking.scores[i-1].lastUpdatedDate <= memberScoreRanking.scores[i].lastUpdatedDate)
+            )
+        }
+    }
 }

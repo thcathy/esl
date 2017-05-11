@@ -91,7 +91,7 @@ public class MemberScore implements Serializable, IAuditable {
 
 	@Override
 	public String toString() {
-		return String.format("MemberScore (%s) [userId=%s, scoreCardDate=%s, score=%s]", getId(), member.getUserId(),scoreYearMonth, score);
+		return String.format("MemberScore (%s) [userId=%s, scoreCardDate=%s, score=%s, last update=%s]", getId(), member.getId(),scoreYearMonth, score, lastUpdatedDate);
 	}
 
 	@Override
