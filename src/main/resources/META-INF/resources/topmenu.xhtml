@@ -11,83 +11,60 @@
 				<a href="/index.jsf"><img src="#{applicationController.staticHost}/images/graphic/logo.png" style="max-width: 141px; width:100%" alt="logo"/></a>
 			</div>
 			<div class="w3-col s8 m10 l10">
-				<ul class="w3-navbar w3-large">
-					<li class="w3-hide-medium w3-hide-small"><h:link outcome="/practice/phoneticpractice/index">#{generalMsg.vocabulary}</h:link></li>
-					<li class="w3-hide-medium w3-hide-small"><a href="#{request.contextPath}/practice/phoneticsymbolpractice/input">#{generalMsg.phonetics}</a></li>
-					<li class="w3-hide-medium w3-hide-small">
-						<h:link rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
-						<h:link rendered="#{userSession.member != null}" outcome="/member/dictation/main">#{generalMsg.dictation}</h:link>
-					</li>
-					<li class="w3-hide-medium w3-hide-small"><h:link outcome="/practice/irregularverb/start">#{generalMsg.irregularVerb}</h:link></li>
-					<li class="w3-hide-medium w3-hide-small"><h:link outcome="/practice/grammar/quick">#{generalMsg.grammar}</h:link></li>
-					<li class="w3-hide-medium w3-hide-small w3-dropdown-hover">
-						<a href="#">#{generalMsg.more} <i class="fa fa-caret-down"/></a>
-						<div class="w3-dropdown-content w3-card-4 w3-theme-l1">
-							<h:link outcome="/public/about">#{generalMsg.menuAboutUs}</h:link>
-							<a target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a>
+				<div class="w3-bar w3-large w3-hide-medium w3-hide-small">
+					<h:link styleClass="w3-bar-item w3-button" outcome="/practice/phoneticpractice/index">#{generalMsg.vocabulary}</h:link>
+					<a class="w3-bar-item w3-button" href="#{request.contextPath}/practice/phoneticsymbolpractice/input">#{generalMsg.phonetics}</a>
+					<h:link styleClass="w3-bar-item w3-button" rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
+					<h:link styleClass="w3-bar-item w3-button" rendered="#{userSession.member != null}" outcome="/member/dictation/main">#{generalMsg.dictation}</h:link>
+					<h:link styleClass="w3-bar-item w3-button" outcome="/practice/irregularverb/start">#{generalMsg.irregularVerb}</h:link>
+					<h:link styleClass="w3-bar-item w3-button" outcome="/practice/grammar/quick">#{generalMsg.grammar}</h:link>
+
+					<div class="w3-hide-medium w3-hide-small w3-dropdown-hover">
+						<button class="w3-button">#{generalMsg.more} <i class="fa fa-caret-down"/></button>
+						<div class="w3-dropdown-content w3-bar-block w3-card-4 w3-theme-l1">
+							<h:link styleClass="w3-bar-item w3-button" outcome="/public/about">#{generalMsg.menuAboutUs}</h:link>
+							<a class="w3-bar-item w3-button" target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a>
 						</div>
-					</li>
-					<li class="w3-hide-medium w3-hide-small w3-right"><h:commandLink action="#{languageController.toZH}">繁</h:commandLink></li>
-					<li class="w3-hide-medium w3-hide-small w3-right"><h:commandLink action="#{languageController.toEN}">EN</h:commandLink></li>
-					<li class="w3-hide-large w3-opennav w3-right">
-						<a href="javascript:void(0);" onclick="addOrRemoveW3Show('smallMenu')">☰</a>
-					</li>
-				</ul>
-				<ul class="w3-navbar w3-large w3-hide-medium w3-hide-small">
-					<li class="w3-hide-small">
-						<h:commandLink rendered="#{userSession.member != null}" action="#{summaryController.index}">#{generalMsg.menuSummary}</h:commandLink>
-					</li>
-					<li class="w3-hide-small">
-						<h:commandLink rendered="#{userSession.member != null}" action="#{memberWordController.launchManage}">#{generalMsg.menuMyVocabulary}</h:commandLink>
-					</li>
-                    <li class="w3-right">
-                        <h:panelGroup rendered="#{userSession.member == null}">
-                            <a href="/login?signup=true"><i class="fa fa-user-plus" aria-hidden="true"></i> #{authMsg.signupTitle}</a>
-                        </h:panelGroup>
-                    </li>
-					<li class="w3-right">
-						<h:panelGroup rendered="#{userSession.member == null}">
-							<a href="/login"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
-						</h:panelGroup>
-						<h:panelGroup rendered="#{userSession.member != null}">
-							<h:commandLink action="#{authenticationController.logout}" onclick="clickAndDisable(this)"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
-						</h:panelGroup>
-					</li>
-				</ul>
-				<div id="smallMenu" class="w3-hide w3-hide-large">
-					<ul class="w3-navbar w3-right-align w3-large w3-theme-l1">
-						<li class="w3-theme-d1">
-							<h:commandLink rendered="#{userSession.member != null}" action="#{summaryController.index}">#{generalMsg.menuSummary}</h:commandLink>
-						</li>
-						<li class="w3-theme-d1">
-							<h:commandLink rendered="#{userSession.member != null}" action="#{memberWordController.launchManage}">#{generalMsg.menuMyVocabulary}</h:commandLink>
-						</li>
-						<li><h:link outcome="/practice/phoneticpractice/index">#{generalMsg.vocabulary}</h:link></li>
-						<li><a href="#{request.contextPath}/practice/phoneticsymbolpractice/input">#{generalMsg.phonetics}</a></li>
-						<li>
-							<h:link rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
-							<h:link rendered="#{userSession.member != null}" outcome="/member/dictation/main">#{generalMsg.dictation}</h:link>
-						</li>
-						<li><h:link outcome="/practice/irregularverb/start">#{generalMsg.irregularVerb}</h:link></li>
-						<li><h:link outcome="/practice/grammar/quick">#{generalMsg.grammar}</h:link></li>
-						<li><h:link outcome="/public/about">#{generalMsg.menuAboutUs}</h:link></li>
-						<li><a target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a></li>
-						<li class="w3-theme-d1">
-							<h:panelGroup rendered="#{userSession.member == null}">
-								<a href="/login"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
-							</h:panelGroup>
-							<h:panelGroup rendered="#{userSession.member != null}">
-								<h:commandLink action="#{authenticationController.logout}" onclick="clickAndDisable(this)"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
-							</h:panelGroup>
-						</li>
-						<li class="w3-theme-d1">
-							<h:panelGroup rendered="#{userSession.member == null}">
-								<a href="/login?signup=true"><i class="fa fa-user-plus" aria-hidden="true"></i> #{authMsg.signupTitle}</a>
-							</h:panelGroup>
-						</li>
-						<li class="w3-theme-d2"><h:commandLink action="#{languageController.toZH}">繁</h:commandLink></li>
-						<li class="w3-theme-d2"><h:commandLink action="#{languageController.toEN}">EN</h:commandLink></li>
-					</ul>
+					</div>
+					<h:commandLink styleClass="w3-bar-item w3-button w3-right" action="#{languageController.toZH}">繁</h:commandLink>
+					<h:commandLink styleClass="w3-bar-item w3-button w3-right" action="#{languageController.toEN}">EN</h:commandLink>
+				</div>
+				<div class="w3-bar w3-hide-large">
+					<a class="w3-bar-item w3-button w3-right" href="javascript:void(0);" onclick="w3OpenOrClose('smallMenu')">☰</a>
+				</div>
+				<div class="w3-bar w3-large w3-hide-medium w3-hide-small">
+					<h:commandLink styleClass="w3-bar-item w3-button" rendered="#{userSession.member != null}" action="#{summaryController.index}">#{generalMsg.menuSummary}</h:commandLink>
+					<h:commandLink styleClass="w3-bar-item w3-button" rendered="#{userSession.member != null}" action="#{memberWordController.launchManage}">#{generalMsg.menuMyVocabulary}</h:commandLink>
+					<h:panelGroup rendered="#{userSession.member == null}">
+						<a class="w3-bar-item w3-button w3-right" href="/login?signup=true"><i class="fa fa-user-plus" aria-hidden="true"></i> #{authMsg.signupTitle}</a>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{userSession.member == null}">
+						<a class="w3-bar-item w3-button w3-right" href="/login"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{userSession.member != null}">
+						<h:commandLink styleClass="w3-bar-item w3-button w3-right" action="#{authenticationController.logout}" onclick="clickAndDisable(this)"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
+					</h:panelGroup>
+				</div>
+				<div id="smallMenu" class="w3-sidebar w3-bar-block w3-blue w3-animate-right" style="right:0; display:none;">
+					<h:commandLink styleClass="w3-bar-item w3-button w3-theme-d1" rendered="#{userSession.member != null}" action="#{summaryController.index}">#{generalMsg.menuSummary}</h:commandLink>
+					<h:commandLink styleClass="w3-bar-item w3-button w3-theme-d1" rendered="#{userSession.member != null}" action="#{memberWordController.launchManage}">#{generalMsg.menuMyVocabulary}</h:commandLink>
+					<h:link styleClass="w3-bar-item w3-button" outcome="/practice/phoneticpractice/index">#{generalMsg.vocabulary}</h:link>
+					<a class="w3-bar-item w3-button" href="#{request.contextPath}/practice/phoneticsymbolpractice/input">#{generalMsg.phonetics}</a>
+					<h:link styleClass="w3-bar-item w3-button" rendered="#{userSession.member == null}" outcome="/practice/selfdictation/input">#{generalMsg.dictation}</h:link>
+					<h:link styleClass="w3-bar-item w3-button" rendered="#{userSession.member != null}" outcome="/member/dictation/main">#{generalMsg.dictation}</h:link>
+					<h:link styleClass="w3-bar-item w3-button" outcome="/practice/irregularverb/start">#{generalMsg.irregularVerb}</h:link>
+					<h:link styleClass="w3-bar-item w3-button" outcome="/practice/grammar/quick">#{generalMsg.grammar}</h:link>
+					<h:link styleClass="w3-bar-item w3-button" outcome="/public/about">#{generalMsg.menuAboutUs}</h:link>
+					<a class="w3-bar-item w3-button" target="_blank" href="#{generalMsg.contactUsUrl}">#{generalMsg.menuContactUs}</a>
+					<h:panelGroup rendered="#{userSession.member == null}">
+						<a class="w3-bar-item w3-button w3-theme-d1" href="/login"><i class="fa fa-sign-in"/> #{generalMsg.login}</a>
+					</h:panelGroup>
+					<h:commandLink styleClass="w3-bar-item w3-button w3-theme-d1" rendered="#{userSession.member != null}" action="#{authenticationController.logout}" onclick="clickAndDisable(this)"><i class="fa fa-sign-out"/> #{generalMsg.logout}</h:commandLink>
+					<h:panelGroup rendered="#{userSession.member == null}">
+						<a class="w3-bar-item w3-button w3-theme-d1" href="/login?signup=true"><i class="fa fa-user-plus" aria-hidden="true"></i> #{authMsg.signupTitle}</a>
+					</h:panelGroup>
+					<h:commandLink class="w3-bar-item w3-button w3-theme-d2" action="#{languageController.toZH}">繁</h:commandLink>
+					<h:commandLink class="w3-bar-item w3-button w3-theme-d2" action="#{languageController.toEN}">EN</h:commandLink>
 				</div>
 			</div>
 		</h:form>

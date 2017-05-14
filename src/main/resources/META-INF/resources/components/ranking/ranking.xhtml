@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://java.sun.com/jsf/composite" xmlns:p="http://java.sun.com/jsf/html">
+
+<composite:interface>
+	<composite:attribute name="ranking" />
+</composite:interface>
+
+<composite:implementation>
+	<table class="w3-table-all w3-medium">
+		<tr class="w3-teal w3-large w3-center"><td colspan="3">#{title}</td></tr>
+		<tr class="w3-teal">
+			<td>#{memberSumMsg.summaryPosition}</td>
+			<td>#{memberSumMsg.summaryUsername}</td>
+			<td>#{topResultMsg[topResult.orderType]}</td>
+		</tr>
+		<ui:repeat var="i" varStatus="r" value="#{cc.attrs.ranking.scores}" rendered="#{cc.attrs.ranking != null}">
+			<tr class="w3-green">
+				<td>#{cc.attrs.ranking.firstPosition + r.index}</td>
+				<td>#{i.member.name} [#{i.member.userId}]
+					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition == 0}" value="#{applicationController.staticHost}/images/icon/silk/award_star_gold_1.png" />
+					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition == 1}" value="#{applicationController.staticHost}/images/icon/silk/award_star_silver_1.png" />
+					<h:graphicImage style="float: right;" rendered="#{topResult.firstPosition == 2}" value="#{applicationController.staticHost}/images/icon/silk/award_star_bronze_1.png" />
+				</td>
+				<td>
+					<h:panelGroup>#{i.score}</h:panelGroup>
+				</td>
+			</tr>
+		</ui:repeat>
+		<h:panelGroup rendered="#{topResult == null}">
+			<tr><td colspan="3" class="w3-center">
+				<h:outputText value="#{topResultMsg.rankingNoData}" /><br />
+			</td></tr>
+		</h:panelGroup>		
+	</table>
+</composite:implementation>
+</html>

@@ -43,6 +43,21 @@
       }
     }
 
+    function w3OpenOrClose(id) {
+        if (document.getElementById(id).style.display == "block") {
+            document.getElementById(id).style.display = "none";
+        } else {
+            document.getElementById(id).style.display = "block";
+        }
+    }
+
+    function w3_open(id) {
+        document.getElementById(id).style.display = "block";
+    }
+    function w3_close(id) {
+        document.getElementById(id).style.display = "none";
+    }
+
     function openW3Tab(evt, tabId) {
       var i, x, tablinks;
       x = document.getElementsByClassName("w3-tab");
