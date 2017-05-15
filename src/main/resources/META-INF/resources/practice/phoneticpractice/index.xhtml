@@ -17,12 +17,12 @@
         <h2><i class="fa fa-pencil-square" aria-hidden="true"></i> #{generalMsg.vocabPractice}</h2>
     </div>
 
-    <div class="w3-xlarge w3-padding-bottom">
+    <div class="w3-xlarge w3-margin-bottom">
         <h:messages styleClass="w3-panel w3-pale-red w3-leftbar w3-border-red" globalOnly="true" />
 
         <h:form styleClass="w3-container" id="inputForm">
             <p>
-                <label class="w3-label" for="grade">#{phonPracticeMsg.inputSelectDifficulty}</label>
+                <label class="w3-text-teal" for="grade">#{phonPracticeMsg.inputSelectDifficulty}</label>
                 <h:selectOneMenu id="grade" value="#{phoneticPracticeController.selectedDifficulty}" styleClass="w3-select">
                     <f:selectItems value="#{phoneticPracticeController.allDifficulty}"
                                    var="n"
@@ -45,10 +45,10 @@
         </div>
 
         <div class="w3-container">
-            <button onclick="addOrRemoveW3Show('description')" class="w3-btn-block w3-padding w3-left-align w3-light-grey w3-medium w3-leftbar">
+            <button onclick="addOrRemoveW3Show('description')" class="w3-btn w3-block w3-padding w3-left-align w3-light-grey w3-medium w3-leftbar">
                 <i class="fa fa-chevron-down" aria-hidden="true"></i> #{phonPracticeMsg.inputDesTitle}
             </button>
-            <div id="description" class="w3-accordion-content w3-container w3-medium w3-leftbar w3-light-grey">
+            <div id="description" class="w3-hide w3-container w3-medium w3-leftbar w3-light-grey">
                 <p>#{phonPracticeMsg.inputDesTxt}</p>
             </div>
         </div>
