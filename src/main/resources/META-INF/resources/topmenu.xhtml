@@ -46,6 +46,7 @@
 					</h:panelGroup>
 				</div>
 				<div id="smallMenu" class="w3-sidebar w3-bar-block w3-blue w3-animate-right" style="right:0; display:none;">
+					<a class="w3-bar-item w3-button" href="javascript:void(0);" onclick="w3OpenOrClose('smallMenu')">#{generalMsg.menu} <i class="fa fa-times" aria-hidden="true"></i></a>
 					<h:commandLink styleClass="w3-bar-item w3-button w3-theme-d1" rendered="#{userSession.member != null}" action="#{summaryController.index}">#{generalMsg.menuSummary}</h:commandLink>
 					<h:commandLink styleClass="w3-bar-item w3-button w3-theme-d1" rendered="#{userSession.member != null}" action="#{memberWordController.launchManage}">#{generalMsg.menuMyVocabulary}</h:commandLink>
 					<h:link styleClass="w3-bar-item w3-button" outcome="/practice/phoneticpractice/index">#{generalMsg.vocabulary}</h:link>

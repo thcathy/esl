@@ -57,11 +57,11 @@
 		<div class="w3-margin w3-padding-bottom">
 			<div class="w3-panel">
 				<h:form id="inputForm">
-					<div id="possibleAnswers" class="w3-accordion w3-border-blue w3-white w3-border w3-margin-bottom">
-						<button onclick="addOrRemoveW3Show('ans'); return false;" class="w3-btn-block w3-left-align w3-blue w3-medium">
+					<div id="possibleAnswers" class="w3-border-blue w3-white w3-border w3-margin-bottom">
+						<button onclick="addOrRemoveW3Show('ans'); return false;" class="w3-btn w3-block w3-left-align w3-blue w3-medium">
 							<i class="fa fa-chevron-down" aria-hidden="true"></i> #{grammarMsg.possibleAnswers}
 						</button>
-						<div id="ans" class="w3-accordion-content w3-container w3-medium w3-show">
+						<div id="ans" class="w3-hide w3-container w3-medium w3-show">
 							<ui:repeat var="option" varStatus="r" value="#{grammarPracticeController.practice.sortedPossibleQuestions}">
 								<span style="color: #333333; padding-right: 30px;">#{option}</span>
 							</ui:repeat>
