@@ -16,20 +16,22 @@
 
 <composite:implementation>
 	<h:form id="inputForm">
-		<div class="w3-row-padding w3-margin-top w3-margin-bottom">
+		<div class="w3-row-padding" style="padding-top: 8px; padding-bottom: 8px;">
 			<div class="w3-half">
 				<div class="w3-border">
 					<util:vocabimage2 picPaths="#{cc.attrs.controllerBean.practice.currentQuestionObject.picsFullPathsInString}" />
 
-					<div class="w3-row w3-padding-top w3-padding-bottom w3-center w3-border-top">
+					<div class="w3-row w3-center w3-border-top" style="padding-top: 4px; padding-bottom: 4px;">
 						<div class="w3-col l6 m12">
 							<h:panelGroup rendered="#{!cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
 								<audio id="pronounce" onloadeddata="this.play()" src="#{cc.attrs.controllerBean.practice.currentQuestionObject.activePronounceLink}" />
-								<a onclick="document.getElementById('pronounce').play(); setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
+								<a onclick="document.getElementById('pronounce').play(); setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));" class="w3-btn w3-medium w3-green w3-round-xxlarge"
+								   style="min-width: 200px; padding-bottom: 4px;">
 									<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 							</h:panelGroup>
 							<h:panelGroup rendered="#{cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
-								<a onclick="responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.plainWord()}'); setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
+								<a onclick="responsiveVoice.speak('#{cc.attrs.controllerBean.practice.currentQuestionObject.plainWord()}'); setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));"
+								   class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px; padding-bottom: 4px;">
 									<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 								<script type="text/javascript">
 									//<![CDATA[
@@ -40,7 +42,8 @@
 							</h:panelGroup>
 						</div>
 						<div class="w3-col l6 m12">
-							<a onclick="this.textContent='[#{cc.attrs.controllerBean.practice.currentQuestionObject.IPA}]'" class="w3-btn w3-medium w3-pink w3-round-xlarge" style="min-width: 200px;">#{phonPracticeMsg.practicePhonetic}</a>
+							<a onclick="this.textContent='[#{cc.attrs.controllerBean.practice.currentQuestionObject.IPA}]'" class="w3-btn w3-medium w3-pink w3-round-xxlarge"
+							   style="min-width: 200px; padding-bottom: 4px;">#{phonPracticeMsg.practicePhonetic}</a>
 						</div>
 					</div>
 				</div>

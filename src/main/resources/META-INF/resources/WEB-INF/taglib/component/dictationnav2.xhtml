@@ -6,28 +6,30 @@
 	
 <ui:composition>
 	<h:form>
-	<ul class="w3-navbar w3-border-top w3-border-bottom w3-border-deep-orange w3-center w3-small w3-white">
-		<li style="width:20%" id="#{current=='SHOWALL'?'current':''}">
-			<h:commandLink styleClass="#{current=='SHOWALL'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0" action="#{dictationManageController.launchMain}">
+	<div class="w3-bar w3-border-top w3-border-bottom w3-border-deep-orange w3-center w3-small w3-white w3-text-teal">
+
+			<h:commandLink styleClass="#{current=='SHOWALL'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0 w3-bar-item w3-button w3-mobile" action="#{dictationManageController.launchMain}"
+						   style="width:20%; padding-top: 0px; padding-bottom: 0px;">
 				<span class="w3-large">#{dictationMsg.navShow}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navShowDesc}</span></h:commandLink>
-		</li>
-		<li style="width:20%" id="#{current=='CREATE'?'current':''}">
-			<h:commandLink styleClass="#{current=='CREATE'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0" action="#{dictationEditController.launchCreate}">
+
+
+			<h:commandLink styleClass="#{current=='CREATE'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0 w3-bar-item w3-button w3-mobile" action="#{dictationEditController.launchCreate}"
+						   style="width:20%; padding-top: 0px; padding-bottom: 0px;">
 				<span class="w3-large">#{dictationMsg.navCreate}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navCreateDesc}</span></h:commandLink>
-		</li>
-		<li style="width:20%" id="#{current=='INSTANT'?'current':''}">
-			<h:link styleClass="#{current=='INSTANT'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0" outcome="/practice/selfdictation/input">
+
+			<h:link styleClass="#{current=='INSTANT'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0 w3-bar-item w3-button w3-mobile" outcome="/practice/selfdictation/input"
+					style="width:20%; padding-top: 0px; padding-bottom: 0px;">
 				<span class="w3-large">#{dictationMsg.navInstant}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navInstantDesc}</span></h:link>
-		</li>
-		<li style="width:20%" id="#{current=='FIND'?'current':''}">
-			<h:link styleClass="#{current=='FIND'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0" outcome="/member/dictation/search">
+
+			<h:link styleClass="#{current=='FIND'?'w3-deep-orange':''} w3-hover-deep-orange w3-padding-0 w3-bar-item w3-button w3-mobile" outcome="/member/dictation/search"
+					style="width:20%; padding-top: 0px; padding-bottom: 0px;">
 				<span class="w3-large">#{dictationMsg.navFind}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navFindDesc}</span></h:link>
-		</li>
-		<li style="width:20%" >
-			<a href="/dictation/random" class="w3-hover-deep-orange w3-padding-0">
+
+			<a href="/dictation/random" class="w3-hover-deep-orange w3-padding-0 w3-bar-item w3-button w3-mobile"
+			   style="width:20%; padding-top: 0px; padding-bottom: 0px;">
 				<span class="w3-large">#{dictationMsg.navRandom}</span><br/><span class="w3-hide-medium w3-hide-small">#{dictationMsg.navRandomDesc}</span></a>
-		</li>
-	</ul>
+
+	</div>
 	</h:form>
 </ui:composition>
 </html>

@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="w3-margin w3-padding-bottom">
-			<div class="w3-panel">
+			<div>
 				<h:form id="inputForm">
 					<div id="possibleAnswers" class="w3-border-blue w3-white w3-border w3-margin-bottom">
 						<button onclick="addOrRemoveW3Show('ans'); return false;" class="w3-btn w3-block w3-left-align w3-blue w3-medium">
@@ -97,7 +97,7 @@
 							</td>
 						</tr>
 					</table>
-					<div class="w3-right-align w3-padding-top">
+					<div class="w3-right-align" style="padding-top: 8px;">
 						<h:commandLink styleClass="w3-btn w3-green" action="#{grammarPracticeController.submitAnswer}"><i class="fa fa-check" aria-hidden="true"></i> #{grammarMsg.submitAnswer}</h:commandLink>
 					</div>
 				</h:form>

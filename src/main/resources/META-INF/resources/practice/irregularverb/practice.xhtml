@@ -77,11 +77,11 @@
 				<div class="w3-row w3-center">
 					<div class="w3-half">
 						<audio id="pronounce" onloadeddata="this.play()" src="#{irregularVerbPracticeController.phoneticQ.activePronounceLink}" />
-						<a onclick="document.getElementById('pronounce').play(); setFocus();" class="w3-btn w3-medium w3-green w3-round-xlarge" style="min-width: 200px;">
+						<a onclick="document.getElementById('pronounce').play(); setFocus();" class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px;">
 							<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 					</div>
 					<div class="w3-half">
-						<a onclick="this.textContent='[#{irregularVerbPracticeController.phoneticQ.IPA}]'" class="w3-btn w3-medium w3-pink w3-round-xlarge" style="min-width: 200px;">#{phonPracticeMsg.practicePhonetic}</a>
+						<a onclick="this.textContent='[#{irregularVerbPracticeController.phoneticQ.IPA}]'" class="w3-btn w3-medium w3-pink w3-round-xxlarge" style="min-width: 200px;">#{phonPracticeMsg.practicePhonetic}</a>
 					</div>
 				</div>
 			</h:panelGroup>
@@ -92,8 +92,8 @@
 
 			<h:panelGroup id="questionRegion">
 				<h:form styleClass="inputform" id="inputForm" onsubmit="return submitRequest(this)">
-					<div class="w3-row-padding">
-						<div class="w3-quarter">
+					<div class="w3-row">
+						<div class="w3-quarter" style="padding-right: 8px;">
 							<h:panelGroup styleClass="w3-text-black" rendered="#{!empty irregularVerbPracticeController.question.present}">
 								<h:inputText styleClass="w3-input w3-text-black" disabled="true"
 											 value="#{irregularVerbPracticeController.question.present}" />
@@ -108,7 +108,7 @@
 							<label class="w3-label">#{irregularVerbMsg.present}</label>
 							<br/><h:message for="presentAnswer" styleClass="w3-medium w3-text-red" />
 						</div>
-						<div class="w3-quarter">
+						<div class="w3-quarter" style="padding-right: 8px;">
 							<h:panelGroup rendered="#{!empty irregularVerbPracticeController.question.presentParticiple}">
 								<h:inputText styleClass="w3-input w3-text-black" disabled="true"
 											 value="#{irregularVerbPracticeController.question.presentParticiple}" />
@@ -123,7 +123,7 @@
 							<label class="w3-label">#{irregularVerbMsg.presentParticiple}</label>
 							<br /><h:message for="presentParticipleAnswer" styleClass="w3-medium w3-text-red" />
 						</div>
-						<div class="w3-quarter">
+						<div class="w3-quarter" style="padding-right: 8px;">
 							<h:panelGroup rendered="#{!empty irregularVerbPracticeController.question.past}">
 								<h:inputText styleClass="w3-input w3-text-black" disabled="true"
 											 value="#{irregularVerbPracticeController.question.past}" />
@@ -138,7 +138,7 @@
 							<label class="w3-label">#{irregularVerbMsg.past}</label>
 							<br /><h:message for="pastAnswer" styleClass="w3-medium w3-text-red" />
 						</div>
-						<div class="w3-quarter">
+						<div class="w3-quarter" style="padding-right: 8px;">
 							<h:panelGroup rendered="#{irregularVerbPracticeController.withPastParticiple}">
 								<h:panelGroup rendered="#{!empty irregularVerbPracticeController.question.pastParticiple}">
 									<h:inputText styleClass="w3-input w3-text-black" disabled="true"
@@ -158,26 +158,25 @@
 						</div>
 					</div>
 
-					<div class="w3-align-right w3-padding-top">
+					<div class="w3-right-align" style="padding-top: 8px; width: 100%;">
+						<p:ajaxStatus style="display: inline-block;">
+							<f:facet name="start">
+								<span id="spinner" style="padding-right: 8px;"><i class="fa fa-spinner w3-spin" style="font-size:36px"></i></span>
+							</f:facet>
+						</p:ajaxStatus>
 						<p:commandLink update="topHeader questionInfoPanel questionRegion historyRegion msgPanel"
-										 styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-deep-orange w3-large"
+										 styleClass="w3-btn w3-green w3-margin-bottom w3-teal w3-large"
 										 oncomplete="updateAfterSubmit()" id="eslSubmit"
 										 action="#{irregularVerbPracticeController.practice}"
 										 onclick="clickAndDisable(this);">
 							<i class="fa fa-check" aria-hidden="true"></i> #{irregularVerbMsg.practiceSubmit}</p:commandLink>
-						<p:ajaxStatus style="display: inline-block;">
-							<f:facet name="start">
-								<span id="spinner"><i class="fa fa-spinner w3-spin" style="font-size:36px"></i></span>
-							</f:facet>
-						</p:ajaxStatus>
+
 						<input type="hidden" name="hiddenMaxMark" id="hiddenMaxMark" value="#{irregularVerbPracticeController.fullMark}" />
 						<input type="hidden" name="hiddenCurrentMark" id="hiddenCurrentMark" value="#{irregularVerbPracticeController.mark}" />
 						<input type="hidden" name="hiddenSearchText" id="hiddenSearchText" value="#{irregularVerbPracticeController.answer.present}" />
 					</div>
 				</h:form>
 			</h:panelGroup>
-
-			<div class="w3-medium w3-panel w3-pale-green w3-border-green"></div>
 
 			<esl:scoreBar2 startMark="#{irregularVerbPracticeController.mark}" maxMark="#{irregularVerbPracticeController.fullMark}" />
 

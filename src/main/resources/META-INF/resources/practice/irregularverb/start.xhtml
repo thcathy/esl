@@ -15,16 +15,20 @@
 			<h2>#{generalMsg.menuIrregularVerb}</h2>
 		</div>
 
-		<div class="w3-xlarge w3-padding-bottom">
+		<div class="w3-xlarge" style="padding-top: 8px; padding-bottom: 8px;">
 			<h:form class="w3-container w3-padding-top">
-				#{irregularVerbMsg.practiceOption}:
-				<h:selectBooleanCheckbox styleClass="w3-check" value="#{irregularVerbPracticeController.withPastParticiple}" />
-				<label class="w3-validate w3-large">#{irregularVerbMsg.includePastParticiple}</label><br />
+				<div class="w3-show-inline-block" style="padding-right: 15px;">
+					<span class="w3-text-teal" style="padding-right: 15px;">#{irregularVerbMsg.practiceOption}:</span>
+					<h:selectBooleanCheckbox styleClass="w3-check" value="#{irregularVerbPracticeController.withPastParticiple}" />
+					<label class="w3-validate w3-large">#{irregularVerbMsg.includePastParticiple}</label>
+				</div>
+
+				<h:commandLink styleClass="w3-btn w3-green w3-large" style="padding-right: 15px;" onclick="showSpinner(); clickAndDisable(this);" action="#{irregularVerbPracticeController.start}">
+					#{irregularVerbMsg.start}</h:commandLink>
+
+				<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:32px"></i></span>
 
 
-					<h:commandLink styleClass="w3-btn w3-green w3-large" onclick="showSpinner(); clickAndDisable(this);" action="#{irregularVerbPracticeController.start}">
-						#{irregularVerbMsg.start}</h:commandLink>
-					<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:32px"></i></span>
 
 			</h:form>
 

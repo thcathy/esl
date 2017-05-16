@@ -53,8 +53,8 @@
 			<h2>#{grammarMsg.grammarPractice} - #{grammarPracticeController.practiceTypeString}</h2>
 		</div>
 
-		<div class="w3-margin w3-padding-bottom">
-			<div class="w3-panel">
+		<div class="w3-margin">
+			<div>
 				<h3>
 					<h:outputFormat value="#{selfDictationMsg.resultTitle}">
 						<f:param value="#{grammarPracticeController.mark}"/>
@@ -97,7 +97,7 @@
 							</td>
 						</tr>
 					</table>
-					<div class="w3-right-align w3-padding-top">
+					<div class="w3-right-align" style="padding-top: 8px;">
 						<h:link styleClass="w3-btn w3-green" outcome="/practice/grammar/quick"><i class="fa fa-repeat" aria-hidden="true"></i> #{grammarMsg.resultRetry}</h:link>
 					</div>
 				</h:form>

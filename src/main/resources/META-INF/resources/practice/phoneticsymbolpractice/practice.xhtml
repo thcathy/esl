@@ -72,7 +72,7 @@
                     <audio id="pronounce" onloadeddata="this.play()" src="#{phoneticSymbolPracticeController.question.activePronounceLink}" />
 
                     <div class="w3-row-padding w3-margin-top w3-margin-bottom">
-                        <div class="w3-half">
+                        <div class="w3-half" style="padding-bottom: 8px;">
                             <div class="w3-border">
                                 <util:vocabimage2 picPaths="#{phoneticSymbolPracticeController.question.picsFullPathsInString}" />
 
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <div class="w3-half">
-                            <div class="w3-container w3-text-deep-orange">
+                            <div class="w3-text-deep-orange">
                                 <!-- Select Phonics -->
                                 <table class="phonicsTable" cellspacing="2">
                                     <tr>
@@ -156,7 +156,7 @@
                                 </table>
 
                                 <div class="w3-text-deep-orange">
-                                    <p id="phonicsInput">
+                                    <p id="phonicsInput" style="margin-top: 4px; margin-bottom: 4px;">
                                         #{phonSymPracticeMsg.practiceSelectPhonics}:[<span id="phonicsInputSpan"></span>]
                                         <span class="w3-right-align w3-medium w3-text-blue">
                                             <a href="javascript:void(0);" onclick="clearPhonics();" class="w3-hover-blue" style="text-decoration: none;"><i class="fa fa-times" aria-hidden="true"></i>#{phonSymPracticeMsg.practiceClear}</a>
