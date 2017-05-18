@@ -32,27 +32,32 @@
 				<div class="w3-row">
 					<i class="fa fa-filter w3-xlarge" />&#160;
 					<h:commandLink action="#{memberWordController.showAll}"
-								   styleClass="w3-btn #{memberWordController.showAll?'w3-green':'w3-white'} w3-border w3-border-green w3-round-large w3-padding-4 w3-margin-right">
+								   styleClass="w3-btn #{memberWordController.showAll?'w3-green':'w3-white'} w3-border w3-border-green w3-round-xlarge w3-margin-right"
+									style="padding: 0px 8px 0px 8px;">
 								   #{memberWordMsg.manageShowAll}</h:commandLink>
 					<h:commandLink action="#{memberWordController.showLearnt}"
-								   styleClass="w3-btn #{memberWordController.showLearnt?'w3-green':'w3-white'} w3-border w3-border-green w3-round-large w3-padding-4 w3-margin-right">
+								   styleClass="w3-btn #{memberWordController.showLearnt?'w3-green':'w3-white'} w3-border w3-border-green w3-round-xlarge w3-margin-right"
+								   style="padding: 0px 8px 0px 8px;">
 								   #{memberWordMsg.manageShowLearnt}</h:commandLink>
 
 				</div>
 				<div class="w3-row w3-padding-top">
 					<i class="fa fa-sort-amount-asc w3-xlarge" />&#160;
 					<h:commandLink action="#{memberWordController.orderByDate}"
-								   styleClass="w3-btn #{memberWordController.orderByDate?'w3-green':'w3-white'} w3-border w3-border-green w3-round-large w3-padding-4 w3-margin-right">
+								   styleClass="w3-btn #{memberWordController.orderByDate?'w3-green':'w3-white'} w3-border w3-border-green w3-round-xlarge w3-margin-right"
+								   style="padding: 0px 8px 0px 8px;">
 						<i class="fa fa-sort" aria-hidden="true"></i> #{memberWordMsg.manageOrderByDate}
 					</h:commandLink>
 
 					<h:commandLink action="#{memberWordController.orderByTrialCount}"
-								   styleClass="w3-btn #{memberWordController.orderByTrial?'w3-green':'w3-white'} w3-border w3-border-green w3-round-large w3-padding-4 w3-margin-right">
+								   styleClass="w3-btn #{memberWordController.orderByTrial?'w3-green':'w3-white'} w3-border w3-border-green w3-round-xlarge w3-margin-right"
+								   style="padding: 0px 8px 0px 8px;">
 						<i class="fa fa-sort" aria-hidden="true"></i> #{memberWordMsg.manageOrderByTrial}
 					</h:commandLink>
 
 					<h:commandLink action="#{memberWordController.orderByCorrectCount}"
-								   styleClass="w3-btn #{memberWordController.orderByCorrect?'w3-green':'w3-white'} w3-border w3-border-green w3-round-large w3-padding-4 w3-margin-right">
+								   styleClass="w3-btn #{memberWordController.orderByCorrect?'w3-green':'w3-white'} w3-border w3-border-green w3-round-xlarge w3-margin-right"
+								   style="padding: 0px 8px 0px 8px;">
 						<i class="fa fa-sort" aria-hidden="true"></i> #{memberWordMsg.manageOrderByCorrect}
 					</h:commandLink>
 
@@ -60,13 +65,16 @@
 				<div class="w3-row w3-padding-top">
 					<i class="fa fa-trash w3-xlarge" />&#160;
 					<h:commandLink action="#{memberWordController.deleteAllMemberWords}"
-								   styleClass="w3-btn w3-white w3-border w3-border-green w3-round-large w3-padding-4 w3-margin-right">
+								   styleClass="w3-btn w3-white w3-border w3-border-green w3-round-xlarge w3-margin-right"
+								   style="padding: 0px 8px 0px 8px;">
 								   #{memberWordMsg.manageDeleteAll}</h:commandLink>
 					<h:commandLink action="#{memberWordController.deleteLearntMemberWords}"
-								   styleClass="w3-btn w3-white w3-border w3-border-green w3-round-large w3-padding-4 w3-margin-right">
+								   styleClass="w3-btn w3-white w3-border w3-border-green w3-round-xlarge w3-margin-right"
+								   style="padding: 0px 8px 0px 8px;">
 								   #{memberWordMsg.manageDeleteLearnt}</h:commandLink>
 					<h:commandLink action="#{memberWordController.deleteSelectedMemberWords}"
-								   styleClass="w3-btn w3-white w3-border w3-border-green w3-round-large w3-padding-4 w3-margin-right">
+								   styleClass="w3-btn w3-white w3-border w3-border-green w3-round-xlarge w3-margin-right"
+								   style="padding: 0px 8px 0px 8px;">
 								   #{memberWordMsg.manageDeleteSelected}</h:commandLink>
 				</div>
 				<hr />

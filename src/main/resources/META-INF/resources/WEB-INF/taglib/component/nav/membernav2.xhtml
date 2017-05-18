@@ -6,19 +6,19 @@
 	<h:form>
 		<div class="w3-bar w3-border-top w3-border-bottom w3-border-green w3-center w3-small w3-white w3-text-teal">
 			<h:commandLink styleClass="#{current=='SUMMARY'?'w3-green':''} w3-hover-teal w3-padding-0 w3-bar-item w3-button w3-mobile"
-						   style="width:25%; padding-top: 0px; padding-bottom: 0px;"
+						   style="width:33.3%; padding-top: 0px; padding-bottom: 0px;"
 						   action="#{summaryController.index}"><span class="w3-large">#{memberSumMsg.navSummary}</span>
 				<br/><span class="w3-hide-medium w3-hide-small">#{memberSumMsg.navSummaryDesc}</span>
 			</h:commandLink>
 
 			<h:commandLink styleClass="#{current=='MYVOCAB'?'w3-green':''} w3-hover-teal w3-padding-0 w3-bar-item w3-button w3-mobile"
-						   style="width:25%; padding-top: 0px; padding-bottom: 0px;"
+						   style="width:33.3%; padding-top: 0px; padding-bottom: 0px;"
 						   action="#{memberWordController.launchManage}"><span class="w3-large">#{memberSumMsg.navMyVocab}</span>
 				<br/><span class="w3-hide-medium w3-hide-small">#{memberSumMsg.navMyVocabDesc}</span>
 			</h:commandLink>
 
 			<h:commandLink styleClass="#{current=='PROFILE'?'w3-green':''} w3-hover-teal w3-padding-0 w3-bar-item w3-button w3-mobile"
-						   style="width:25%; padding-top: 0px; padding-bottom: 0px;"
+						   style="width:33.3%; padding-top: 0px; padding-bottom: 0px;"
 						   action="#{profileController.profile}"><span class="w3-large">#{memberSumMsg.navProfile}</span>
 				<br/><span class="w3-hide-medium w3-hide-small">#{memberSumMsg.navProfileDesc}</span>
 			</h:commandLink>

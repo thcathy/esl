@@ -25,11 +25,12 @@
 			<ul class="w3-ul w3-white">
 				<ui:repeat var="i" varStatus="r" value="#{cc.attrs.ranking.scores}" rendered="#{cc.attrs.ranking != null}">
 					<li class="w3-padding-right">
-						<span class="w3-badge w3-green">#{cc.attrs.ranking.firstPosition + r.index}</span> #{i.member.userId}
-						<h:panelGroup rendered="#{cc.attrs.ranking.firstPosition + r.index == 1}"><i class="fa fa-trophy" aria-hidden="true" style="color: #ffcc3c"></i></h:panelGroup>
-						<h:panelGroup rendered="#{cc.attrs.ranking.firstPosition + r.index == 2}"><i class="fa fa-trophy" aria-hidden="true" style="color: #cdd0d7"></i></h:panelGroup>
-						<h:panelGroup rendered="#{cc.attrs.ranking.firstPosition + r.index == 3}"><i class="fa fa-trophy" aria-hidden="true" style="color: #CD7F32"></i></h:panelGroup>
-						<span class="w3-right"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> #{i.score}</span>
+						<span class="w3-badge w3-green">#{cc.attrs.ranking.firstPosition + r.index}</span>&#160;
+						<h:panelGroup rendered="#{cc.attrs.ranking.firstPosition + r.index == 1}"><i class="fa fa-trophy" aria-hidden="true" style="color: #ffcc3c"></i>&#160;</h:panelGroup>
+						<h:panelGroup rendered="#{cc.attrs.ranking.firstPosition + r.index == 2}"><i class="fa fa-trophy" aria-hidden="true" style="color: #cdd0d7"></i>&#160;</h:panelGroup>
+						<h:panelGroup rendered="#{cc.attrs.ranking.firstPosition + r.index == 3}"><i class="fa fa-trophy" aria-hidden="true" style="color: #CD7F32"></i>&#160;</h:panelGroup>
+						<h:outputText value="#{i.member.userId.length() gt 20 ? i.member.userId.substring(0,17).concat('...') : i.member.userId}" />
+						<span class="w3-right"><i class="fa fa-star" aria-hidden="true" style="color: gold;"></i> #{i.score}</span>
 					</li>
 				</ui:repeat>
 			</ul>
