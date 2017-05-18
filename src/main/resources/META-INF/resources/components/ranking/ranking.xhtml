@@ -8,11 +8,18 @@
 <composite:interface>
 	<composite:attribute name="ranking" />
 	<composite:attribute name="title" />
+	<composite:attribute name="date" />
 </composite:interface>
 
 <composite:implementation>
 	<div class="w3-card-4">
-		<div class="w3-container w3-theme"><h5>#{cc.attrs.title}</h5></div>
+		<div class="w3-container w3-theme">
+			<h5>#{cc.attrs.title}
+				<h:outputText value="#{cc.attrs.date}" rendered="#{cc.attrs.date != null}">
+					<f:convertDateTime pattern="MMM yyyy" timeZone="Asia/Hong_Kong" />
+				</h:outputText>
+			</h5>
+		</div>
 
 		<div>
 			<ul class="w3-ul w3-white">
@@ -22,7 +29,7 @@
 						<h:panelGroup rendered="#{cc.attrs.ranking.firstPosition + r.index == 1}"><i class="fa fa-trophy" aria-hidden="true" style="color: #ffcc3c"></i></h:panelGroup>
 						<h:panelGroup rendered="#{cc.attrs.ranking.firstPosition + r.index == 2}"><i class="fa fa-trophy" aria-hidden="true" style="color: #cdd0d7"></i></h:panelGroup>
 						<h:panelGroup rendered="#{cc.attrs.ranking.firstPosition + r.index == 3}"><i class="fa fa-trophy" aria-hidden="true" style="color: #CD7F32"></i></h:panelGroup>
-						<span class="w3-right">#{i.score}</span>
+						<span class="w3-right"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> #{i.score}</span>
 					</li>
 				</ui:repeat>
 			</ul>
