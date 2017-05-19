@@ -3,6 +3,7 @@ package com.esl.web.jsf.controller.dictation;
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.dictation.IDictationDAO;
 import com.esl.entity.dictation.Dictation;
+import com.esl.entity.dictation.Vocab;
 import com.esl.exception.BusinessValidationException;
 import com.esl.model.group.MemberGroup;
 import com.esl.service.JSFService;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -117,6 +119,7 @@ public class DictationEditController extends ESLController {
 	/**
 	 * Create / edit form submit
 	 */
+	@Transactional
 	public String submit() {
 		final String logTitle = "submit: ";
 		logger.info(logTitle + "START");
@@ -142,7 +145,7 @@ public class DictationEditController extends ESLController {
 				return null;
 			}
 		}
-
+		editDictation = dictationDAO.merge(editDictation);
 		setAccessibleGroups();
 
 		// set password
@@ -156,6 +159,10 @@ public class DictationEditController extends ESLController {
 		editDictation.setLastModifyDate(new Date());
 
 		try {
+			dictationDAO.refresh(editDictation);
+			for (Vocab vocab : editDictation.getVocabs()) {
+				dictationDAO.refresh(vocab);
+			}
 			// set vocabs into dictation
 			manageService.setVocabs(editDictation, vocabs);
 			manageService.saveDictation(editDictation);
