@@ -32,11 +32,12 @@
                 </h:selectOneMenu>
             </p>
 
-            <h:commandLink styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-large" onclick="showSpinner(); clickAndDisable(this);" action="#{phoneticPracticeController.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG1}</h:commandLink>
-            <h:panelGroup rendered="#{authenticationController.authenticated}">
+            <h:commandLink styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-large" onclick="showSpinner(); clickAndDisable(this);" action="#{phoneticPracticeController.start}"><i class="fa fa-play" aria-hidden="true"></i> #{generalMsg.start}</h:commandLink>
+
+            <!--<h:panelGroup rendered="#{authenticationController.authenticated}">
                 <h:commandLink styleClass="w3-btn w3-green w3-margin-bottom w3-large" onclick="showSpinner(); clickAndDisable(this);"
                                action="#{phoneticPracticeG2Controller.start}"><i class="fa fa-play" aria-hidden="true"></i> #{phonPracticeMsg.inputStartG2}</h:commandLink>
-            </h:panelGroup>
+            </h:panelGroup>-->
             <span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:36px"></i></span>
         </h:form>
 

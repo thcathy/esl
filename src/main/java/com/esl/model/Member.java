@@ -157,6 +157,13 @@ public class Member implements Serializable {
 	public String getImagePath() {return imagePath;}
 	public void setImagePath(String imagePath) {this.imagePath = imagePath;}
 
+	public String getDisplayName() {
+		if (name != null && name.getFullName() != null)
+			return name.getFullName();
+		else
+			return emailAddress;
+	}
+
 	// ********************** Common Methods ********************** //
 	@Override
 	public boolean equals(Object o) {

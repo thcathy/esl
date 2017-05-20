@@ -126,11 +126,11 @@
 						</div>
 						<h:messages errorClass="w3-text-red w3-large" infoClass="w3-text-blue w3-large" globalOnly="true" />
 					</div>
-					<div class="w3-container w3-padding-0 w3-margin-top">
+					<div class="w3-padding-0 w3-margin-top">
 						<button onclick="addOrRemoveW3Show('vocabStat'); return false;" class="w3-btn w3-block w3-padding w3-left-align w3-light-grey w3-medium">
 							<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.vocabStat}
 						</button>
-						<div id="vocabStat" class="w3-hide w3-container w3-medium">
+						<div id="vocabStat" class="w3-hide w3-medium">
 							<ui:repeat var="i" varStatus="r" value="#{dictationManageController.selectedDictation.vocabs}">
 								<span style="width: 150px; display: inline-block;" class="w3-small">
 									#{i.word} (<span class="w3-text-blue">#{i.totalCorrect}</span> / <span class="w3-text-red">#{i.totalWrong}</span>)
@@ -138,11 +138,11 @@
 							</ui:repeat>
 						</div>
 					</div>
-					<div class="w3-container w3-padding-0 w3-margin-top">
+					<div class="w3-padding-0 w3-margin-top">
 						<button onclick="addOrRemoveW3Show('practicers'); return false;" class="w3-btn w3-block w3-padding w3-left-align w3-light-grey w3-medium">
 							<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.participants}
 						</button>
-						<div id="practicers" class="w3-hide w3-container w3-medium w3-padding-0">
+						<div id="practicers" class="w3-hide w3-medium w3-padding-0">
 							<p:dataTable value="#{dictationManageController.dictationHistories}" var="h"
 											style="width: 100%; line-height: 1;"
 											columnHeaderCellClass="w3-medium"

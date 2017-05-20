@@ -1,9 +1,8 @@
 package com.esl.model;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 public class Name implements Serializable {
 	@Size(max=100, message="{incorrectSize}")
@@ -39,5 +38,10 @@ public class Name implements Serializable {
 		return true;
 	}
 	
-	public String getFullName() { return firstName + " " + lastName; }
+	public String getFullName() {
+		if (lastName != null)
+			return firstName + ", " + lastName;
+		else
+			return firstName;
+	}
 }
