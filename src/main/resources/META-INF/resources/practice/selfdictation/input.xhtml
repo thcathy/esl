@@ -33,18 +33,35 @@
 				<esl:dictationNav2 current="INSTANT" />
 				<h:messages styleClass="w3-large" tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
 
+				<div class="w3-row w3-margin-bottom w3-large w3-text-teal">
+					<a href="javascript:void(0)" onclick="openW3Tab(event, 'vocabTab');">
+						<div class="w3-half w3-tablink w3-bottombar w3-border-green w3-hover-light-grey w3-padding">#{generalMsg.vocabMode}</div>
+					</a>
+					<a href="javascript:void(0)" onclick="openW3Tab(event, 'articleTab');">
+						<div class="w3-half w3-tablink w3-bottombar w3-hover-light-grey w3-padding">#{generalMsg.articleMode}</div>
+					</a>
+				</div>
+
 				<h:form styleClass="w3-margin-top w3-large">
-					<p class="w3-text-teal">
-                        #{selfDictationMsg.inputVocabularyLabel}<br/>
-                        <span class="w3-medium w3-text-grey">#{generalMsg.example}: "apple", "bus stop", "ice-cream"</span>
-                    </p>
-					<div class="w3-row">
-						<ui:repeat var="vocab" varStatus="r" value="#{selfDictationController.inputVocab}">
-							<div class="w3-quarter" style="padding-right: 4px;">
-								<input placeholder="#{r.index+1}" class="w3-input" type="text" id="vocab#{r.index+1}" name="vocab#{r.index+1}" value="#{vocab}" />
-							</div>
-						</ui:repeat>
+					<div id="vocabTab" class="w3-tab w3-padding-0">
+						<p class="w3-text-teal">
+							#{selfDictationMsg.inputVocabularyLabel}<br/>
+							<span class="w3-medium w3-text-grey">#{generalMsg.example}: "apple", "bus stop", "ice-cream"</span>
+						</p>
+						<div class="w3-row">
+							<ui:repeat var="vocab" varStatus="r" value="#{selfDictationController.inputVocab}">
+								<div class="w3-quarter" style="padding-right: 4px;">
+									<input placeholder="#{r.index+1}" class="w3-input" type="text" id="vocab#{r.index+1}" name="vocab#{r.index+1}" value="#{vocab}" />
+								</div>
+							</ui:repeat>
+						</div>
 					</div>
+
+					<div id="articleTab" class="w3-tab w3-padding-0" style="display:none;">
+						<p class="w3-text-teal" style="margin: 0px;">#{selfDictationMsg.inputPassageLabel}</p>
+						<h:inputTextarea id="passage" rows="6" cols="50" style="width: 100%; color: dimgray;" styleClass="w3-small" value="#{dictationEditController.vocabs}" onkeyup="calculateTotalWords();"></h:inputTextarea>
+					</div>
+
 					<div class="w3-margin-top">
 						<a onclick="return clearVocab()" class="w3-btn w3-white w3-border w3-border-green w3-medium"><i class="fa fa-times" aria-hidden="true"></i>&#160;<h:outputText value="#{selfDictationMsg.inputClearFields}" /></a>
 						<span class="w3-right-align">

@@ -38,6 +38,7 @@ public class SelfDictationController extends ESLController {
 
 	// UI Data
 	private List<String> inputVocab = new ArrayList<String>(20);
+	private String inputArticle = "";
 	private PhoneticPractice practice;
 	private String answer;
 	private boolean withIPA = false;
@@ -65,6 +66,9 @@ public class SelfDictationController extends ESLController {
 
 	public boolean isWithRandomCharacters()	{return withRandomCharacters;}
 	public void setWithRandomCharacters(boolean withRandomCharacters) {	this.withRandomCharacters = withRandomCharacters;}
+
+	public String getInputArticle() {return inputArticle;}
+	public void setInputArticle(String inputArticle) {this.inputArticle = inputArticle;}
 
 	public PhoneticPractice getPractice() {	return practice;}
 	public void setPractice(PhoneticPractice practice) {this.practice = practice;}

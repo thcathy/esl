@@ -89,6 +89,9 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 	@Column(name = "LAST_MODIFY_DATE")
 	private Date lastModifyDate;
 
+	@Column(name="ARTICLE")
+	private String article;
+
 	@ManyToOne()
 	@JoinColumn(name="MEMBER_ID")
 	private Member creator;
@@ -117,6 +120,7 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 		lastModifyDate = new Date();
 		vocabs = new ArrayList<Vocab>();
 		accessibleGroups = new ArrayList<MemberGroup>();
+		article = "";
 	}
 
 	public Dictation(String title) {
@@ -217,6 +221,9 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 
 	public Member getCreator() {return creator;}
 	public void setCreator(Member creator) {this.creator = creator;}
+
+	public String getArticle() {return article;}
+	public void setArticle(String article) {this.article = article;}
 
 	public List<Vocab> getVocabs() {return vocabs;}
 	public void setVocabs(List<Vocab> vocabs) {	this.vocabs = vocabs;}
