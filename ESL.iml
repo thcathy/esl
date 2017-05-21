@@ -2,7 +2,19 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/com/esl/ESLApplication.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/esl/web/spring/controller/ESLAuth0Config.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/esl/EventBusConfiguration.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/esl/UpdatePhoneticQuetionCommand.java</file>
+          <file>file://$MODULE_DIR$/src/main/resources/com/esl/ESL-context.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/com/esl/esl-management.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/com/esl/service/xml/import-service.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/com/esl/service/xml/MailTemplates.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/com/esl/model/xml/PhoneticSymbolsBean.xml</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">

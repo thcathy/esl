@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+				template="/template/short.xhtml">
+
+	<ui:param name="controller" value="#{articleDictationPracticeController}" />
+	<f:metadata>
+		<f:viewAction action="#{controller.initCheck}" />
+	</f:metadata>
+
+	<ui:define name="subTitle">#{htmlHeadMsg.practice_selfdictation_practice_title}</ui:define>	
+	<ui:define name="head">
+		<meta name="description" content="#{htmlHeadMsg.practice_selfdictation_practice_desc}" />
+		<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+		<script type="text/javascript">
+		//<![CDATA[
+		var answerEnterEvent = function(event) {
+			var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
+	      	if (keycode == 13) { // keycode for enter key
+	        	jQuery('#inputForm\\:answer').click();
+	        	return false;
+	      	}
+		};
+
+		$(window).load(function(){
+			console.log("when window load");
+			jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
+			setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));
+		});
+		
+		function updateAfterSubmit() {
+			console.log('updateAfterSubmit')
+			//animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
+			jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
+			setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));
+		}
+		//]]>
+		</script>	
+	</ui:define>
+
+	<ui:define name="mainDiv">
+
+		<div class="w3-container w3-green">
+			<h3>
+				<h:panelGroup id="topHeader">
+					Sentence #{controller.currentSentence+1} / #{controller.dictation.sentences.size()}
+				</h:panelGroup>
+				<span class="w3-right w3-hide-small"><i class="fa fa-pencil-square" aria-hidden="true"></i> Article Dictation</span>
+			</h3>
+		</div>
+
+		<div class="w3-xlarge w3-padding-bottom w3-text-teal" style="padding-bottom: 8px;">
+			<h:form id="inputForm">
+				<div class="w3-container">
+					<div>
+						<a onclick="responsiveVoice.speak('#{controller.dictation.sentences[controller.currentSentence]}'); setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));"
+						   class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px; padding-bottom: 4px;">
+							<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
+					</div>
+					<div>
+						<label>Input Answer:</label>
+						<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-border"
+									 value="#{controller.answer}">
+						</h:inputText>
+
+						<p:commandLink update="topHeader @form" oncomplete="updateAfterSubmit()" id="eslSubmit"
+									   styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-teal w3-large w3-right"
+									   action="#{controller.submitAnswer}"
+									   onclick="clickAndDisable(this);">
+							#{selfDictationMsg.practiceInputAnsBtn}
+						</p:commandLink>
+					</div>
+				</div>
+
+				<!--<div class="w3-container">
+					<esl:scoreBar2 startMark="#{selfDictationController.practice.mark}" maxMark="#{selfDictationController.practice.totalQuestions}" />
+				</div>-->
+
+				<div class="w3-container">
+					<h:panelGroup id="msgPanel">
+						<div class="w3-medium w3-pale-green">
+							<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
+						</div>
+					</h:panelGroup>
+				</div>
+
+				<div class="w3-container w3-medium">
+					<ui:repeat var="h" varStatus="r" value="#{controller.history}" >
+						<div class="w3-row w3-border-top">
+							<div class="w3-col" style="width: 30px;"><span class="w3-tag w3-small w3-teal">#{r.end-r.index+2}</span></div>
+							<div class="w3-rest">
+								<ui:repeat var="w" varStatus="wr" value="#{h.questionSegments}" >
+									<span class="#{h.isCorrect[wr.index] ? 'w3-text-green' : 'w3-text-red'}">#{w}</span>
+								</ui:repeat>
+								<br /><span style="color: black;">#{h.answer}</span>
+							</div>
+						</div>
+					</ui:repeat>
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
+
+
+</ui:composition>

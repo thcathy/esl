@@ -7,8 +7,10 @@ import com.esl.service.practice.ISelfDictationService;
 import com.esl.service.practice.PhoneticPracticeService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.ESLController;
+import com.esl.web.jsf.controller.dictation.ArticleDictationPracticeController;
 import com.esl.web.jsf.controller.dictation.DictationEditController;
 import com.esl.web.util.LanguageUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,6 +51,7 @@ public class SelfDictationController extends ESLController {
 	@Resource private ISelfDictationService selfDictationService;
 	@Resource private IPhoneticPracticeService phoneticPracticeService;
 	@Resource private DictationEditController dictationEditController;
+	@Resource private ArticleDictationPracticeController articleDictationPracticeController;
 	@Value("${SelfDictationService.MaxQuestions}") private int maxQuestions = 20;
 
 	// UI Component
@@ -95,6 +98,18 @@ public class SelfDictationController extends ESLController {
 	// Generate the dictation
 	@Transactional
 	public String start() {
+		if (StringUtils.isBlank(inputArticle)) {
+			return startByWord();
+		} else {
+			return startByArticle();
+		}
+	}
+
+	private String startByArticle() {
+		return articleDictationPracticeController.start(inputArticle);
+	}
+
+	private String startByWord() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Locale locale = facesContext.getViewRoot().getLocale();
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);

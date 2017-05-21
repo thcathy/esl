@@ -16,6 +16,7 @@ public class DictationPractice  {
 	public final List<String> sentences;
 
 	public Dictation getDictation() { return dictation; }
+	public List<String> getSentences() {return sentences;}
 
 	public DictationPractice(Dictation dictation) {
 		this.dictation = dictation;

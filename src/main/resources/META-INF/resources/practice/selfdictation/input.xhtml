@@ -59,7 +59,7 @@
 
 					<div id="articleTab" class="w3-tab w3-padding-0" style="display:none;">
 						<p class="w3-text-teal" style="margin: 0px;">#{selfDictationMsg.inputPassageLabel}</p>
-						<h:inputTextarea id="passage" rows="6" cols="50" style="width: 100%; color: dimgray;" styleClass="w3-small" value="#{dictationEditController.vocabs}" onkeyup="calculateTotalWords();"></h:inputTextarea>
+						<h:inputTextarea id="passage" rows="6" cols="50" style="width: 100%; color: dimgray;" styleClass="w3-small" value="#{selfDictationController.inputArticle}" onkeyup="calculateTotalWords();"></h:inputTextarea>
 					</div>
 
 					<div class="w3-margin-top">

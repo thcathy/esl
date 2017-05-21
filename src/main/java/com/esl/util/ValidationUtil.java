@@ -77,4 +77,14 @@ public class ValidationUtil {
 			return true;
 		}
 	}
+
+	public static boolean wordEqual(String input1, String input2) {
+		return input1.replaceAll(" ", "").replaceAll("-", "").toLowerCase()
+				.equals(input2.replaceAll(" ", "").replaceAll("-", "").toLowerCase());
+	}
+
+	public static String alphabetOnly(String input) {
+		return input.replaceAll("[^A-Za-z]+", "");
+	}
+
 }
