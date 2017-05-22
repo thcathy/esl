@@ -76,6 +76,8 @@ class ArticleDictationPracticeControllerSpec extends BaseSpec {
         history.answer == input
         history.questionSegments.size() == history.isCorrect.size()
 
+        when: "submit answer "
+
         where:
         input | isCorrect
         "Listen to the file" | [true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false]

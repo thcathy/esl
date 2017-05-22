@@ -3,6 +3,7 @@ package com.esl.web.jsf.controller.dictation;
 import com.esl.entity.dictation.Dictation;
 import com.esl.entity.dictation.DictationPractice;
 import com.esl.entity.dictation.SentenceHistory;
+import com.esl.service.JSFService;
 import com.esl.service.dictation.ArticleDictationService;
 import com.esl.web.jsf.controller.UserCreatedPracticeController;
 import com.esl.web.model.practice.ScoreBar;
@@ -26,10 +27,12 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 	private static Logger logger = LoggerFactory.getLogger(DictationPracticeController.class);
 	private static final String inputView = "/practice/selfdictation/input";
 	private static final String practiceView = "/practice/selfdictation/articlepractice";
+	private static final String resultView = "/practice/selfdictation/articlepracticeresult";
 
 	//	 Supporting instance
 	@Resource EventBus eventBus;
 	@Resource ArticleDictationService articleDictationService;
+	@Resource JSFService jsfService;
 
 	//	 ============== UI display data ================//
 	private DictationPractice dictation;
@@ -78,6 +81,11 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 
 		currentSentence++;
 		answer = "";
+
+		if (currentSentence >= dictation.sentences.size()) {
+			return jsfService.redirectToJSF(resultView);
+		}
+
 		return null;
 	}
 
