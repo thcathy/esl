@@ -31,14 +31,14 @@
 		$(window).load(function(){
 			console.log("when window load");
 			jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
-			setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));
+			setFocus(jQuery('#inputForm\\:answer'));
 		});
 		
 		function updateAfterSubmit() {
 			console.log('updateAfterSubmit')
 			//animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
 			jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
-			setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));
+			setFocus(jQuery('#inputForm\\:answer'));
 		}
 		//]]>
 		</script>	
@@ -58,10 +58,56 @@
 		<div class="w3-xlarge w3-padding-bottom w3-text-teal" style="padding-bottom: 8px;">
 			<h:form id="inputForm">
 				<div class="w3-container">
-					<div>
-						<a onclick="responsiveVoice.speak('#{controller.dictation.sentences[controller.currentSentence]}'); setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));"
-						   class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px; padding-bottom: 4px;">
-							<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
+					<div style="padding-top: 8px;">
+						<script type="text/javascript">
+                            //<![CDATA[
+							var rate = 0.8;
+							var isPause = false;
+
+							function speak() {
+							    isPause = false;
+                                jQuery('#pauseText').text('Pause');
+                                responsiveVoice.speak("#{controller.dictation.sentences[controller.currentSentence]}", "UK English Female", {rate: rate});
+                                setFocus(jQuery('#inputForm\\:answer'));
+							}
+
+							function pause() {
+							    if (isPause) {
+                                    responsiveVoice.resume();
+                                    isPause = false;
+                                    jQuery('#pauseText').text('Pause');
+                                } else {
+                                    responsiveVoice.pause();
+                                    isPause = true;
+                                    jQuery('#pauseText').text('Resume');
+                                }
+							}
+
+							function speakSlower() {
+							    if (rate > 0.1)
+							        rate -= 0.1;
+							}
+
+							function speakFaster() {
+								if (rate < 1.4)
+								    rate += 0.1;
+                            }
+                            //]]>
+						</script>
+						<div class="w3-row">
+							<div class="w3-half" style="padding-bottom: 8px;">
+								<a onclick="speak()" class="w3-btn w3-medium w3-green">
+									<i class="fa fa-play" aria-hidden="true"></i> play</a>
+								<a onclick="pause()" class="w3-btn w3-medium w3-light-grey">
+									<i class="fa fa-pause" aria-hidden="true"></i> <span id="pauseText">pause</span></a>
+							</div>
+							<div class="w3-half w3-right-align" style="padding-bottom: 8px;">
+								<a onclick="speakSlower()" class="w3-btn w3-medium w3-blue">
+									<i class="fa fa-tachometer" aria-hidden="true"></i><i class="fa fa-hand-o-down" aria-hidden="true"></i> speak slower</a>
+								<a onclick="speakFaster()" class="w3-btn w3-medium w3-blue">
+									<i class="fa fa-tachometer" aria-hidden="true"></i><i class="fa fa-hand-o-up" aria-hidden="true"></i> speak faster</a>
+							</div>
+						</div>
 					</div>
 					<div>
 						<label>Input Answer:</label>
