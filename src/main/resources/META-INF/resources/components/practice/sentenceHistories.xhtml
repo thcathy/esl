@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:esl="http://www.funfunspell.com/jsf"
+	  xmlns:util="http://java.sun.com/jsf/composite/components/util"
+	  xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+	  xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="history" />
+</composite:interface>
+
+<composite:implementation>
+	<ui:repeat var="h" varStatus="r" value="#{cc.attrs.history}" >
+		<div class="w3-row w3-border-top">
+			<div class="w3-col" style="width: 30px;"><span class="w3-tag w3-small w3-teal">#{cc.attrs.history.size()-r.index}</span></div>
+			<div class="w3-rest">
+				<ui:repeat var="w" varStatus="wr" value="#{h.questionSegments}" >
+					<span class="#{h.isCorrect[wr.index] ? 'w3-text-green' : 'w3-text-red'}">#{w}</span>
+				</ui:repeat>
+				<br /><span style="color: black;">#{h.answer == "" ? "&#160;" : h.answer}</span>
+			</div>
+		</div>
+	</ui:repeat>
+</composite:implementation>
+</html>

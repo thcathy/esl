@@ -20,24 +20,14 @@
 		<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
 		<script type="text/javascript">
 		//<![CDATA[
-		var answerEnterEvent = function(event) {
-			var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
-	      	if (keycode == 13) { // keycode for enter key
-	        	jQuery('#inputForm\\:answer').click();
-	        	return false;
-	      	}
-		};
-
 		$(window).load(function(){
 			console.log("when window load");
-			jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
 			setFocus(jQuery('#inputForm\\:answer'));
 		});
 		
 		function updateAfterSubmit() {
 			console.log('updateAfterSubmit')
 			//animateScoreBar(jQuery('#hiddenCurrentMark').val(), jQuery('#hiddenMaxMark').val());
-			jQuery('#inputForm\\:answer').keydown(answerEnterEvent);
 			setFocus(jQuery('#inputForm\\:answer'));
 		}
 		//]]>
@@ -72,14 +62,18 @@
 							}
 
 							function pause() {
-							    if (isPause) {
-                                    responsiveVoice.resume();
-                                    isPause = false;
-                                    jQuery('#pauseText').text('Pause');
-                                } else {
-                                    responsiveVoice.pause();
-                                    isPause = true;
-                                    jQuery('#pauseText').text('Resume');
+							    if (responsiveVoice.isPlaying()) {
+                                    if (isPause) {
+                                        responsiveVoice.resume();
+                                        isPause = false;
+                                        jQuery('#pauseText').text('Pause');
+                                        setFocus(jQuery('#inputForm\\:answer'));
+                                    } else {
+                                        responsiveVoice.pause();
+                                        isPause = true;
+                                        jQuery('#pauseText').text('Resume');
+                                        setFocus(jQuery('#inputForm\\:answer'));
+                                    }
                                 }
 							}
 
@@ -87,12 +81,14 @@
 							    if (rate > 0.1)
 							        rate -= 0.1;
 							    jQuery('#hiddenSpeakingSpeed').val(rate);
+                                responsiveVoice.speak("#{controller.dictation.sentences[controller.currentSentence]}", "UK English Female", {rate: rate});
 							}
 
 							function speakFaster() {
 								if (rate < 1.4)
 								    rate += 0.1;
                                 jQuery('#hiddenSpeakingSpeed').val(rate);
+                                responsiveVoice.speak("#{controller.dictation.sentences[controller.currentSentence]}", "UK English Female", {rate: rate});
                             }
                             //]]>
 						</script>
@@ -105,20 +101,20 @@
 							</div>
 							<div class="w3-half w3-right-align" style="padding-bottom: 8px;">
 								<a onclick="speakSlower()" class="w3-btn w3-medium w3-light-grey">
-									<i class="fa fa-rocket" aria-hidden="true"></i> speak slower</a>
+									<i class="fa fa-bicycle" aria-hidden="true"></i> speak slower</a>
 								<a onclick="speakFaster()" class="w3-btn w3-medium w3-light-grey">
-									<i class="fa fa-bicycle" aria-hidden="true"></i> speak faster</a>
+									<i class="fa fa-rocket" aria-hidden="true"></i> speak faster</a>
 							</div>
 						</div>
 					</div>
 					<div>
 						<label>Input Answer:</label>
-						<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-border" style="padding-bottom: 8px;"
+						<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-border" style="margin-bottom: 8px;"
 									 value="#{controller.answer}">
 						</h:inputText>
 
 						<p:commandLink update="topHeader @form" oncomplete="updateAfterSubmit()" id="eslSubmit"
-									   styleClass="w3-btn w3-green w3-teal w3-large w3-right" style="padding-bottom: 8px;"
+									   styleClass="w3-btn w3-green w3-teal w3-large w3-right" style="margin-bottom: 8px;"
 									   action="#{controller.submitAnswer}"
 									   onclick="clickAndDisable(this);">
 							#{selfDictationMsg.practiceInputAnsBtn}
@@ -140,17 +136,7 @@
 				</div>
 
 				<div class="w3-container w3-medium">
-					<ui:repeat var="h" varStatus="r" value="#{controller.history}" >
-						<div class="w3-row w3-border-top">
-							<div class="w3-col" style="width: 30px;"><span class="w3-tag w3-small w3-teal">#{r.end-r.index+2}</span></div>
-							<div class="w3-rest">
-								<ui:repeat var="w" varStatus="wr" value="#{h.questionSegments}" >
-									<span class="#{h.isCorrect[wr.index] ? 'w3-text-green' : 'w3-text-red'}">#{w}</span>
-								</ui:repeat>
-								<br /><span style="color: black;">#{h.answer}</span>
-							</div>
-						</div>
-					</ui:repeat>
+					<practice:sentenceHistories history="#{controller.history}" />
 				</div>
 			</h:form>
 		</div>

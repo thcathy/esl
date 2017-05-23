@@ -1,17 +1,5 @@
 package com.esl.web.jsf.controller.dictation;
 
-import reactor.bus.EventBus;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import com.esl.entity.dictation.Dictation;
 import com.esl.entity.dictation.DictationPractice;
 import com.esl.entity.dictation.SentenceHistory;
@@ -19,6 +7,15 @@ import com.esl.service.JSFService;
 import com.esl.service.dictation.ArticleDictationService;
 import com.esl.web.jsf.controller.UserCreatedPracticeController;
 import com.esl.web.model.practice.ScoreBar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import reactor.bus.EventBus;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Controller
@@ -100,8 +97,8 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 						.flatMap(h -> h.isCorrect.stream())
 						.filter(x -> x)
 						.count();
-
-		return (int) (correct / total * 100);
+		logger.info("correct {} / total {}", correct, total);
+		return (int) ((double)correct / total * 100);
 	}
 
 	//	 ============== Setter / Getter ================//
