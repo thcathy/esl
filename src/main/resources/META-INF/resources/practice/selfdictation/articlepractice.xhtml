@@ -86,11 +86,13 @@
 							function speakSlower() {
 							    if (rate > 0.1)
 							        rate -= 0.1;
+							    jQuery('#hiddenSpeakingSpeed').val(rate);
 							}
 
 							function speakFaster() {
 								if (rate < 1.4)
 								    rate += 0.1;
+                                jQuery('#hiddenSpeakingSpeed').val(rate);
                             }
                             //]]>
 						</script>
@@ -98,34 +100,35 @@
 							<div class="w3-half" style="padding-bottom: 8px;">
 								<a onclick="speak()" class="w3-btn w3-medium w3-green">
 									<i class="fa fa-play" aria-hidden="true"></i> play</a>
-								<a onclick="pause()" class="w3-btn w3-medium w3-light-grey">
+								<a onclick="pause()" class="w3-btn w3-medium w3-blue">
 									<i class="fa fa-pause" aria-hidden="true"></i> <span id="pauseText">pause</span></a>
 							</div>
 							<div class="w3-half w3-right-align" style="padding-bottom: 8px;">
-								<a onclick="speakSlower()" class="w3-btn w3-medium w3-blue">
-									<i class="fa fa-tachometer" aria-hidden="true"></i><i class="fa fa-hand-o-down" aria-hidden="true"></i> speak slower</a>
-								<a onclick="speakFaster()" class="w3-btn w3-medium w3-blue">
-									<i class="fa fa-tachometer" aria-hidden="true"></i><i class="fa fa-hand-o-up" aria-hidden="true"></i> speak faster</a>
+								<a onclick="speakSlower()" class="w3-btn w3-medium w3-light-grey">
+									<i class="fa fa-rocket" aria-hidden="true"></i> speak slower</a>
+								<a onclick="speakFaster()" class="w3-btn w3-medium w3-light-grey">
+									<i class="fa fa-bicycle" aria-hidden="true"></i> speak faster</a>
 							</div>
 						</div>
 					</div>
 					<div>
 						<label>Input Answer:</label>
-						<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-border"
+						<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-border" style="padding-bottom: 8px;"
 									 value="#{controller.answer}">
 						</h:inputText>
 
 						<p:commandLink update="topHeader @form" oncomplete="updateAfterSubmit()" id="eslSubmit"
-									   styleClass="w3-btn w3-green w3-margin-right w3-margin-bottom w3-teal w3-large w3-right"
+									   styleClass="w3-btn w3-green w3-teal w3-large w3-right" style="padding-bottom: 8px;"
 									   action="#{controller.submitAnswer}"
 									   onclick="clickAndDisable(this);">
 							#{selfDictationMsg.practiceInputAnsBtn}
 						</p:commandLink>
+						<input type="hidden" name="hiddenSpeakingSpeed" id="hiddenSpeakingSpeed" value="#{controller.speakingSpeed}" />
 					</div>
 				</div>
 
 				<!--<div class="w3-container">
-					<esl:scoreBar2 startMark="#{selfDictationController.practice.mark}" maxMark="#{selfDictationController.practice.totalQuestions}" />
+					<esl:scoreBar2 startMark="#{controller.correctPercentage}" maxMark="100" />
 				</div>-->
 
 				<div class="w3-container">

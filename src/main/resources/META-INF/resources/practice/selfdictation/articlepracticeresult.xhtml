@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:esl="http://www.funfunspell.com/jsf"
+				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+				template="/template/short.xhtml">
+
+	<ui:param name="controller" value="#{articleDictationPracticeController}" />
+	<f:metadata>
+		<f:viewAction action="#{controller.initCheck}" />
+	</f:metadata>
+
+	<ui:define name="subTitle">#{htmlHeadMsg.practice_selfdictation_practice_title}</ui:define>	
+	<ui:define name="head">
+		<meta name="description" content="#{htmlHeadMsg.practice_selfdictation_practice_desc}" />
+	</ui:define>
+
+	<ui:define name="mainDiv">
+
+		<div class="w3-container w3-green">
+			<h3>
+				<h:panelGroup id="topHeader">
+					Result
+				</h:panelGroup>
+				<span class="w3-right w3-hide-small"><i class="fa fa-pencil-square" aria-hidden="true"></i> Article Dictation</span>
+			</h3>
+		</div>
+
+		<div class="w3-xlarge w3-padding-bottom w3-text-teal" style="padding-bottom: 8px;">
+			<h:form>
+			<div class="w3-row w3-center w3-margin w3-medium">
+				<div class="w3-half w3-padding-small">
+					<h:commandLink styleClass="w3-btn w3-green" onclick="showSpinner()" action="/practice/selfdictation/input">
+						<i class="fa fa-repeat" aria-hidden="true"></i> #{selfDictationMsg.resultRetryMessage}</h:commandLink>
+				</div>
+				<div class="w3-half w3-padding-small">
+					<h:commandLink styleClass="w3-btn w3-blue" onclick="showSpinner()" action="#{selfDictationController.createDictation}">
+						<i class="fa fa-floppy-o" aria-hidden="true"></i> #{selfDictationMsg.saveDictation}</h:commandLink>
+				</div>
+			</div>
+			</h:form>
+
+			<h:form id="inputForm">
+				<div class="w3-container">
+					<h:panelGroup id="msgPanel">
+						<div class="w3-medium w3-pale-green">
+							<h:messages tooltip="false" styleClass="w3-ul" globalOnly="true" />
+						</div>
+					</h:panelGroup>
+				</div>
+
+				<div class="w3-container">
+					<esl:scoreBar2 startMark="#{controller.correctPercentage}" maxMark="100" />
+				</div>
+
+				<div class="w3-container w3-medium">
+					<ui:repeat var="h" varStatus="r" value="#{controller.history}" >
+						<div class="w3-row w3-border-top">
+							<div class="w3-col" style="width: 30px;"><span class="w3-tag w3-small w3-teal">#{r.end-r.index+1}</span></div>
+							<div class="w3-rest">
+								<ui:repeat var="w" varStatus="wr" value="#{h.questionSegments}" >
+									<span class="#{h.isCorrect[wr.index] ? 'w3-text-green' : 'w3-text-red'}">#{w}</span>
+								</ui:repeat>
+								<br /><span style="color: black;">#{h.answer}</span>
+							</div>
+						</div>
+					</ui:repeat>
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
+
+
+</ui:composition>

@@ -1,5 +1,17 @@
 package com.esl.web.jsf.controller.dictation;
 
+import reactor.bus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
 import com.esl.entity.dictation.Dictation;
 import com.esl.entity.dictation.DictationPractice;
 import com.esl.entity.dictation.SentenceHistory;
@@ -7,22 +19,12 @@ import com.esl.service.JSFService;
 import com.esl.service.dictation.ArticleDictationService;
 import com.esl.web.jsf.controller.UserCreatedPracticeController;
 import com.esl.web.model.practice.ScoreBar;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import reactor.bus.EventBus;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 @SuppressWarnings("serial")
 @Controller
 @Scope("session")
 public class ArticleDictationPracticeController extends UserCreatedPracticeController<Dictation> {
 	public static int SCOREBAR_FULLLENGTH = 500;
-	public static int BASE_RATING = 3;
 
 	private static Logger logger = LoggerFactory.getLogger(DictationPracticeController.class);
 	private static final String inputView = "/practice/selfdictation/input";
@@ -40,6 +42,7 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 	private List<SentenceHistory> history;
 	private int currentSentence;
 	private ScoreBar scoreBar;
+	private double speakingSpeed = 0.8;
 
 	// ============== Constructor ================//
 	public ArticleDictationPracticeController() {
@@ -89,13 +92,16 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 		return null;
 	}
 
-	//	============== Supporting Function ================//
-	private void setScoreBar(int startIdx, int endIdx) {
-//		int startLength = (int) ((double)startIdx / (double)practice.getTotalQuestions() * SCOREBAR_FULLLENGTH);
-//		int endLength = (int) ((double)endIdx / (double)practice.getTotalQuestions() * SCOREBAR_FULLLENGTH);
-//		if (startLength < 0) startLength = 0;
+	public int getCorrectPercentage() {
+		long total = history.stream()
+				.mapToLong(h -> h.isCorrect.size())
+				.sum();
+		long correct = history.stream()
+						.flatMap(h -> h.isCorrect.stream())
+						.filter(x -> x)
+						.count();
 
-//		logger.info("setScoreBar: startLength[" + startLength + "], endLength[" + endLength + "]");
+		return (int) (correct / total * 100);
 	}
 
 	//	 ============== Setter / Getter ================//
@@ -110,4 +116,7 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 
 	public List<SentenceHistory> getHistory() {return history;}
 	public void setHistory(List<SentenceHistory> history) {this.history = history;}
+
+	public double getSpeakingSpeed() {return speakingSpeed;}
+	public void setSpeakingSpeed(double speakingSpeed) {this.speakingSpeed = speakingSpeed;	}
 }

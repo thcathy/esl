@@ -60,6 +60,7 @@
 									<td><a href="#{phonPracticeMsg.practiceDictionaryLink}#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].word}" target="_blank"><u><h:outputText value="#{selfDictationController.practice.questions[selfDictationController.practice.currentQuestion-1-r.index].word}" /></u></a></td>
 									<td><h:outputText value="#{selfDictationController.practice.answers[selfDictationController.practice.currentQuestion-1-r.index]}" /></td>
 									<td>
+									<td>
 										<h:panelGroup rendered="#{selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-r.index]}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
 										<h:panelGroup rendered="#{!selfDictationController.practice.corrects[selfDictationController.practice.currentQuestion-1-r.index]}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
 									</td>
