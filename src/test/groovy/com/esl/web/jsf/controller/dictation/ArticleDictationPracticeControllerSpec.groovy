@@ -42,6 +42,20 @@ class ArticleDictationPracticeControllerSpec extends BaseSpec {
         controller.dictation.sentences.size() == 4
     }
 
+    def "separate sentence contain quote after full stop"() {
+        def article = '''Victim Jane Tweddle-Taylor, a receptionist at South Shore Academy School in Blackpool, was a "bubbly, kind, welcoming, funny, generous" colleague, the school's principal has said. Jane Bailey described Miss Tweddle-Taylor, 51, as a "well-loved member of staff" and "wonderful friend and colleague". She added: "Our thoughts are with her friends and family at this terrible time."'''
+
+        when: "start a dictation practice"
+        String page = controller.start(article)
+
+        then: "the sentences are separated by newline"
+        controller.currentSentence == 0
+        controller.dictation.sentences.size() == 3
+        controller.dictation.sentences[0] == '''Victim Jane Tweddle-Taylor, a receptionist at South Shore Academy School in Blackpool, was a "bubbly, kind, welcoming, funny, generous" colleague, the school's principal has said.'''
+        controller.dictation.sentences[1] == '''Jane Bailey described Miss Tweddle-Taylor, 51, as a "well-loved member of staff" and "wonderful friend and colleague".'''
+        controller.dictation.sentences[2] == '''She added: "Our thoughts are with her friends and family at this terrible time.".'''
+    }
+
     @Unroll
     def "check answer: input=#input"(String input, List<Boolean> isCorrect, int correctPercentage) {
         def article = '''1.  I hate to complain, but this hamburger tastes bad.            

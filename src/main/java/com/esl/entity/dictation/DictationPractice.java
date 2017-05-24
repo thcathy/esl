@@ -39,7 +39,7 @@ public class DictationPractice  {
 		if (input.length() < 100)
 			return Stream.of(input);
 		else
-			return Arrays.stream(input.split("\\."))
-							.map(s -> s + ".");
+			return Arrays.stream(input.split("\\. "))
+							.map(s -> s.endsWith(".") ? s : s + ".");
 	}
 }
