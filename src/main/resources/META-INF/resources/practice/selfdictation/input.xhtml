@@ -4,6 +4,7 @@
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:of="http://omnifaces.org/functions"
 				template="/template/short.xhtml">
 
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_selfdictation_input_title}</ui:define>
@@ -16,7 +17,9 @@
 			while (i <= #{selfDictationController.totalInput}) {
 				document.getElementById("vocab" + i).value="";
 				i++;
-			} 
+			}
+
+            document.getElementById("inputForm:passage").value="";
 			return false;
 		}
 		//]]>
@@ -35,15 +38,15 @@
 
 				<div class="w3-row w3-margin-bottom w3-large w3-text-teal">
 					<a href="javascript:void(0)" onclick="openW3Tab(event, 'vocabTab');">
-						<div class="w3-half w3-tablink w3-bottombar w3-border-green w3-hover-light-grey w3-padding">#{generalMsg.vocabMode}</div>
+						<div class="w3-half w3-tablink w3-bottombar #{selfDictationController.lastDictationType == 'Vocab' ? 'w3-border-green' : ''} w3-hover-light-grey w3-padding">#{generalMsg.vocabMode}</div>
 					</a>
 					<a href="javascript:void(0)" onclick="openW3Tab(event, 'articleTab');">
-						<div class="w3-half w3-tablink w3-bottombar w3-hover-light-grey w3-padding">#{generalMsg.articleMode}</div>
+						<div class="w3-half w3-tablink w3-bottombar #{selfDictationController.lastDictationType == 'Article' ? 'w3-border-green' : ''} w3-hover-light-grey w3-padding">#{generalMsg.articleMode}</div>
 					</a>
 				</div>
 
-				<h:form styleClass="w3-margin-top w3-large">
-					<div id="vocabTab" class="w3-tab w3-padding-0">
+				<h:form styleClass="w3-margin-top w3-large" id="inputForm">
+					<div id="vocabTab" class="w3-tab w3-padding-0" style="#{selfDictationController.lastDictationType != 'Vocab' ? 'display:none;' : ''}">
 						<p class="w3-text-teal">
 							#{selfDictationMsg.inputVocabularyLabel}<br/>
 							<span class="w3-medium w3-text-grey">#{generalMsg.example}: "apple", "bus stop", "ice-cream"</span>
@@ -57,7 +60,7 @@
 						</div>
 					</div>
 
-					<div id="articleTab" class="w3-tab w3-padding-0" style="display:none;">
+					<div id="articleTab" class="w3-tab w3-padding-0" style="#{selfDictationController.lastDictationType != 'Article' ? 'display:none;' : ''}">
 						<p class="w3-text-teal" style="margin: 0px;">#{selfDictationMsg.inputPassageLabel}</p>
 						<h:inputTextarea id="passage" rows="6" cols="50" style="width: 100%; color: dimgray;" styleClass="w3-small" value="#{selfDictationController.inputArticle}" onkeyup="calculateTotalWords();"></h:inputTextarea>
 					</div>

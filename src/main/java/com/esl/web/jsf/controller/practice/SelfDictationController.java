@@ -1,5 +1,6 @@
 package com.esl.web.jsf.controller.practice;
 
+import com.esl.entity.dictation.Dictation;
 import com.esl.model.PhoneticPractice;
 import com.esl.model.PhoneticQuestion;
 import com.esl.service.practice.IPhoneticPracticeService;
@@ -46,6 +47,7 @@ public class SelfDictationController extends ESLController {
 	private boolean withIPA = false;
 	private boolean withRandomCharacters = false;
 	private int totalQuestions;
+	private Dictation.DictationType lastDictationType = Dictation.DictationType.Vocab;
 
 	// Supporting classes
 	@Resource private ISelfDictationService selfDictationService;
@@ -88,6 +90,8 @@ public class SelfDictationController extends ESLController {
 
 	public int getTotalQuestions() {return totalQuestions; }
 
+	public Dictation.DictationType getLastDictationType() {return lastDictationType;}
+
 	// ============== Constructor ================//
 	public SelfDictationController() {
 	}
@@ -101,6 +105,7 @@ public class SelfDictationController extends ESLController {
 		if (StringUtils.isBlank(inputArticle)) {
 			return startByWord();
 		} else {
+			lastDictationType = Dictation.DictationType.Article;
 			return startByArticle();
 		}
 	}

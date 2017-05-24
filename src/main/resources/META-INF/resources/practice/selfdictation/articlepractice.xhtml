@@ -6,6 +6,7 @@
 				xmlns:p="http://primefaces.org/ui"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
+				xmlns:of="http://omnifaces.org/functions"
 				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
 				template="/template/short.xhtml">
 
@@ -39,9 +40,9 @@
 		<div class="w3-container w3-green">
 			<h3>
 				<h:panelGroup id="topHeader">
-					Sentence #{controller.currentSentence+1} / #{controller.dictation.sentences.size()}
+					#{generalMsg.sentence} #{controller.currentSentence+1} / #{controller.dictation.sentences.size()}
 				</h:panelGroup>
-				<span class="w3-right w3-hide-small"><i class="fa fa-pencil-square" aria-hidden="true"></i> Article Dictation</span>
+				<span class="w3-right w3-hide-small"><i class="fa fa-pencil-square" aria-hidden="true"></i> #{generalMsg.articleDictation}</span>
 			</h3>
 		</div>
 
@@ -56,8 +57,8 @@
 
 							function speak() {
 							    isPause = false;
-                                jQuery('#pauseText').text('Pause');
-                                responsiveVoice.speak("#{controller.dictation.sentences[controller.currentSentence]}", "UK English Female", {rate: rate});
+                                jQuery('#pauseText').text('#{generalMsg.pause}');
+                                responsiveVoice.speak("#{of:escapeJS(controller.dictation.sentences[controller.currentSentence])}", "UK English Female", {rate: rate});
                                 setFocus(jQuery('#inputForm\\:answer'));
 							}
 
@@ -66,12 +67,12 @@
                                     if (isPause) {
                                         responsiveVoice.resume();
                                         isPause = false;
-                                        jQuery('#pauseText').text('Pause');
+                                        jQuery('#pauseText').text('#{generalMsg.pause}');
                                         setFocus(jQuery('#inputForm\\:answer'));
                                     } else {
                                         responsiveVoice.pause();
                                         isPause = true;
-                                        jQuery('#pauseText').text('Resume');
+                                        jQuery('#pauseText').text('#{generalMsg.resume}');
                                         setFocus(jQuery('#inputForm\\:answer'));
                                     }
                                 }
@@ -81,34 +82,34 @@
 							    if (rate > 0.1)
 							        rate -= 0.1;
 							    jQuery('#hiddenSpeakingSpeed').val(rate);
-                                responsiveVoice.speak("#{controller.dictation.sentences[controller.currentSentence]}", "UK English Female", {rate: rate});
+                                responsiveVoice.speak("#{of:escapeJS(controller.dictation.sentences[controller.currentSentence])}", "UK English Female", {rate: rate});
 							}
 
 							function speakFaster() {
 								if (rate < 1.4)
 								    rate += 0.1;
                                 jQuery('#hiddenSpeakingSpeed').val(rate);
-                                responsiveVoice.speak("#{controller.dictation.sentences[controller.currentSentence]}", "UK English Female", {rate: rate});
+                                responsiveVoice.speak("#{of:escapeJS(controller.dictation.sentences[controller.currentSentence])}", "UK English Female", {rate: rate});
                             }
                             //]]>
 						</script>
 						<div class="w3-row">
 							<div class="w3-half" style="padding-bottom: 8px;">
 								<a onclick="speak()" class="w3-btn w3-medium w3-green">
-									<i class="fa fa-play" aria-hidden="true"></i> play</a>
+									<i class="fa fa-play" aria-hidden="true"></i> #{generalMsg.listen}</a>
 								<a onclick="pause()" class="w3-btn w3-medium w3-blue">
-									<i class="fa fa-pause" aria-hidden="true"></i> <span id="pauseText">pause</span></a>
+									<i class="fa fa-pause" aria-hidden="true"></i> <span id="pauseText">#{generalMsg.pause}</span></a>
 							</div>
 							<div class="w3-half w3-right-align" style="padding-bottom: 8px;">
 								<a onclick="speakSlower()" class="w3-btn w3-medium w3-light-grey">
-									<i class="fa fa-bicycle" aria-hidden="true"></i> speak slower</a>
+									<i class="fa fa-bicycle" aria-hidden="true"></i> #{generalMsg.slower}</a>
 								<a onclick="speakFaster()" class="w3-btn w3-medium w3-light-grey">
-									<i class="fa fa-rocket" aria-hidden="true"></i> speak faster</a>
+									<i class="fa fa-rocket" aria-hidden="true"></i> #{generalMsg.faster}</a>
 							</div>
 						</div>
 					</div>
 					<div>
-						<label>Input Answer:</label>
+						<label>#{phonPracticeMsg.practiceInputAnsTitle}:</label>
 						<h:inputText autocomplete="off" id="answer" styleClass="w3-input w3-border" style="margin-bottom: 8px;"
 									 value="#{controller.answer}">
 						</h:inputText>

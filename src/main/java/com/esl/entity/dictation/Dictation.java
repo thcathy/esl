@@ -42,6 +42,10 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 		}
 	}
 
+	public enum DictationType {
+		Vocab, Article;
+	}
+
 	public static final int SHORT_TITLE_LENGHT = 30;
 	public static final String SEPARATOR = ",";
 
