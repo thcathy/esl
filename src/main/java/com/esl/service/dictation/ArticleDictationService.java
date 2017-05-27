@@ -27,9 +27,10 @@ public class ArticleDictationService {
 
         int answerPosition = 0;
         for (int questionPosition=0; questionPosition < questionSegments.size(); questionPosition++) {
+            boolean correct = false;
             // no more answer
             if (answerPosition >= answerSegments.size()) {
-                isCorrect.add(false);
+                isCorrect.add(correct);
                 continue;
             }
 
@@ -37,19 +38,42 @@ public class ArticleDictationService {
             String questionAlphabet = ValidationUtil.alphabetOnly(questionSegment);
             String answerAlphabet = ValidationUtil.alphabetOnly(answerSegments.get(answerPosition));
 
-            if (!isBlank(questionAlphabet) && !ValidationUtil.wordEqual(questionAlphabet, answerAlphabet))
-                isCorrect.add(false);
-            else
-                isCorrect.add(true);
+            if (isBlank(questionAlphabet))
+                correct = true;
+            else {
+                for (int i = answerPosition; i < answerSegments.size(); i++) {
+                    String subAnswerAlphabet = ValidationUtil.alphabetOnly(answerSegments.get(i));
+                    if (ValidationUtil.wordEqual(questionAlphabet, subAnswerAlphabet)) {
+                        correct = true;
+                        answerPosition = i-1;
+                        break;
+                    }
+                }
+            }
 
-            if ((!isBlank(questionAlphabet) && !isBlank(answerAlphabet))
-                    || (isBlank(questionAlphabet) && isBlank(answerAlphabet)))
-                answerPosition++;
+            if (questionAndAnsNotBlank(questionAlphabet, answerAlphabet)
+                    || questionAndAnsBlank(questionAlphabet, answerAlphabet))
+                if (correct || !answerSizeLeftIsSmaller(questionPosition, questionSegments.size(), answerPosition, answerSegments.size()))
+                    answerPosition++;
+
+            isCorrect.add(correct);
         }
 
         log.info("compare result: segments {}", StringUtils.join(questionSegments));
         log.info("compare result: isCorrect {}", StringUtils.join(isCorrect));
 
         return new SentenceHistory(question, answer, questionSegments, isCorrect);
+    }
+
+    private boolean answerSizeLeftIsSmaller(int questionPosition, int questionSize, int answerPosition, int ansSize) {
+        return (ansSize - answerPosition) < (questionSize - questionPosition);
+    }
+
+    private boolean questionAndAnsBlank(String questionAlphabet, String answerAlphabet) {
+        return isBlank(questionAlphabet) && isBlank(answerAlphabet);
+    }
+
+    private boolean questionAndAnsNotBlank(String questionAlphabet, String answerAlphabet) {
+        return !isBlank(questionAlphabet) && !isBlank(answerAlphabet);
     }
 }
