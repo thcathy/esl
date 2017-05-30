@@ -79,10 +79,16 @@
 						</h:form>
 					</div>
 					<div class="w3-half">
-						<div class="w3-margin-bottom">#{dictationMsg.vocab}:</div>
-						<ui:repeat var="i" varStatus="r" value="#{dictationEditController.editDictation.vocabs}">
-							<span class="w3-tag w3-round-large w3-green" style="margin: 2px!important;">#{i.word}</span>&#160;
-						</ui:repeat>
+						<h:panelGroup rendered="#{dictationEditController.editDictation.type == 'Vocab'}">
+							<div class="w3-margin-bottom">#{dictationMsg.vocab}:</div>
+							<ui:repeat var="i" varStatus="r" value="#{dictationEditController.editDictation.vocabs}">
+								<span class="w3-tag w3-round-large w3-green" style="margin: 2px!important;">#{i.word}</span>&#160;
+							</ui:repeat>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{dictationEditController.editDictation.type == 'Article'}">
+							<div class="w3-margin-bottom">#{dictationMsg.article}:</div>
+							#{dictationEditController.editDictation.article}
+						</h:panelGroup>
 					</div>
 				</div>
 			</div>

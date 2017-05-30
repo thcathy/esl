@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.*;
 
 @Controller
@@ -55,6 +56,7 @@ public class SelfDictationController extends ESLController {
 	@Resource private DictationEditController dictationEditController;
 	@Resource private ArticleDictationPracticeController articleDictationPracticeController;
 	@Value("${SelfDictationService.MaxQuestions}") private int maxQuestions = 20;
+	@Value("${Dictation.Article.MaxSize}") private int maxArticleSize = 0;
 
 	// UI Component
 	//private HtmlCommandButton practiceCommand;
@@ -106,11 +108,28 @@ public class SelfDictationController extends ESLController {
 			return startByWord();
 		} else {
 			lastDictationType = Dictation.DictationType.Article;
-			return startByArticle();
+			if (validateArticleInput())
+				return startByArticle();
+			else
+				return inputView;
 		}
 	}
 
+	private boolean validateArticleInput() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Locale locale = facesContext.getViewRoot().getLocale();
+		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);
+
+		if (inputArticle.length() > maxArticleSize) {
+			logger.info("Article too long");
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MessageFormat.format(bundle.getString("articleTooLong"),maxArticleSize), null));
+			return false;
+		}
+		return true;
+	}
+
 	private String startByArticle() {
+
 		return articleDictationPracticeController.start(inputArticle);
 	}
 

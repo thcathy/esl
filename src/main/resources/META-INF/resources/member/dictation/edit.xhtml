@@ -4,6 +4,7 @@
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:c="http://java.sun.com/jsp/jstl/core"
 				xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+				xmlns:p="http://primefaces.org/ui"
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
@@ -132,9 +133,24 @@
 					</div>
 				</div>
 
+				<div class="w3-row w3-margin-top">
+					<div class="w3-col" style="width: 60px; padding-top:4px;">Type:</div>
+					<div class="w3-rest">
+						<input class="w3-radio" onchange="addOrRemoveW3Hide('vocabLabel'); document.getElementById('editDictation:type').value='Vocab';"
+							type="radio" name="type" value="Vocab" checked="#{dictationEditController.type == 'Vocab' ? 'checked' : ''}" />
+						<label style="padding-right: 10px;">Vocabulary</label>
+
+						<input class="w3-radio" onchange="addOrRemoveW3Hide('vocabLabel'); document.getElementById('editDictation:type').value='Article';"
+						 	type="radio" name="type" value="Article" checked="#{dictationEditController.type == 'Article' ? 'checked' : ''}" />
+						<label style="padding-right: 10px;">Article</label>
+					</div>
+				</div>
+
 				<div class="w3-margin-top">
-					<label class="w3-label">#{dictationMsg.vocab} * (<h:outputText value="#{dictationMsg.vocabDesc}" escape="false" />)</label><br />
-					#{dictationMsg.maxWord}: <strong>#{dictationEditController.maxVocabs}</strong>, #{dictationMsg.youHaveInput}: <strong><span id="totalWords"></span></strong>
+					<div id="vocabLabel" class="#{dictationEditController.type == 'Vocab' ? '' : 'w3-hide'}">
+						<label class="w3-label">#{dictationMsg.vocab} * (<h:outputText value="#{dictationMsg.vocabDesc}" escape="false" />)</label><br />
+						#{dictationMsg.maxWord}: <strong>#{dictationEditController.maxVocabs}</strong>, #{dictationMsg.youHaveInput}: <strong><span id="totalWords"></span></strong>
+					</div>
 					<h:inputTextarea id="vocabs" required="true" rows="4" cols="50" style="width: 100%;" value="#{dictationEditController.vocabs}" onkeyup="calculateTotalWords();"></h:inputTextarea>
 					<h:message for="vocabs" errorClass="w3-text-red" />
 					<div id="helpDiv5" class="w3-text-blue helpDiv" style="display: none;">
@@ -150,6 +166,8 @@
 						<i class="fa fa-hand-o-up" aria-hidden="true"></i>&#160;<h:outputText value="#{dictationMsg.finalHelpDivContent}" escape="false" />
 					</div>
 				</div>
+
+				<h:inputHidden id="type" value="#{dictationEditController.type}" />
 			</h:form>
 		</div>
 	</ui:define>

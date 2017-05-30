@@ -10,11 +10,13 @@ import com.esl.exception.BusinessValidationException;
 import com.esl.exception.IllegalParameterException;
 import com.esl.model.Member;
 import com.esl.model.group.MemberGroup;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -129,7 +131,7 @@ public class DictationManageService implements IDictationManageService {
 
 		// Checking
 		if (dictation.getCreator() == null) throw new BusinessValidationException("exception.noCreator",logPrefix + "no creator set");
-		if (dictation.getVocabs() == null || dictation.getVocabs().size() < 1) throw new BusinessValidationException(BusinessValidationException.NO_VOCAB_SET,logPrefix + "no vocab set");
+		if (CollectionUtils.isEmpty(dictation.getVocabs()) && StringUtils.isBlank(dictation.getArticle())) throw new BusinessValidationException(BusinessValidationException.NO_VOCAB_SET,logPrefix + "no vocab set");
 
 		dictationDAO.persist(dictation);
 		logger.info(logPrefix + "dictation [" + dictation.getId() + "] persisted");

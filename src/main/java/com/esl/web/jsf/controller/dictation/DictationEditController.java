@@ -13,6 +13,7 @@ import com.esl.web.util.DictationUtil;
 import com.esl.web.util.SelectItemUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -22,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +54,8 @@ public class DictationEditController extends ESLController {
 	private boolean requirePassword = false;
 	private String password;
 	private String confirmedPassword;
+	private String type = "Vocab";
+	@Value("${Dictation.Article.MaxSize}") private int maxArticleSize = 0;
 
 	//============== Functions ================//
 
@@ -111,8 +115,6 @@ public class DictationEditController extends ESLController {
 		}
 		dictationDAO.attachSession(editDictation);
 		prepareDisplayObjects();
-		vocabs = editDictation.getVocabsString();
-		requirePassword = editDictation.isRequirePassword();
 		return editView;
 	}
 
@@ -128,12 +130,20 @@ public class DictationEditController extends ESLController {
 
 		// Validate input
 		if (vocabs != null) {
-			Pattern p = Pattern.compile("^([a-zA-Z ]++[\\-,]?)+");
-			Matcher matcher = p.matcher(vocabs);
-			if (!matcher.matches()) {
-				logger.info(logTitle + "input vocabs invalid:" + vocabs);
-				facesContext.addMessage("editDictation:vocabs", new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("vocabsInvalidInput"), null));
-				return null;
+			if (Dictation.DictationType.Vocab.toString().equals(type)) {
+				Pattern p = Pattern.compile("^([a-zA-Z ]++[\\-,]?)+");
+				Matcher matcher = p.matcher(vocabs);
+				if (!matcher.matches()) {
+					logger.info(logTitle + "input vocabs invalid:" + vocabs);
+					facesContext.addMessage("editDictation:vocabs", new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("vocabsInvalidInput"), null));
+					return null;
+				}
+			} else {
+				if (vocabs.length() > maxArticleSize) {
+					logger.info("Article too long");
+					facesContext.addMessage("editDictation:vocabs", new FacesMessage(FacesMessage.SEVERITY_ERROR, MessageFormat.format(bundle.getString("articleTooLong"),maxArticleSize), null));
+					return null;
+				}
 			}
 		}
 
@@ -159,12 +169,9 @@ public class DictationEditController extends ESLController {
 		editDictation.setLastModifyDate(new Date());
 
 		try {
-			dictationDAO.refresh(editDictation);
-			for (Vocab vocab : editDictation.getVocabs()) {
-				dictationDAO.refresh(vocab);
-			}
-			// set vocabs into dictation
-			manageService.setVocabs(editDictation, vocabs);
+			refreshDictation(editDictation);
+			setVocabOrArticle(editDictation);
+
 			manageService.saveDictation(editDictation);
 			logger.info(logTitle + "Total vocab added [" + editDictation.getVocabs().size() + "]");
 			logger.info(logTitle + "Total accesible group [" + editDictation.getAccessibleGroups().size() + "]");
@@ -173,6 +180,22 @@ public class DictationEditController extends ESLController {
 			logger.info(logTitle + "BV Exception:" + e.getMessage());
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString(e.getErrorCode()), null));
 			return null;
+		}
+	}
+
+	private void setVocabOrArticle(Dictation dictation) {
+		if (Dictation.DictationType.Vocab.toString().equals(type))
+			manageService.setVocabs(dictation, vocabs);
+		else
+			dictation.setArticle(vocabs);
+	}
+
+	private void refreshDictation(Dictation dictation) {
+		if (dictation.getId() != null) {
+			dictationDAO.refresh(dictation);
+			for (Vocab vocab : dictation.getVocabs()) {
+				dictationDAO.refresh(vocab);
+			}
 		}
 	}
 
@@ -203,6 +226,13 @@ public class DictationEditController extends ESLController {
 		for (MemberGroup g : editDictation.getAccessibleGroups()) {
 			selectedGroups.add(g.getId().toString());
 		}
+
+		type = editDictation.getType().toString();
+		requirePassword = editDictation.isRequirePassword();
+		if ("Vocab".equals(type))
+			vocabs = editDictation.getVocabsString();
+		else
+			vocabs = editDictation.getArticle();
 	}
 
 	private void setAccessibleGroups() {
@@ -247,5 +277,6 @@ public class DictationEditController extends ESLController {
 	public String getPassword() {return password;}
 	public void setPassword(String password) {this.password = password;}
 
-
+	public String getType() {return type;}
+	public void setType(String type) {this.type = type;	}
 }

@@ -34,7 +34,6 @@
 		<div class="w3-padding-bottom">
 			<div class="w3-panel">
 				<esl:dictationNav2 current="INSTANT" />
-				<h:messages styleClass="w3-large" tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
 
 				<div class="w3-row w3-margin-bottom w3-large w3-text-teal">
 					<a href="javascript:void(0)" onclick="openW3Tab(event, 'vocabTab');">
@@ -44,6 +43,8 @@
 						<div class="w3-half w3-tablink w3-bottombar #{selfDictationController.lastDictationType == 'Article' ? 'w3-border-green' : ''} w3-hover-light-grey w3-padding">#{generalMsg.articleMode}</div>
 					</a>
 				</div>
+
+				<h:messages styleClass="w3-large" tooltip="true" errorStyle="color: rgb(220, 130, 0);" globalOnly="true" />
 
 				<h:form styleClass="w3-margin-top w3-large" id="inputForm">
 					<div id="vocabTab" class="w3-tab w3-padding-0" style="#{selfDictationController.lastDictationType != 'Vocab' ? 'display:none;' : ''}">

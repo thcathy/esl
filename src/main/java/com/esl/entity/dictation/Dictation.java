@@ -3,6 +3,7 @@ package com.esl.entity.dictation;
 import com.esl.model.Member;
 import com.esl.model.group.MemberGroup;
 import com.esl.web.model.PasswordRequire;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -276,6 +277,14 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 		StringBuilder sb = new StringBuilder();
 		sb.append("Dictation ("); sb.append(getId()); sb.append(")");
 		return  sb.toString();
+	}
+
+	public DictationType getType() {
+		if (StringUtils.isBlank(article)) {
+			return DictationType.Vocab;
+		} else {
+			return DictationType.Article;
+		}
 	}
 
 }
