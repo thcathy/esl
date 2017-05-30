@@ -1,21 +1,29 @@
 package com.esl.service.dictation;
 
+import com.esl.entity.dictation.Dictation;
 import com.esl.entity.dictation.SentenceHistory;
 import com.esl.util.ValidationUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Service
 public class ArticleDictationService {
     private static Logger log = LoggerFactory.getLogger(ArticleDictationService.class);
+
+    @Value("${Dictation.Article.MaxSentenceLength}") int maxSentenceLength;
 
     public SentenceHistory compare(String question, String answer) {
         log.info("compare: question [{}]", question);
@@ -75,5 +83,67 @@ public class ArticleDictationService {
 
     private boolean questionAndAnsNotBlank(String questionAlphabet, String answerAlphabet) {
         return !isBlank(questionAlphabet) && !isBlank(answerAlphabet);
+    }
+
+    public List<String> deriveArticleToSentences(Dictation dictation) {
+        if (StringUtils.isBlank(dictation.getArticle())) return Collections.EMPTY_LIST;
+
+        return Arrays.stream(dictation.getArticle().split("\\r?\\n"))
+                .map(s -> s.replaceAll("\t",""))
+                .map(String::trim)
+                .flatMap(this::splitLongLineByFullstop)
+                .flatMap(this::splitLongLingByComma)
+                .flatMap(this::splitLongLineBySpace)
+                .filter(StringUtils::isNotBlank)
+                .collect(Collectors.toList());
+    }
+
+    private Stream<String> splitLongLingByComma(String input) {
+        if (input.length() < maxSentenceLength)
+            return Stream.of(input);
+
+        log.info("Split long sentence by comma: {}", input);
+
+        List<String> results = new ArrayList<>();
+        while (input.length() > maxSentenceLength) {
+            int commaPos = input.indexOf(',', maxSentenceLength);
+            if (commaPos < 0) {
+                results.add(input);
+                break;
+            }
+            results.add(input.substring(0, commaPos));
+            input = input.substring(commaPos);
+        }
+
+        return results.stream();
+    }
+
+    private Stream<String> splitLongLineBySpace(String input) {
+        if (input.length() < maxSentenceLength)
+            return Stream.of(input);
+
+        log.info("Split long sentence space: {}", input);
+
+        List<String> results = new ArrayList<>();
+        while (input.length() > maxSentenceLength) {
+            int spacePos = input.indexOf(' ', maxSentenceLength);
+            if (spacePos < 0)
+                break;
+
+            results.add(input.substring(0, spacePos).trim());
+            input = input.substring(spacePos);
+        }
+        if (input.length() > 0) results.add(input.trim());
+
+        return results.stream();
+    }
+
+    private Stream<String> splitLongLineByFullstop(String input) {
+        if (input.length() < maxSentenceLength)
+            return Stream.of(input);
+        else
+            return Arrays.stream(input.split("\\. "))
+                    .map(s -> s.endsWith(".") ? s : s + ".")
+                    .map(String::trim);
     }
 }

@@ -56,6 +56,28 @@ class ArticleDictationPracticeControllerSpec extends BaseSpec {
         controller.dictation.sentences[2] == '''She added: "Our thoughts are with her friends and family at this terrible time.".'''
     }
 
+    def "separate sentence which is too long by comma"() {
+        def article = '''A zoo-keeper who died after a tiger entered an enclosure at a wildlife park in Cambridgeshire has been named as 33-year-old Rosa King.
+                            The death happened at Hamerton Zoo Park, near Huntingdon, at about 11:15 BST on Monday.
+                            Friend Garry Chisholm, a wildlife photographer in his spare time, said she was the "focal point" and "shining light" of the wildlife park.
+                            The zoo said it was a freak accident, and police said it was not suspicious.
+                            Mr Chisholm, 59, of Irchester, Northamptonshire, said the wildlife park revolved around the zoo-keeper.'''
+
+        when: "start a dictation practice"
+        String page = controller.start(article)
+
+        then: "the sentences are separated by newline"
+        //controller.dictation.sentences.size() == 5
+        controller.dictation.sentences[0] == '''A zoo-keeper who died after a tiger'''
+        controller.dictation.sentences[1] == '''entered an enclosure at a wildlife'''
+        controller.dictation.sentences[2] == '''park in Cambridgeshire has been'''
+        controller.dictation.sentences[3] == '''named as 33-year-old Rosa King.'''
+        controller.dictation.sentences[4] == '''The death happened at Hamerton'''
+        controller.dictation.sentences[5] == '''Zoo Park'''
+        controller.dictation.sentences[6] == ''', near Huntingdon, at about 11:15'''
+        controller.dictation.sentences[7] == '''BST on Monday.'''
+    }
+
     @Unroll
     def "check answer: input=#input"(String input, List<Boolean> isCorrect, int correctPercentage) {
         def article = '''1.  I hate to complain, but this hamburger tastes bad.            
@@ -116,7 +138,6 @@ class ArticleDictationPracticeControllerSpec extends BaseSpec {
         input | isCorrect
         "Listen to the file" | [true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     }
-
 
 
 }

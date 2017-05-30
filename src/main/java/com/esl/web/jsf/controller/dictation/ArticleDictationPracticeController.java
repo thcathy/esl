@@ -64,7 +64,7 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 
 		Dictation dic = new Dictation();
 		dic.setArticle(inputArticle);
-		dictation = new DictationPractice(dic);
+		dictation = new DictationPractice(dic, articleDictationService.deriveArticleToSentences(dic));
 		history = new ArrayList<>(dictation.getSentences().size());
 
 		return practiceView;
