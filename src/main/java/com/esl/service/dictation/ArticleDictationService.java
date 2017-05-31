@@ -23,7 +23,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 public class ArticleDictationService {
     private static Logger log = LoggerFactory.getLogger(ArticleDictationService.class);
 
-    @Value("${Dictation.Article.MaxSentenceLength}") int maxSentenceLength;
+    @Value("${Dictation.Article.MaxSentenceLength}") public int maxSentenceLength;
 
     public SentenceHistory compare(String question, String answer) {
         log.info("compare: question [{}]", question);
@@ -105,8 +105,8 @@ public class ArticleDictationService {
         log.info("Split long sentence by comma: {}", input);
 
         List<String> results = new ArrayList<>();
-        while (input.length() > maxSentenceLength) {
-            int commaPos = input.indexOf(',', maxSentenceLength);
+        while (input.length() > maxSentenceLength - 10) {
+            int commaPos = input.indexOf(',', maxSentenceLength-10);
             if (commaPos < 0) {
                 results.add(input);
                 break;
@@ -144,6 +144,7 @@ public class ArticleDictationService {
         else
             return Arrays.stream(input.split("\\. "))
                     .map(s -> s.endsWith(".") ? s : s + ".")
+                    .filter(s -> s.matches(".*[a-zA-Z]+.*"))
                     .map(String::trim);
     }
 }
