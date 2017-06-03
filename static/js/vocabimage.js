@@ -3,6 +3,7 @@ var imageCount = 0;
 
 function showImage() {
     console.log('showImage');
+    imageCount = 0;
     picPaths = jQuery('#hiddenPicPaths').text().split('^_^');
     if (picPaths.length < 1) {
         jQuery('#gImageContent').html('#{generalMsg.imageNA}');
