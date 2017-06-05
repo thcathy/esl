@@ -5,6 +5,7 @@
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 				template="/template/short.xhtml">
 
 	<f:metadata>
@@ -87,7 +88,7 @@
 						</h:panelGroup>
 						<h:panelGroup rendered="#{dictationEditController.editDictation.type == 'Article'}">
 							<div class="w3-margin-bottom">#{dictationMsg.article}:</div>
-							#{dictationEditController.editDictation.article}
+							<div class="w3-medium"><h:outputText escape="false" value="#{fn:replace(dictationEditController.editDictation.article,'\\n','&lt;br/&gt;')}" /></div>
 						</h:panelGroup>
 					</div>
 				</div>
