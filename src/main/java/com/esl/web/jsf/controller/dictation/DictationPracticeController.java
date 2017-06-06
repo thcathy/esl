@@ -55,6 +55,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 	@Resource private IDictationHistoryDAO dictationHistoryDAO;
 	@Resource private ISelfDictationService selfDictationService;
 	@Resource private IPhoneticPracticeService phoneticPracticeService;
+	@Resource private ArticleDictationPracticeController articleDictationPracticeController;
 
 	//	 ============== UI display data ================//
 	private Dictation dictation;
@@ -135,11 +136,20 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 		final String logPrefix = "start: ";
 		logger.info(logPrefix + "START");
 
+		dictationDAO.attachSession(dictation);
+		if (Dictation.DictationType.Vocab.equals(dictation.getType())) {
+			return startVocabDictation(logPrefix);
+		} else {
+			return articleDictationPracticeController.start(dictation);
+		}
+	}
+
+	private String startVocabDictation(String logPrefix) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Locale locale = facesContext.getViewRoot().getLocale();
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);
 
-		dictationDAO.attachSession(dictation);
+
 		practice = selfDictationService.generatePractice(dictation.getVocabs());
 
 		if (practice == null || practice.getQuestions().size() <= 0) {

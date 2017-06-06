@@ -129,8 +129,9 @@ public class SelfDictationController extends ESLController {
 	}
 
 	private String startByArticle() {
-
-		return articleDictationPracticeController.start(inputArticle);
+		Dictation dic = new Dictation();
+		dic.setArticle(inputArticle);
+		return articleDictationPracticeController.start(dic);
 	}
 
 	private String startByWord() {

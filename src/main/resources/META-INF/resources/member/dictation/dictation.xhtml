@@ -6,6 +6,7 @@
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 				template="/template/short.xhtml">
 	
 	<f:metadata>
@@ -26,135 +27,140 @@
 		<div class="w3-margin w3-padding-bottom w3-text-teal">
 			<esl:dictationNav2 />
 			<h:form>
-				<div class="w3-card-4 w3-margin-top w3-padding">
-					<div class="w3-row w3-text-dark-grey">
-						<table width="100%">
-							<tr>
-								<td>#{dictationMsg.id}</td>
-								<td width="5">:</td>
-								<td><strong>#{dictationManageController.selectedDictation.id}</strong></td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.title}</td>
-								<td>:</td>
-								<td><strong>#{dictationManageController.selectedDictation.title}</strong></td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.desc}</td>
-								<td>:</td>
-								<td>#{dictationManageController.selectedDictation.description}</td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.suitableAge}</td>
-								<td>:</td>
-								<td>#{dictationManageController.selectedDictation.suitableAge}</td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.tags}</td>
-								<td>:</td>
-								<td>#{dictationManageController.selectedDictation.tags}</td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.allowPublicAccess}</td>
-								<td>:</td>
-								<td>
-									<h:panelGroup rendered="#{dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
-									<h:panelGroup rendered="#{!dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
-								</td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.pwdProtect}</td>
-								<td>:</td>
-								<td>
-									<h:panelGroup rendered="#{not empty dictationManageController.selectedDictation.password}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
-									<h:panelGroup rendered="#{empty dictationManageController.selectedDictation.password}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
-								</td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.createdDate}</td>
-								<td>:</td>
-								<td><h:outputText value="#{dictationManageController.selectedDictation.createdDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.lastModifyDate}</td>
-								<td>:</td>
-								<td><h:outputText value="#{dictationManageController.selectedDictation.lastModifyDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.attempts}</td>
-								<td>:</td>
-								<td>#{dictationManageController.selectedDictation.totalAttempt}</td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.recommendation}</td>
-								<td>:</td>
-								<td><i class="fa fa-thumbs-o-up"></i> #{dictationManageController.selectedDictation.totalRecommended}</td>
-							</tr>
-							<tr>
-								<td>#{dictationMsg.url}</td>
-								<td>:</td>
-								<td><input type="text" style="width: 90%;" class="w3-small" value="http://www.funfunspell.com#{request.contextPath}#{dictationPracticeController.startDictationURL}#{dictationManageController.selectedDictation.id}" readonly="readonly" /></td>
-							</tr>
-						</table>
+				<div class="w3-row w3-text-dark-grey">
+					<table width="100%">
+						<tr>
+							<td>#{dictationMsg.id}</td>
+							<td width="5">:</td>
+							<td><strong>#{dictationManageController.selectedDictation.id}</strong></td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.title}</td>
+							<td>:</td>
+							<td><strong>#{dictationManageController.selectedDictation.title}</strong></td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.desc}</td>
+							<td>:</td>
+							<td>#{dictationManageController.selectedDictation.description}</td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.suitableAge}</td>
+							<td>:</td>
+							<td>#{dictationManageController.selectedDictation.suitableAge}</td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.tags}</td>
+							<td>:</td>
+							<td>#{dictationManageController.selectedDictation.tags}</td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.allowPublicAccess}</td>
+							<td>:</td>
+							<td>
+								<h:panelGroup rendered="#{dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+								<h:panelGroup rendered="#{!dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
+							</td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.pwdProtect}</td>
+							<td>:</td>
+							<td>
+								<h:panelGroup rendered="#{not empty dictationManageController.selectedDictation.password}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
+								<h:panelGroup rendered="#{empty dictationManageController.selectedDictation.password}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
+							</td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.createdDate}</td>
+							<td>:</td>
+							<td><h:outputText value="#{dictationManageController.selectedDictation.createdDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.lastModifyDate}</td>
+							<td>:</td>
+							<td><h:outputText value="#{dictationManageController.selectedDictation.lastModifyDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.attempts}</td>
+							<td>:</td>
+							<td>#{dictationManageController.selectedDictation.totalAttempt}</td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.recommendation}</td>
+							<td>:</td>
+							<td><i class="fa fa-thumbs-o-up"></i> #{dictationManageController.selectedDictation.totalRecommended}</td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.url}</td>
+							<td>:</td>
+							<td><input type="text" style="width: 90%;" class="w3-small" value="http://www.funfunspell.com#{request.contextPath}#{dictationPracticeController.startDictationURL}#{dictationManageController.selectedDictation.id}" readonly="readonly" /></td>
+						</tr>
+					</table>
 
-						<div class="">
-							<p><b>#{dictationMsg.vocab}:</b></p>
+					<div class="">
+						<h:panelGroup rendered="#{dictationManageController.selectedDictation.type == 'Vocab'}">
+							<div class="w3-margin-bottom">#{dictationMsg.vocab}:</div>
 							<ui:repeat var="i" varStatus="r" value="#{dictationManageController.selectedDictation.vocabs}">
 								<span class="w3-tag w3-round-large w3-green" style="margin: 2px!important;">#{i.word}</span>&#160;
 							</ui:repeat>
-						</div>
-
-						<div class="w3-right w3-margin-top">
-							<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:26px"></i></span>
-
-							<h:commandLink action="#{dictationEditController.launchEdit}"
-										   styleClass="w3-btn w3-blue w3-margin-left">
-								<f:setPropertyActionListener target="#{dictationEditController.editDictation}" value="#{dictationManageController.selectedDictation}" />
-								<i class="fa fa-pencil-square-o" aria-hidden="true"></i> #{dictationMsg.edit}
-							</h:commandLink>
-
-							<h:commandLink onclick="return showSpinner();" action="#{dictationPracticeController.start}"
-										   styleClass="w3-btn w3-green w3-margin-left">
-								<f:setPropertyActionListener target="#{dictationPracticeController.dictation}" value="#{dictationManageController.selectedDictation}" />
-								<i class="fa fa-play"></i> #{dictationMsg.practice}
-							</h:commandLink>
-
-							<h:commandLink action="#{dictationManageController.removeDictation}" onclick="if (!confirm('#{dictationMsg.isDeleteDictation}')) return false;"
-										   styleClass="w3-btn w3-red w3-margin-left">
-								<i class="fa fa-times" aria-hidden="true"></i> #{dictationMsg.delete}
-							</h:commandLink>
-						</div>
-						<h:messages errorClass="w3-text-red w3-large" infoClass="w3-text-blue w3-large" globalOnly="true" />
+						</h:panelGroup>
+						<h:panelGroup rendered="#{dictationManageController.selectedDictation.type == 'Article'}">
+							<div class="">#{dictationMsg.article}:</div>
+							<div class="w3-medium w3-border w3-text-grey"><h:outputText escape="false" value="#{fn:replace(dictationManageController.selectedDictation.article,'\\n','&lt;br/&gt;')}" /></div>
+						</h:panelGroup>
 					</div>
-					<div class="w3-padding-0 w3-margin-top">
-						<button onclick="addOrRemoveW3Show('vocabStat'); return false;" class="w3-btn w3-block w3-padding w3-left-align w3-light-grey w3-medium">
-							<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.vocabStat}
-						</button>
-						<div id="vocabStat" class="w3-hide w3-medium">
-							<ui:repeat var="i" varStatus="r" value="#{dictationManageController.selectedDictation.vocabs}">
-								<span style="width: 150px; display: inline-block;" class="w3-small">
-									#{i.word} (<span class="w3-text-blue">#{i.totalCorrect}</span> / <span class="w3-text-red">#{i.totalWrong}</span>)
-								</span>
-							</ui:repeat>
-						</div>
+
+					<div class="w3-right w3-margin-top">
+						<span id="spinner" class="w3-hide"><i class="fa fa-spinner w3-spin" style="font-size:26px"></i></span>
+
+						<h:commandLink action="#{dictationEditController.launchEdit}"
+									   styleClass="w3-btn w3-blue w3-margin-left">
+							<f:setPropertyActionListener target="#{dictationEditController.editDictation}" value="#{dictationManageController.selectedDictation}" />
+							<i class="fa fa-pencil-square-o" aria-hidden="true"></i> #{dictationMsg.edit}
+						</h:commandLink>
+
+						<h:commandLink onclick="return showSpinner();" action="#{dictationPracticeController.start}"
+									   styleClass="w3-btn w3-green w3-margin-left">
+							<f:setPropertyActionListener target="#{dictationPracticeController.dictation}" value="#{dictationManageController.selectedDictation}" />
+							<i class="fa fa-play"></i> #{dictationMsg.practice}
+						</h:commandLink>
+
+						<h:commandLink action="#{dictationManageController.removeDictation}" onclick="if (!confirm('#{dictationMsg.isDeleteDictation}')) return false;"
+									   styleClass="w3-btn w3-red w3-margin-left">
+							<i class="fa fa-times" aria-hidden="true"></i> #{dictationMsg.delete}
+						</h:commandLink>
 					</div>
-					<div class="w3-padding-0 w3-margin-top">
-						<button onclick="addOrRemoveW3Show('practicers'); return false;" class="w3-btn w3-block w3-padding w3-left-align w3-light-grey w3-medium">
-							<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.participants}
-						</button>
-						<div id="practicers" class="w3-hide w3-medium w3-padding-0">
-							<p:dataTable value="#{dictationManageController.dictationHistories}" var="h"
-											style="width: 100%; line-height: 1;"
-											columnHeaderCellClass="w3-medium"
-											cellClass="w3-medium"
-											rows="15" paginator="true">
-								<p:column sortBy="#{h.practicerName}"><f:facet name="header">#{dictationMsg.name}</f:facet>#{h.practicerName}</p:column>
-								<p:column sortBy="#{h.practicerSchool}"><f:facet name="header">#{dictationMsg.school}</f:facet>#{h.practicerSchool}</p:column>
-								<p:column sortBy="#{h.practicerAgeGroup.display}"><f:facet name="header">#{dictationMsg.age}</f:facet>#{h.practicerAgeGroup.display}</p:column>
-								<p:column sortBy="#{h.mark}"><f:facet name="header">#{dictationMsg.mark}</f:facet>#{h.mark}</p:column>
-								<p:column sortBy="#{h.createdDate}"><f:facet name="header">#{dictationMsg.date}</f:facet><h:outputText value="#{h.createdDate}"><f:convertDateTime pattern="dd/MM hh:mm" /></h:outputText></p:column>
-							</p:dataTable>
-						</div>
+					<h:messages errorClass="w3-text-red w3-large" infoClass="w3-text-blue w3-large" globalOnly="true" />
+				</div>
+
+				<h:panelGroup rendered="#{dictationManageController.selectedDictation.type == 'Vocab'}" styleClass="w3-margin-top">
+					<button onclick="addOrRemoveW3Show('vocabStat'); return false;" class="w3-btn w3-block w3-padding w3-left-align w3-light-grey w3-medium">
+						<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.vocabStat}
+					</button>
+					<div id="vocabStat" class="w3-hide w3-medium">
+						<ui:repeat var="i" varStatus="r" value="#{dictationManageController.selectedDictation.vocabs}">
+							<span style="width: 150px; display: inline-block;" class="w3-small">
+								#{i.word} (<span class="w3-text-blue">#{i.totalCorrect}</span> / <span class="w3-text-red">#{i.totalWrong}</span>)
+							</span>
+						</ui:repeat>
+					</div>
+				</h:panelGroup>
+				<div class="w3-margin-top">
+					<button onclick="addOrRemoveW3Show('practicers'); return false;" class="w3-btn w3-block w3-padding w3-left-align w3-light-grey w3-medium">
+						<i class="fa fa-chevron-down" aria-hidden="true"></i> #{dictationMsg.participants}
+					</button>
+					<div id="practicers" class="w3-hide w3-medium w3-padding-0">
+						<p:dataTable value="#{dictationManageController.dictationHistories}" var="h"
+										style="width: 100%; line-height: 1;"
+										columnHeaderCellClass="w3-medium"
+										cellClass="w3-medium"
+										rows="15" paginator="true">
+							<p:column sortBy="#{h.practicerName}"><f:facet name="header">#{dictationMsg.name}</f:facet>#{h.practicerName}</p:column>
+							<p:column sortBy="#{h.practicerSchool}"><f:facet name="header">#{dictationMsg.school}</f:facet>#{h.practicerSchool}</p:column>
+							<p:column sortBy="#{h.practicerAgeGroup.display}"><f:facet name="header">#{dictationMsg.age}</f:facet>#{h.practicerAgeGroup.display}</p:column>
+							<p:column sortBy="#{h.mark}"><f:facet name="header">#{dictationMsg.mark}</f:facet>#{h.mark}</p:column>
+							<p:column sortBy="#{h.createdDate}"><f:facet name="header">#{dictationMsg.date}</f:facet><h:outputText value="#{h.createdDate}"><f:convertDateTime pattern="dd/MM hh:mm" /></h:outputText></p:column>
+						</p:dataTable>
 					</div>
 				</div>
 			</h:form>

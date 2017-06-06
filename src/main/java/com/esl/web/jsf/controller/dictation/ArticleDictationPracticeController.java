@@ -58,13 +58,11 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 		return "";
 	}
 
-	public String start(String inputArticle) {
+	public String start(Dictation input) {
 		answer = "";
 		currentSentence = 0;
 
-		Dictation dic = new Dictation();
-		dic.setArticle(inputArticle);
-		dictation = new DictationPractice(dic, articleDictationService.deriveArticleToSentences(dic));
+		dictation = new DictationPractice(input, articleDictationService.deriveArticleToSentences(input));
 		history = new ArrayList<>(dictation.getSentences().size());
 
 		return practiceView;

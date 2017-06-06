@@ -48,7 +48,7 @@
 							</h:panelGroup>
 							<h:panelGroup rendered="#{dictationPracticeController.dictation.type == 'Article'}">
 								<div class="w3-margin-bottom">#{dictationMsg.article}:</div>
-								<div class="w3-medium"><h:outputText escape="false" value="#{fn:replace(dictationPracticeController.dictation.article,'\n','&lt;br/&gt;')}" /></div>
+								<div class="w3-medium"><h:outputText escape="false" value="#{fn:replace(dictationPracticeController.dictation.article,'\\n','&lt;br/&gt;')}" /></div>
 							</h:panelGroup>
 
 							<h:panelGroup rendered="#{not empty dictationPracticeController.memberDictationHistory}">
