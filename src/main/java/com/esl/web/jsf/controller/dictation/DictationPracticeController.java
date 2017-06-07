@@ -40,11 +40,11 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 	public static int BASE_RATING = 3;
 
 	private static Logger logger = LoggerFactory.getLogger(DictationPracticeController.class);
-	private static final String bundleName = "messages.member.Dictation";
-	private static final String startDictationURL = "/member/dictation/open.jsf?id=";
-	private static final String startView = "/member/dictation/start";
-	private static final String practiceView = "/member/dictation/practice";
-	private static final String resultView = "/member/dictation/result";
+	public static final String bundleName = "messages.member.Dictation";
+	public static final String startDictationURL = "/member/dictation/open.jsf?id=";
+	public static final String startView = "/member/dictation/start";
+	public static final String practiceView = "/member/dictation/practice";
+	public static final String resultView = "/member/dictation/result";
 
 	//	 Supporting instance
 	@Resource private IDictationManageService manageService;

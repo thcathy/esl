@@ -108,5 +108,4 @@ class ArticleDictationPracticeControllerSpec extends BaseSpec {
         "Listen to the file" | [true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     }
 
-
 }

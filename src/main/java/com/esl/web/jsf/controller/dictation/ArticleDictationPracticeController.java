@@ -24,9 +24,9 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 	public static int SCOREBAR_FULLLENGTH = 500;
 
 	private static Logger logger = LoggerFactory.getLogger(DictationPracticeController.class);
-	private static final String inputView = "/practice/selfdictation/input";
-	private static final String practiceView = "/practice/selfdictation/articlepractice";
-	private static final String resultView = "/practice/selfdictation/articlepracticeresult";
+	public static final String inputView = "/practice/selfdictation/input";
+	public static final String practiceView = "/practice/selfdictation/articlepractice";
+	public static final String resultView = "/practice/selfdictation/articlepracticeresult";
 
 	//	 Supporting instance
 	@Resource EventBus eventBus;
@@ -66,6 +66,10 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 		history = new ArrayList<>(dictation.getSentences().size());
 
 		return practiceView;
+	}
+
+	public String retryDictation() {
+		return start(dictation.getDictation());
 	}
 
 	public String submitAnswer() {

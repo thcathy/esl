@@ -34,11 +34,11 @@ public class SelfDictationController extends ESLController {
 	private static final long serialVersionUID = -7368848157958147632L;
 
 	private static Logger logger = LoggerFactory.getLogger(SelfDictationController.class);
-	private final String bundleName = "messages.practice.SelfDictation";
-	private final String viewPrefix = "/practice/selfdictation/";
-	private final String inputView = viewPrefix + "input";
-	private final String practiceView = viewPrefix + "practice";
-	private final String resultView = viewPrefix + "result";
+	public static final String bundleName = "messages.practice.SelfDictation";
+	public static final String viewPrefix = "/practice/selfdictation/";
+	public static final String inputView = viewPrefix + "input";
+	public static final String practiceView = viewPrefix + "practice";
+	public static final String resultView = viewPrefix + "result";
 
 	// UI Data
 	private List<String> inputVocab = new ArrayList<String>(20);
