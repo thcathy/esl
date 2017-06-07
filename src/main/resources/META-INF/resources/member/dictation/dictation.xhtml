@@ -106,7 +106,7 @@
 						</h:panelGroup>
 						<h:panelGroup rendered="#{dictationManageController.selectedDictation.type == 'Article'}">
 							<div class="">#{dictationMsg.article}:</div>
-							<div class="w3-medium w3-border w3-text-grey"><h:outputText escape="false" value="#{fn:replace(dictationManageController.selectedDictation.article,'\\n','&lt;br/&gt;')}" /></div>
+							<div class="w3-medium w3-border w3-text-grey w3-padding-small"><h:outputText escape="false" value="#{fn:replace(dictationManageController.selectedDictation.article,'\\n','&lt;br/&gt;')}" /></div>
 						</h:panelGroup>
 					</div>
 

@@ -7,6 +7,7 @@
 				xmlns:esl="http://www.funfunspell.com/jsf"
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:practice="http://java.sun.com/jsf/composite/components/practice"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 				template="/template/short.xhtml">
 
 	<ui:param name="controller" value="#{articleDictationPracticeController}" />
@@ -52,12 +53,16 @@
 				</div>
 
 				<div class="w3-container" style="padding-bottom: 8px;">
+
+					<div class="w3-container w3-teal">#{dictationMsg.article}</div>
+					<div class="w3-medium  w3-padding-small" style=""><h:outputText escape="false" value="#{fn:replace(controller.dictation.dictation.article,'\\n','&lt;br/&gt;')}" /></div>
 					<esl:scoreBar2 startMark="#{controller.correctPercentage}" maxMark="100" />
+					<div class="w3-medium" style="padding-top: 8px;">
+						<practice:sentenceHistories history="#{controller.history}" />
+					</div>
 				</div>
 
-				<div class="w3-container w3-medium">
-					<practice:sentenceHistories history="#{controller.history}" />
-				</div>
+
 			</h:form>
 		</div>
 	</ui:define>

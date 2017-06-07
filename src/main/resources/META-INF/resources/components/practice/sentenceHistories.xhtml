@@ -15,8 +15,8 @@
 
 <composite:implementation>
 	<ui:repeat var="h" varStatus="r" value="#{cc.attrs.history}" >
-		<div class="w3-row w3-border-top">
-			<div class="w3-col" style="width: 30px;"><span class="w3-tag w3-small w3-teal">#{cc.attrs.history.size()-r.index}</span></div>
+		<div class="w3-row w3-border-bottom">
+			<div class="w3-col" style="width: 35px;"><span class="w3-tag w3-small w3-teal">#{cc.attrs.history.size()-r.index}</span></div>
 			<div class="w3-rest">
 				<ui:repeat var="w" varStatus="wr" value="#{h.questionSegments}" >
 					<span class="#{h.isCorrect[wr.index] ? 'w3-text-green' : 'w3-text-red'}">#{w}</span>
