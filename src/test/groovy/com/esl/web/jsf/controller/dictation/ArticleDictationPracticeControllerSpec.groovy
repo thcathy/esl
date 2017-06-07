@@ -2,6 +2,7 @@ package com.esl.web.jsf.controller.dictation
 
 import com.esl.BaseSpec
 import com.esl.ESLApplication
+import com.esl.entity.dictation.Dictation
 import com.esl.entity.dictation.SentenceHistory
 import com.esl.service.JSFService
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,7 +35,9 @@ class ArticleDictationPracticeControllerSpec extends BaseSpec {
             '''
 
         when: "start a dictation practice"
-        String page = controller.start(article)
+        Dictation dic = new Dictation()
+        dic.setArticle(article)
+        String page = controller.start(dic)
 
         then: "the sentences are separated by newline"
         page == "/practice/selfdictation/articlepractice"
@@ -49,7 +52,9 @@ class ArticleDictationPracticeControllerSpec extends BaseSpec {
             3.  Because you had a coupon for free snails doesn't mean you should put the creatures in my food!'''
 
         when: "start a dictation practice and answer the question"
-        controller.start(article)
+        Dictation dic = new Dictation()
+        dic.setArticle(article)
+        controller.start(dic)
         controller.answer = input
         controller.submitAnswer()
         SentenceHistory history = controller.history[0]
@@ -77,7 +82,9 @@ class ArticleDictationPracticeControllerSpec extends BaseSpec {
         def article = '''Listen to the first file - Just Listen. I will speak, quite quickly, in a natural voice.'''
 
         when: "start a dictation practice and answer the question"
-        controller.start(article)
+        Dictation dic = new Dictation()
+        dic.setArticle(article)
+        controller.start(dic)
         controller.answer = input
         controller.submitAnswer()
         SentenceHistory history = controller.history[0]

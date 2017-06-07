@@ -39,7 +39,7 @@ class SelfDictationServiceSpec extends Specification {
         assert xxxyyyzzz.getPronouncedLink() == null
         assert jakarta.isIPAUnavailable() == false
         assert jakarta.getIPA() == "dʒəˈkɑːtə"
-        assert jakarta.getPronouncedLink() == "http://audio.oxforddictionaries.com/en/mp3/jakarta_1_gb_1.mp3"
+        assert jakarta.getPronouncedLink() == "http://api.pearson.com/v2/dictionaries/assets/ldoce/gb_pron/p028-000006623.mp3"
         assert jakarta.getPicsFullPaths().every {it.startsWith("http")}
     }
 
@@ -77,7 +77,7 @@ class SelfDictationServiceSpec extends Specification {
         assert busStop.getPronouncedLink() ==null
         assert jakarta.isIPAUnavailable() == false
         assert jakarta.getIPA() == "dʒəˈkɑːtə"
-        assert jakarta.getPronouncedLink() == "http://audio.oxforddictionaries.com/en/mp3/jakarta_1_gb_1.mp3"
+        assert jakarta.getPronouncedLink() == "http://api.pearson.com/v2/dictionaries/assets/ldoce/gb_pron/p028-000006623.mp3"
         assert jakarta.getPicsFullPaths().every {it.startsWith("http")}
     }
 }
