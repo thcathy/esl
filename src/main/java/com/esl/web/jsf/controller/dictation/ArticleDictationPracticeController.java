@@ -39,7 +39,7 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 	private List<SentenceHistory> history;
 	private int currentSentence;
 	private ScoreBar scoreBar;
-	private double speakingSpeed = 0.8;
+	private double speakingSpeed = 0.7;
 
 	// ============== Constructor ================//
 	public ArticleDictationPracticeController() {

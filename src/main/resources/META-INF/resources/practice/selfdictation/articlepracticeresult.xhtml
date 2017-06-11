@@ -55,8 +55,10 @@
 				<div class="w3-container" style="padding-bottom: 8px;">
 
 					<div class="w3-container w3-teal">#{dictationMsg.article}</div>
-					<div class="w3-medium  w3-padding-small" style=""><h:outputText escape="false" value="#{fn:replace(controller.dictation.dictation.article,'\\n','&lt;br/&gt;')}" /></div>
-					<esl:scoreBar2 startMark="#{controller.correctPercentage}" maxMark="100" />
+					<div class="w3-medium  w3-padding-small w3-border" style=""><h:outputText escape="false" value="#{fn:replace(controller.dictation.dictation.article,'\\n','&lt;br/&gt;')}" /></div>
+					<div style="padding-top: 8px;">
+					    <esl:scoreBar2 startMark="#{controller.correctPercentage}" maxMark="100" />
+					</div>
 					<div class="w3-medium" style="padding-top: 8px;">
 						<practice:sentenceHistories history="#{controller.history}" />
 					</div>
