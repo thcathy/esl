@@ -3,7 +3,6 @@ package com.esl.web.jsf.controller.dictation;
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.dictation.IDictationDAO;
 import com.esl.entity.dictation.Dictation;
-import com.esl.entity.dictation.Vocab;
 import com.esl.exception.BusinessValidationException;
 import com.esl.model.group.MemberGroup;
 import com.esl.service.JSFService;
@@ -70,11 +69,30 @@ public class DictationEditController extends ESLController {
 		logger.info("create dictation with vocabs");
 
 		vocabs = DictationUtil.concatVocabs(inputVocab);
+		editDictation = new Dictation();
+		prepareDisplayObjects();
+		vocabs = DictationUtil.concatVocabs(inputVocab);
+		type = "Vocab";
 		if (userSession.getMember() == null) {
 			logger.info("redirectToJSF to login page");
 			return jsfService.redirectTo("/login?redirect=/member/dictation/edit.jsf");
 		} else {
-			return launchCreate();
+			return editView;
+		}
+	}
+
+	public String launchWithArticle(String article) throws IOException {
+		logger.info("create dictation with article");
+
+		editDictation = new Dictation();
+		prepareDisplayObjects();
+		vocabs = article;
+		type = "Article";
+		if (userSession.getMember() == null) {
+			logger.info("redirectToJSF to login page");
+			return jsfService.redirectTo("/login?redirect=/member/dictation/edit.jsf");
+		} else {
+			return editView;
 		}
 	}
 
@@ -169,7 +187,7 @@ public class DictationEditController extends ESLController {
 		editDictation.setLastModifyDate(new Date());
 
 		try {
-			refreshDictation(editDictation);
+			dictationDAO.refreshDictation(editDictation);
 			setVocabOrArticle(editDictation);
 
 			manageService.saveDictation(editDictation);
@@ -188,15 +206,6 @@ public class DictationEditController extends ESLController {
 			manageService.setVocabs(dictation, vocabs);
 		else
 			dictation.setArticle(vocabs);
-	}
-
-	private void refreshDictation(Dictation dictation) {
-		if (dictation.getId() != null) {
-			dictationDAO.refresh(dictation);
-			for (Vocab vocab : dictation.getVocabs()) {
-				dictationDAO.refresh(vocab);
-			}
-		}
 	}
 
 	//	============== Getter Function ================//

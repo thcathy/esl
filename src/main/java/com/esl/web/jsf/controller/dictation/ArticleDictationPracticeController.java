@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import reactor.bus.EventBus;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 	@Resource EventBus eventBus;
 	@Resource ArticleDictationService articleDictationService;
 	@Resource JSFService jsfService;
+	@Resource DictationEditController dictationEditController;
 
 	//	 ============== UI display data ================//
 	private DictationPractice dictation;
@@ -70,6 +72,10 @@ public class ArticleDictationPracticeController extends UserCreatedPracticeContr
 
 	public String retryDictation() {
 		return start(dictation.getDictation());
+	}
+
+	public String saveDictation() throws IOException {
+		return dictationEditController.launchWithArticle(dictation.dictation.getArticle());
 	}
 
 	public String submitAnswer() {

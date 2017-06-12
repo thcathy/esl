@@ -37,8 +37,8 @@
 						<i class="fa fa-repeat" aria-hidden="true"></i> #{selfDictationMsg.resultRetryMessage}</h:commandLink>
 				</div>
 				<div class="w3-half w3-padding-small">
-					<!--<h:commandLink styleClass="w3-btn w3-blue" action="#{selfDictationController.createDictation}">
-						<i class="fa fa-floppy-o" aria-hidden="true"></i> #{selfDictationMsg.saveDictation}</h:commandLink>-->
+					<h:commandLink styleClass="w3-btn w3-blue" action="#{controller.saveDictation}">
+						<i class="fa fa-floppy-o" aria-hidden="true"></i> #{selfDictationMsg.saveDictation}</h:commandLink>
 				</div>
 			</div>
 			</h:form>
@@ -56,7 +56,7 @@
 
 					<div class="w3-container w3-teal">#{dictationMsg.article}</div>
 					<div class="w3-medium  w3-padding-small w3-border" style=""><h:outputText escape="false" value="#{fn:replace(controller.dictation.dictation.article,'\\n','&lt;br/&gt;')}" /></div>
-					<div style="padding-top: 8px;">
+					<div style="padding-top: 16px;">
 					    <esl:scoreBar2 startMark="#{controller.correctPercentage}" maxMark="100" />
 					</div>
 					<div class="w3-medium" style="padding-top: 8px;">

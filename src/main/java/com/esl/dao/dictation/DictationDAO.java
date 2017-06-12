@@ -16,6 +16,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.esl.entity.dictation.Vocab;
 import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,6 +107,15 @@ public class DictationDAO extends ESLDao<Dictation> implements IDictationDAO {
 		vocabDAO.removeByDictation(dictation);
 		dictationHistoryDAO.removeByDictation(dictation);
 		delete(dictation);
+	}
+
+	public void refreshDictation(Dictation dictation) {
+		if (dictation.getId() != null) {
+			refresh(dictation);
+			for (Vocab vocab : dictation.getVocabs()) {
+				refresh(vocab);
+			}
+		}
 	}
 
 	@Transactional(readOnly = true)

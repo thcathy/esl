@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.transaction.Transactional;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -117,6 +118,7 @@ public class DictationManageController extends ESLController {
 	/**
 	 * Remove a dictation
 	 */
+	@Transactional
 	public String removeDictation() {
 		final String logPrefix = "removeDictation: ";
 		logger.info(logPrefix + "START");
@@ -126,6 +128,7 @@ public class DictationManageController extends ESLController {
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, facesContext.getViewRoot().getLocale());
 
 		dictationDAO.attachSession(selectedDictation);
+		dictationDAO.refresh(selectedDictation);
 
 		// check edit right
 		if (!manageService.allowEdit(selectedDictation, userSession.getMember())) {
@@ -133,6 +136,7 @@ public class DictationManageController extends ESLController {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("notAllowDelete"), null));
 			return null;
 		}
+
 		dictationDAO.remove(selectedDictation);
 		String successStr = MessageFormat.format(bundle.getString("dictationDeleted"), selectedDictation.getTitle());
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, successStr, null));
