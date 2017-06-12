@@ -229,8 +229,10 @@ public class DictationEditController extends ESLController {
 
 	//	============== Supporting Function ================//
 	private void prepareDisplayObjects() {
-		memberDAO.attachSession(userSession.getMember());
-		accessibleMemberGroups = SelectItemUtil.getAvailableMemberGroups(userSession.getMember().getGroups());
+		if (userSession.getMember() != null) {
+			memberDAO.attachSession(userSession.getMember());
+			accessibleMemberGroups = SelectItemUtil.getAvailableMemberGroups(userSession.getMember().getGroups());
+		}
 		selectedGroups.clear();
 		for (MemberGroup g : editDictation.getAccessibleGroups()) {
 			selectedGroups.add(g.getId().toString());
