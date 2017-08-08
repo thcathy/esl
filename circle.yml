@@ -1,27 +1,20 @@
-general:
-  artifacts:
-    - "target/ESL.war"
-    
-machine:
-  services:
-    - docker
-  java:
-    version:
-      oraclejdk8
-
-    
-test:
-  post:
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
-    - mvn resources:resources package -DskipTests
-
-deployment:
-  hub:
-    branch: master
-    commands:
-      - docker build -t thcathy/esl -f docker/Dockerfile .
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push thcathy/esl
-      - docker build -t thcathy/esl-nginx -f nginx/Dockerfile .
-      - docker push thcathy/esl-nginx
+version: 2
+jobs:
+  build:    
+    working_directory: ~/esl
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - restore_cache:
+          key: esl-{{ checksum "pom.xml" }}      
+      - run: mvn dependency:go-offline      
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: esl-{{ checksum "pom.xml" }}      
+      - run: mvn resources:resources package      
+      - store_test_results:
+          path: target/surefire-reports      
+      - store_artifacts:
+          path: target/esl.jar
