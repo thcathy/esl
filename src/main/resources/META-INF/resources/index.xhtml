@@ -97,7 +97,7 @@
 						<ul class="w3-ul w3-white">
 							<ui:repeat var="i" rowKeyVar="r" value="#{randomTopResult.standings}">
 								<li class="w3-padding-right">
-									<span class="w3-badge w3-green">#{r+1}</span> #{i.member.userId}
+									<span class="w3-badge w3-green">#{r+1}</span>&#160;<h:outputText value="#{i.member.displayName.length() gt 20 ? i.member.displayName.substring(0,17).concat('...') : i.member.displayName}" />
 									<span class="w3-right">#{i.value}</span>
 								</li>
 							</ui:repeat>
@@ -115,7 +115,7 @@
 						<ul class="w3-ul w3-white">
 							<ui:repeat var="i" varStatus="r" value="#{randomTopResult.randomMedals.medals}">
 								<li class="w3-padding-right">
-									<span class="w3-badge w3-green">#{r.index+1}</span> #{i.member.userId}
+									<span class="w3-badge w3-green">#{r.index+1}</span>&#160;<h:outputText value="#{i.member.displayName.length() gt 20 ? i.member.displayName.substring(0,17).concat('...') : i.member.displayName}" />
 									<span class="w3-right">#{i.score}</span>
 								</li>
 							</ui:repeat>

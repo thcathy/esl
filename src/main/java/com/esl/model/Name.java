@@ -40,7 +40,7 @@ public class Name implements Serializable {
 	
 	public String getFullName() {
 		if (lastName != null)
-			return firstName + ", " + lastName;
+			return firstName + " " + lastName;
 		else
 			return firstName;
 	}
