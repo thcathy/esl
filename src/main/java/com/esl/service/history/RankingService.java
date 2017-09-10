@@ -9,12 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -48,6 +51,22 @@ public class RankingService {
         long position = positionFutures.join() + 1;
 
         return CompletableFuture.completedFuture(new MemberScoreRanking(base, scores, false, position));
+    }
+
+    @Async
+    public CompletableFuture<MemberScoreRanking> topScore(int scoreYearMoth) {
+        Pageable firstFive = new PageRequest(0, 5);
+        return CompletableFuture.completedFuture(new MemberScoreRanking(null, memberScoreRepository.findTopScore(scoreYearMoth, firstFive).join(), true, 1));
+    }
+
+    @Async
+    public CompletableFuture<MemberScoreRanking> randomTopScore() {
+        int offset = new Random().nextInt(7);
+        if (offset == 6) {
+            return topScore(MemberScore.allTimesMonth());
+        } else {
+            return topScore(MemberScore.lastMonthBy(offset));
+        }
     }
 
 }

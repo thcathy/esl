@@ -63,6 +63,51 @@ class RankingServiceSpec extends BaseSpec {
         201607         | 5       | 2           | 5
     }
 
+    // this test have data dependency on member score setup between Jan 2016 to Jul 2016
+    @Unroll
+    def "List top 5 score on #scoreYearMonth"(int scoreYearMonth, int[] expScore) {
+        when: "get top scores"
+        MemberScoreRanking ranking = service.topScore(scoreYearMonth).join()
+
+        then: "verify result"
+        ranking.isTop()
+        ranking.firstPosition == 1
+        ranking.scores.size() == expScore.size()
+        int endPosition = expScore.size()-1
+        (0..endPosition).each {
+            assert ranking.scores[it].score == expScore[it]
+        }
+
+        where:
+        scoreYearMonth | expScore
+        201601         | [100]
+        201602         | [3, 2]
+        201603         | [3, 2, 1]
+        201604         | [10, 3, 1]
+        201605         | [3, 3, 2, 1, 1]
+        201606         | [102, 101, 101, 14, 11]
+        201607         | [1, 1, 1, 1, 1]
+    }
+
+    @Unroll
+    def "Test random ranking: #i times"(int i) {
+        when: "get random top score"
+        MemberScoreRanking ranking = service.randomTopScore().join()
+
+        then: "verify"
+        ranking.isTop()
+        ranking.firstPosition == 1
+        if (ranking.scores.size() > 0) {
+            ranking.scores.each {
+                println "$it"
+                assert it.member != null
+            }
+        }
+
+        where:
+        i << (1..3)
+    }
+
     void verifyRankingOrder(MemberScoreRanking memberScoreRanking) {
         for (int i=1; i < memberScoreRanking.scores.size(); i++) {
             assert (memberScoreRanking.scores[i-1].score > memberScoreRanking.scores[i].score

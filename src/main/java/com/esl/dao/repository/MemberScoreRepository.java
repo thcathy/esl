@@ -3,6 +3,7 @@ package com.esl.dao.repository;
 
 import com.esl.entity.practice.MemberScore;
 import com.esl.model.Member;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.scheduling.annotation.Async;
@@ -31,4 +32,8 @@ public interface MemberScoreRepository extends PagingAndSortingRepository<Member
     @Async
     @Query("select count(s.id) from MemberScore s where s.scoreYearMonth = ?1 and (s.score > ?2 or (s.score = ?2 and s.lastUpdatedDate < ?3))")
     CompletableFuture<Long> countHigherScore(int scoreYearMonth, int score, Date lastUpdatedDate);
+
+    @Async
+    @Query("select s from MemberScore s where s.scoreYearMonth = ?1 and s.score > 0 order by s.score desc, s.lastUpdatedDate")
+    CompletableFuture<List<MemberScore>> findTopScore(int scoreYearMonth, Pageable pageable);
 }

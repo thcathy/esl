@@ -26,7 +26,7 @@ public class MemberScore implements Serializable, IAuditable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date lastUpdatedDate;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="MEMBER_ID")
 	private Member member;
 
@@ -83,8 +83,12 @@ public class MemberScore implements Serializable, IAuditable {
 	}
 
 	public static int lastSixMonth() {
+		return lastMonthBy(6);
+	}
+
+	public static int lastMonthBy(int offset) {
 		Calendar c = Calendar.getInstance();
-		c.add(Calendar.MONTH, -6);
+		c.add(Calendar.MONTH, -offset);
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMM");
 		return Integer.parseInt(dateformat.format(c.getTime()));
 	}
