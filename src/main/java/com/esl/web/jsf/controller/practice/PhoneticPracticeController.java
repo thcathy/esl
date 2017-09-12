@@ -1,25 +1,5 @@
 package com.esl.web.jsf.controller.practice;
 
-import reactor.bus.Event;
-import reactor.bus.EventBus;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
-
-import javax.annotation.Resource;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.esl.dao.IMemberDAO;
 import com.esl.dao.IPracticeResultDAO;
 import com.esl.entity.event.UpdatePracticeHistoryEvent;
@@ -32,7 +12,6 @@ import com.esl.model.PhoneticPractice;
 import com.esl.model.PhoneticQuestion;
 import com.esl.service.history.RankingService;
 import com.esl.service.practice.IPhoneticPracticeService;
-import com.esl.service.practice.ITopResultService;
 import com.esl.service.practice.PhoneticPracticeService;
 import com.esl.service.practice.PhoneticQuestionService;
 import com.esl.util.JSFUtil;
@@ -40,6 +19,23 @@ import com.esl.web.jsf.controller.AuthenticationController;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.jsf.controller.member.MemberWordController;
 import com.esl.web.model.UserSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import reactor.bus.Event;
+import reactor.bus.EventBus;
+
+import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 
 import static com.esl.service.practice.IPhoneticPracticeService.SAVE_HISTORY_COMPLETED;
 
@@ -56,8 +52,6 @@ public class PhoneticPracticeController extends ESLController {
 	// UI Data
 	//private String selectedGrade = "";
 	private String answer = "";
-	//private TopResult scoreRanking;
-	//private TopResult rateRanking;
 	//private PracticeResult currentGradeResult;
 	private boolean isLevelUp = false;
 	private List<VocabDifficulty> allDifficulty = Arrays.asList(VocabDifficulty.values());
@@ -70,7 +64,6 @@ public class PhoneticPracticeController extends ESLController {
 	@Resource private IMemberDAO memberDAO;
 	@Resource private IPhoneticPracticeService phoneticPracticeService;
 	@Resource private IPracticeResultDAO practiceResultDAO;
-	@Resource private ITopResultService topResultService;
 	//@Resource private IGradeDAO gradeDAO;
 
 	private PhoneticPractice practice;
@@ -88,7 +81,6 @@ public class PhoneticPracticeController extends ESLController {
 	public void setPhoneticPracticeService(IPhoneticPracticeService phoneticPracticeService) {this.phoneticPracticeService = phoneticPracticeService;}
 	public void setAuthenticationController(AuthenticationController authenticationController) {this.authenticationController = authenticationController;}
 	public void setPracticeResultDAO(IPracticeResultDAO practiceResultDAO) {this.practiceResultDAO = practiceResultDAO;	}
-	public void setTopResultService(ITopResultService topResultService) {this.topResultService = topResultService; }
 	public void setMemberWordController(MemberWordController memberWordController) {this.memberWordController = memberWordController; }
 	//public void setGradeDAO(IGradeDAO gradeDAO) {this.gradeDAO = gradeDAO;}
 
@@ -108,12 +100,6 @@ public class PhoneticPracticeController extends ESLController {
 
 	public PhoneticPractice getPractice() {	return practice;}
 	public void setPractice(PhoneticPractice practice) {this.practice = practice;}
-
-	//public TopResult getRateRanking() {	return rateRanking;}
-	//public void setRateRanking(TopResult rateRanking) {	this.rateRanking = rateRanking;	}
-
-	//public TopResult getScoreRanking() {return scoreRanking;}
-	//public void setScoreRanking(TopResult scoreRanking) {this.scoreRanking = scoreRanking;	}
 
 	//public PracticeResult getCurrentGradeResult() {	return currentGradeResult;	}
 	//public void setCurrentGradeResult(PracticeResult currentGradeResult) {	this.currentGradeResult = currentGradeResult;}
@@ -231,10 +217,6 @@ public class PhoneticPracticeController extends ESLController {
 			CompletableFuture<MemberScoreRanking> allTimes = rankingService.myScoreRanking(member, MemberScore.allTimesMonth());
 			thisMonthRanking = thisMonth.join();
 			allTimesRanking = allTimes.join();
-
-			// retrieve ranking of the practiced grade
-			//scoreRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Score, PracticeResult.PHONETICPRACTICE, member, grade);
-			//rateRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Rate, PracticeResult.PHONETICPRACTICE, member, grade);
 
 			// Check Level Up
 			//currentGradeResult = practiceResultDAO.getPracticeResult(member, grade, PracticeResult.PHONETICPRACTICE);

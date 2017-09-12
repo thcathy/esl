@@ -6,10 +6,12 @@ import com.esl.dao.IPracticeResultDAO;
 import com.esl.entity.event.UpdatePracticeHistoryEvent;
 import com.esl.enumeration.ESLPracticeType;
 import com.esl.enumeration.VocabDifficulty;
-import com.esl.model.*;
+import com.esl.model.Grade;
+import com.esl.model.Member;
+import com.esl.model.PhoneticQuestion;
+import com.esl.model.PracticeResult;
 import com.esl.model.practice.PhoneticSymbols;
 import com.esl.service.practice.IPhoneticSymbolPracticeService;
-import com.esl.service.practice.ITopResultService;
 import com.esl.service.practice.PhoneticQuestionService;
 import com.esl.util.JSFUtil;
 import com.esl.web.jsf.controller.ESLController;
@@ -62,14 +64,10 @@ public class PhoneticSymbolPracticeController extends ESLController {
 	private int totalMark;
 	private int totalFullMark;
 
-	private TopResult scoreRanking;
-	private TopResult rateRanking;
-
 	// Supporting classes
 	@Resource private IGradeDAO gradeDAO;
 	@Resource private IPhoneticSymbolPracticeService phoneticSymbolPracticeService;
 	@Resource private IPracticeResultDAO practiceResultDAO;
-	@Resource private ITopResultService topResultService;
 	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
 	@Resource private PhoneticQuestionService phoneticQuestionService;
 	@Autowired EventBus eventBus;
@@ -138,8 +136,6 @@ public class PhoneticSymbolPracticeController extends ESLController {
 		if (userSession.isLogined()) {
 			// retrieve ranking of the practiced grade
 			Member member = userSession.getMember();
-			scoreRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Score, PracticeResult.PHONETICSYMBOLPRACTICE, member, currentGrade, selectedLevel);
-			rateRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Rate, PracticeResult.PHONETICSYMBOLPRACTICE, member, currentGrade, selectedLevel);
 		}
 
 		// reduce one mark for the undo question
@@ -250,12 +246,6 @@ public class PhoneticSymbolPracticeController extends ESLController {
 
 	public boolean isLevelUp() {return isLevelUp;}
 	public void setLevelUp(boolean isLevelUp) {	this.isLevelUp = isLevelUp;}
-
-	public TopResult getRateRanking() {	return rateRanking;}
-	public void setRateRanking(TopResult rateRanking) {	this.rateRanking = rateRanking;	}
-
-	public TopResult getScoreRanking() {return scoreRanking;}
-	public void setScoreRanking(TopResult scoreRanking) {this.scoreRanking = scoreRanking;	}
 
 	public PracticeResult getCurrentGradeResult() {	return currentGradeResult;	}
 	public void setCurrentGradeResult(PracticeResult currentGradeResult) {	this.currentGradeResult = currentGradeResult;}

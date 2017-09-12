@@ -11,10 +11,8 @@ import com.esl.exception.ESLSystemException;
 import com.esl.model.Grade;
 import com.esl.model.PhoneticQuestion;
 import com.esl.model.PracticeResult;
-import com.esl.model.TopResult;
 import com.esl.service.JSFService;
 import com.esl.service.practice.IPhoneticPracticeService;
-import com.esl.service.practice.ITopResultService;
 import com.esl.service.practice.PhoneticQuestionService;
 import com.esl.web.jsf.controller.ESLController;
 import com.esl.web.jsf.controller.member.MemberWordController;
@@ -46,8 +44,6 @@ public class PhoneticPracticeG2Controller extends ESLController {
 
 	// UI Data
 	private String answer = "";
-	private TopResult scoreRanking;
-	private TopResult rateRanking;
 	private PracticeResult currentGradeResult;
 	private PracticeResult allGradeResult;
 	private Grade currentGrade;
@@ -64,7 +60,6 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	@Resource private IMemberDAO memberDAO;
 	@Resource private IPhoneticPracticeService phoneticPracticeService;
 	@Resource private IPracticeResultDAO practiceResultDAO;
-	@Resource private ITopResultService topResultService;
 	@Resource private IPhoneticQuestionDAO phoneticQuestionDAO;
 	@Resource private PhoneticPracticeController phoneticPracticeController;
 	@Resource private MemberWordController memberWordController;
@@ -85,7 +80,6 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	public void setMemberDAO(IMemberDAO memberDAO) {this.memberDAO = memberDAO; }
 	public void setPhoneticPracticeService(IPhoneticPracticeService phoneticPracticeService) {this.phoneticPracticeService = phoneticPracticeService;}
 	public void setPracticeResultDAO(IPracticeResultDAO practiceResultDAO) {this.practiceResultDAO = practiceResultDAO;	}
-	public void setTopResultService(ITopResultService topResultService) {this.topResultService = topResultService; }
 	public void setPhoneticQuestionDAO(IPhoneticQuestionDAO phoneticQuestionDAO) {this.phoneticQuestionDAO = phoneticQuestionDAO; }
 	public void setPhoneticPracticeController(PhoneticPracticeController controller) {this.phoneticPracticeController = controller;}
 	public void setMemberWordController(MemberWordController memberWordController) {this.memberWordController = memberWordController; }
@@ -95,12 +89,6 @@ public class PhoneticPracticeG2Controller extends ESLController {
 
 	public boolean isLevelUp() {return isLevelUp;}
 	public void setLevelUp(boolean isLevelUp) {	this.isLevelUp = isLevelUp;}
-
-	public TopResult getRateRanking() {	return rateRanking;}
-	public void setRateRanking(TopResult rateRanking) {	this.rateRanking = rateRanking;	}
-
-	public TopResult getScoreRanking() {return scoreRanking;}
-	public void setScoreRanking(TopResult scoreRanking) {this.scoreRanking = scoreRanking;	}
 
 	public PracticeResult getCurrentGradeResult() {	return currentGradeResult;	}
 	public void setCurrentGradeResult(PracticeResult currentGradeResult) {	this.currentGradeResult = currentGradeResult;}
@@ -225,11 +213,6 @@ public class PhoneticPracticeG2Controller extends ESLController {
 	// process when completing the practice
 	public String completePractice() {
 		logger.info("completePractice: START");
-
-//		Member member = userSession.getMember();
-		// retrieve ranking of the practiced grade
-		//scoreRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Score, PracticeResult.PHONETICPRACTICE, member, currentGrade);
-		//rateRanking = topResultService.getResultListByMemberGrade(TopResult.OrderType.Rate, PracticeResult.PHONETICPRACTICE, member, currentGrade);
 
 		return resultView;
 	}
