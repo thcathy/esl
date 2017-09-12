@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -27,6 +28,8 @@ public class RankingService {
     @Autowired MemberScoreRepository memberScoreRepository;
 
     @Value("${RankingService.numOfScore}") int numOfScoreInRank;
+
+    private volatile MemberScoreRanking scheduledRandomRanking;
 
     @Async
     public CompletableFuture<MemberScoreRanking> myScoreRanking(Member member, int scoreYearMonth) {
@@ -69,4 +72,15 @@ public class RankingService {
         }
     }
 
+    @Scheduled(fixedRate=600000)
+    public void changeRandomRanking() {
+        log.info("changeRandomRanking");
+        do {
+            randomTopScore().thenAccept(r -> scheduledRandomRanking = r);
+        } while (scheduledRandomRanking == null || scheduledRandomRanking.getScores().size() < 1);
+    }
+
+    public MemberScoreRanking getScheduledRandomRanking() {
+        return scheduledRandomRanking;
+    }
 }

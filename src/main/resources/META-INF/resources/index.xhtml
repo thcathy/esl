@@ -6,6 +6,7 @@
 				xmlns:util="http://java.sun.com/jsf/composite/components/util"
 				xmlns:p="http://primefaces.org/ui"
 				xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+				xmlns:ranking="http://java.sun.com/jsf/composite/components/ranking"
 				template="/template/index.xhtml">
 
 <ui:define name="subTitle">#{htmlHeadMsg.index_title}</ui:define>
@@ -87,44 +88,13 @@
 		<div class="w3-half">
 			<esl:dictationStatistics title="#{singleDictationStatController.statTitle}" dictations="#{singleDictationStatController.stat.dictations}" />
 
-			<h:outputText value="#{randomTopResult.newRandomTopResult}" />
 			<div class="w3-margin-top">
-			<h:panelGroup rendered="#{randomTopResult.existType eq 'Result'}">
-				<div class="w3-card-4">
-					<div class="w3-container w3-theme"><h5><i class="fa fa-trophy"></i> #{generalMsg.menuRanking} - #{randomTopResult.randomTopResult.longTitle} #{randomTopResult.randomTopResult.gradeTitle}</h5></div>
-
-					<div>
-						<ul class="w3-ul w3-white">
-							<ui:repeat var="i" rowKeyVar="r" value="#{randomTopResult.standings}">
-								<li class="w3-padding-right">
-									<span class="w3-badge w3-green">#{r+1}</span>&#160;<h:outputText value="#{i.member.displayName.length() gt 20 ? i.member.displayName.substring(0,17).concat('...') : i.member.displayName}" />
-									<span class="w3-right">#{i.value}</span>
-								</li>
-							</ui:repeat>
-						</ul>
-					</div>
-
-					<div class="w3-container w3-theme w3-right-align"></div>
-				</div>
-			</h:panelGroup>
-			<h:panelGroup rendered="#{randomTopResult.existType eq 'Medal'}">
-				<div class="w3-card-4">
-					<div class="w3-container w3-theme"><h5><i class="fa fa-trophy"></i> #{generalMsg.menuRanking} - #{randomTopResult.randomMedals.practiceTitle} #{randomTopResult.randomMedals.monthStr}</h5></div>
-
-					<div>
-						<ul class="w3-ul w3-white">
-							<ui:repeat var="i" varStatus="r" value="#{randomTopResult.randomMedals.medals}">
-								<li class="w3-padding-right">
-									<span class="w3-badge w3-green">#{r.index+1}</span>&#160;<h:outputText value="#{i.member.displayName.length() gt 20 ? i.member.displayName.substring(0,17).concat('...') : i.member.displayName}" />
-									<span class="w3-right">#{i.score}</span>
-								</li>
-							</ui:repeat>
-						</ul>
-					</div>
-
-					<div class="w3-container w3-theme w3-right-align"> </div>
-				</div>
-			</h:panelGroup>
+				<h:panelGroup rendered="#{singleRandomRankingController.allTimes}">
+					<ranking:ranking ranking="#{singleRandomRankingController.randomRanking}" title="#{generalMsg.allTimeRanking}" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{!singleRandomRankingController.allTimes}">
+					<ranking:ranking ranking="#{singleRandomRankingController.randomRanking}" title="#{memberSumMsg.indexRanking} -"  date="#{singleRandomRankingController.randomRanking.scores[0].yearMonthAsDate}" />
+				</h:panelGroup>
 			</div>
 		</div>
 		<div class="w3-quarter">&#160;</div>
