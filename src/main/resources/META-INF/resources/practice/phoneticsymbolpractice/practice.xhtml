@@ -81,7 +81,9 @@
                                         #{phoneticSymbolPracticeController.question.word}
                                     </div>
                                     <div class="w3-col l6 m12" style="margin-bottom: 4px;">
-                                        <a href="javascript:void(0);" onclick="document.getElementById('pronounce').play();"
+                                        <a href="javascript:void(0);"
+                                           onclick="document.getElementById('pronounce').src='#{phoneticSymbolPracticeController.question.activePronounceLink}';
+                                                    document.getElementById('pronounce').play();"
                                            class="w3-btn w3-medium w3-green w3-round-xxlarge">
                                             <i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
                                     </div>
