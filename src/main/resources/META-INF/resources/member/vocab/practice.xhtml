@@ -67,7 +67,10 @@
 
 								<div class="w3-row w3-center w3-border-top" style="padding-top: 4px;">
 									<div class="w3-col l6 m12" style="margin-bottom: 4px;">
-										<a href="#" onclick="document.getElementById('pronounce').play(); jQuery('#inputForm\\:answer').focus();" class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px;">
+										<a href="#" onclick="document.getElementById('pronounce').src='#{myVocabPracticeController.memberWord.word.activePronounceLink}';
+																document.getElementById('pronounce').play();
+																setFocus(jQuery('#inputForm\\:answer'));"
+										   class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px;">
 											<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 									</div>
 									<div class="w3-col l6 m12" style="margin-bottom: 4px;">

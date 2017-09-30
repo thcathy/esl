@@ -77,7 +77,9 @@
 				<div class="w3-row w3-center">
 					<div class="w3-half">
 						<audio id="pronounce" onloadeddata="this.play()" src="#{irregularVerbPracticeController.phoneticQ.activePronounceLink}" />
-						<a onclick="document.getElementById('pronounce').play(); setFocus();" class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px;">
+						<a onclick="document.getElementById('pronounce').src='#{irregularVerbPracticeController.phoneticQ.activePronounceLink}';
+									document.getElementById('pronounce').play(); setFocus();"
+						   class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px;">
 							<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 					</div>
 					<div class="w3-half">

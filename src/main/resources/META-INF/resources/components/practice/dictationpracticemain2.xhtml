@@ -25,7 +25,10 @@
 						<div class="w3-col l6 m12">
 							<h:panelGroup rendered="#{!cc.attrs.controllerBean.practice.currentQuestionObject.IPAUnavailable}">
 								<audio id="pronounce" onloadeddata="this.play()" src="#{cc.attrs.controllerBean.practice.currentQuestionObject.activePronounceLink}" />
-								<a onclick="document.getElementById('pronounce').play(); setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));" class="w3-btn w3-medium w3-green w3-round-xxlarge"
+								<a onclick="document.getElementById('pronounce').src='#{cc.attrs.controllerBean.practice.currentQuestionObject.activePronounceLink}';
+											document.getElementById('pronounce').play();
+											setFocus(jQuery('#practiceDiv\\:inputForm\\:answer'));"
+								   class="w3-btn w3-medium w3-green w3-round-xxlarge"
 								   style="min-width: 200px; padding-bottom: 4px;">
 									<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
 							</h:panelGroup>
