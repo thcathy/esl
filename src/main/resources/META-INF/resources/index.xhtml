@@ -97,11 +97,18 @@
 				</h:panelGroup>
 			</div>
 		</div>
-		<div class="w3-quarter">&#160;</div>
+		<div class="w3-quarter w3-right-align">
+			<h:panelGroup rendered="#{!singleRequestController.webView}">
+				<a href="https://itunes.apple.com/app/apple-store/id1289059131?mt=8">
+					<img style="height: 50px; padding: 4px;" alt="#{generalMsg.appStoreAlt}" src="#{generalMsg.appStoreUrl}"/>
+				</a>
+			</h:panelGroup>
+		</div>
 		<div class="w3-quarter w3-right-align">
 			<h:panelGroup rendered="#{!singleRequestController.webView}">
 				<a href="https://play.google.com/store/apps/details?id=com.funfunspell&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
-					<img style="max-width: 180px;" alt="#{generalMsg.playStoreAlt}" src="#{generalMsg.playStoreUrl}"/></a>
+					<img style="height: 50px; padding: 4px;" src="#{applicationController.staticHost}/images/#{generalMsg.topLocale}_badge_web_generic.png" alt="#{generalMsg.playStoreAlt}"/>
+				</a>
 			</h:panelGroup>
 		</div>
 	</div>
