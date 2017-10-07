@@ -1,8 +1,6 @@
 package com.esl.util.practice;
 
 import com.esl.model.PhoneticQuestion;
-import com.esl.util.web.CambridgeDictionaryParser;
-import com.esl.util.web.DictionaryParser;
 import com.esl.util.web.HttpURLConnectionBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,12 +30,13 @@ public class PhoneticQuestionUtil {
 	}
 
 	public void findIPA(PhoneticQuestion question) {
-		DictionaryParser parser = new CambridgeDictionaryParser(question.getWord());
-		if (parser.parse()) {
-			question.setIPA(parser.getIpa());
-			question.setPronouncedLink(parser.getAudioLink());
-			logger.debug("Found IPA [{}] and PronounceLink [{}]", question.getIPA(), question.getPronouncedLink());
-		}
+		// should not be use anymore
+//		DictionaryParser parser = new CambridgeDictionaryParser(question.getWord());
+//		if (parser.parse()) {
+//			question.setIPA(parser.getIpa());
+//			question.setPronouncedLink(parser.getAudioLink());
+//			logger.debug("Found IPA [{}] and PronounceLink [{}]", question.getIPA(), question.getPronouncedLink());
+//		}
 	}
 
 	public class FindIPAAndPronoun implements Runnable {
