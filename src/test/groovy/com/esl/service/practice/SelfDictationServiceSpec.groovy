@@ -72,9 +72,9 @@ class SelfDictationServiceSpec extends Specification {
         assert xxxyyyzzz.isIPAUnavailable() == true
         assert xxxyyyzzz.getIPA() == null
         assert xxxyyyzzz.getPronouncedLink() == null
-        assert busStop.isIPAUnavailable() == true
-        assert busStop.getIPA() == null
-        assert busStop.getPronouncedLink() ==null
+        assert busStop.isIPAUnavailable() == false
+        assert busStop.getIPA() == "ˈbʌs ˌstɒp"
+        assert busStop.getPronouncedLink() == "http://dictionary.cambridge.org/media/english/uk_pron/u/ukc/ukcld/ukcld00151.mp3"
         assert jakarta.isIPAUnavailable() == false
         assert jakarta.getIPA() == "dʒəˈkɑːtə"
         assert jakarta.getPronouncedLink() == "http://audio.oxforddictionaries.com/en/mp3/jakarta_1_gb_1.mp3"
