@@ -3,6 +3,7 @@ package com.esl.service.practice
 import com.esl.ESLApplication
 import com.esl.entity.dictation.Vocab
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
@@ -12,6 +13,9 @@ import spock.lang.Specification
 class SelfDictationServiceSpec extends Specification {
     @Autowired
     SelfDictationService service
+
+    @Value('${NAImage.data}')
+    public String NAImage
 
     def "When generate practice for saved dictation, should use local vocab images if vocab is found from database"() {
         when:
@@ -46,7 +50,7 @@ class SelfDictationServiceSpec extends Specification {
 
     def "When generate practice for self dictation, should use local vocab images if vocab is found from database"() {
         when:
-        def practice = service.generatePractice(null, ["boy", "fish"])
+        def practice = service.generatePractice(null, ["boy", "fish"], true)
 
         then:
         assert practice.questions.size() == 2
@@ -57,9 +61,20 @@ class SelfDictationServiceSpec extends Specification {
         }
     }
 
+    def "When generate practice for self dictation without image, the image is enrich to NAImage"() {
+        when:
+        def practice = service.generatePractice(null, ["boy", "fish", "jakarta"], false)
+
+        then:
+        assert practice.questions.size() == 3
+        practice.questions.each {
+            assert it.picsFullPathsInString == NAImage
+        }
+    }
+
     def "When generate practice for self dictation, get image from web if vocab is not found from DB"() {
         when:
-        def practice = service.generatePractice(null, ["xxxyyyzzz", "bus-stop", "jakarta"])
+        def practice = service.generatePractice(null, ["xxxyyyzzz", "bus-stop", "jakarta"], true)
         def xxxyyyzzz = practice.questions.find { it.word == "xxxyyyzzz" }
         def busStop = practice.questions.find { it.word == "bus-stop" }
         def jakarta = practice.questions.find { it.word == "jakarta" }

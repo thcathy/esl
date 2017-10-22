@@ -15,7 +15,7 @@ public interface ISelfDictationService {
 	public int getMaxQuestions();
 	public void setMaxQuestions(int maxQuestions);
 
-	public PhoneticPractice generatePractice(Member member, List<String> inputVocabularies);
+	public PhoneticPractice generatePractice(Member member, List<String> inputVocabularies, boolean showImage);
 	public PhoneticPractice generatePractice(List<Vocab> vocabs);
 	public void completedPractice(List<PhoneticQuestion> questions, ServletContext context);
 	public MemberDictationHistory updateMemberDictationHistory(Dictation dictation, Member member, PhoneticPractice practice);

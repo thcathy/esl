@@ -49,6 +49,7 @@ public class SelfDictationController extends ESLController {
 	private boolean withRandomCharacters = false;
 	private int totalQuestions;
 	private Dictation.DictationType lastDictationType = Dictation.DictationType.Vocab;
+	private boolean showImage = true;
 
 	// Supporting classes
 	@Resource private ISelfDictationService selfDictationService;
@@ -73,6 +74,9 @@ public class SelfDictationController extends ESLController {
 
 	public boolean isWithRandomCharacters()	{return withRandomCharacters;}
 	public void setWithRandomCharacters(boolean withRandomCharacters) {	this.withRandomCharacters = withRandomCharacters;}
+
+	public boolean isShowImage() {return showImage;	}
+	public void setShowImage(boolean showImage) {this.showImage = showImage;}
 
 	public String getInputArticle() {return inputArticle;}
 	public void setInputArticle(String inputArticle) {this.inputArticle = inputArticle;}
@@ -142,7 +146,7 @@ public class SelfDictationController extends ESLController {
 		// retrieve vocabs
 		inputVocab = getInputVocab((HttpServletRequest)facesContext.getExternalContext().getRequest());
 
-		practice = selfDictationService.generatePractice(null, inputVocab);
+		practice = selfDictationService.generatePractice(null, inputVocab, showImage);
 
 		if (practice == null || practice.getQuestions().size() <= 0)
 		{

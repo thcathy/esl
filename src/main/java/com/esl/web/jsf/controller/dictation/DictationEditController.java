@@ -54,6 +54,7 @@ public class DictationEditController extends ESLController {
 	private String password;
 	private String confirmedPassword;
 	private String type = "Vocab";
+	private boolean showImage = true;
 	@Value("${Dictation.Article.MaxSize}") private int maxArticleSize = 0;
 
 	//============== Functions ================//
@@ -290,4 +291,7 @@ public class DictationEditController extends ESLController {
 
 	public String getType() {return type;}
 	public void setType(String type) {this.type = type;	}
+
+	public boolean isShowImage() {return showImage;}
+	public void setShowImage(boolean showImage) {this.showImage = showImage;}
 }

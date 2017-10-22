@@ -47,18 +47,28 @@ public class PhoneticQuestionService {
         return totalQuestion;
     }
 
-    public Optional<PhoneticQuestion> getQuestionFromDBWithImage(String word) {
+    public Optional<PhoneticQuestion> getQuestionFromDBWithImage(String word, boolean showImage) {
         Optional<PhoneticQuestion> question = Optional.ofNullable(phoneticQuestionDAO.getPhoneticQuestionByWord(word));
-        question.ifPresent(this::enrichVocabImage);
+        question.ifPresent(q -> {
+            if (showImage)
+                enrichVocabImage(q);
+            else
+                q.setPicsFullPaths(new String[] {NAImage});
+        });
         return question;
     }
 
-    public PhoneticQuestion buildQuestionByWebAPI(String word) {
-        log.info("buildQuestionByWebAPI for word: {}", word);
+    public PhoneticQuestion buildQuestionByWebAPI(String word, boolean showImage) {
+        log.info("buildQuestionByWebAPI for word: {}, showImage={}", word, showImage);
         PhoneticQuestion question = new PhoneticQuestion();
         question.setWord(word);
 
-        CompletableFuture<WebItem[]> imagesResult = webService.searchGoogleImage(word + " clipart");
+        CompletableFuture<WebItem[]> imagesResult;
+        if (showImage)
+            imagesResult = webService.searchGoogleImage(word + " clipart");
+        else
+            imagesResult = CompletableFuture.completedFuture(new WebItem[0]);
+
         CompletableFuture<Optional<DictionaryResult>> dictionaryResult = webService.queryDictionary(word);
 
         fillQuestionByDictionaryResult(question, dictionaryResult.join());
@@ -68,6 +78,11 @@ public class PhoneticQuestionService {
     }
 
     private void setPicsFullPaths(PhoneticQuestion question, WebItem[] items) {
+        if (items.length < 1) {
+            question.setPicsFullPaths(new String[] {NAImage});
+            return;
+        }
+
         List<String> images = Arrays.stream(items)
                 .map(i -> i.url)
                 .limit(5)

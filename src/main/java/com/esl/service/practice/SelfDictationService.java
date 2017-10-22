@@ -50,15 +50,16 @@ public class SelfDictationService implements ISelfDictationService {
 
 	// Retrieve vocabularies and return practice for self dictation
 	@Transactional(readOnly=true)
-	public PhoneticPractice generatePractice(Member member, List<String> inputVocabularies) {
+	public PhoneticPractice generatePractice(Member member, List<String> inputVocabularies, boolean showImage) {
 		if (inputVocabularies == null || inputVocabularies.size() < 1) {
 			logger.info("generatePractice: inputVocabularies: No input");
 			return null;
 		}
+		logger.info("generate practice showImage[{}] for vocabs: {}", showImage, inputVocabularies);
 
 		List<CompletableFuture<PhoneticQuestion>> questionFutures = inputVocabularies.stream()
 				.filter(ValidationUtil::isValidWord)
-				.map(w -> CompletableFuture.supplyAsync(() -> createQuestion(w), executorService))
+				.map(word -> CompletableFuture.supplyAsync(() -> createQuestion(word, showImage), executorService))
 				.collect(Collectors.toList());
 
 		List<PhoneticQuestion> questions = questionFutures.stream()
@@ -76,9 +77,9 @@ public class SelfDictationService implements ISelfDictationService {
 		return practice;
 	}
 
-	private PhoneticQuestion createQuestion(String w) {
-		return phoneticQuestionService.getQuestionFromDBWithImage(w)
-				.orElseGet(() -> phoneticQuestionService.buildQuestionByWebAPI(w));
+	private PhoneticQuestion createQuestion(String word, boolean showImage) {
+		return phoneticQuestionService.getQuestionFromDBWithImage(word, showImage)
+				.orElseGet(() -> phoneticQuestionService.buildQuestionByWebAPI(word, showImage));
 	}
 
 	private PhoneticPractice createPhoneticPracticeObject(Member member, List<PhoneticQuestion> questions) {
@@ -107,7 +108,7 @@ public class SelfDictationService implements ISelfDictationService {
 
 		List<CompletableFuture<PhoneticQuestion>> questionFutures = vocabs.stream()
 				.map(Vocab::getWord)
-				.map(w -> CompletableFuture.supplyAsync(() -> createQuestion(w), executorService))
+				.map(word -> CompletableFuture.supplyAsync(() -> createQuestion(word, true), executorService))
 				.collect(Collectors.toList());
 
 		List<PhoneticQuestion> questions = questionFutures.stream()

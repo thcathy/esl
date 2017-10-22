@@ -86,6 +86,9 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 	@Column(name = "NOT_ALLOW_RAND_CHAR")
 	private boolean notAllowRandomCharacters;
 
+	@Column(name = "SHOW_IMAGE")
+	private boolean showImage;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "LAST_PRACTICE_DATE")
 	private Date lastPracticeDate;
@@ -126,6 +129,7 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 		vocabs = new ArrayList<Vocab>();
 		accessibleGroups = new ArrayList<MemberGroup>();
 		article = "";
+		showImage = true;
 	}
 
 	public Dictation(String title) {
@@ -229,6 +233,9 @@ public class Dictation extends UserCreatedPractice implements Serializable, Pass
 
 	public String getArticle() {return article;}
 	public void setArticle(String article) {this.article = article;}
+
+	public boolean isShowImage() {return showImage;	}
+	public void setShowImage(boolean showImage) {this.showImage = showImage;}
 
 	public List<Vocab> getVocabs() {return vocabs;}
 	public void setVocabs(List<Vocab> vocabs) {	this.vocabs = vocabs;}
