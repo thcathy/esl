@@ -74,24 +74,23 @@
 				<div class="w3-half">
 					<div class="w3-border">
 						<util:vocabimage2 picPaths="#{phoneticPracticeController.practice.currentQuestionObject.picsFullPathsInString}" />
-
-						<div class="w3-row w3-center w3-border-top" style="padding-top: 4px;">
-							<div class="w3-col l6 m12" style="margin-bottom: 4px;">
-								<a href="javascript:void(0);"
-								   onclick="document.getElementById('pronounce').src='#{phoneticPracticeController.practice.currentQuestionObject.activePronounceLink}';
-								   			document.getElementById('pronounce').play();
-								   			setFocus(jQuery('#inputForm\\:answer'));"
-								   class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px;">
-									<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
-							</div>
-							<div class="w3-col l6 m12" style="margin-bottom: 4px;">
-								<a onclick="this.textContent='[#{phoneticPracticeController.practice.currentQuestionObject.IPA}]'"
-								   class="w3-btn w3-medium w3-pink w3-round-xxlarge" style="min-width: 200px;">#{phonPracticeMsg.practicePhonetic}</a>
-							</div>
-						</div>
 					</div>
 				</div>
 				<div class="w3-half">
+					<div class="w3-row w3-center" style="padding-top: 4px; padding-bottom: 4px;">
+						<div class="w3-col l6 m12" style="margin-bottom: 4px;">
+							<a href="javascript:void(0);"
+							   onclick="document.getElementById('pronounce').src='#{phoneticPracticeController.practice.currentQuestionObject.activePronounceLink}';
+								   			document.getElementById('pronounce').play();
+								   			setFocus(jQuery('#inputForm\\:answer'));"
+							   class="w3-btn w3-medium w3-green w3-round-xxlarge" style="min-width: 200px;">
+								<i class="fa fa-assistive-listening-systems" aria-hidden="true"></i> #{phonPracticeMsg.speak}</a>
+						</div>
+						<div class="w3-col l6 m12" style="margin-bottom: 4px;">
+							<a onclick="this.textContent='[#{phoneticPracticeController.practice.currentQuestionObject.IPA}]'"
+							   class="w3-btn w3-medium w3-pink w3-round-xxlarge" style="min-width: 200px;">#{phonPracticeMsg.practicePhonetic}</a>
+						</div>
+					</div>
 					<div>
 						<h:outputLabel styleClass="w3-label w3-text-teal" value="#{phonPracticeMsg.practiceInputAnsTitle}" />
 						<h:inputText id="answer" styleClass="w3-input w3-border"
