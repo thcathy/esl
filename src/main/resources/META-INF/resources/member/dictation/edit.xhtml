@@ -148,6 +148,10 @@
 
 				<div class="w3-margin-top">
 					<div id="vocabLabel" class="#{dictationEditController.type == 'Vocab' ? '' : 'w3-hide'}">
+						<p>
+							<label>#{dictationMsg.showImage}:</label>
+							<h:selectBooleanCheckbox styleClass="w3-check" value="#{dictationEditController.showImage}" />
+						</p>
 						<label class="w3-label">#{dictationMsg.vocab} * (<h:outputText value="#{dictationMsg.vocabDesc}" escape="false" />)</label><br />
 						#{dictationMsg.maxWord}: <strong>#{dictationEditController.maxVocabs}</strong>, #{dictationMsg.youHaveInput}: <strong><span id="totalWords"></span></strong>
 					</div>

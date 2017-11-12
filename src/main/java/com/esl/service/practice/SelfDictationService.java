@@ -101,14 +101,14 @@ public class SelfDictationService implements ISelfDictationService {
 		});
 	}
 
-	public PhoneticPractice generatePractice(List<Vocab> vocabs) {
+	public PhoneticPractice generatePractice(List<Vocab> vocabs, boolean showImage) {
 		final String logPrefix = "generatePractice: ";
 		logger.info(logPrefix + "START");
 		if (vocabs == null) throw new IllegalParameterException(new String[]{"vocabs"}, new Object[]{vocabs});
 
 		List<CompletableFuture<PhoneticQuestion>> questionFutures = vocabs.stream()
 				.map(Vocab::getWord)
-				.map(word -> CompletableFuture.supplyAsync(() -> createQuestion(word, true), executorService))
+				.map(word -> CompletableFuture.supplyAsync(() -> createQuestion(word, showImage), executorService))
 				.collect(Collectors.toList());
 
 		List<PhoneticQuestion> questions = questionFutures.stream()

@@ -149,8 +149,7 @@ public class DictationPracticeController extends UserCreatedPracticeController<D
 		Locale locale = facesContext.getViewRoot().getLocale();
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleName, locale);
 
-
-		practice = selfDictationService.generatePractice(dictation.getVocabs());
+		practice = selfDictationService.generatePractice(dictation.getVocabs(), dictation.isShowImage());
 
 		if (practice == null || practice.getQuestions().size() <= 0) {
 			logger.info(logPrefix + "no question generated");

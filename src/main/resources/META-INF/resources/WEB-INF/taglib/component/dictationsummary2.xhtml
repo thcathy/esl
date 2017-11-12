@@ -33,6 +33,14 @@
 			<td>:</td>
 			<td>#{dictation.vocabsSize}</td>
 		</tr>
+		<tr>
+			<td>#{dictationMsg.showImage}</td>
+			<td>:</td>
+			<td>
+				<h:panelGroup rendered="#{dictation.showImage}"><i class="fa fa-check" aria-hidden="true"></i></h:panelGroup>
+				<h:panelGroup rendered="#{!dictation.showImage}"><i class="fa fa-times" aria-hidden="true"></i></h:panelGroup>
+			</td>
+		</tr>
 		<tr id="dictationSummaryRecommendation">
 			<td>#{dictationMsg.recommendation}</td>
 			<td>:</td>

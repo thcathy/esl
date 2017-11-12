@@ -132,7 +132,7 @@ public class DictationEditController extends ESLController {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("notAllowEdit"), null));
 			return null;
 		}
-		dictationDAO.attachSession(editDictation);
+		editDictation = dictationDAO.get(editDictation.getId());
 		prepareDisplayObjects();
 		return editView;
 	}
@@ -175,6 +175,7 @@ public class DictationEditController extends ESLController {
 			}
 		}
 		editDictation = dictationDAO.merge(editDictation);
+		dictationDAO.refreshDictation(editDictation);
 		setAccessibleGroups();
 
 		// set password
@@ -186,9 +187,10 @@ public class DictationEditController extends ESLController {
 
 		editDictation.setCreator(userSession.getMember());
 		editDictation.setLastModifyDate(new Date());
+		editDictation.setShowImage(showImage);
 
 		try {
-			dictationDAO.refreshDictation(editDictation);
+
 			setVocabOrArticle(editDictation);
 
 			manageService.saveDictation(editDictation);
@@ -240,6 +242,7 @@ public class DictationEditController extends ESLController {
 		}
 
 		type = editDictation.getType().toString();
+		showImage = editDictation.isShowImage();
 		requirePassword = editDictation.isRequirePassword();
 		if ("Vocab".equals(type))
 			vocabs = editDictation.getVocabsString();

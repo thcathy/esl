@@ -19,7 +19,7 @@ class SelfDictationServiceSpec extends Specification {
 
     def "When generate practice for saved dictation, should use local vocab images if vocab is found from database"() {
         when:
-        def practice = service.generatePractice([new Vocab("boy"), new Vocab("fish")])
+        def practice = service.generatePractice([new Vocab("boy"), new Vocab("fish")], true)
 
         then:
         assert practice.questions.size() == 2
@@ -32,7 +32,7 @@ class SelfDictationServiceSpec extends Specification {
 
     def "When generate practice for saved dictation, get image and dictionary from web if vocab is not found from DB"() {
         when:
-        def practice = service.generatePractice([new Vocab("xxxyyyzzz"), new Vocab("jakarta")])
+        def practice = service.generatePractice([new Vocab("xxxyyyzzz"), new Vocab("jakarta")], true)
         def xxxyyyzzz = practice.questions.find { it.word == "xxxyyyzzz" }
         def jakarta = practice.questions.find { it.word == "jakarta" }
 

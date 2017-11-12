@@ -55,25 +55,17 @@
 							<td>#{dictationManageController.selectedDictation.tags}</td>
 						</tr>
 						<tr>
-							<td>#{dictationMsg.allowPublicAccess}</td>
-							<td>:</td>
-							<td>
-								<h:panelGroup rendered="#{dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
-								<h:panelGroup rendered="#{!dictationManageController.selectedDictation.publicAccess}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
-							</td>
-						</tr>
-						<tr>
-							<td>#{dictationMsg.pwdProtect}</td>
-							<td>:</td>
-							<td>
-								<h:panelGroup rendered="#{not empty dictationManageController.selectedDictation.password}"><i class="fa fa-check w3-text-light-green" aria-hidden="true"></i></h:panelGroup>
-								<h:panelGroup rendered="#{empty dictationManageController.selectedDictation.password}"><i class="fa fa-times w3-text-red" aria-hidden="true"></i></h:panelGroup>
-							</td>
-						</tr>
-						<tr>
 							<td>#{dictationMsg.createdDate}</td>
 							<td>:</td>
 							<td><h:outputText value="#{dictationManageController.selectedDictation.createdDate}"><f:convertDateTime pattern="dd/MM/yyyy hh:mm" /></h:outputText></td>
+						</tr>
+						<tr>
+							<td>#{dictationMsg.showImage}</td>
+							<td>:</td>
+							<td>
+								<h:panelGroup rendered="#{dictationManageController.selectedDictation.showImage}"><i class="fa fa-check" aria-hidden="true"></i></h:panelGroup>
+								<h:panelGroup rendered="#{!dictationManageController.selectedDictation.showImage}"><i class="fa fa-times" aria-hidden="true"></i></h:panelGroup>
+							</td>
 						</tr>
 						<tr>
 							<td>#{dictationMsg.lastModifyDate}</td>

@@ -49,6 +49,14 @@
 								<td>#{dictationEditController.editDictation.suitableAge}</td>
 							</tr>
 							<tr>
+								<td>#{dictationMsg.showImage}</td>
+								<td>:</td>
+								<td>
+									<h:panelGroup rendered="#{dictationEditController.editDictation.showImage}"><i class="fa fa-check" aria-hidden="true"></i></h:panelGroup>
+									<h:panelGroup rendered="#{!dictationEditController.editDictation.showImage}"><i class="fa fa-times" aria-hidden="true"></i></h:panelGroup>
+								</td>
+							</tr>
+							<tr>
 								<td>#{dictationMsg.tags}</td>
 								<td>:</td>
 								<td>#{dictationEditController.editDictation.tags}</td>
