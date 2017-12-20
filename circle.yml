@@ -24,3 +24,19 @@ jobs:
           docker build -t thcathy/esl:$TAG -f docker/Dockerfile .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push thcathy/esl:$TAG
+          
+workflows:
+  version: 2
+  commit-workflow:
+    jobs:
+      - build 
+  scheduled-workflow:
+    triggers:
+      - schedule:
+          cron: "0 5 * * 5"
+          filters:
+            branches:
+              only: 
+                - master
+    jobs:
+      - build
