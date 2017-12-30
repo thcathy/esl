@@ -2,9 +2,11 @@ package com.esl.service.history
 
 import com.esl.BaseSpec
 import com.esl.ESLApplication
+import com.esl.dao.MemberDAO
 import com.esl.dao.repository.MemberScoreRepository
 import com.esl.entity.practice.MemberScore
 import com.esl.entity.practice.MemberScoreRanking
+import com.esl.model.Member
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -19,6 +21,58 @@ class RankingServiceSpec extends BaseSpec {
     RankingService service
     @Autowired
     MemberScoreRepository memberScoreRepository
+    @Autowired
+    MemberDAO memberDAO
+
+
+    def "Setup static data for test"() {
+        when: "setup static data"
+        addIfNotExist(tester, MemberScore.thisMonth())
+
+        addIfNotExist(tester, 201601, 100)
+
+        addIfNotExist(memberDAO.getMemberById(18), 201602, 3, new Date(2016, 2, 1))
+        addIfNotExist(tester, 201602, 2, new Date(2016, 2, 2))
+
+        addIfNotExist(memberDAO.getMemberById(18), 201603, 3, new Date(2016, 3, 1))
+        addIfNotExist(tester, 201603, 2, new Date(2016, 3, 2))
+        addIfNotExist(memberDAO.getMemberById(19), 201603, 1, new Date(2016, 3, 3))
+
+        addIfNotExist(tester, 201604, 10, new Date(2016, 4, 1))
+        addIfNotExist(memberDAO.getMemberById(18), 201604, 3, new Date(2016, 4, 2))
+        addIfNotExist(memberDAO.getMemberById(19), 201604, 1, new Date(2016, 4, 3))
+
+        addIfNotExist(memberDAO.getMemberById(18), 201605, 3, new Date(2016, 5, 1))
+        addIfNotExist(memberDAO.getMemberById(19), 201605, 3, new Date(2016, 5, 2))
+        addIfNotExist(tester, 201605, 2, new Date(2016, 2, 3))
+        addIfNotExist(memberDAO.getMemberById(20), 201605, 1, new Date(2016, 5, 4))
+        addIfNotExist(memberDAO.getMemberById(21), 201605, 1, new Date(2016, 5, 5))
+
+        addIfNotExist(memberDAO.getMemberById(22), 201606, 102, new Date(2016, 6, 1))
+        addIfNotExist(memberDAO.getMemberById(18), 201606, 101, new Date(2016, 6, 2))
+        addIfNotExist(memberDAO.getMemberById(19), 201606, 101, new Date(2016, 6, 3))
+        addIfNotExist(tester, 201606, 14, new Date(2016, 6, 4))
+        addIfNotExist(memberDAO.getMemberById(20), 201606, 11, new Date(2016, 6, 5))
+        addIfNotExist(memberDAO.getMemberById(21), 201606, 10, new Date(2016, 6, 6))
+
+        addIfNotExist(memberDAO.getMemberById(22), 201607, 1, new Date(2016, 7, 1))
+        addIfNotExist(memberDAO.getMemberById(18), 201607, 1, new Date(2016, 7, 2))
+        addIfNotExist(memberDAO.getMemberById(19), 201607, 1, new Date(2016, 7, 3))
+        addIfNotExist(memberDAO.getMemberById(20), 201607, 1, new Date(2016, 7, 4))
+        addIfNotExist(memberDAO.getMemberById(21), 201607, 1, new Date(2016, 7, 5))
+        addIfNotExist(tester, 201607, 1, new Date(2016, 7, 6))
+
+        then: "always success"
+        1 == 1
+    }
+
+    void addIfNotExist(Member member, int yearMonth, int score = 1, Date lastUpdatedDate = new Date()) {
+         if (!memberScoreRepository.findByMemberAndScoreYearMonth(member, yearMonth).isPresent()) {
+             MemberScore memberScore = new MemberScore(member, yearMonth).addScore(score)
+             memberScore.setLastUpdatedDate(lastUpdatedDate)
+             memberScoreRepository.save(memberScore)
+         }
+    }
 
     def "Create ranking for tester"() {
         MemberScore testerLatestScore = getLatestScore(tester)

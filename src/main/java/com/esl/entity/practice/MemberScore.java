@@ -58,7 +58,7 @@ public class MemberScore implements Serializable, IAuditable {
 
 	public int getScore() {return score;}
 	public void setScore(int score) {this.score = score;}
-	public void addScore(int score) {this.score += score; }
+	public MemberScore addScore(int score) {this.score += score; return this;}
 
 	public java.util.Date getCreatedDate() {return createdDate;}
 	public void setCreatedDate(java.util.Date createdDate) {this.createdDate = createdDate;}
