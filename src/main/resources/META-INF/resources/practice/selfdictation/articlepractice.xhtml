@@ -18,7 +18,6 @@
 	<ui:define name="subTitle">#{htmlHeadMsg.practice_selfdictation_practice_title}</ui:define>	
 	<ui:define name="head">
 		<meta name="description" content="#{htmlHeadMsg.practice_selfdictation_practice_desc}" />
-		<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
 		<script type="text/javascript">
 		//<![CDATA[
         var answerEnterEvent = function(event) {
@@ -63,45 +62,25 @@
 						<script type="text/javascript">
                             //<![CDATA[
 							var rate = 0.8;
-							var isPause = false;
+                            var synth = window.speechSynthesis;
 
 							function speak() {
-							    isPause = false;
-                                jQuery('#pauseText').text('#{generalMsg.pause}');
-                                responsiveVoice.speak("#{of:escapeJS(controller.dictation.sentences[controller.currentSentence])}", "UK English Female", {rate: rate});
+                                var utterance1 = new SpeechSynthesisUtterance("#{of:escapeJS(controller.dictation.sentences[controller.currentSentence])}");
+                                utterance1.rate = rate;
+                                synth.speak(utterance1);
                                 setFocus(jQuery('#inputForm\\:answer'));
-							}
-
-							function pause() {
-							    if (responsiveVoice.isPlaying()) {
-                                    if (isPause) {
-                                        responsiveVoice.resume();
-                                        isPause = false;
-                                        jQuery('#pauseText').text('#{generalMsg.pause}');
-                                        setFocus(jQuery('#inputForm\\:answer'));
-                                    } else {
-                                        responsiveVoice.pause();
-                                        isPause = true;
-                                        jQuery('#pauseText').text('#{generalMsg.resume}');
-                                        setFocus(jQuery('#inputForm\\:answer'));
-                                    }
-                                }
 							}
 
 							function speakSlower() {
 							    if (rate > 0.1)
 							        rate -= 0.1;
 							    jQuery('#hiddenSpeakingSpeed').val(rate);
-                                responsiveVoice.speak("#{of:escapeJS(controller.dictation.sentences[controller.currentSentence])}", "UK English Female", {rate: rate});
-                                setFocus(jQuery('#inputForm\\:answer'));
 							}
 
 							function speakFaster() {
 								if (rate < 1.4)
 								    rate += 0.1;
                                 jQuery('#hiddenSpeakingSpeed').val(rate);
-                                responsiveVoice.speak("#{of:escapeJS(controller.dictation.sentences[controller.currentSentence])}", "UK English Female", {rate: rate});
-                                setFocus(jQuery('#inputForm\\:answer'));
                             }
                             //]]>
 						</script>
@@ -109,8 +88,6 @@
 							<div class="w3-half" style="padding-bottom: 8px;">
 								<a onclick="speak()" class="w3-btn w3-medium w3-green">
 									<i class="fa fa-play" aria-hidden="true"></i> #{generalMsg.listen}</a>
-								<a onclick="pause()" class="w3-btn w3-medium w3-blue">
-									<i class="fa fa-pause" aria-hidden="true"></i> <span id="pauseText">#{generalMsg.pause}</span></a>
 							</div>
 							<div class="w3-half w3-right-align" style="padding-bottom: 8px;">
 								<a onclick="speakSlower()" class="w3-btn w3-medium w3-light-grey">

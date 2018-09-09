@@ -28,7 +28,6 @@ public class Member implements Serializable {
 	private String school;
 	private int totalWordLearnt = 0;
 	private Date activatedDate;
-	private boolean acceptedTerm = false;
 	
 	@Pattern(regexp="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message="{invalidEmail}")
 	private String emailAddress;
@@ -44,7 +43,7 @@ public class Member implements Serializable {
 	// ********************** Constructors ********************** //
 	public Member() {}
 
-	public Member(String userId, Name name, Date birthday, String address, String phoneNumber, String PIN, String school, Date activatedDate, boolean acceptedTerm, String emailAddress) {
+	public Member(String userId, Name name, Date birthday, String address, String phoneNumber, String PIN, String school, Date activatedDate, String emailAddress) {
 		this.userId = userId;
 		this.name = name;
 		this.birthday = birthday;
@@ -109,9 +108,6 @@ public class Member implements Serializable {
 
 	public Date getActivatedDate() { return activatedDate; }
 	public void setActivatedDate(Date activatedDate) { this.activatedDate = activatedDate; }
-
-	public boolean isAcceptedTerm() { return acceptedTerm; }
-	public void setAcceptedTerm(boolean acceptedTerm) { this.acceptedTerm = acceptedTerm; }
 
 	public String getEmailAddress() { return emailAddress; }
 	public void setEmailAddress(String emailAddress) { this.emailAddress = emailAddress; }
@@ -198,7 +194,6 @@ public class Member implements Serializable {
 		this.PIN = member.PIN;
 		this.school = member.school;
 		this.activatedDate = member.activatedDate;
-		this.acceptedTerm = member.acceptedTerm;
 		this.emailAddress = member.emailAddress;
 		this.grade = member.grade;
 		this.receipts = member.receipts;
