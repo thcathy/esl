@@ -15,12 +15,9 @@ public class Member implements Serializable {
 	
 	private Name name = new Name();
 	private Date birthday;
-	
-	@Pattern(regexp="[^'&lt;&gt;&quot;]{10,}|^$", message="{invalidAddress}")
+
 	private String address;
-	
-	@Size(max=30, message="{incorrectSize}")
-	@Pattern(regexp="[^'&lt;&gt;&quot;]*", message="{containInvalidChar}")
+
 	private String phoneNumber;
 	
 	@Size(min=6, max=20, message="{incorrectSize}")	
