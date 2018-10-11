@@ -2,6 +2,7 @@ package com.esl.web.spring.controller;
 
 import com.esl.web.jsf.controller.Auth0Controller;
 import com.esl.web.model.UserSession;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     protected String login(final HttpServletRequest req) {
         logger.debug("Performing login");
-        String redirectUri = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + "/callback";
+        String redirectUri = StringUtils.replace(req.getRequestURL().toString(), req.getRequestURI(), "") + "/callback";
         String authorizeUrl = controller.buildAuthorizeUrl(req, redirectUri, getAuth0Locale(req.getSession()));
         return "redirect:" + authorizeUrl;
     }

@@ -63,7 +63,7 @@ public class CallbackController {
                     req.getSession().setAttribute("MEMBER", retrieveOrCreateMember(u))
             );
         } catch (IdentityVerificationException e) {
-            e.printStackTrace();
+            logger.warn("error in handle auth0 callback", e);
             res.sendRedirect(redirectOnFail);
         }
     }
